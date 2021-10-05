@@ -9,20 +9,13 @@ export default {
     {
       name: 'caption',
       type: 'string',
-      title: 'Caption',
-      options: {
-        // isHighlighted: true
-      }
+      title: 'Caption'
     },
     {
       name: 'alt',
       type: 'string',
       title: 'Alternative text',
-      description: 'Alternative (Alt) Text communicates the meaningo of a non-decorative image relative to its document context. Leave blank for decorative images.',
-      validation: Rule => Rule.error('Be sure to include alternative text.').required(),
-      options: {
-        // isHighlighted: false
-      }
+      description: 'Alternative (Alt) Text communicates the meaningo of a non-decorative image relative to its document context. Leave blank for decorative images.'
     }
   ],
   preview: {
