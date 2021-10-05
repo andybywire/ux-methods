@@ -33,7 +33,12 @@ export default {
     {
       name: 'overview',
       type: 'bodyPortableText',
-      title: 'Body'
+      title: 'Method Overview'
+    },
+    {
+      name: 'steps',
+      type: 'bodyPortableText',
+      title: 'Method Steps'
     }
   ]
 }
