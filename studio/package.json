@@ -1,0 +1,44 @@
+{
+  "name": "uxmethods",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Andy Fitzgerald <andy@andyfitzgeraldconsulting.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity start",
+    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
+    "build": "sanity build",
+    "graphql-deploy": "sanity graphql deploy --playground",
+    "lint": "eslint .",
+    "test": "sanity check"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^2.20.0",
+    "@sanity/core": "^2.20.0",
+    "@sanity/default-layout": "^2.20.0",
+    "@sanity/default-login": "^2.19.0",
+    "@sanity/desk-tool": "^2.20.0",
+    "@sanity/vision": "^2.20.0",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "styled-components": "^5.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "prettier-eslint-cli": "^4.7.1"
+  }
+}
