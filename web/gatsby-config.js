@@ -9,6 +9,8 @@ module.exports = {
       options: {
         projectId: "4g5tw1k0",
         dataset: "production",
+        watchMode: true,
+        overlayDrafts: true
       },
     },
     "gatsby-plugin-sass",
