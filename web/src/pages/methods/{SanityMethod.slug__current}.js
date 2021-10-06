@@ -1,14 +1,21 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 const MethodPage = ({ data }) => {
-  return <div>{data.sanityMethod.title}</div>
+  return (
+    <div>
+    <h2>{data.sanityMethod.title}</h2>
+    <p>{data.sanityMethod.metaDescription}</p>
+    <Link to='/'>Home</Link>
+    </div>
+  )
 }
 
 export const query = graphql`
   query($id: String!) {
     sanityMethod(id: { eq: $id }) {
       title
+      metaDescription
     }
   }
 `
