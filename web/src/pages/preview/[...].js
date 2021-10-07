@@ -1,18 +1,12 @@
-import React from "react"
-import { Router } from "@reach/router"
-
-import Layout from "../../components/layout"
-import Method from "../../components/method"
-import Default from "../../components/default"
+import React from 'react'
+import { Router } from '@reach/router'
+import PreviewTemplate from './previewTemplate'
 
 const Preview = () => {
   return (
-    <Layout>
-      <Router basepath="preview">
-        <Method path="method/*" />
-        <Default path="/" />
-      </Router>
-    </Layout>
+    <Router basepath='preview'>
+      <PreviewTemplate path='/*' />
+    </Router>
   )
 }
 
