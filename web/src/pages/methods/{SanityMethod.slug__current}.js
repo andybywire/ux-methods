@@ -1,13 +1,10 @@
-import * as React from "react"
-import { graphql, Link } from "gatsby"
+import * as React from 'react'
+import { graphql, Link } from 'gatsby'
+import Method from '../../components/method'
 
-const MethodPage = ({ data }) => {
+const MethodPage = ({ data: { sanityMethod: data } }) => {
   return (
-    <div>
-    <h2>{data.sanityMethod.title}</h2>
-    <p>{data.sanityMethod.metaDescription}</p>
-    <Link to='/'>Home</Link>
-    </div>
+    <Method data={data} />
   )
 }
 
@@ -16,6 +13,8 @@ export const query = graphql`
     sanityMethod(id: { eq: $id }) {
       title
       metaDescription
+      overview: _rawOverview(resolveReferences: {maxDepth: 10})
+      steps: _rawSteps(resolveReferences: {maxDepth: 10})
     }
   }
 `

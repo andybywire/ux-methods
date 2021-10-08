@@ -1,6 +1,5 @@
 import React from 'react'
 import * as queryString from 'query-string'
-import { Link } from "gatsby"
 import Method from '../../components/method'
 
 const sanityClient = require('@sanity/client');
@@ -24,7 +23,8 @@ export default class PreviewTemplate extends React.Component {
         _id,
         title,
         metaDescription,
-        overview
+        overview,
+        steps
       }`;
     const getData = async () => {
         const method = await client.fetch(query);
@@ -48,7 +48,9 @@ export default class PreviewTemplate extends React.Component {
   render() {
     return (
       <div>
-        <Method data={this.state.data}/>
+        <Method data={this.state.data}>
+          Here's a child, yo!
+        </Method>
       </div>
     );
   }
