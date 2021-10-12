@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'part:@sanity/base/router';
+
 export default {
   name: 'method',
   type: 'document',
@@ -29,6 +32,27 @@ export default {
       name: 'heroImage',
       type: 'heroImage',
       title: 'Hero Image'
+    },
+
+    {
+      name: 'disciplines',
+      type: 'array',
+      title: 'Discipline(s)',
+      description: 'List the disciplines in which this method is most commonly used.',
+      of: [
+        {
+          name: 'referencedDiscipline',
+          type: 'reference',
+          title: 'Disciplines', // subtitle in reference modal
+          description: (
+            <span>
+              Choose an existing discipline, or{' '}
+              <Link href={'#'}>add a new discipline.</Link>
+            </span>
+          ),
+          to: [{ type: 'discipline' }]
+        }
+      ]
     },
     {
       name: 'overview',

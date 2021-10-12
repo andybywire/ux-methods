@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // Document schemas
 import method from './documents/method'
+import discipline from './documents/discipline'
 
 // Object schemas
 import bodyPortableText from './objects/bodyPortableText'
@@ -22,6 +23,7 @@ export default createSchema({
     // The following are document types which will appear
     // in the studio.
     method,
+    discipline,
     bodyPortableText,
     bodyImage,
     heroImage
