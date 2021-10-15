@@ -33,7 +33,6 @@ export default {
       type: 'heroImage',
       title: 'Hero Image'
     },
-
     {
       name: 'disciplines',
       type: 'array',
@@ -63,6 +62,46 @@ export default {
       name: 'steps',
       type: 'bodyPortableText',
       title: 'Method Steps'
+    },
+    {
+      name: 'inputs',
+      type: 'array',
+      title: 'Inputs to this Method',
+      description: 'What evidence, insight, or recommendations are needed in order to use this method?',
+      of: [
+        {
+          name: 'input',
+          type: 'reference',
+          title: 'Method Input',
+          description: (
+            <span>
+              Choose an existing I/O term, or{' '}
+              <Link href={'#'}>add a new concept.</Link>
+            </span>
+          ),
+          to: [{ type: 'concept'}]
+        }
+      ]
+    },
+    {
+      name: 'outputs',
+      type: 'array',
+      title: 'Output of this Method',
+      description: 'What evidence, insight, or recommendations does this method produce?',
+      of: [
+        {
+          name: 'output',
+          type: 'reference',
+          title: 'Method Output',
+          description: (
+            <span>
+              Choose an existing I/O term, or{' '}
+              <Link href={'#'}>add a new concept.</Link>
+            </span>
+          ),
+          to: [{ type: 'concept'}]
+        }
+      ]
     }
   ]
 }
