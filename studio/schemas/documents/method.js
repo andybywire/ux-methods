@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'part:@sanity/base/router';
-
 export default {
   name: 'method',
   type: 'document',
@@ -34,24 +31,11 @@ export default {
       title: 'Hero Image'
     },
     {
-      name: 'disciplines',
+      name: 'disciplinesReference',
       type: 'array',
       title: 'Discipline(s)',
       description: 'List the disciplines in which this method is most commonly used.',
-      of: [
-        {
-          name: 'referencedDiscipline',
-          type: 'reference',
-          title: 'Disciplines', // subtitle in reference modal
-          description: (
-            <span>
-              Choose an existing discipline, or{' '}
-              <Link href={'#'}>add a new discipline.</Link>
-            </span>
-          ),
-          to: [{ type: 'discipline' }]
-        }
-      ]
+      of: [{ type: 'referencedDiscipline'}]
     },
     {
       name: 'overview',
@@ -64,44 +48,18 @@ export default {
       title: 'Method Steps'
     },
     {
-      name: 'inputs',
+      name: 'inputsReference',
       type: 'array',
       title: 'Inputs to this Method',
       description: 'What evidence, insight, or recommendations are needed in order to use this method?',
-      of: [
-        {
-          name: 'input',
-          type: 'reference',
-          title: 'Method Input',
-          description: (
-            <span>
-              Choose an existing I/O term, or{' '}
-              <Link href={'#'}>add a new concept.</Link>
-            </span>
-          ),
-          to: [{ type: 'concept'}]
-        }
-      ]
+      of: [{ type: 'referencedInput' }]
     },
     {
-      name: 'outputs',
+      name: 'outputReference',
       type: 'array',
-      title: 'Output of this Method',
+      title: 'Outputs of this Method',
       description: 'What evidence, insight, or recommendations does this method produce?',
-      of: [
-        {
-          name: 'output',
-          type: 'reference',
-          title: 'Method Output',
-          description: (
-            <span>
-              Choose an existing I/O term, or{' '}
-              <Link href={'#'}>add a new concept.</Link>
-            </span>
-          ),
-          to: [{ type: 'concept'}]
-        }
-      ]
+      of: [{ type: 'referencedOutput' }]
     }
   ]
 }

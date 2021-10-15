@@ -13,6 +13,9 @@ import concept from './concepts/concept'
 import bodyPortableText from './objects/bodyPortableText'
 import bodyImage from './objects/bodyImage'
 import heroImage from './objects/heroImage'
+import referencedDiscipline from './objects/referencedDiscipline'
+import referencedInput from './objects/referencedInput'
+import referencedOutput from './objects/referencedOutput'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -26,6 +29,9 @@ export default createSchema({
     method,
     discipline,
     concept,
+    referencedDiscipline,
+    referencedInput,
+    referencedOutput,
     bodyPortableText,
     bodyImage,
     heroImage
