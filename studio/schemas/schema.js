@@ -14,6 +14,7 @@ import bodyPortableText from './objects/bodyPortableText'
 import bodyImage from './objects/bodyImage'
 import heroImage from './objects/heroImage'
 import referencedDiscipline from './objects/referencedDiscipline'
+import transputReference from './objects/transputReference'
 import referencedInput from './objects/referencedInput'
 import referencedOutput from './objects/referencedOutput'
 
@@ -30,6 +31,7 @@ export default createSchema({
     discipline,
     concept,
     referencedDiscipline,
+    transputReference,
     referencedInput,
     referencedOutput,
     bodyPortableText,
