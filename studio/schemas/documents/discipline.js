@@ -42,13 +42,14 @@ export default {
   preview: {
     select: {
       title: 'title',
-      media: 'icon'
+      icon: 'icon',
+      thumb: 'heroImage'
     },
     prepare(selection) {
-      const {title, media} = selection
+      const {title, icon, thumb} = selection
       return {
         title: title,
-        media: RiCompassesLine
+        media: thumb ? thumb : icon
       }
     }
   }

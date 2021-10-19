@@ -59,13 +59,20 @@ export default {
   preview: {
     select: {
       title: 'title',
-      media: 'icon'
+      thumb: 'heroImage',
+      discipline0: 'disciplinesReference.0.title',
+      discipline1: 'disciplinesReference.1.title',
+      discipline2: 'disciplinesReference.2.title',
+      discipline3: 'disciplinesReference.3.title',
     },
     prepare(selection) {
-      const {title, media} = selection
+      const {title, discipline0, discipline1, discipline2, discipline3, thumb} = selection
+      const disciplines = [discipline0, discipline1, discipline2, discipline3].filter(Boolean)
+      const subtitle = disciplines.length > 0 ? `${disciplines.join(', ')}` : ''
       return {
         title: title,
-        media: RiGitCommitLine
+        subtitle: subtitle,
+        media: thumb ? thumb : RiGitCommitLine
       }
     }
   }
