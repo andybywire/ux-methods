@@ -1,7 +1,10 @@
+import { RiCompasses2Fill, RiCompassesLine } from 'react-icons/ri'
+
 export default {
   name: 'discipline',
   type: 'document',
-  title: 'Discipline',
+  icon: RiCompasses2Fill,
+  title: 'Disciplines',
   fields: [
     {
       name: 'title',
@@ -35,5 +38,18 @@ export default {
       type: 'bodyPortableText',
       title: 'Discipline Overview'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'icon'
+    },
+    prepare(selection) {
+      const {title, media} = selection
+      return {
+        title: title,
+        media: RiCompassesLine
+      }
+    }
+  }
 }

@@ -1,6 +1,9 @@
+import { AiFillTag } from 'react-icons/ai'
+
 export default {
   name: 'concept',
   type: 'document',
+  icon: AiFillTag,
   title: 'Taxonomy Concept',
   fields: [
     {
@@ -65,6 +68,7 @@ export default {
     {
       name: 'broaderConcept',
       title: 'Broader Concept',
+      hidden: ({document}) => document?.topConcept,
       type: 'array',
       of: [
         {

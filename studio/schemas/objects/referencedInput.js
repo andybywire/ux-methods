@@ -8,7 +8,7 @@ export default {
   description: (
     <span>
       Choose an existing I/O term, or{' '}
-      <Link href={'#'}>add a new concept.</Link>
+      <Link href={'/intent/create/type=concept;template=concept/'}>add a new concept.</Link>
     </span>
   ),
   to: [{ type: 'concept'}]

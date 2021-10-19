@@ -1,7 +1,10 @@
+import { RiGitCommitLine, RiBubbleChartFill } from 'react-icons/ri'
+
 export default {
   name: 'method',
   type: 'document',
-  title: 'Method',
+  icon: RiBubbleChartFill,
+  title: 'Methods',
   fields: [
     {
       name: 'title',
@@ -52,5 +55,18 @@ export default {
       type: 'transputReference',
       title: 'Input/Output'
     }
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'icon'
+    },
+    prepare(selection) {
+      const {title, media} = selection
+      return {
+        title: title,
+        media: RiGitCommitLine
+      }
+    }
+  }
 }
