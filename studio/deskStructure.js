@@ -34,6 +34,14 @@ export default () =>
             .title('Concepts')
             .items([
               S.listItem()
+                .title('All Concepts')
+                .icon(AiOutlineTags)
+                .child(
+                  S.documentList()
+                    .title('All Concepts')
+                    .filter('_type == "concept"')
+                ),
+              S.listItem()
                 .title('Top Concepts')
                 .icon(AiOutlineTags)
                 .child(
