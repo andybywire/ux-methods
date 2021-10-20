@@ -4,13 +4,15 @@ import { RiNodeTree, RiSettings4Line } from 'react-icons/ri'
 import { AiFillTags, AiOutlineTags } from 'react-icons/ai'
 
 import StudioPreview from './src/components/preview'
+import MobilePreview from './src/components/mobilePreview'
 
 // Give all documents of type procedure a web preview, as well as the default form view
 export const getDefaultDocumentNode = ({schemaType}) => {
   if(schemaType === 'method') {
     return S.document().views([
       S.view.form(),
-      S.view.component(StudioPreview).title('Preview')
+      S.view.component(StudioPreview).title('Preview'),
+      S.view.component(MobilePreview).title('Mobile Preview')
     ])
   }
 }

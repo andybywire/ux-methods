@@ -1,3 +1,11 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV || "development"}`,
+});
+
+const clientConfig = require("./client-config");
+
+const isProd = process.env.NODE_ENV === "production";
+
 module.exports = {
   siteMetadata: {
     siteUrl: "https://www.uxmethods.org",
@@ -10,7 +18,8 @@ module.exports = {
         projectId: "4g5tw1k0",
         dataset: "production",
         watchMode: true,
-        overlayDrafts: true
+        overlayDrafts: true,
+        token: process.env.WEB_PREVIEW_TOKEN
       },
     },
     "gatsby-plugin-sass",
@@ -32,5 +41,14 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: "gatsby-plugin-sanity-image",
+      options: {
+        projectId: "4g5tw1k0",
+        dataset: "production",
+        customImageTypes: ["SanityHeroImage"],
+        __experimentalAspectRatio: true
+      },
+    }
   ],
 };

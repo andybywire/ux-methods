@@ -22,6 +22,13 @@ export default {
       }
     },
     {
+      name: 'testImage',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    },
+    {
       name: 'metaDescription',
       type: 'text',
       title: 'Short Description',
