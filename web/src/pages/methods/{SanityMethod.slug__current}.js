@@ -15,11 +15,9 @@ export const query = graphql`
       metaDescription
       overview: _rawOverview(resolveReferences: {maxDepth: 10})
       steps: _rawSteps(resolveReferences: {maxDepth: 10})
-      testImage {
-        ...ImageWithPreview
-      }
       heroImage {
         ...ImageWithPreview
+        _rawAsset(resolveReferences: {maxDepth: 10})
       }
     }
   }
