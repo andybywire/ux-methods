@@ -14,7 +14,7 @@ const MobilePreview = ({document}) => {
     <iframe
       src={url + displayed.slug.current}
       frameBorder={0}
-      style={{width:'375px',height:'667px'}}
+      style={{width:'375px',height:'667px',border:'1px solid #dee2e9'}}
     />
   )
 }
