@@ -6,8 +6,6 @@ const url = 'http://localhost:8000/methods/'
 // Don't forget to assign this in an environment variable when the studio
 // is published.
 
-// 375 x 667 — iPhone 6/7/8
-
 const MobilePreview = ({document}) => {
   const {displayed} = document
   return (
