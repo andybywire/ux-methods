@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from "gatsby"
 import PortableText from "./portableText"
 import SanityImage from "gatsby-plugin-sanity-image"
+import HeroPlaceholder from "../images/svg/heroPlaceholder.svg"
 
 const Method = ({ data }) => {
   return (
@@ -18,11 +19,16 @@ const Method = ({ data }) => {
       {data.heroImage &&
         <p>Photo by <a href={data.heroImage._rawAsset.source.url}>{data.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
       }
+      <HeroPlaceholder
+        style={{
+        width: "100%",
+        height: "auto",
+      }}/>
       <PortableText blocks={data.overview} />
       <PortableText blocks={data.steps} />
       <Link to='/'>Back to Index</Link>
       {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-      <pre>{JSON.stringify(data.heroImage, null, 2)}</pre>
+      {/*<pre>{JSON.stringify(data.heroImage, null, 2)}</pre>*/}
     </div>
   );
 }

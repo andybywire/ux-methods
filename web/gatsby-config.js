@@ -49,6 +49,14 @@ module.exports = {
         customImageTypes: ["SanityHeroImage"],
         __experimentalAspectRatio: true
       },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /svg/
+        }
+      }
     }
   ],
 };
