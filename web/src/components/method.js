@@ -16,7 +16,7 @@ const Method = ({ data }) => {
         }}/>
       }
       {data.heroImage &&
-        <p>Photo by <a href={data.heroImage._rawAsset.source.url}>{data.heroImage._rawAsset.creditLine.replace("by","via")}</a></p>
+        <p>Photo by <a href={data.heroImage._rawAsset.source.url}>{data.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
       }
       <PortableText blocks={data.overview} />
       <PortableText blocks={data.steps} />
