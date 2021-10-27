@@ -19,11 +19,13 @@ const Method = ({ data }) => {
       {data.heroImage &&
         <p>Photo by <a href={data.heroImage._rawAsset.source.url}>{data.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
       }
-      <HeroPlaceholder
-        style={{
-        width: "100%",
-        height: "auto",
-      }}/>
+      {!data.heroImage &&
+        <HeroPlaceholder
+          style={{
+          width: "100%",
+          height: "auto",
+        }}/>
+      }
       <PortableText blocks={data.overview} />
       <PortableText blocks={data.steps} />
       <Link to='/'>Back to Index</Link>
