@@ -1,7 +1,7 @@
 on:
   push:
   repository_dispatch:
-    types: [publish]
+    types: [method]
 
 jobs:
   load-rdf-job:
