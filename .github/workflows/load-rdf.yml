@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v2
       - name: Transform RDF
-        uses: ./rdf-transform # Uses an action in the root directory
+        uses: ./actions/rdf-transform # Uses an action in the root directory
         id: transform
         with:
           test-input: 'Here is a custom input message.'
