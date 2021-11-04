@@ -5,8 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Transform and load Sanity content as RDF
     steps:
-      # To use this repository's (private) action,
-      # you must check out the repository
+      - name: Get Sanity Data
+        id: sanityData
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://4g5tw1k0.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20%24type%5D%7B%0A%20%20title%2C%0A%20%20_id%2C%0A%20%20%22methodId%22%3A%20slug.current%2C%0A%20%20%22inputs%22%3A%20transputReference.inputsReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22inputId%22%3A%20conceptId.current%0A%20%20%7D%2C%0A%20%20%22outputs%22%3A%20transputReference.outputReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22outputId%22%3A%20conceptId.current%0A%20%20%7D%0A%7D&%24broader=%22transputTaxonomy_Recommendation%22&%24pageSlug=%22card-sorting%22&%24type=%22method%22'
+          method: 'GET'
+      - name: Show Response
+        run: echo ${{ steps.sanityData.outputs.response }}
+      # Checkout the repository so the workflow can access actions in it.
       - name: Checkout Branch
         uses: actions/checkout@v2
       - name: Transform RDF
