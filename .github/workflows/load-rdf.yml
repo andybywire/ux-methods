@@ -1,6 +1,6 @@
 on:
   push:
-  repository-dispatch:
+  repository_dispatch:
 
 jobs:
   load-rdf-job:
