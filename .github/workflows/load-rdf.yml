@@ -1,4 +1,6 @@
-on: [push]
+on:
+  push:
+  repository-dispatch:
 
 jobs:
   load-rdf-job:
