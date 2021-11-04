@@ -46,9 +46,19 @@ export default {
       title: 'Method Overview'
     },
     {
+      name: 'overviewSources',
+      type: 'sources',
+      title: 'Overview Sources'
+    },
+    {
       name: 'steps',
       type: 'bodyPortableText',
       title: 'Method Steps'
+    },
+    {
+      name: 'stepSources',
+      type: 'sources',
+      title: 'Step Sources'
     },
     {
       name: 'transputReference',

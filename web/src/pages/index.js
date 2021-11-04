@@ -12,6 +12,7 @@ const IndexPage = ({ data }) => {
         <Link to={`methods/${node.slug.current}`}>{node.title}</Link>
         </li>
         ))}
+        <li key="ttl"><Link to="/turtlefunction">Turtle Function Test Page</Link></li>
       </ul>
       </div>
   )
