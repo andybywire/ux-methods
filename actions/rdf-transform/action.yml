@@ -1,0 +1,13 @@
+name: 'Transform RDF'
+description: 'Transform Sanity data into RDF'
+inputs:
+  test-input:  # id of input
+    description: 'Input just to test for basic funcionality'
+    required: true
+    default: 'Default input string'
+outputs:
+  output-name: # id of output – RENAME THIS
+    description: 'FPO'
+runs:
+  using: 'node12'
+  main: 'index.js'
