@@ -36,9 +36,7 @@ jobs:
         with:
           url: 'https://api.data.world/v0/uploads/andyfitzgerald/uploadtest/files/rdfData.ttl'
           method: 'PUT'
-          content-type: application/octet-stream
           bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
-          files: '{ "file": "${{ github.workspace }}/rdfData.ttl" }'
 
 # Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
 
