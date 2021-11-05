@@ -9,7 +9,7 @@ try {
   // Test data passed from Get Sanity Data step
   const sanityData = core.getInput('sanity-data');
     const sanityDataOutput = JSON.stringify(sanityData, null, 2);
-    console.log(`Here is that data again ${sanityDataOutput}`);
+    console.log(`Here is that data again ${sanityData}`);
 
     // const fs = require('fs');
     // const data = "This is the new content of the file.";
