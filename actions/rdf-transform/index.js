@@ -1,13 +1,13 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const fs = require('fs').promises;
+// const fs = require('fs').promises;
 
 async function rdfFormat(sanityData) {
   try {
     // read data
-    let data = await fs.readFile(sanityData);
+    // let data = await fs.readFile(sanityData);
     // parse to JSON
-    let jData = JSON.parse(data);
+    let jData = JSON.parse(sanityData);
     // create string variable to hold triples
     let rdfData = '';
     // build list with an IRI for each method title
