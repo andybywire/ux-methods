@@ -14,6 +14,7 @@ jobs:
         with:
           url: 'https://4g5tw1k0.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20%24type%5D%7B%0A%20%20title%2C%0A%20%20_id%2C%0A%20%20%22methodId%22%3A%20slug.current%2C%0A%20%20%22inputs%22%3A%20transputReference.inputsReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22inputId%22%3A%20conceptId.current%0A%20%20%7D%2C%0A%20%20%22outputs%22%3A%20transputReference.outputReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22outputId%22%3A%20conceptId.current%0A%20%20%7D%0A%7D&%24broader=%22transputTaxonomy_Recommendation%22&%24pageSlug=%22card-sorting%22&%24type=%22method%22'
           method: 'GET'
+      # Echo data in action log to verify content
       - name: Show Response
         run: echo ${{ steps.sanityData.outputs.response }}
       # Checkout the repository so the workflow can access actions in it.
@@ -24,3 +25,7 @@ jobs:
         id: transform
         with:
           test-input: 'Here is a custom input message.'
+          sanity-data: $steps.sanityData.outputs.response
+
+# Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
+# Then gatsby-transformer-csv to read it into data I can query: https://www.gatsbyjs.com/plugins/gatsby-transformer-csv/

@@ -5,6 +5,9 @@ inputs:
     description: 'Input just to test for basic funcionality'
     required: true
     default: 'Default input string'
+  sanity-data: 
+    description: 'Data from Sanity content API passed from Get Sanity Data step'
+    require: true
 outputs:
   output-name: # id of output – RENAME THIS
     description: 'FPO'
