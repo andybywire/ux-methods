@@ -29,7 +29,7 @@ jobs:
       - name: Upload RDF file as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: output-text-file
+          name: rdfData
           path: rdfData.ttl
 
 # Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
