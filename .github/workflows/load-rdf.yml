@@ -34,8 +34,9 @@ jobs:
       - name: Upload RDF to Data.World
         uses: fjogeleit/http-request-action@master
         with:
-          url: 'https://api.data.world/v0/uploads/andyfitzgerald/uploadtest/files/rdfData.ttl'
-          method: 'PUT'
+          url: 'https://api.data.world/v0/uploads/andyfitzgerald/uploadtest/files'
+          method: 'POST'
+          contentType: 'multipart/form-data'
           bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
           files: '{ "file": "rdfData.ttl" }'
 
