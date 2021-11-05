@@ -26,6 +26,11 @@ jobs:
         with:
           test-input: 'Here is a custom input message.'
           sanity-data: ${{ steps.sanityData.outputs.response }}
+      - name: Upload RDF file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-text-file
+          path: rdfData.ttl
 
 # Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
 # Then gatsby-transformer-csv to read it into data I can query: https://www.gatsbyjs.com/plugins/gatsby-transformer-csv/
