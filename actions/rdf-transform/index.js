@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-// const fs = require('fs').promises;
+const fs = require('fs').promises;
 
 async function rdfFormat(sanityData) {
   try {
