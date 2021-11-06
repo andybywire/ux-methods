@@ -22,6 +22,16 @@ module.exports = {
         token: process.env.WEB_PREVIEW_TOKEN
       },
     },
+    {
+      resolve: "gatsby-source-remote-file",
+      options: {
+        url: "https://download.data.world/s/7fmfrnnh6emdyir57sgcsyamp2hmhx",
+        name: "sharedTransput",
+        ext: ".csv",
+        errorHandling: "warn"
+      },
+    },
+    "gatsby-transformer-csv",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
