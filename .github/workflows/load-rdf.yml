@@ -41,5 +41,4 @@ jobs:
           files: '{ "file": "rdfData.ttl" }'
 
 # Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
-
 # Then gatsby-transformer-csv to read it into data I can query: https://www.gatsbyjs.com/plugins/gatsby-transformer-csv/
