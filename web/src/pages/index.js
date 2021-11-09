@@ -9,7 +9,8 @@ const IndexPage = ({ data }) => {
       <ul>
         {data.allSanityMethod.edges.map(({ node }) => (
         <li key={node.id}>
-        <Link to={`methods/${node.slug.current}`}>{node.title}</Link>
+        {/* replace() only for Gatsby File System Route api slug creation. Remove this link formatting once CamelCase file names are in place. */}
+        <Link to={`method/${node.title.replace(/ /g, '-').toLowerCase()}`}>{node.title}</Link>
         </li>
         ))}
         <li key="ttl"><Link to="/turtlefunction">Turtle Function Test Page</Link></li>

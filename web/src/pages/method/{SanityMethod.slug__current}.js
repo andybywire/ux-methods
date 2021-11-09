@@ -2,7 +2,7 @@ import * as React from 'react'
 import { graphql, Link } from 'gatsby'
 import Method from '../../components/method'
 
-const MethodPage = ({ data: { sanityMethod: data } }) => {
+const MethodPage = ({data}) => {
   return (
     <Method data={data} />
   )
@@ -12,12 +12,31 @@ export const query = graphql`
   query($id: String!) {
     sanityMethod(id: { eq: $id }) {
       title
+      slug {
+        current
+      }
       metaDescription
       overview: _rawOverview(resolveReferences: {maxDepth: 10})
       steps: _rawSteps(resolveReferences: {maxDepth: 10})
       heroImage {
         ...ImageWithPreview
         _rawAsset(resolveReferences: {maxDepth: 10})
+      }
+    }
+    allSharedTransputCsv {
+      nodes {
+        methodA
+        id
+        sharedTransput
+        methodB
+      }
+    }
+    cards: allSanityMethod {
+      edges {
+        node {
+          title
+          metaDescription
+        }
       }
     }
   }

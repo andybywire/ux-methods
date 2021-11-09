@@ -13,7 +13,7 @@ async function rdfFormat(sanityData) {
     // build list with an IRI for each method title
     jData.result.forEach(method => {
         // assign current method in loop
-        let currentMethod = `<https://uxmethods.org/${method.methodId}>`;
+        let currentMethod = `<https://uxmethods.org/method/${method.methodId}>`;
         // if there are inputs, write them out as triples
         method.inputs && method.inputs.forEach(input => {
           rdfData += `${currentMethod} <https://uxmethods.org/ontology/hasInput> <https://uxmethods.org/${input.inputId}>.\n`;
