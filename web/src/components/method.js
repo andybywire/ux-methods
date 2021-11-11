@@ -37,11 +37,17 @@ const Method = ({ method, transput, cards }) => {
       <PortableText blocks={method.overview} />
       <PortableText blocks={method.steps} />
 
-      <h2>Related Methods</h2>
+      {relatedMethods.length !== 0 && <h2>Related Methods</h2>}
       {sharedCards.map(method => (
         <div>
           <h3>{method.title}</h3>
           <p>{method.metaDescription}</p>
+          {method.heroImage &&
+            <SanityImage {...method.heroImage} width={500} alt=""
+              style={{
+              width: "10%",
+              objectFit: "cover",
+            }}/>}
           <pre>{method.uri.current}</pre>
         </div>
       ))}
