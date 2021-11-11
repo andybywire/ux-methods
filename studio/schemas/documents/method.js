@@ -29,7 +29,7 @@ export default {
       description: 'Full Uniform Resource Identifier (URI) for this resource.',
       value: Rule => Rule.required(),
       options: {
-        source: doc => `http://uxmethods.org/method/${doc.slug.current}`,
+        source: doc => `https://uxmethods.org/method/${doc.slug.current}`,
         slugify: input => input.replace(/\s+/g, '')
       }
     },
