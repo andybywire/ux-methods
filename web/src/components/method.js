@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import PortableText from "./portableText"
 import SanityImage from "gatsby-plugin-sanity-image"
 import HeroPlaceholder from "../images/svg/heroPlaceholder.svg"
+import * as s from "./method.module.scss"
 
 const Method = ({ method, transput, cards }) => {
 
@@ -15,31 +16,41 @@ const Method = ({ method, transput, cards }) => {
   const sharedCards = cards.nodes.filter(card => relatedMethods.includes(card.uri.current));
 
   return (
-    <div>
-      <h2>{method.title}</h2>
-      {method.heroImage &&
-        <SanityImage {...method.heroImage} width={500} alt=""
-          style={{
-          width: "50%",
-          objectFit: "cover",
-        }}/>
-      }
-      {method.heroImage &&
-        <p>Photo by <a href={method.heroImage._rawAsset.source.url}>{method.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
-      }
-      {!method.heroImage &&
-        <HeroPlaceholder
-          style={{
-          width: "100%",
-          height: "auto",
-        }}/>
-      }
-      <PortableText blocks={method.overview} />
-      <PortableText blocks={method.steps} />
+    <article>
+      <section className={s.hero}>
+        {method.heroImage &&
+          <SanityImage {...method.heroImage} width={500} alt=""
+            style={{
+            width: "100%",
+            objectFit: "cover",
+          }}/>
+        }
+        {method.heroImage &&
+          <p>Photo by <a href={method.heroImage._rawAsset.source.url}>{method.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
+        }
+        {!method.heroImage &&
+          <HeroPlaceholder
+            style={{
+            width: "100%",
+            height: "auto",
+          }}/>
+        }
+      </section>
+      <section>
+        <h1>
+          <span>{method.title}</span>
+          <span>Method</span>
+        </h1>
+        <PortableText blocks={method.overview} />
+        <h2>Steps</h2>
+        <PortableText blocks={method.steps}/>
+      </section>
 
-      {relatedMethods.length !== 0 && <h2>Related Methods</h2>}
+      <section>
+      {relatedMethods.length !== 0 && <h2>Next Steps</h2> }
+      {relatedMethods.length !== 0 && <ul>
       {sharedCards.map(method => (
-        <div>
+        <li>
           <h3>{method.title}</h3>
           <p>{method.metaDescription}</p>
           {method.heroImage &&
@@ -48,14 +59,15 @@ const Method = ({ method, transput, cards }) => {
               width: "10%",
               objectFit: "cover",
             }}/>}
-          <pre>{method.uri.current}</pre>
-        </div>
+          {/*<pre>{method.uri.current}</pre>*/}
+        </li>
       ))}
+      </ul>}
+      </section>
 
       {/*<pre>{JSON.stringify(relatedMethods, null, 2)}</pre>
       <pre>Shared Cards: {JSON.stringify(sharedCards, null, 2)}</pre>*/}
-      <Link to='/'>Back to Index</Link>
-    </div>
+    </article>
   );
 }
 

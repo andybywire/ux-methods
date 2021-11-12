@@ -1,17 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
+import Layout from '../components/layout'
 import Method from '../components/method'
 
 export default function MethodPage({data, data: { method }}) {
   return (
-    <div>
+    <Layout>
       <Method
         method={method}
         transput={data.allSharedTransputCsv}
         cards={data.cards}
       />
       {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-    </div>
+    </Layout>
   )
 }
 

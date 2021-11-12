@@ -1,0 +1,21 @@
+@import '../style/variables.scss';
+
+nav {
+  background-color: $card-background;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  z-index: 1;
+  .title {
+    color: $light-text;
+    font-family: $header;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-decoration: none;
+    align-self: center;
+    margin-left: 16px;
+  }
+}

@@ -41,6 +41,16 @@ module.exports = {
         icon: "src/images/icon.png",
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `nunito sans\:100,200,300,400,500,600,700,800`,
+          `hind\:100,200,300,400,500,600,700,800`
+        ],
+        display: 'swap'
+      }
+    },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {

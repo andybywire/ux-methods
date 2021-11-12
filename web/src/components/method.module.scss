@@ -1,0 +1,22 @@
+@import '../style/variables.scss';
+
+section {
+  padding: 1rem;
+  &.hero {
+    padding: 0;
+    p, a {
+      color: $gray-text;
+    }
+    p {
+      text-align: right;
+      margin: -.25rem 1rem .25rem;
+      font-size: 80%;
+    }
+  }
+  ol {
+  padding-left: 1rem;
+  }
+  li {
+    margin-bottom: .5rem;
+  }
+}

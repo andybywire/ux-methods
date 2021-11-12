@@ -1,0 +1,39 @@
+@import './variables.scss';
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: $body;
+  font-size: 16px;
+}
+
+main {
+  padding-top: 60px;
+}
+
+h1, h2, h3, h4, h4 {
+  font-family: $header;
+  font-weight: bold;
+  margin: 0;
+  a {
+    text-decoration: none;
+  }
+}
+h1 {
+  font-size: 40px;
+  line-height: 48px;
+  display: flex;
+  flex-direction: column-reverse;
+  span:nth-child(2) {
+    font-family: $header;
+    color: $card-background;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1;
+    padding-bottom: .5rem;
+  }
+  &.no-eyebrow {
+    padding-top: 1.3rem;
+  }
+}
