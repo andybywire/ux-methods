@@ -1,0 +1,30 @@
+@import '../../style/variables.scss';
+
+li.card {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  max-width: $card-max;
+  background-color: $light-text;
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  border: 0;
+  // border: 2px solid rgba(43, 182, 252, 0);
+  transition: border 0.25s ease-out;
+  &:hover {
+      // border: 2px solid rgba(43, 182, 252, .8);
+      // transition: border 0.25s ease-in;
+  }
+  img {
+    height: 225px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+  }
+  div {
+    padding: .5rem;
+    p {
+      margin: .25rem 0;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import '../../style/variables.scss';
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax($card-min,3fr));
+  grid-gap: 2rem;
+  padding: 0;
+}
+a {
+  color: $text;
+  text-decoration: none;
+}

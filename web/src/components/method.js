@@ -4,6 +4,8 @@ import PortableText from "./portableText"
 import SanityImage from "gatsby-plugin-sanity-image"
 import HeroPlaceholder from "../images/svg/heroPlaceholder.svg"
 import * as s from "./method.module.scss"
+import Card from "./cards/card"
+import CompactCard from "./cards/compactCard"
 
 const Method = ({ method, transput, cards }) => {
 
@@ -19,21 +21,10 @@ const Method = ({ method, transput, cards }) => {
     <article>
       <section className={s.hero}>
         {method.heroImage &&
-          <SanityImage {...method.heroImage} width={500} alt=""
-            style={{
-            width: "100%",
-            objectFit: "cover",
-          }}/>
+          <SanityImage {...method.heroImage} width={500} alt=""/>
         }
         {method.heroImage &&
           <p>Photo by <a href={method.heroImage._rawAsset.source.url}>{method.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
-        }
-        {!method.heroImage &&
-          <HeroPlaceholder
-            style={{
-            width: "100%",
-            height: "auto",
-          }}/>
         }
       </section>
       <section>
@@ -43,30 +34,18 @@ const Method = ({ method, transput, cards }) => {
         </h1>
         <PortableText blocks={method.overview} />
         <h2>Steps</h2>
-        <PortableText blocks={method.steps}/>
+        <PortableText blocks={method.steps} />
       </section>
 
-      <section>
-      {relatedMethods.length !== 0 && <h2>Next Steps</h2> }
-      {relatedMethods.length !== 0 && <ul>
-      {sharedCards.map(method => (
-        <li>
-          <h3>{method.title}</h3>
-          <p>{method.metaDescription}</p>
-          {method.heroImage &&
-            <SanityImage {...method.heroImage} width={500} alt=""
-              style={{
-              width: "10%",
-              objectFit: "cover",
-            }}/>}
-          {/*<pre>{method.uri.current}</pre>*/}
-        </li>
-      ))}
-      </ul>}
-      </section>
+      {relatedMethods.length !== 0 &&
+        <section>
+          <h2>Next Steps</h2>
+          <Card content={sharedCards} />
+        </section>
+      }
 
-      {/*<pre>{JSON.stringify(relatedMethods, null, 2)}</pre>
-      <pre>Shared Cards: {JSON.stringify(sharedCards, null, 2)}</pre>*/}
+      {/*<pre>{JSON.stringify(relatedMethods, null, 2)}</pre>*/}
+      {/*<pre>Shared Cards: {JSON.stringify(sharedCards, null, 2)}</pre>*/}
     </article>
   );
 }
