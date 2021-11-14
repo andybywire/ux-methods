@@ -1,6 +1,6 @@
 import React from 'react'
 import * as queryString from 'query-string'
-import Method from '../../components/method'
+import Method from '../../templates/method'
 
 const sanityClient = require('@sanity/client');
 const client = sanityClient({
