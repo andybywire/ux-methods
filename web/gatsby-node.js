@@ -15,6 +15,17 @@ exports.createPages = async ({ actions, graphql }) => {
           }
         }
       }
+      disciplines: allSanityDiscipline {
+        nodes {
+          title
+          slug {
+            current
+          }
+          uri {
+            current
+          }
+        }
+      }
     }
   `)
 
@@ -27,5 +38,16 @@ exports.createPages = async ({ actions, graphql }) => {
         uri: node.uri.current
       },
     })
+  });
+
+  result.data.disciplines.nodes.forEach(discipline => {
+    createPage({
+      path: `discipline/${discipline.slug.current}`,
+      component: require.resolve(`./src/templates/discipline.js`),
+      context: {
+        slug: discipline.slug.current
+      },
+    })
   })
+
 }

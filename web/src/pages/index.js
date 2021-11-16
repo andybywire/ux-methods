@@ -5,11 +5,20 @@ import Layout from '../components/layout'
 const IndexPage = ({ data }) => {
   return (
       <Layout>
-        <p>Published methods: {data.allSanityMethod.totalCount}</p>
+        <h2>Methods</h2>
+        <p>Published methods: {data.methods.totalCount}</p>
         <ul>
-          {data.allSanityMethod.edges.map(({ node }) => (
-          <li key={node.id}>
-          <Link to={`method/${node.slug.current}`}>{node.title}</Link>
+          {data.methods.nodes.map(method => (
+          <li key={method.id}>
+          <Link to={`method/${method.slug.current}`}>{method.title}</Link>
+          </li>
+          ))}
+        </ul>
+        <h2>Disciplines</h2>
+        <ul>
+          {data.discipline.nodes.map(discipline => (
+          <li key={discipline.id}>
+          <Link to={`discipline/${discipline.slug.current}`}>{discipline.title}</Link>
           </li>
           ))}
         </ul>
@@ -21,18 +30,25 @@ export default IndexPage
 
 export const query = graphql`
   query {
-    allSanityMethod (sort: {fields: title}) {
-      edges {
-        node {
-          title
-          slug {
-            current
-          }
-          id
-          metaDescription
+    methods: allSanityMethod (sort: {fields: title}) {
+      nodes {
+        title
+        slug {
+          current
         }
+        id
+        metaDescription
       }
       totalCount
+    }
+    discipline: allSanityDiscipline (sort: {fields: title}) {
+      nodes {
+        title
+        slug {
+          current
+        }
+        id
+      }
     }
   }
 `

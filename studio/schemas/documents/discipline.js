@@ -14,11 +14,23 @@ export default {
     {
       name: 'slug',
       type: 'slug',
-      title: 'Slug',
+      title: 'Local Name',
+      description: 'The unique identifier for this resource that will be used in the URI.',
       validation: Rule => Rule.required(),
       options: {
         source: 'title',
-        maxLength: 96
+        slugify: input => input.replace(/\s+/g, '')
+      }
+    },
+    {
+      name: 'uri',
+      type: 'slug',
+      title: 'URI',
+      description: 'Full Uniform Resource Identifier (URI) for this resource.',
+      value: Rule => Rule.required(),
+      options: {
+        source: doc => `https://uxmethods.org/discipline/${doc.slug.current}`,
+        slugify: input => input.replace(/\s+/g, '')
       }
     },
     {

@@ -75,13 +75,6 @@ export default function MethodPage({data, data: { method }}) {
           <ResourceCard content={data.resources.nodes} />
         </section>
       }
-        {/*
-            section
-              resources - title
-              card grid
-              see more (can be added later)
-            section
-          */}
       </article>
       {relatedMethods.length !== 0 &&
       <section>
@@ -95,8 +88,7 @@ export default function MethodPage({data, data: { method }}) {
 
 export const query = graphql`
 query($slug: String!, $uri: String!) {
-  method: sanityMethod (slug: {current: { eq: $slug }})
-  {
+  method: sanityMethod (slug: {current: { eq: $slug }}) {
     title
     slug {
       current
@@ -119,8 +111,7 @@ query($slug: String!, $uri: String!) {
       }
     }
   }
-  allSharedTransputCsv (filter: {methodA: {eq: $uri}})
-  {
+  allSharedTransputCsv (filter: {methodA: {eq: $uri}}) {
     nodes {
       methodA
       id
@@ -128,8 +119,7 @@ query($slug: String!, $uri: String!) {
       methodB
     }
   }
-  input: allSharedTransputCsv (filter: {methodB: {eq: $uri}})
-  {
+  input: allSharedTransputCsv (filter: {methodB: {eq: $uri}}) {
     nodes {
       methodA
       id
@@ -137,8 +127,7 @@ query($slug: String!, $uri: String!) {
       methodB
     }
   }
-  cards: allSanityMethod
-  {
+  cards: allSanityMethod {
     nodes {
       title
       metaDescription
@@ -151,8 +140,7 @@ query($slug: String!, $uri: String!) {
       }
     }
   }
-  resources: allSanityResource(filter: {methodDescribed: {elemMatch: {slug: {current: {eq: $slug}}}}})
-  {
+  resources: allSanityResource(filter: {methodDescribed: {elemMatch: {slug: {current: {eq: $slug}}}}}) {
     nodes {
       title
       resourceUrl
