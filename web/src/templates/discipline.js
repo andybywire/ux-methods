@@ -13,19 +13,21 @@ export default function DisciplinePage({data: { discipline }, data: { methods }}
       <article>
 
 
-        <section className={s.overview}>
+        <section className={[s.overview, s.discipline].join(' ')}>
           <div className={s.hero}>
             <SanityImage {...discipline.heroImage} width={500} alt=""/>
             {/*<p>Photo by <a href={discipline.heroImage._rawAsset.source.url}>{discipline.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>*/}
           </div>
-          <div className={s.header}>
-            <h1>
-              <span>{discipline.title}</span>
-              <span>Discipline</span>
-            </h1>
-          </div>
-          <div className={s.overview}>
-            <PortableText blocks={discipline.overview} />
+          <div className={s.disciplineSummary}>
+            <div className={s.header}>
+              <h1>
+                <span>{discipline.title}</span>
+                <span>Discipline</span>
+              </h1>
+            </div>
+            <div className={s.description}>
+              <PortableText blocks={discipline.overview} />
+            </div>
           </div>
         </section>
 

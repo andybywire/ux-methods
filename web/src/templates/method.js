@@ -40,7 +40,7 @@ export default function MethodPage({data, data: { method }}) {
               <span>Method</span>
             </h1>
           </div>
-          <div className={s.overview}>
+          <div className={s.description}>
             <PortableText blocks={method.overview} />
           </div>
         </section>
