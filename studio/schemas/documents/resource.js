@@ -39,7 +39,10 @@ export default {
     {
       name: 'resourceImage',
       type: 'image',
-      title: 'Image'
+      title: 'Image',
+      options: {
+        hotspot: true
+      }
     },
     {
       name: 'methodDescribed',

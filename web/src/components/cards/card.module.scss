@@ -11,20 +11,38 @@ li.card {
   border: 0;
   // border: 2px solid rgba(43, 182, 252, 0);
   transition: border 0.25s ease-out;
-  &:hover {
-      // border: 2px solid rgba(43, 182, 252, .8);
-      // transition: border 0.25s ease-in;
-  }
   img {
     height: 225px;
     width: 100%;
     object-fit: cover;
     border-radius: 5px 5px 0 0;
+    // transition: width 0.25s ease-in;
+    // wrap in figure for these hover transitions:
+    // -webkit-transform: scale(1);
+    // transform: scale(1);
+    // -webkit-transition: .3s ease-in-out;
+    // transition: .3s ease-in-out;
+    // also consider revealing data — centrality?
   }
   div {
     padding: .5rem;
     p {
       margin: .25rem 0;
+      color: $gray-text;
+      font-size: 90%;
+      line-height: 1.25;
+    }
+  }
+  a {
+    overflow: hidden;
+    &:hover {
+      img {
+        // -webkit-transform: scale(1.1);
+        // transform: scale(1.1);
+        // width: 105%;
+        // transition: width 0.25s ease-in;
+      }  // border: 2px solid rgba(43, 182, 252, .8);
+        // transition: border 0.25s ease-in;
     }
   }
 }

@@ -1,0 +1,10 @@
+@import '../style/variables.scss';
+
+footer {
+  height: 200px;
+  background-color: $card-background;
+  color: $light-text;
+  a {
+    color: $light-text;
+  }
+}

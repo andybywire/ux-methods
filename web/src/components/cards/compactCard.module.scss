@@ -1,4 +1,5 @@
 @import '../../style/variables.scss';
+@import '../../style/mixins.scss';
 
 li.card {
   list-style: none;
@@ -30,6 +31,25 @@ li.card {
       color: $gray-text;
       line-height: 1.25;
       margin: .1rem 0 0 0;
+      @include breakpoint(med-lg) {
+        font-size: 90%;
+      }
+    }
+  }
+}
+
+.resource {
+  h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p {
+      display: flex;
+      align-items: flex-end;
     }
   }
 }

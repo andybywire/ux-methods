@@ -27,3 +27,11 @@ $alert-dark-bg: #FC9412;
 $max-width: 1140px;
 $card-min: 342px; // min for width + padding on iPhone 6
 $card-max: 375px;
+
+// Breakpoints
+$breakpoints: (
+  // 'small':  375px,
+  'medium': 600px,
+  'med-lg': 800px,
+  'large':  1000px
+) !default;

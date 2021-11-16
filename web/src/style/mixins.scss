@@ -1,0 +1,34 @@
+// UX Methods Sass Mixins
+
+/// Mixin to manage responsive breakpoints
+/// @author Kitty Giraudel: https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/
+/// @param {String} $breakpoint - Breakpoint name
+/// @require $breakpoints
+
+@mixin breakpoint($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+// @mixin card-border($r, $g, $b, $a:1){
+//   border-top: 1px solid rgba($r, $g, $b, 0);
+//   border-right: 1px solid rgba($r, $g, $b, 0);
+//   border-bottom: 1px solid rgba($r, $g, $b, 0);
+//   transition: border 0.25s ease-out;
+//   &:hover {
+//     border-top: 1px solid rgba($r, $g, $b, $a);
+//     border-right: 1px solid rgba($r, $g, $b, $a);
+//     border-bottom: 1px solid rgba($r, $g, $b, $a);
+//     transition: border 0.25s ease-in;
+//   }
+// }
