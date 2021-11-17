@@ -2,26 +2,57 @@
 
 .side-nav {
   height: 100%;
-  width: 0; /* change this with JavaScript */
+  width: 100%; /* change this with JavaScript */
+  transform: translate3d(100%, 0, 0);
   position: fixed;
   z-index: 2;
   top: 0;
   right: 0;
   background-color: $card-background;
   overflow-x: hidden;
-  padding-top: 40px;
-  transition: 0.25s ease-out;
+  padding-top: 13px;
+  transition: 0.33s cubic-bezier(0.22, 0.61, 0.36, 1);
   color: $light-text;
   font-family: $header;
 }
+svg {
+  width: 1.75rem;
+  height: auto;
+}
 .close-btn {
+  position: absolute;
+  right: 12px;
   color: $light-text;
-  align-self: center;
-  margin-right: 5px;
   background-color: inherit;
   border: none;
-  svg {
-    width: 1.75rem;
-    height: auto;
+}
+ul.navint {
+  padding: 3rem 1.5rem;
+  list-style: none;
+  line-height: 3;
+  font-family: $header;
+  a {
+    color: $light-text;
+    text-decoration: none;
+  }
+  .primary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .search, .how-to {
+    justify-content: flex-start;
+    svg {
+      width: 1.25rem;
+      padding-right: .5rem;
+    }
+  }
+  .dropdown + ul {
+    list-style: none;
+    padding-inline-start: 2rem;
+    padding-bottom: .5rem;
+    overflow: hidden;
   }
 }

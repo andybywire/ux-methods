@@ -24,3 +24,23 @@ h3 {
 p {
   line-height: 1.5;
 }
+.dropdown-toggle {
+  & svg {
+    transform: rotate(0deg);
+    transition: transform .25s ease-in; // closing transition
+  }
+  + ul {
+      max-height: 0px;
+      transition: .25s ease-in; // closing transition
+  }
+}
+.dropdown-toggle.show {
+  & svg {
+    transform: rotate(180deg);
+    transition: transform .25s ease-in; // opening transition
+  }
+  & + ul {
+      max-height: 250px;
+      transition: max-height .25s ease-in; // opening transition
+  }
+}
