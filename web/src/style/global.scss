@@ -40,7 +40,7 @@ p {
     transition: transform .25s ease-in; // opening transition
   }
   & + ul {
-      max-height: 250px;
+      max-height: 350px;
       transition: max-height .25s ease-in; // opening transition
   }
 }

@@ -10,9 +10,19 @@ export default function SideNav() {
     <StaticQuery
       query={graphql`
         query SideNavQuery {
-          sanitySiteSettings {
-            title
-            description
+          disciplines: allSanityDiscipline {
+            nodes {
+              title
+              slug {
+                current
+              }
+            }
+          }
+          methods: allMethodCentralityCsv(limit: 6) {
+            nodes {
+              method
+              centrality
+            }
           }
         }
       `}
@@ -25,10 +35,11 @@ export default function SideNav() {
             <li className={[s.primary, s.howTo].join(' ')}><AiOutlineBulb />How to Use This Site</li>
             <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}>Top Methods<FiChevronDown /></li>
             <ul>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
+              {data.methods.nodes.map(link => (
+                <li key={link.id}>
+                <Link to={`/`}>{link.method}</Link>
+                </li>
+              ))}
             </ul>
             <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}>UX Disciplines<FiChevronDown /></li>
             <ul>

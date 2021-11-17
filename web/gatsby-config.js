@@ -31,6 +31,15 @@ module.exports = {
         errorHandling: "warn"
       },
     },
+    {
+      resolve: "gatsby-source-remote-file",
+      options: {
+        url: "https://download.data.world/s/rf7r5f64zntb63fe3mhauanr6mntn4",
+        name: "methodCentrality",
+        ext: ".csv",
+        errorHandling: "warn"
+      },
+    },
     "gatsby-transformer-csv",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
