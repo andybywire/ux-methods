@@ -18,4 +18,15 @@ nav {
     align-self: center;
     margin-left: 16px;
   }
+  .open-menu {
+    color: $light-text;
+    align-self: center;
+    margin-right: 5px;
+    background-color: inherit;
+    border: none;
+    svg {
+      width: 1.75rem;
+      height: auto;
+    }
+  }
 }

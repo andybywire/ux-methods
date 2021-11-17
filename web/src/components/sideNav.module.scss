@@ -1,0 +1,27 @@
+@import '../style/variables.scss';
+
+.side-nav {
+  height: 100%;
+  width: 0; /* change this with JavaScript */
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  background-color: $card-background;
+  overflow-x: hidden;
+  padding-top: 40px;
+  transition: 0.25s ease-out;
+  color: $light-text;
+  font-family: $header;
+}
+.close-btn {
+  color: $light-text;
+  align-self: center;
+  margin-right: 5px;
+  background-color: inherit;
+  border: none;
+  svg {
+    width: 1.75rem;
+    height: auto;
+  }
+}
