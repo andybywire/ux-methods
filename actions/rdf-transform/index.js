@@ -15,7 +15,7 @@ async function rdfFormat(sanityData) {
         // assign current method in loop
         let currentMethod = `<https://uxmethods.org/method/${method.methodId}>`;
         // note preferred prefLabel
-        rdfData += `${currentMethod}	<http://www.w3.org/2004/02/skos/core#prefLabel> "{method.title}".\n`;
+        rdfData += `${currentMethod} <http://www.w3.org/2004/02/skos/core#prefLabel> "${method.title}".\n`;
 
         // if there are inputs, write them out as triples
         method.inputs && method.inputs.forEach(input => {
