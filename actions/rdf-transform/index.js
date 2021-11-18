@@ -17,6 +17,10 @@ async function rdfFormat(sanityData) {
         // note preferred prefLabel
         rdfData += `${currentMethod} <http://www.w3.org/2004/02/skos/core#prefLabel> "${method.title}".\n`;
 
+        // if there are inputs, write them out as triples
+        method.inputs && method.inputs.forEach(input => {
+          rdfData += `${currentMethod} <https://uxmethods.org/ontology/hasInput> <https://uxmethods.org/${input.inputId}>.\n`;
+        });
         // if there are outputs, write them out as triples
         method.outputs && method.outputs.forEach(output => {
           rdfData += `${currentMethod} <https://uxmethods.org/ontology/hasOutput> <https://uxmethods.org/${output.outputId}>.\n`;

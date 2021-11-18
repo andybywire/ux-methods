@@ -1,5 +1,5 @@
 on:
-  # push: — don't necessarily want to trigger this on push for the moment
+  push: 
   repository_dispatch:
     types: [method]
 
