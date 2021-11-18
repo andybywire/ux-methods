@@ -1,11 +1,21 @@
 @import './variables.scss';
 @import './normalize.scss';
+@import './mixins.scss';
 
 body {
   height: 100%; // needed for off-canvas? Or short pages?
   font-family: $body;
   font-size: 18px;
   color: $card-background;
+}
+
+main {
+  padding-top: 60px; // leaves room for the header
+  margin: 0 auto;
+  max-width: $max-width;
+  @include breakpoint(med-lg) {
+    padding-top: 110px;
+  }
 }
 
 h1, h2, h3, h4, h4 {
