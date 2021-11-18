@@ -21,6 +21,7 @@ export default function SideNav() {
           methods: allMethodCentralityCsv(limit: 6) {
             nodes {
               method
+              label
               centrality
             }
           }
@@ -37,7 +38,7 @@ export default function SideNav() {
             <ul>
               {data.methods.nodes.map(link => (
                 <li key={link.id}>
-                <Link to={`/`}>{link.method.replace('https://uxmethods.org/method/', '')}</Link>
+                <Link to={`/method/${link.label.replace(' ', '')}`}>{link.label}</Link>
                 </li>
               ))}
             </ul>

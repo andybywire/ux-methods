@@ -2,7 +2,7 @@ console.log("JS file here!");
 
 // Mobile Nav
 // Open and close mobile menu
-document.getElementById("openMenu").addEventListener("click", function () {
+{/*document.getElementById("openMenu").addEventListener("click", function () {
   document.getElementById("globalNav").style.transform = "translateX(0)";
   // document.getElementById("navint").classList.add("open")
 });
@@ -17,7 +17,7 @@ document.getElementById("closeMenu").addEventListener("click", function () {
   for (var i = 0; i < dropdowns.length; i++) {
       dropdowns[i].addEventListener('click', function () {this.classList.toggle("show")});
   };
-})();
+})();*/}
 
 // Wide Nav Dropdowns
 // use querySelector() for this instead?
