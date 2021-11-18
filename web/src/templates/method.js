@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import * as s from "./method.module.scss"
 import Layout from '../components/layout'
 import SanityImage from "gatsby-plugin-sanity-image"
