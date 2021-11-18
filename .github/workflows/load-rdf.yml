@@ -1,5 +1,6 @@
 on:
-  push: 
+  # push: — Disabling for active developemnt
+  workflow_dispatch:
   repository_dispatch:
     types: [method]
 
