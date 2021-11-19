@@ -18,10 +18,19 @@ const Layout = ({ children }) => {
     });
 
     // Mobile Nav Dropdowns
-    var dropdowns = document.getElementsByClassName("dropdown-toggle");
+    const dropdowns = document.getElementsByClassName("dropdown-toggle");
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].addEventListener('click', function () {this.classList.toggle("show")});
     };
+
+    // Close dropdown when clicking outside of it
+    const main = document.getElementsByTagName("main");
+    main[0].addEventListener('click', function () {
+      this.classList.add("test");
+      for (var i = 0; i < dropdowns.length; i++) {
+        dropdowns[i].classList.remove("show");
+      };
+    });
 
     // Consider switching this over to useState() for cleaner integration:
     // https://medium.com/skillthrive/build-a-react-accordion-component-from-scratch-using-react-hooks-a71d3d91324b
@@ -29,8 +38,8 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <SideNav />
       <Header />
+      <SideNav />
       <main>
         {children}
       </main>

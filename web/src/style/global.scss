@@ -54,3 +54,11 @@ p {
       transition: max-height .25s ease-in; // opening transition
   }
 }
+nav ul li.dropdown-toggle ul {
+  max-height: 0;
+  transition: max-height 0.25s ease-in;
+}
+nav ul li.dropdown-toggle.show ul {
+  max-height: 500px;
+  transition: max-height 0.25s ease-in;
+}

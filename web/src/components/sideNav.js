@@ -10,7 +10,7 @@ export default function SideNav() {
     <StaticQuery
       query={graphql`
         query SideNavQuery {
-          disciplines: allSanityDiscipline {
+          disciplines: allSanityDiscipline(sort: {order: ASC, fields: title}) {
             nodes {
               title
               slug {
@@ -44,10 +44,11 @@ export default function SideNav() {
             </ul>
             <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}>UX Disciplines<FiChevronDown /></li>
             <ul>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
-              <li>Menu Item</li>
+              {data.disciplines.nodes.map(link => (
+                <li key={link.id}>
+                <Link to={`/discipline/${link.slug.current}`}>{link.title}</Link>
+                </li>
+              ))}
             </ul>
             <li><a href="/about">About</a></li>
             <li><a href="/about#contribute">Participate</a></li>

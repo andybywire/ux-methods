@@ -14,11 +14,12 @@
   transition: 0.33s cubic-bezier(0.22, 0.61, 0.36, 1);
   color: $light-text;
   font-family: $header;
+  svg {
+    width: 1.75rem;
+    height: auto;
+  }
 }
-svg {
-  width: 1.75rem;
-  height: auto;
-}
+
 .close-btn {
   position: absolute;
   right: 12px;

@@ -4,12 +4,15 @@
 li.card {
   list-style: none;
   max-width: $card-max;
-  background-color: $light-text;
+  background-color: $background;
   border-radius: 5px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.25s ease-in;
   border: 0;
   &:hover {
-      background-color: $background;
+      // background-color: $background;
+      box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+      transition: 0.25s ease-in;
   }
   a {
     display: flex;
