@@ -4,6 +4,7 @@
 li.card {
   list-style: none;
   max-width: $card-max;
+  min-height: 6rem;
   background-color: $background;
   border-radius: 5px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
@@ -50,6 +51,12 @@ li.card {
     p {
       display: flex;
       align-items: flex-end;
+      justify-content: space-between;
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      margin-left: .5rem;
     }
   }
 }

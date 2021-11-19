@@ -15,7 +15,7 @@ const ResourceCard = ({ content }) => {
           <SanityImage {...resource.resourceImage} width={500} alt=""/>
           <div>
             <h3>{resource.title}</h3>
-            <p><span>{resource.author} | {resource.publisher.pubName}</span><span><FiExternalLink /></span></p>
+            <p><span>{resource.author ? resource.author + " | ":'' }{resource.publisher.pubName}</span><span><FiExternalLink /></span></p>
           </div>
         </a>
       </li>

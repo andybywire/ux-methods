@@ -56,18 +56,6 @@ export default function Header() {
             <li><Link to="/">Participate</Link></li>
           </ul>
 
-
-
-
-
-
-
-
-
-
-
-
-
           <button id="openMenu" className={s.openMenu} aria-label="Open site menu" type="button" ><FiMenu /></button>
         </nav>
       )}
