@@ -1,6 +1,7 @@
 import React from "react"
 import { StaticQuery, graphql, Link } from "gatsby"
 import { FiMenu, FiChevronDown } from "react-icons/fi"
+import { BiSearch} from "react-icons/bi"
 import * as s from "./header.module.scss"
 
 export default function Header() {
@@ -34,7 +35,7 @@ export default function Header() {
           <ul>
             <li className={s.title}><Link to="/">{data.site.title}</Link></li>
             <li><Link to="/">How To Use This Site</Link></li>
-            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="javascript:;">Top Methods<FiChevronDown /></a>
+            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="/">Top Methods<FiChevronDown /></a>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
@@ -43,7 +44,7 @@ export default function Header() {
                 ))}
               </ul>
             </li>
-            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="javascript:;">UX Disciplines<FiChevronDown /></a>
+            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="/">UX Disciplines<FiChevronDown /></a>
             <ul>
               {data.disciplines.nodes.map(link => (
                 <li key={link.id}>
@@ -55,6 +56,8 @@ export default function Header() {
             <li><Link to="/">About</Link></li>
             <li><Link to="/">Participate</Link></li>
           </ul>
+
+          <button className={s.searchIcon} type="button" ><BiSearch /></button>
 
           <button id="openMenu" className={s.openMenu} aria-label="Open site menu" type="button" ><FiMenu /></button>
         </nav>

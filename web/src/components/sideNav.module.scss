@@ -37,13 +37,15 @@ ul.navint {
     text-decoration: none;
   }
   .primary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-size: 20px;
     font-weight: 600;
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
-  .search, .how-to {
+  .search a, .how-to a {
     justify-content: flex-start;
     svg {
       width: 1.25rem;

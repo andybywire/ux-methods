@@ -71,8 +71,7 @@ nav {
       display: list-item;
     }
   }
-
-  .open-menu {
+  .open-menu, .search-icon {
     color: $light-text;
     margin-right: 5px;
     background-color: inherit;
@@ -81,8 +80,21 @@ nav {
       width: 1.75rem;
       height: auto;
     }
+  }
+  .open-menu{
     @include breakpoint(med-lg) {
       display: none;
+    }
+  }
+  .search-icon {
+    display: none;
+    padding-top: .25rem;
+    padding-right: 1rem;
+    svg {
+      width: 1.5rem;
+    }
+    @include breakpoint(med-lg) {
+      display: block;
     }
   }
 }

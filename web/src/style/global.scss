@@ -41,7 +41,7 @@ p {
   }
   + ul {
       max-height: 0px;
-      transition: .25s ease-in; // closing transition
+      transition: max-height .25s ease-in; // closing transition
   }
 }
 .dropdown-toggle.show {
@@ -55,10 +55,12 @@ p {
   }
 }
 nav ul li.dropdown-toggle ul {
+  // display: none; — kills animation. Need to work out another method for not allowing tabbing into hidden
   max-height: 0;
   transition: max-height 0.25s ease-in;
 }
 nav ul li.dropdown-toggle.show ul {
+  // display: list-item;
   max-height: 500px;
   transition: max-height 0.25s ease-in;
 }

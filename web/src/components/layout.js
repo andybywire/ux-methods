@@ -17,10 +17,17 @@ const Layout = ({ children }) => {
     //   document.getElementById("navint").classList.remove("open")
     });
 
-    // Mobile Nav Dropdowns
+    // Need to detect when focus leaves mobile nav & close panel. See:
+    // https://stackoverflow.com/questions/13456530/detect-when-container-and-child-elements-lose-focus-with-jquery
+    // https://www.reddit.com/r/angularjs/comments/48nmay/how_to_detect_blur_and_focus_element_on_the/
+
+    // Nav Dropdowns
     const dropdowns = document.getElementsByClassName("dropdown-toggle");
     for (var i = 0; i < dropdowns.length; i++) {
-        dropdowns[i].addEventListener('click', function () {this.classList.toggle("show")});
+        dropdowns[i].addEventListener('click', function (e) {
+          this.classList.toggle("show");
+          e.preventDefault();
+        });
     };
 
     // Close dropdown when clicking outside of it
