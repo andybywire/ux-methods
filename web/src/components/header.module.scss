@@ -44,6 +44,18 @@ nav {
   }
   .has-submenu {
     position: relative;
+    button {
+      padding: 0;
+      color: $light-text;
+      background-color: inherit;
+      border: none;
+      display: flex;
+      align-items: center;
+      column-gap: 0.25rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
   .has-submenu ul {
     display: list-item;

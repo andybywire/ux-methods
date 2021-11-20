@@ -25,7 +25,7 @@ $alert-dark-bg: #FC9412;
 
 // Grid
 $max-width: 1140px;
-$card-min: 342px; // min for width + padding on iPhone 6
+$card-min: 330px; // min for width + padding on iPhone 6: 342, 330 is better for some Android phones. To update once I have a more definitive list.  
 $card-max: 375px;
 
 // Breakpoints

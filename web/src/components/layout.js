@@ -24,9 +24,8 @@ const Layout = ({ children }) => {
     // Nav Dropdowns
     const dropdowns = document.getElementsByClassName("dropdown-toggle");
     for (var i = 0; i < dropdowns.length; i++) {
-        dropdowns[i].addEventListener('click', function (e) {
+        dropdowns[i].addEventListener('click', function () {
           this.classList.toggle("show");
-          e.preventDefault();
         });
     };
 

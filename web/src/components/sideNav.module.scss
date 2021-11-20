@@ -54,10 +54,26 @@ ul.navint {
       padding-right: .5rem;
     }
   }
-  .dropdown + ul {
+  .dropdown {
+    button {
+      padding: 0;
+      color: $light-text; // maybe not needed?
+      background-color: inherit;
+      width: 100%;
+      line-height: inherit;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .dropdown ul {
     list-style: none;
+    font-weight: 300;
     padding-inline-start: 2rem;
-    padding-bottom: .5rem;
     overflow: hidden;
+    li:last-of-type {
+        padding-bottom: 1rem;
+    }
   }
 }

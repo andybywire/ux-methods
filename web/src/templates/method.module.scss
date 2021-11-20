@@ -22,7 +22,9 @@ section {
         height: 225px;
         width: 100%;
         object-fit: cover;
-        border-radius: 5px;
+        @include breakpoint(med-lg) {
+          border-radius: 5px;
+        }
       }
       p, a {
         color: $gray-text;

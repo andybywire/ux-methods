@@ -35,7 +35,8 @@ export default function Header() {
           <ul>
             <li className={s.title}><Link to="/">{data.site.title}</Link></li>
             <li><Link to="/">How To Use This Site</Link></li>
-            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="/">Top Methods<FiChevronDown /></a>
+            <li className={s.hasSubmenu}>
+              <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
@@ -44,14 +45,15 @@ export default function Header() {
                 ))}
               </ul>
             </li>
-            <li className={["dropdown-toggle", s.hasSubmenu].join(' ')}><a href="/">UX Disciplines<FiChevronDown /></a>
-            <ul>
-              {data.disciplines.nodes.map(link => (
-                <li key={link.id}>
-                <Link to={`/discipline/${link.slug.current}`}>{link.title}</Link>
-                </li>
-              ))}
-            </ul>
+            <li className={s.hasSubmenu}>
+              <button type="button" class="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
+              <ul>
+                {data.disciplines.nodes.map(link => (
+                  <li key={link.id}>
+                  <Link to={`/discipline/${link.slug.current}`}>{link.title}</Link>
+                  </li>
+                ))}
+              </ul>
             </li>
             <li><Link to="/">About</Link></li>
             <li><Link to="/">Participate</Link></li>

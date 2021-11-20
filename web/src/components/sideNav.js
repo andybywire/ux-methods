@@ -34,7 +34,8 @@ export default function SideNav() {
           <ul className={s.navint}>
             <li className={[s.primary, s.search].join(' ')}><Link to="/"><BiSearch />Search</Link></li>
             <li className={[s.primary, s.howTo].join(' ')}><Link to="/how-to-use"><AiOutlineBulb />How to Use This Site</Link></li>
-            <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}><a href="/">Top Methods<FiChevronDown /></a></li>
+            <li className={[s.dropdown, s.primary].join(' ')}>
+              <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
@@ -42,7 +43,9 @@ export default function SideNav() {
                   </li>
                 ))}
               </ul>
-            <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}><a href="/">UX Disciplines<FiChevronDown /></a></li>
+            </li>
+            <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}>
+              <button type="button" class="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
               <ul>
                 {data.disciplines.nodes.map(link => (
                   <li key={link.id}>
@@ -50,6 +53,7 @@ export default function SideNav() {
                   </li>
                 ))}
               </ul>
+            </li>
             <li><a href="/about">About</a></li>
             <li><a href="/about#contribute">Participate</a></li>
           </ul>
