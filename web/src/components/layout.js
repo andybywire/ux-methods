@@ -28,6 +28,7 @@ const Layout = ({ children }) => {
           this.classList.toggle("show");
         });
     };
+    // -> Need to add logic for closing other dropdown when this one is open. Maybe put the whole think in an "if" statement, instead of "toggle()".
 
     // Close dropdown when clicking outside of it
     const main = document.getElementsByTagName("main");
@@ -37,6 +38,7 @@ const Layout = ({ children }) => {
         dropdowns[i].classList.remove("show");
       };
     });
+    // --> currently only works when clicking inside the "wrap".
 
     // Consider switching this over to useState() for cleaner integration:
     // https://medium.com/skillthrive/build-a-react-accordion-component-from-scratch-using-react-hooks-a71d3d91324b
