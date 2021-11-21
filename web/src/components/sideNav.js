@@ -44,7 +44,7 @@ export default function SideNav() {
                 ))}
               </ul>
             </li>
-            <li className={["dropdown-toggle", s.dropdown, s.primary].join(' ')}>
+            <li className={[s.dropdown, s.primary].join(' ')}>
               <button type="button" class="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
               <ul>
                 {data.disciplines.nodes.map(link => (

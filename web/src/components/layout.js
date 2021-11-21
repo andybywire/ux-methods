@@ -25,10 +25,15 @@ const Layout = ({ children }) => {
     const dropdowns = document.getElementsByClassName("dropdown-toggle");
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].addEventListener('click', function () {
-          this.classList.toggle("show");
+          if (this.classList.contains("show")) {
+            this.classList.remove("show");
+          } else {
+            Array.from(dropdowns).forEach(dropdown => dropdown.classList.remove("show"));
+            this.classList.add("show");
+          }
         });
     };
-    // -> Need to add logic for closing other dropdown when this one is open. Maybe put the whole think in an "if" statement, instead of "toggle()".
+    // -> Closes open dropdown if a different one is clicked. Produces some unexpected behavior in specific (edge case) combinations on mobile. Work out bug when two nav lists are consolidated into one code block. 
 
     // Close dropdown when clicking outside of it
     const main = document.getElementsByTagName("main");
