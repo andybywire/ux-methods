@@ -55,7 +55,7 @@ export default function SideNav() {
               </ul>
             </li>
             <li><a href="/about">About</a></li>
-            <li><a href="/about#contribute">Participate</a></li>
+            {/*<li><a href="/about#contribute">Participate</a></li>*/}
           </ul>
         </div>
       )}

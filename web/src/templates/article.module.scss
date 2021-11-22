@@ -1,0 +1,68 @@
+@import '../style/variables.scss';
+@import '../style/mixins.scss';
+
+section {
+  padding: 1rem;
+  @include breakpoint(med-lg) {
+    margin-bottom: 2rem;
+  }
+  &.article {
+    @include breakpoint(med-lg) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .hero {
+      margin: -1rem -1rem 1rem;
+      @include breakpoint(med-lg) {
+        margin: 1rem 0 0;
+        order: 3;
+        width: 30%;
+      }
+      img {
+        // height: 225px;
+        width: 100%;
+        object-fit: cover;
+        @include breakpoint(med-lg) {
+          border-radius: 5px;
+        }
+      }
+      p, a {
+        color: $gray-text;
+      }
+      p {
+        text-align: right;
+        font-size: 75%;
+        margin: -.25rem 1rem .25rem;
+        @include breakpoint(med-lg) {
+          margin-right: 0;
+        }
+
+      }
+    }
+    .header {
+      @include breakpoint(med-lg) {
+        order: 1;
+        width: 100%;
+        padding-top: 1.3rem;
+      }
+      h1 {
+        font-size: 40px;
+        line-height: 48px;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+    .body {
+      @include breakpoint(med-lg) {
+        order: 2;
+        width: 70%;
+        * {
+          padding-right: 2rem;
+        }
+      }
+      ul {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}

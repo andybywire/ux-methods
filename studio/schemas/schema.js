@@ -9,6 +9,7 @@ import method from './documents/method'
 import resource from './documents/resource'
 import discipline from './documents/discipline'
 import concept from './concepts/concept'
+import article from './documents/article'
 import siteSettings from './documents/siteSettings'
 
 // Object schemas
@@ -32,10 +33,11 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     // The following are document types which will appear
-    // in the studio.
+    // in the studio. Also sets the order of items in Desk view. 
     method,
-    resource,
     discipline,
+    resource,
+    article,
     concept,
     siteSettings,
     referencedDiscipline,

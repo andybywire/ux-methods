@@ -55,8 +55,8 @@ export default function Header() {
                 ))}
               </ul>
             </li>
-            <li><Link to="/">About</Link></li>
-            <li><Link to="/">Participate</Link></li>
+            <li><Link to="/about">About</Link></li>
+            {/*<li><Link to="/">Participate</Link></li>*/}
           </ul>
 
           <button className={s.searchIcon} type="button" ><BiSearch /></button>
