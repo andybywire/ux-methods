@@ -34,6 +34,17 @@ h3 {
 p {
   line-height: 1.5;
 }
+
+a, a:visited {
+  color: $text;
+  transition: color 0.25s ease-out;
+  text-decoration: underline;
+}
+a:hover {
+  color: $primary-text-link;
+  transition: color 0.25s ease-out;
+}
+
 .dropdown-toggle {
   & svg {
     transform: rotate(0deg);

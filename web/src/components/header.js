@@ -23,9 +23,8 @@ export default function Header() {
           }
           methods: allMethodCentralityCsv(limit: 6) {
             nodes {
-              method
               label
-              centrality
+              method
             }
           }
         }
@@ -34,13 +33,13 @@ export default function Header() {
         <nav>
           <ul>
             <li className={s.title}><Link to="/">{data.site.title}</Link></li>
-            <li><Link to="/">How To Use This Site</Link></li>
+            <li><Link to="/how-to-use">How To Use This Site</Link></li>
             <li className={s.hasSubmenu}>
               <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
-                  <Link to={`/method/${link.label.replace(' ', '')}`}>{link.label}</Link>
+                  <Link to={`${link.method.replace('https://uxmethods.org', '')}`}>{link.label}</Link>
                   </li>
                 ))}
               </ul>

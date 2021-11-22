@@ -23,7 +23,7 @@ nav {
       column-gap: 1.75rem;
     }
   }
-  a {
+  a, a:visited {
     color: $light-text;
     text-decoration: none;
     display: flex;

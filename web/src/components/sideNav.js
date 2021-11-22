@@ -22,7 +22,6 @@ export default function SideNav() {
             nodes {
               method
               label
-              centrality
             }
           }
         }
@@ -39,7 +38,7 @@ export default function SideNav() {
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
-                  <Link to={`/method/${link.label.replace(' ', '')}`}>{link.label}</Link>
+                  <Link to={`${link.method.replace('https://uxmethods.org', '')}`}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
