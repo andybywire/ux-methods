@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import Search from '../components/search';
-import { useFlexSearch } from 'react-use-flexsearch';
 
-
-const IndexPage = ({ data, data: {localSearchPages: {index, store}} }) => {
-
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('search');
-  const [searchQuery, setSearchQuery] = useState(query || '');
-
-  const results = useFlexSearch(searchQuery, index, store);
+const IndexPage = ({ data }) => {
 
   return (
       <Layout>
-        <Search
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        {JSON.stringify(results, null, 2)}
-
+        <Search />
         <h2>Methods</h2>
         <p>Published methods: {data.methods.totalCount}</p>
         <ul>
@@ -39,17 +26,13 @@ const IndexPage = ({ data, data: {localSearchPages: {index, store}} }) => {
           ))}
         </ul>
       </Layout>
-  )
+  );
 }
 
 export default IndexPage
 
 export const query = graphql`
   query {
-    localSearchPages {
-      index
-      store
-    }
     methods: allSanityMethod (sort: {fields: title}) {
       nodes {
         title

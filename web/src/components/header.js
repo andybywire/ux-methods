@@ -32,7 +32,8 @@ export default function Header() {
       render={data => (
         <nav>
           <ul>
-            <li className={s.title}><Link to="/">{data.site.title}</Link></li>
+            {/* <a> tag here prevents search state from interfering with menu dropdowns when home is navigated to with a query in state */}
+            <li className={s.title}><a href="/">{data.site.title}</a></li>
             <li><Link to="/how-to-use">How To Use This Site</Link></li>
             <li className={s.hasSubmenu}>
               <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
