@@ -87,14 +87,13 @@ module.exports = {
         }
       }
     },
-    {/*{
-      resolve: 'gatsby-plugin-local-search',
+    {
+      resolve: "gatsby-plugin-local-search",
       options: {
-        name: 'resources',
-        engine: 'flexsearch',
-        engineOptions: 'default',
+        name: "pages",
+        engine: "flexsearch",
         query: `
-          {
+          query {
             allSanityMethod {
               nodes {
                 id
@@ -104,29 +103,16 @@ module.exports = {
             }
           }
         `,
-        ref: 'id',
-
-        // List of keys to index. The values of the keys are taken from the
-        // normalizer function below.
-        // Default: all fields
-        index: ['title', 'description'],
-
-        // List of keys to store and make available in your UI. The values of
-        // the keys are taken from the normalizer function below.
-        // Default: all fields
-        store: ['id', 'title', 'description'],
-
-        // Function used to map the result from the GraphQL query. This should
-        // return an array of items to index in the form of flat objects
-        // containing properties to index. The objects must contain the `ref`
-        // field above (default: 'id'). This is required.
+        ref: "id",
+        index: ["title", "excerpt"],
+        store: ["title", "excerpt"],
         normalizer: ({ data }) =>
           data.allSanityMethod.nodes.map((node) => ({
             id: node.id,
             title: node.title,
-            description: node.metaDescription
+            excerpt: node.metaDescription,
           })),
-      },
-    },*/}
+      }
+    }
   ],
 };
