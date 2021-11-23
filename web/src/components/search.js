@@ -10,7 +10,7 @@ export default function Search({ searchQuery, setSearchQuery }) {
           type="text"
           id="search-box"
           placeholder="E.g. Card Sorting"
-          name="s"
+          name="search"
       />
       <button type="submit">Search</button>
     </form>

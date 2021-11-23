@@ -8,7 +8,7 @@ import { useFlexSearch } from 'react-use-flexsearch';
 const IndexPage = ({ data, data: {localSearchPages: {index, store}} }) => {
 
   const { search } = window.location;
-  const query = new URLSearchParams(search).get('s');
+  const query = new URLSearchParams(search).get('search');
   const [searchQuery, setSearchQuery] = useState(query || '');
 
   const results = useFlexSearch(searchQuery, index, store);

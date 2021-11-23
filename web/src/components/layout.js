@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
           }
         });
     };
-    // -> Closes open dropdown if a different one is clicked. Produces some unexpected behavior in specific (edge case) combinations on mobile. Work out bug when two nav lists are consolidated into one code block. 
+    // -> Closes open dropdown if a different one is clicked. Produces some unexpected behavior in specific (edge case) combinations on mobile. Work out bug when two nav lists are consolidated into one code block.
 
     // Close dropdown when clicking outside of it
     const main = document.getElementsByTagName("main");
