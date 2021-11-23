@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean-cache": "gatsby clean",
-    "dev": "gatsby develop",
+    "dev": "gatsby develop -H 0.0.0.0",
     "lint": "eslint .",
     "format": "prettier-eslint --write \"**/*.js\" \"!.cache/**\" \"!node_modules/**\" \"!public/**\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
