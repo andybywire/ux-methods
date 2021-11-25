@@ -24,6 +24,8 @@ import describedMethod  from './objects/describedMethod'
 import publisher from './objects/publisher'
 import conceptScheme from './concepts/conceptScheme'
 import sources from './objects/sources'
+import credit from './objects/credit'
+import socialMedia from './objects/socialMedia'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -33,7 +35,7 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     // The following are document types which will appear
-    // in the studio. Also sets the order of items in Desk view. 
+    // in the studio. Also sets the order of items in Desk view.
     method,
     discipline,
     resource,
@@ -50,6 +52,8 @@ export default createSchema({
     bodyPortableText,
     bodyImage,
     heroImage,
-    sources
+    sources,
+    credit,
+    socialMedia
   ]),
 })

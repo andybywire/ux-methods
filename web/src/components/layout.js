@@ -3,7 +3,7 @@ import SideNav from './sideNav'
 import Header from './header'
 import Footer from './footer'
 
-const Layout = ({ children }) => {
+const Layout = ({layoutClass, children}) => {
 
   useEffect(() => {
     // Mobile Nav
@@ -33,7 +33,6 @@ const Layout = ({ children }) => {
           }
         });
     };
-    // -> Closes open dropdown if a different one is clicked. Produces some unexpected behavior in specific (edge case) combinations on mobile. Work out bug when two nav lists are consolidated into one code block.
 
     // Close dropdown when clicking outside of it
     const main = document.getElementsByTagName("main");
@@ -44,16 +43,13 @@ const Layout = ({ children }) => {
       };
     });
     // --> currently only works when clicking inside the "wrap".
-
-    // Consider switching this over to useState() for cleaner integration:
-    // https://medium.com/skillthrive/build-a-react-accordion-component-from-scratch-using-react-hooks-a71d3d91324b
-  });
+  }, []);
 
   return (
     <>
       <Header />
       <SideNav />
-      <main>
+      <main className={layoutClass}>
         {children}
       </main>
       <Footer />

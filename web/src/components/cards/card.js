@@ -4,11 +4,15 @@ import SanityImage from "gatsby-plugin-sanity-image"
 import Grid from "./grid"
 import * as s from "./card.module.scss"
 
-const Card = ({ content }) => {
-  return(
+const Card = ({ content, style }) => {
+
+  const cardStyle =
+    (style === "dark") ? [s.card, s.dark].join(' ') : s.card;
+
+  return (
     <Grid>
     {content.map(method => (
-      <li className={s.card}>
+      <li className={cardStyle}>
         <Link to={`/method/${method.title.replaceAll(" ","")}`}>
           <SanityImage {...method.heroImage} width={500} alt=""/>
           <div>

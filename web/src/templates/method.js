@@ -77,7 +77,7 @@ export default function MethodPage({data, data: { method }}) {
       }
       </article>
       {relatedMethods.length !== 0 &&
-      <section>
+      <section className="resource-cards">
         <h2>Next Steps</h2>
         <Card content={sharedCards} />
       </section>
