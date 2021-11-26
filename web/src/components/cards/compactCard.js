@@ -4,17 +4,21 @@ import SanityImage from "gatsby-plugin-sanity-image"
 import Grid from "./grid"
 import * as s from "./compactCard.module.scss"
 
-const CompactCard = ({ content }) => {
-  return(
+const CompactCard = ({ content, style }) => {
+
+  const cardStyle =
+    (style === "dark") ? [s.card, s.dark].join(' ') : s.card;
+
+  return (
     <Grid>
-    {content.map(method => (
-      <li className={s.card}>
+    {content.map(resource => (
+      <li className={cardStyle}>
         {/* replace with proper local URI */}
-        <Link to={`/method/${method.title.replaceAll(" ","")}`}>
-          <SanityImage {...method.heroImage} width={500} alt=""/>
+        <Link to={`/${resource._type}/${resource.title.replaceAll(" ","")}`}>
+          <SanityImage {...resource.heroImage} width={500} alt=""/>
           <div>
-            <h3>{method.title}</h3>
-            <p>{method.metaDescription}</p>
+            <h3>{resource.title}</h3>
+            <p>{resource.metaDescription}</p>
           </div>
         </Link>
       </li>

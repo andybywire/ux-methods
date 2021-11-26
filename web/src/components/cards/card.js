@@ -11,13 +11,13 @@ const Card = ({ content, style }) => {
 
   return (
     <Grid>
-    {content.map(method => (
+    {content.map(resource => (
       <li className={cardStyle}>
-        <Link to={`/method/${method.title.replaceAll(" ","")}`}>
-          <SanityImage {...method.heroImage} width={500} alt=""/>
+        <Link to={`/${resource._type}/${resource.title.replaceAll(" ","")}`}>
+          <SanityImage {...resource.heroImage} width={500} alt=""/>
           <div>
-            <h3>{method.title}</h3>
-            <p>{method.metaDescription}</p>
+            <h3>{resource.title}</h3>
+            <p>{resource.metaDescription}</p>
           </div>
         </Link>
       </li>

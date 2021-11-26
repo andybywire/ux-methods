@@ -30,11 +30,34 @@ li.card {
     padding: .5rem;
     p {
       color: $gray-text;
-      line-height: 1.25;
+      line-height: 1.33;
       margin: .1rem 0 0 0;
       @include breakpoint(med-lg) {
         font-size: 90%;
       }
+    }
+  }
+}
+
+li.dark {
+  background-color: $card-background;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.1s ease-in;
+  border: 0;
+  h3 {
+    color: $light-text;
+  }
+  &:hover {
+    // background-color: $background;
+    box-shadow:
+      0 0 1px 2px rgba(43, 182, 252, 1),
+      1px 2px 8px rgba(0, 0, 0, 0.75);
+    transition: 0.1s ease-in;
+  }
+  div {
+    padding-left: .75rem;
+    p {
+      color: $light-text;
     }
   }
 }

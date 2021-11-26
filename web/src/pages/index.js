@@ -2,7 +2,8 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import Search from '../components/search';
-import Card from "../components/cards/card"
+import Card from "../components/cards/card";
+import CompactCard from "../components/cards/compactCard";
 
 const IndexPage = ({ data }) => {
 
@@ -22,15 +23,8 @@ const IndexPage = ({ data }) => {
         <section className="resource-cards">
           <h2>Top Methods</h2>
           <Card content={topMethodsCards} style="dark"/>
-
           <h2>Disciplines</h2>
-          <ul>
-            {data.discipline.nodes.map(discipline => (
-            <li key={discipline.id}>
-            <Link to={`discipline/${discipline.slug.current}`}>{discipline.title}</Link>
-            </li>
-            ))}
-          </ul>
+          <CompactCard content={data.disciplines.nodes} style="dark"/>
         </section>
       </Layout>
   );
@@ -53,6 +47,7 @@ export const query = graphql`
         uri {
           current
         }
+        _type
         heroImage {
           ...ImageWithPreview
           _rawAsset(resolveReferences: {maxDepth: 10})
@@ -70,13 +65,19 @@ export const query = graphql`
       }
       totalCount
     }
-    discipline: allSanityDiscipline (sort: {fields: title}) {
+    disciplines: allSanityDiscipline (sort: {fields: title}) {
       nodes {
         title
         slug {
           current
         }
+        _type
+        metaDescription
         id
+        heroImage {
+          ...ImageWithPreview
+          _rawAsset(resolveReferences: {maxDepth: 10})
+        }
       }
     }
     site: sanitySiteSettings {
