@@ -66,6 +66,7 @@ query($slug: String!) {
       uri {
         current
       }
+      _type
       heroImage {
         ...ImageWithPreview
         _rawAsset(resolveReferences: {maxDepth: 10})
