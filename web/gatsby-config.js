@@ -99,19 +99,36 @@ module.exports = {
                 id
                 title
                 metaDescription
+                _type
+              }
+            }
+            allSanityDiscipline {
+              nodes {
+                id
+                title
+                metaDescription
+                _type
               }
             }
           }
         `,
         ref: "id",
         index: ["title", "excerpt"],
-        store: ["title", "excerpt"],
+        store: ["title", "excerpt", "type"],
         normalizer: ({ data }) =>
           data.allSanityMethod.nodes.map((node) => ({
             id: node.id,
             title: node.title,
             excerpt: node.metaDescription,
-          })),
+            type: node._type,
+          })).concat(
+            data.allSanityDiscipline.nodes.map((node) => ({
+              id: node.id,
+              title: node.title,
+              excerpt: node.metaDescription,
+              type: node._type,
+            }))
+          )
       }
     }
   ],

@@ -38,7 +38,7 @@ export default function Search() {
           <ul>
             {results.map(result =>
               <li>
-                <h3>{result.title}</h3>
+                <h3>{result.title} | {result.type}</h3>
                 <span>{result.excerpt}</span>
               </li>
             )}
