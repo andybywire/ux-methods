@@ -2,6 +2,10 @@
 @import './normalize.scss';
 @import './mixins.scss';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: $body;
   font-size: 18px;

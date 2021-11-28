@@ -31,7 +31,7 @@ export default function SideNav() {
           <button id="closeMenu" aria-label="Close site menu" className={s.closeBtn} type="button"><FiX /></button>
 
           <ul className={s.navint}>
-            <li className={[s.primary, s.search].join(' ')}><Link to="/"><BiSearch />Search</Link></li>
+            <li className={[s.primary, s.search].join(' ')}><a href="/#site-search"><BiSearch />Search</a></li>
             <li className={[s.primary, s.howTo].join(' ')}><Link to="/how-to-use"><AiOutlineBulb />How to Use This Site</Link></li>
             <li className={[s.dropdown, s.primary].join(' ')}>
               <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>

@@ -3,6 +3,9 @@
 
 section.search {
   margin-bottom: 2rem;
+  // scroll site search into view from Search anchor link:
+  padding-top: 80px;
+  margin-top: -80px;
   form {
     @include breakpoint(medium) {
       width: 80%;

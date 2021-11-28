@@ -58,7 +58,7 @@ export default function Header() {
             {/*<li><Link to="/">Participate</Link></li>*/}
           </ul>
 
-          <button className={s.searchIcon} type="button" ><BiSearch /></button>
+          <button className={s.searchIcon} type="button" ><a href="/#site-search"><BiSearch /></a></button>
 
           <button id="openMenu" className={s.openMenu} aria-label="Open site menu" type="button" ><FiMenu /></button>
         </nav>
