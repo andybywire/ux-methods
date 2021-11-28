@@ -71,10 +71,14 @@
   }
   .search-results {
     padding-inline-start: 0;
-    width: 80%;
-    margin: 0 auto;
-    padding: .5rem 2rem;
+    width: 90%;
+    margin: 1rem auto;
+    padding: .5rem 5%;
     background-color: $card-background;
+    @include breakpoint(medium) {
+      padding: .5rem 2rem;
+      width: 80%;
+    }
     h2.results-count {
       padding: 1.5rem 0 1rem;
       font-size: 1rem;
