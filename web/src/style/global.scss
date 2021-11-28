@@ -79,6 +79,10 @@ nav ul li.dropdown-toggle.show ul {
 .index {
   background-color: $dark-background;
   color: $light-text;
+  padding-bottom: 6rem;
+  @include breakpoint(medium) {
+    padding-bottom: 10rem;
+  }
   .headline {
     margin-top: 2rem;
     h1 {
@@ -94,12 +98,18 @@ nav ul li.dropdown-toggle.show ul {
     .display {
       display: none;
       margin: 0 auto;
-      width: 40rem;
+      width: 45rem;
+      font-size: 1.25rem;
       text-align: center;
       padding-bottom: 3rem;
       @include breakpoint(med-lg) {
         display: block;
       }
+    }
+  }
+  .resource-cards {
+    h2 {
+      margin-top: 6rem;
     }
   }
   a {

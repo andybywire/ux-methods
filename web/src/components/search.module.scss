@@ -1,7 +1,8 @@
 @import '../style/variables.scss';
 @import '../style/mixins.scss';
 
-.search {
+section.search {
+  margin-bottom: 2rem;
   form {
     @include breakpoint(medium) {
       width: 80%;
