@@ -10,7 +10,7 @@ const CompactCard = ({ content, style }) => {
     (style === "dark") ? [s.card, s.dark].join(' ') : s.card;
 
   return (
-    <Grid>
+    <Grid style={style}>
     {content.map(resource => (
       <li className={cardStyle}>
         {/* replace with proper local URI */}

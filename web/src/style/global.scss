@@ -109,7 +109,24 @@ nav ul li.dropdown-toggle.show ul {
   }
   .resource-cards {
     h2 {
-      margin-top: 6rem;
+      margin-top: 4rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding-bottom: .5rem;
+      @include breakpoint(medium) {
+        margin-top: 6rem;
+      }
+    }
+    .full-card {
+      display: none;
+    }
+    @include breakpoint(medium) {
+      .compact-card {
+        display: none;
+      }
+      .full-card {
+        display: block;
+      }
     }
   }
   a {

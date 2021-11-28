@@ -21,9 +21,14 @@ const IndexPage = ({ data }) => {
         </section>
         <Search />
         <section className="resource-cards">
-          <h2>Top Methods</h2>
-          <Card content={topMethodsCards} style="dark"/>
-          <h2>Disciplines</h2>
+          <h2>Top UX Methods</h2>
+          <div className="full-card">
+            <Card content={topMethodsCards} style="dark"/>
+          </div>
+          <div className="compact-card">
+            <CompactCard content={topMethodsCards} style="dark"/>
+          </div>
+          <h2>UX Disciplines</h2>
           <CompactCard content={data.disciplines.nodes} style="dark"/>
         </section>
       </Layout>
