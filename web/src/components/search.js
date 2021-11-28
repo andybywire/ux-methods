@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import { useFlexSearch } from 'react-use-flexsearch';
 import { MdClose } from 'react-icons/md';
 import * as s from './search.module.scss';
@@ -34,11 +34,11 @@ export default function Search() {
       </form>
       {results.length > 0 &&
         <section className={s.searchResults}>
-          <h2 className={s.resultsCount}>{results.length} results found for "{searchQuery}"</h2>
+          <h2 className={s.resultsCount}>{results.length} {results.length === 1 ? `result` : `results`} found for <em>{searchQuery}</em></h2>
           <ul>
             {results.map(result =>
               <li>
-                <h3>{result.title} | {result.type}</h3>
+                <h3><Link to={`/${result.type}/${result.slug}`}>{result.title}</ Link><span><em>{result.type}</em></span></h3>
                 <span>{result.excerpt}</span>
               </li>
             )}

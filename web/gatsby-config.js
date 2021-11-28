@@ -100,6 +100,9 @@ module.exports = {
                 title
                 metaDescription
                 _type
+                slug {
+                  current
+                }
               }
             }
             allSanityDiscipline {
@@ -108,25 +111,30 @@ module.exports = {
                 title
                 metaDescription
                 _type
+                slug {
+                  current
+                }
               }
             }
           }
         `,
         ref: "id",
         index: ["title", "excerpt"],
-        store: ["title", "excerpt", "type"],
+        store: ["title", "excerpt", "type", "slug"],
         normalizer: ({ data }) =>
           data.allSanityMethod.nodes.map((node) => ({
             id: node.id,
             title: node.title,
             excerpt: node.metaDescription,
             type: node._type,
+            slug: node.slug.current
           })).concat(
             data.allSanityDiscipline.nodes.map((node) => ({
               id: node.id,
               title: node.title,
               excerpt: node.metaDescription,
               type: node._type,
+              slug: node.slug.current
             }))
           )
       }

@@ -77,19 +77,34 @@
     background-color: $card-background;
     h2.results-count {
       padding: 1.5rem 0 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    h3 {
+      a {
+        text-decoration: underline;
+      }
+      span {
+        font-weight: 400;
+        color: $light-gray-text;
+        padding-left: .5rem;
+        &::before {
+          content: " — ";
+          padding-right: .5rem;
+        }
+      }
     }
     ul {
       padding: 0;
     }
     li {
       list-style: none;
+      span {
+        font-size: 1rem;
+      }
       &.no-results {
         padding: 1.5rem 0;
       }
-    }
-    h3 {
-      color: $light-text;
-      text-decoration: underline;
     }
     .close-icon {
       display: flex;

@@ -16,10 +16,10 @@ footer {
       row-gap: 1rem;
       padding-top: 60px;
     }
-  }
-  div {
-    @include breakpoint(med-lg) {
-      width: 47%;
+    > div {
+      @include breakpoint(med-lg) {
+        width: 47%;
+      }
     }
   }
   a, a:visited {
