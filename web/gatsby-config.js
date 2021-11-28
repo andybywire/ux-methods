@@ -103,6 +103,7 @@ module.exports = {
                 slug {
                   current
                 }
+                _rawOverview
               }
             }
             allSanityDiscipline {
@@ -114,12 +115,13 @@ module.exports = {
                 slug {
                   current
                 }
+                _rawOverview
               }
             }
           }
         `,
         ref: "id",
-        index: ["title", "excerpt"],
+        index: ["title", "excerpt", "overview"],
         store: ["title", "excerpt", "type", "slug"],
         normalizer: ({ data }) =>
           data.allSanityMethod.nodes.map((node) => ({
@@ -127,14 +129,16 @@ module.exports = {
             title: node.title,
             excerpt: node.metaDescription,
             type: node._type,
-            slug: node.slug.current
+            slug: node.slug.current,
+            overview: node._rawOverview
           })).concat(
             data.allSanityDiscipline.nodes.map((node) => ({
               id: node.id,
               title: node.title,
               excerpt: node.metaDescription,
               type: node._type,
-              slug: node.slug.current
+              slug: node.slug.current,
+              overview: node._rawOverview
             }))
           )
       }
