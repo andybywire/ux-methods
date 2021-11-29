@@ -3,7 +3,7 @@
 @import './mixins.scss';
 
 html {
-  scroll-behavior: smooth;
+  // scroll-behavior: smooth;  // --> added this for scrolling to search box, but it smooth scrolls page navigation, too, which feels weird.
 }
 
 body {
@@ -135,5 +135,16 @@ nav ul li.dropdown-toggle.show ul {
   }
   a {
     color: $light-text;
+  }
+}
+
+// 404 page Styles
+.not-found {
+  padding-bottom: 8rem;
+  a:hover {
+    color: $primary-dark-bg;
+  }
+  .links {
+    font-weight: 300;
   }
 }

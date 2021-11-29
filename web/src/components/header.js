@@ -42,6 +42,9 @@ export default function Header() {
                   <Link to={`${link.method.replace('https://uxmethods.org', '')}`}>{link.label}</Link>
                   </li>
                 ))}
+                <li key='allMethods'>
+                <Link to="/all-methods">See All Methods A-Z</Link>
+                </li>
               </ul>
             </li>
             <li className={s.hasSubmenu}>
