@@ -107,6 +107,8 @@ nav {
     }
     @include breakpoint(med-lg) {
       display: block;
+      position: absolute;
+      right: 0;
     }
   }
 }

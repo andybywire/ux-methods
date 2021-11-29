@@ -19,12 +19,14 @@ export default function Header() {
               slug {
                 current
               }
+              id
             }
           }
           methods: allMethodCentralityCsv(limit: 6) {
             nodes {
               label
               method
+              id
             }
           }
         }
@@ -35,7 +37,7 @@ export default function Header() {
             <li className={s.title}><Link to="/">{data.site.title}</Link></li>
             <li><Link to="/how-to-use">How To Use This Site</Link></li>
             <li className={s.hasSubmenu}>
-              <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
+              <button type="button" className="dropdown-toggle">Top Methods<FiChevronDown /></button>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
@@ -48,7 +50,7 @@ export default function Header() {
               </ul>
             </li>
             <li className={s.hasSubmenu}>
-              <button type="button" class="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
+              <button type="button" className="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
               <ul>
                 {data.disciplines.nodes.map(link => (
                   <li key={link.id}>
@@ -58,10 +60,11 @@ export default function Header() {
               </ul>
             </li>
             <li><Link to="/about">About</Link></li>
+            <li className={s.searchIcon}><a href="/#site-search" aria-label="Search this site"><BiSearch /></a></li>
             {/*<li><Link to="/">Participate</Link></li>*/}
           </ul>
 
-          <button className={s.searchIcon} type="button" ><a href="/#site-search"><BiSearch /></a></button>
+          {/*<button className={s.searchIcon} type="button" aria-label="Search this site"><a href="/#site-search"><BiSearch /></a></button>*/}
 
           <button id="openMenu" className={s.openMenu} aria-label="Open site menu" type="button" ><FiMenu /></button>
         </nav>

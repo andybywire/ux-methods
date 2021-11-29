@@ -16,12 +16,14 @@ export default function SideNav() {
               slug {
                 current
               }
+              id
             }
           }
           methods: allMethodCentralityCsv(limit: 6) {
             nodes {
               method
               label
+              id
             }
           }
         }
@@ -34,7 +36,7 @@ export default function SideNav() {
             <li className={[s.primary, s.search].join(' ')}><a href="/#site-search"><BiSearch />Search</a></li>
             <li className={[s.primary, s.howTo].join(' ')}><Link to="/how-to-use"><AiOutlineBulb />How to Use This Site</Link></li>
             <li className={[s.dropdown, s.primary].join(' ')}>
-              <button type="button" class="dropdown-toggle">Top Methods<FiChevronDown /></button>
+              <button type="button" className="dropdown-toggle">Top Methods<FiChevronDown /></button>
               <ul>
                 {data.methods.nodes.map(link => (
                   <li key={link.id}>
@@ -47,7 +49,7 @@ export default function SideNav() {
               </ul>
             </li>
             <li className={[s.dropdown, s.primary].join(' ')}>
-              <button type="button" class="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
+              <button type="button" className="dropdown-toggle">UX Disciplines<FiChevronDown /></button>
               <ul>
                 {data.disciplines.nodes.map(link => (
                   <li key={link.id}>

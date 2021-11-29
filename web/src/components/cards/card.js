@@ -12,7 +12,7 @@ const Card = ({ content, style }) => {
   return (
     <Grid style={style}>
     {content.map(resource => (
-      <li className={cardStyle}>
+      <li className={cardStyle} key={resource.id}>
         <Link to={`/${resource._type}/${resource.title.replaceAll(" ","")}`}>
           <SanityImage {...resource.heroImage} width={500} alt=""/>
           <div>

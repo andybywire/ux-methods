@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 import SanityImage from "gatsby-plugin-sanity-image"
 import Grid from "./grid"
 import * as s from "./compactCard.module.scss"
@@ -9,7 +8,7 @@ const ResourceCard = ({ content }) => {
   return(
     <Grid>
     {content.map(resource => (
-      <li className={[s.card, s.resource].join(' ')}>
+      <li className={[s.card, s.resource].join(' ')} key={resource.id}>
         {/* replace with proper local URI */}
         <a href={resource.resourceUrl}>
           <SanityImage {...resource.resourceImage} width={500} alt=""/>

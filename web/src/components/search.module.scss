@@ -62,6 +62,7 @@ section.search {
     font-family: $header;
     font-weight: 600;
     font-size: 1.5rem;
+    cursor: pointer;
     // @include breakpoint(medium) {
     //   grid-area: 1 / 5 / 1 / 4;
     //   margin-bottom: 0;

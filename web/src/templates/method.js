@@ -61,7 +61,7 @@ export default function MethodPage({data, data: { method }}) {
             <p>Card Sorting typically produces insight and solutions focused on these areas:</p>
             <ul>
             {data.method.transputReference.outputReference.map(output => (
-              <li>
+              <li key={output.id}>
                 <h3>{output.prefLabel}</h3>
                 <p>{output.definition}</p>
               </li>
@@ -96,6 +96,7 @@ query($slug: String!, $uri: String!) {
     uri {
       current
     }
+    id
     metaDescription
     overview: _rawOverview(resolveReferences: {maxDepth: 10})
     steps: _rawSteps(resolveReferences: {maxDepth: 10})
@@ -135,6 +136,7 @@ query($slug: String!, $uri: String!) {
         current
       }
       _type
+      id
       heroImage {
         ...ImageWithPreview
         _rawAsset(resolveReferences: {maxDepth: 10})
@@ -149,6 +151,7 @@ query($slug: String!, $uri: String!) {
         pubName
       }
       author
+      id
       resourceImage {
         ...ImageWithPreview
         _rawAsset(resolveReferences: {maxDepth: 10})
