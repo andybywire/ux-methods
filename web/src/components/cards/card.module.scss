@@ -1,76 +1,31 @@
-@import '../../style/variables.scss';
+@import '../../style/variables.scss',
+        './card.scss';
 
 li.card {
   display: flex;
   flex-direction: column;
-  list-style: none;
-  max-width: $card-max;
-  background-color: $background;
-  border-radius: 5px;
-  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
-  transition: 0.25s ease-in;
-  border: 0;
-  &:hover {
-      // background-color: $background;
-      box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
-      transition: 0.25s ease-in;
-  }
   img {
     height: 225px;
     width: 100%;
-    object-fit: cover;
     border-radius: 5px 5px 0 0;
-    // transition: width 0.25s ease-in;
-    // wrap in figure for these hover transitions:
-    // -webkit-transform: scale(1);
-    // transform: scale(1);
-    // -webkit-transition: .3s ease-in-out;
-    // transition: .3s ease-in-out;
-    // also consider revealing data — centrality?
   }
   div {
     padding: 0 .75rem .75rem;
     p {
       margin: .25rem 0;
-      color: $gray-text;
       font-size: 90%;
       line-height: 1.25;
     }
   }
   a {
     overflow: hidden;
-    &:hover {
-      img {
-        // -webkit-transform: scale(1.1);
-        // transform: scale(1.1);
-        // width: 105%;
-        // transition: width 0.25s ease-in;
-      }  // border: 2px solid rgba(43, 182, 252, .8);
-        // transition: border 0.25s ease-in;
-    }
   }
 }
 li.dark {
-  background-color: $card-background;
-  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
-  transition: 0.1s ease-in;
-  border: 0;
-  h3 {
-    color: $light-text;
-  }
-  &:hover {
-    // background-color: $background;
-    box-shadow:
-      0 0 1px 2px rgba(43, 182, 252, 1),
-      1px 2px 8px rgba(0, 0, 0, 0.75);
-    transition: 0.1s ease-in;
-  }
   div {
     padding: .25rem .75rem .75rem;
     p {
-      color: $light-text;
       line-height: 1.5;
-      font-weight: 300;
     }
   }
 }

@@ -1,0 +1,47 @@
+@import '../../style/variables.scss',
+        '../../style/mixins.scss';
+
+// Shared styles across cards
+li.card {
+  list-style: none;
+  max-width: $card-max;
+  background-color: $background;
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.25s ease-in;
+  border: 0;
+  &:hover {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.25s ease-in;
+  }
+  img {
+    object-fit: cover;
+    // make sure that any pure white images have at least some contrast with the rest of the card:
+    filter: brightness(0.95);
+  }
+  div p {
+    color: $gray-text;
+  }
+}
+li.dark {
+  background-color: $card-background;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.1s ease-in;
+  border: 0;
+  img {
+    filter: none;
+  }
+  h3 {
+    color: $light-text;
+  }
+  &:hover {
+    box-shadow:
+      0 0 1px 2px rgba(43, 182, 252, 1),
+      1px 2px 8px rgba(0, 0, 0, 0.75);
+    transition: 0.1s ease-in;
+  }
+  div p {
+    color: $light-text;
+    font-weight: 300;
+  }
+}

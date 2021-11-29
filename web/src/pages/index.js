@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Search from '../components/search';
 import Card from "../components/cards/card";
@@ -23,13 +23,13 @@ const IndexPage = ({ data }) => {
         <section className="resource-cards">
           <h2>Top UX Methods</h2>
           <div className="full-card">
-            <Card content={topMethodsCards} style="dark"/>
+            <Card content={topMethodsCards} gridStyle="dark"/>
           </div>
           <div className="compact-card">
-            <CompactCard content={topMethodsCards} style="dark"/>
+            <CompactCard content={topMethodsCards} gridStyle="dark"/>
           </div>
           <h2>UX Disciplines</h2>
-          <CompactCard content={data.disciplines.nodes} style="dark"/>
+          <CompactCard content={data.disciplines.nodes} gridStyle="dark"/>
         </section>
       </Layout>
   );
@@ -43,6 +43,7 @@ export const query = graphql`
       nodes {
         label
         method
+        id
       }
     }
     methodCards: allSanityMethod {
@@ -53,6 +54,10 @@ export const query = graphql`
           current
         }
         _type
+        id
+        slug {
+          current
+        }
         heroImage {
           ...ImageWithPreview
           _rawAsset(resolveReferences: {maxDepth: 10})

@@ -1,20 +1,20 @@
-import React from "react"
-import { Link } from "gatsby"
-import SanityImage from "gatsby-plugin-sanity-image"
-import Grid from "./grid"
-import * as s from "./card.module.scss"
+import React from 'react';
+import { Link } from 'gatsby';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import Grid from './grid';
+import * as s from './card.module.scss';
 
-const Card = ({ content, style }) => {
+const Card = ({ content, gridStyle }) => {
 
   const cardStyle =
-    (style === "dark") ? [s.card, s.dark].join(' ') : s.card;
+    (gridStyle === 'dark') ? [s.card, s.dark].join(' ') : s.card;
 
   return (
-    <Grid style={style}>
+    <Grid style={gridStyle}>
     {content.map(resource => (
       <li className={cardStyle} key={resource.id}>
-        <Link to={`/${resource._type}/${resource.title.replaceAll(" ","")}`}>
-          <SanityImage {...resource.heroImage} width={500} alt=""/>
+        <Link to={`/${resource._type}/${resource.slug.current}`}>
+          <SanityImage {...resource.heroImage} width={500} alt=''/>
           <div>
             <h3>{resource.title}</h3>
             <p>{resource.metaDescription}</p>

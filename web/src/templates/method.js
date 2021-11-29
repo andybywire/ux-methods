@@ -135,6 +135,9 @@ query($slug: String!, $uri: String!) {
       uri {
         current
       }
+      slug: slug {
+        current
+      }
       _type
       id
       heroImage {

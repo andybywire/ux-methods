@@ -1,20 +1,9 @@
-@import '../../style/variables.scss';
-@import '../../style/mixins.scss';
+@import '../../style/variables.scss',
+        '../../style/mixins.scss',
+        './card.scss';
 
 li.card {
-  list-style: none;
-  max-width: $card-max;
   min-height: 6rem;
-  background-color: $background;
-  border-radius: 5px;
-  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
-  transition: 0.25s ease-in;
-  border: 0;
-  &:hover {
-      // background-color: $background;
-      box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
-      transition: 0.25s ease-in;
-  }
   a {
     display: flex;
     height: 100%;
@@ -23,13 +12,11 @@ li.card {
   }
   img {
     width: 30%;
-    object-fit: cover;
     border-radius: 5px 0 0 5px;
   }
   div {
     padding: .5rem;
     p {
-      color: $gray-text;
       line-height: 1.33;
       margin: .1rem 0 0 0;
       @include breakpoint(med-lg) {
@@ -38,31 +25,11 @@ li.card {
     }
   }
 }
-
 li.dark {
-  background-color: $card-background;
-  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
-  transition: 0.1s ease-in;
-  border: 0;
-  h3 {
-    color: $light-text;
-  }
-  &:hover {
-    // background-color: $background;
-    box-shadow:
-      0 0 1px 2px rgba(43, 182, 252, 1),
-      1px 2px 8px rgba(0, 0, 0, 0.75);
-    transition: 0.1s ease-in;
-  }
   div {
     padding-left: .75rem;
-    p {
-      color: $light-text;
-      font-weight: 300;
-    }
   }
 }
-
 .resource {
   h3 {
     font-size: 1rem;
