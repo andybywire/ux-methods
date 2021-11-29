@@ -10,7 +10,7 @@ $body: 'Hind', Arial, sans-serif;
 $dark-background: #151B1E;
 $card-background: #182125; // ✅
 $background: #FFFFFF; // ✅
-$text: #151B1E;
+$text: #151B1E; // ✅
 $light-text: #F9FAFB; // ✅
 $light-gray-text: #D3DBDF;
 $gray-text: #606F76; // ✅
@@ -27,13 +27,13 @@ $alert-dark-bg: #FC9412;
 
 // Grid
 $max-width: 1140px;
-$card-min: 330px; // min for width + padding on iPhone 6: 342, 330 is better for some Android phones. To update once I have a more definitive list.
+$card-min: 330px; // min for width + padding on iPhone 6: 342, 330 is better for some Android phones. To update once I have a more definitive list. // ✅
 $card-max: 375px; // ✅
 
 // Breakpoints
 $breakpoints: (
   // 'small':  375px,
-  'medium': 600px,
+  'medium': 600px, // ✅
   'med-lg': 800px, // ✅
   'large':  1000px
 ) !default;
