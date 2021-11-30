@@ -1,4 +1,5 @@
-@import '../style/variables.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
 .side-nav {
   height: 100%;
@@ -17,6 +18,9 @@
   svg {
     width: 1.75rem;
     height: auto;
+  }
+  @include breakpoint(med-lg) {
+    display: none;
   }
 }
 
@@ -57,7 +61,7 @@ ul.navint {
   .dropdown {
     button {
       padding: 0;
-      color: $light-text; // maybe not needed?
+      color: $light-text;
       background-color: inherit;
       width: 100%;
       line-height: inherit;
