@@ -46,7 +46,14 @@ a:hover {
   color: $primary-text-link;
   transition: color 0.25s ease-out;
 }
-
+figure {
+  width: 100%;
+  margin: 0;
+  figcaption {
+    color: $gray-text;
+    padding-top: .5rem;
+  }
+}
 // Naviagation Styles
 .dropdown-toggle {
   & svg {

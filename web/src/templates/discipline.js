@@ -52,6 +52,9 @@ query($slug: String!) {
     uri {
       current
     }
+    slug {
+      current
+    }
     metaDescription
     overview: _rawOverview(resolveReferences: {maxDepth: 10})
     heroImage {
@@ -59,11 +62,15 @@ query($slug: String!) {
       _rawAsset(resolveReferences: {maxDepth: 10})
     }
   }
-  methods: allSanityMethod (filter: {disciplinesReference: {elemMatch: {slug: {current: {eq: $slug}}}}}) {
+  methods: allSanityMethod (filter: {disciplinesReference: {elemMatch: {slug: {current: {eq: $slug}}}}}
+                            sort: {fields: title}) {
     nodes {
       title
       metaDescription
       uri {
+        current
+      }
+      slug {
         current
       }
       _type

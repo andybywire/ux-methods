@@ -1,5 +1,5 @@
-@import '../style/variables.scss';
-@import '../style/mixins.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
 footer {
   background-color: $card-background;
@@ -36,13 +36,12 @@ footer {
   .social {
     h1 {
       padding-bottom: 1.5rem;
-      font-size: 1.5rem;
     }
     padding-top: 2rem;
     @include breakpoint(med-lg) {
       order: 3;
       h1 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         padding-bottom: 1rem;
       }
     }
