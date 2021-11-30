@@ -1,5 +1,5 @@
-@import '../style/variables.scss';
-@import '../style/mixins.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
 nav {
   background-color: $card-background;
@@ -58,7 +58,6 @@ nav {
     }
   }
   .has-submenu ul {
-    display: list-item;
     background-color: $card-background;
     overflow: hidden;
     height: initial;

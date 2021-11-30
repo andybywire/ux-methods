@@ -54,6 +54,17 @@ figure {
     padding-top: .5rem;
   }
 }
+.show-on-focus {
+  position: absolute;
+  &:focus, &:active {
+    position: static;
+    display: block;
+    padding: 1rem 1rem 0;
+    background-color: $card-background;
+    color: $primary-dark-bg;
+    font-weight: bold;
+  }
+}
 // Naviagation Styles
 .dropdown-toggle {
   & svg {
@@ -61,6 +72,7 @@ figure {
     transition: transform .25s ease-in; // closing transition
   }
   + ul {
+      display: none;
       max-height: 0px;
       transition: max-height .25s ease-in; // closing transition
   }
@@ -71,6 +83,7 @@ figure {
     transition: transform .25s ease-in; // opening transition
   }
   & + ul {
+      display: list-item;
       max-height: 400px;
       transition: max-height .25s ease-in; // opening transition
   }

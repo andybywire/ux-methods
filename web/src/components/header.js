@@ -11,7 +11,6 @@ export default function Header() {
         query NavQuery {
           site: sanitySiteSettings {
             title
-            description
           }
           disciplines: allSanityDiscipline(sort: {order: ASC, fields: title}) {
             nodes {
@@ -61,10 +60,7 @@ export default function Header() {
             </li>
             <li><Link to="/about">About</Link></li>
             <li className={s.searchIcon}><a href="/#site-search" aria-label="Search this site"><BiSearch /></a></li>
-            {/*<li><Link to="/">Participate</Link></li>*/}
           </ul>
-
-          {/*<button className={s.searchIcon} type="button" aria-label="Search this site"><a href="/#site-search"><BiSearch /></a></button>*/}
 
           <button id="openMenu" className={s.openMenu} aria-label="Open site menu" type="button" ><FiMenu /></button>
         </nav>

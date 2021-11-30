@@ -3,7 +3,7 @@
 // ✅ — denotes variables in use
 
 // Typography
-$header: 'Nunito Sans', Arial, sans-serif;
+$header: 'Nunito Sans', Arial, sans-serif; // ✅
 $body: 'Hind', Arial, sans-serif;
 
 // Colors
@@ -14,9 +14,9 @@ $text: #151B1E; // ✅
 $light-text: #F9FAFB; // ✅
 $light-gray-text: #D3DBDF;
 $gray-text: #606F76; // ✅
-$gray-text-dark-bg: #94A2A8;
+$gray-text-dark-bg: #94A2A8; // ✅
 $primary: #28B7FF;
-$primary-dark-bg: #2BB6FC;
+$primary-dark-bg: #2BB6FC; // ✅
 $primary-text-link: #0073ad;
 
 // these might not be used:

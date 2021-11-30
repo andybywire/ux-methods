@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import * as s from './footer.module.scss';
 import PortableText from './portableText';
 import CreativeCommons from '../images/svg/creativeCommons.svg';
