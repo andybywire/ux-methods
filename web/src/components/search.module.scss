@@ -1,5 +1,5 @@
-@import '../style/variables.scss';
-@import '../style/mixins.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
 section.search {
   margin-bottom: 2rem;
@@ -35,13 +35,14 @@ section.search {
       transition: opacity 0.3s;
     }
     &:focus {
-      outline: none; //rework this for accessibility; cf. answerthepublic
+      outline: none;
       &::placeholder {
         opacity: 0;
         transition: opacity 0.3s;
       }
     }
     @include breakpoint(medium) {
+      // row start / column start / row end / column end
       grid-area: 1 / 1 / 1 / 4;
     }
   }
@@ -54,19 +55,15 @@ section.search {
       grid-area: 2 / 1 / 2 / 4;
     }
   }
-  button {       // DRY this styling out
+  button {
     background-color: $primary-dark-bg;
     color: $light-text;
-    padding: 14px;
+    padding: 1rem;
     border: none;
     font-family: $header;
     font-weight: 600;
     font-size: 1.5rem;
     cursor: pointer;
-    // @include breakpoint(medium) {
-    //   grid-area: 1 / 5 / 1 / 4;
-    //   margin-bottom: 0;
-    // }
     &[type=submit] {
       width: 100%;
       border-radius: 5px;
@@ -132,5 +129,4 @@ section.search {
       }
     }
   }
-
 }

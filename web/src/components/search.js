@@ -50,18 +50,14 @@ export default function Search() {
         </section>
       }
       {results.length === 0 && window.location.search &&
-        <p>Sorry, "{searchQuery}" returned no results.</p>
+        <section className={s.searchResults}>
+          <p>Sorry, "{searchQuery}" returned no results.</p>
+          <button type="reset" onClick={() => {
+            setSearchQuery('');
+            query && (window.location.href = '/');
+          }}><MdClose /></button>
+        </section>
       }
-
-
-      {/*{JSON.stringify(results, null, 2)}*/}
-
     </section>
   );
 }
-
-// https://www.emgoto.com/react-search-bar/
-//  --> revisit to integrate A11y unit tests.
-// https://www.emgoto.com/gatsby-search/
-// https://github.com/angeloashmore/gatsby-plugin-local-search
-// https://github.com/angeloashmore/react-use-flexsearch

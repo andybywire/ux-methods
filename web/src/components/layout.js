@@ -1,7 +1,7 @@
-import React, { useEffect} from 'react'
-import SideNav from './sideNav'
-import Header from './header'
-import Footer from './footer'
+import React, { useEffect} from 'react';
+import SideNav from './sideNav';
+import Header from './header';
+import Footer from './footer';
 
 const Layout = ({layoutClass, children}) => {
 
@@ -17,7 +17,7 @@ const Layout = ({layoutClass, children}) => {
     // Nav Dropdowns
     const dropdowns = document.getElementsByClassName("dropdown-toggle");
     for (var i = 0; i < dropdowns.length; i++) {
-        dropdowns[i].addEventListener('click', function () {
+        dropdowns[i].addEventListener("click", function () {
           if (this.classList.contains("show")) {
             this.classList.remove("show");
             setTimeout(() => this.parentNode.childNodes[1].style.display = "none", 500);
@@ -34,7 +34,7 @@ const Layout = ({layoutClass, children}) => {
 
     // Close dropdown when clicking outside of it
     const main = document.getElementsByTagName("main");
-    main[0].addEventListener('click', function () {
+    main[0].addEventListener("click", function () {
       this.classList.add("test");
       for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].classList.remove("show");
@@ -44,10 +44,10 @@ const Layout = ({layoutClass, children}) => {
 
   return (
     <>
-      <a href="#main-content" className="show-on-focus">Skip to Main Content</a>
+      <a href='#main-content' className='show-on-focus'>Skip to Main Content</a>
       <Header />
       <SideNav />
-      <main className={layoutClass} id="main-content">
+      <main className={layoutClass} id='main-content'>
         {children}
       </main>
       <Footer />
