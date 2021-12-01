@@ -2,9 +2,9 @@
         './normalize.scss',
         './mixins.scss';
 
-html {
-  // scroll-behavior: smooth;  // --> added this for scrolling to search box, but it smooth scrolls page navigation, too, which feels weird.
-}
+// html {
+//   scroll-behavior: smooth;  // --> added this for scrolling to search box, but it smooth scrolls page navigation, too, which feels weird.
+// }
 
 body {
   font-family: $body;
