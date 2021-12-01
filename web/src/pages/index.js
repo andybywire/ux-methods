@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import Search from '../components/search';
 import Card from '../components/cards/card';
@@ -21,11 +21,13 @@ const IndexPage = ({ data }) => {
         <Search />
         <section className='resource-cards'>
           <h2>Top UX Methods</h2>
+          <Link to="/all-methods" className='header-link'>All Methods A-Z</Link>
           <div className='full-card'>
             <Card content={topMethodsCards} gridStyle='dark'/>
           </div>
           <div className='compact-card'>
             <CompactCard content={topMethodsCards} gridStyle='dark'/>
+            <Link to="/all-methods" className='list-link'>All Methods A-Z</Link>
           </div>
           <h2>UX Disciplines</h2>
           <CompactCard content={data.disciplines.nodes} gridStyle='dark'/>

@@ -19,16 +19,3 @@
         + "Available breakpoints are: #{map-keys($breakpoints)}.";
   }
 }
-
-// @mixin card-border($r, $g, $b, $a:1){
-//   border-top: 1px solid rgba($r, $g, $b, 0);
-//   border-right: 1px solid rgba($r, $g, $b, 0);
-//   border-bottom: 1px solid rgba($r, $g, $b, 0);
-//   transition: border 0.25s ease-out;
-//   &:hover {
-//     border-top: 1px solid rgba($r, $g, $b, $a);
-//     border-right: 1px solid rgba($r, $g, $b, $a);
-//     border-bottom: 1px solid rgba($r, $g, $b, $a);
-//     transition: border 0.25s ease-in;
-//   }
-// }

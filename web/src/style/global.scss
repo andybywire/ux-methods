@@ -2,10 +2,6 @@
         './normalize.scss',
         './mixins.scss';
 
-// html {
-//   scroll-behavior: smooth;  // --> added this for scrolling to search box, but it smooth scrolls page navigation, too, which feels weird.
-// }
-
 body {
   font-family: $body;
   font-size: 18px;
@@ -130,7 +126,14 @@ figure {
       padding-bottom: .5rem;
       @include breakpoint(medium) {
         margin-top: 6rem;
+        display: inline-block;
       }
+      @include breakpoint(medium) {
+        width: 70%;
+      }
+    }
+    .header-link {
+      display: none;
     }
     .full-card {
       display: none;
@@ -142,6 +145,15 @@ figure {
       .full-card {
         display: block;
       }
+      .header-link {
+        display: inline-block;
+        width: 30%;
+        text-align: right;
+      }
+    }
+    .list-link {
+      display: block;
+      text-align: right;
     }
   }
   a {

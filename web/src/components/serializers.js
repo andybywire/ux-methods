@@ -1,4 +1,3 @@
-import React from 'react';
 import { Figure } from './figure';
 
 const serializers = {
