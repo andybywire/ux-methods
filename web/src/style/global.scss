@@ -65,6 +65,7 @@ figure {
     font-weight: bold;
   }
 }
+
 // Naviagation Styles
 .dropdown-toggle {
   & svg {
@@ -156,5 +157,9 @@ figure {
   }
   .links {
     font-weight: 300;
+  }
+  .headline .display {
+    display: block;
+    width: 100%;
   }
 }
