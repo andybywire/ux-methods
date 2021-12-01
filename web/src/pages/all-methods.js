@@ -1,14 +1,13 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
-import Card from "../components/cards/card";
-import CompactCard from "../components/cards/compactCard";
+import CompactCard from '../components/cards/compactCard';
 
 const AllMethods = ({ data }) => {
 
   return (
       <Layout>
-        <section className="resource-cards">
+        <section className='resource-cards'>
           <h2>UX Methods A-Z</h2>
           <CompactCard content={data.methodCards.nodes} />
         </section>
@@ -25,6 +24,9 @@ export const query = graphql`
         title
         metaDescription
         uri {
+          current
+        }
+        slug {
           current
         }
         _type

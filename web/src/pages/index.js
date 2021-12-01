@@ -2,11 +2,10 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Search from '../components/search';
-import Card from "../components/cards/card";
-import CompactCard from "../components/cards/compactCard";
+import Card from '../components/cards/card';
+import CompactCard from '../components/cards/compactCard';
 
 const IndexPage = ({ data }) => {
-
   const topMethods = data.topMethods.nodes.map(method => method.label);
   const topMethodsCards = topMethods.map(topMethodLabel => {
     const card = data.methodCards.nodes.find(card =>
@@ -15,21 +14,21 @@ const IndexPage = ({ data }) => {
 
   return (
       <Layout layoutClass='index'>
-        <section className="headline">
+        <section className='headline'>
           <h1>{data.site.tagline}</h1>
-          <p className="display">{data.site.description}</p>
+          <p className='display'>{data.site.description}</p>
         </section>
         <Search />
-        <section className="resource-cards">
+        <section className='resource-cards'>
           <h2>Top UX Methods</h2>
-          <div className="full-card">
-            <Card content={topMethodsCards} gridStyle="dark"/>
+          <div className='full-card'>
+            <Card content={topMethodsCards} gridStyle='dark'/>
           </div>
-          <div className="compact-card">
-            <CompactCard content={topMethodsCards} gridStyle="dark"/>
+          <div className='compact-card'>
+            <CompactCard content={topMethodsCards} gridStyle='dark'/>
           </div>
           <h2>UX Disciplines</h2>
-          <CompactCard content={data.disciplines.nodes} gridStyle="dark"/>
+          <CompactCard content={data.disciplines.nodes} gridStyle='dark'/>
         </section>
       </Layout>
   );
