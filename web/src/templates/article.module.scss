@@ -1,68 +1,67 @@
-@import '../style/variables.scss';
-@import '../style/mixins.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
-section {
+article.article {
   padding: 1rem;
   @include breakpoint(med-lg) {
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 2rem;
   }
-  &.article {
+  .hero {
+    margin: -1rem -1rem 1rem;
     @include breakpoint(med-lg) {
-      display: flex;
-      flex-wrap: wrap;
+      margin: 1rem 0 0;
+      order: 3;
+      width: 30%;
     }
-    .hero {
-      margin: -1rem -1rem 1rem;
+    img {
+      width: 100%;
+      object-fit: cover;
       @include breakpoint(med-lg) {
-        margin: 1rem 0 0;
-        order: 3;
-        width: 30%;
-      }
-      img {
-        // height: 225px;
-        width: 100%;
-        object-fit: cover;
-        @include breakpoint(med-lg) {
-          border-radius: 5px;
-        }
-      }
-      p, a {
-        color: $gray-text;
-      }
-      p {
-        text-align: right;
-        font-size: 75%;
-        margin: -.25rem 1rem .25rem;
-        @include breakpoint(med-lg) {
-          margin-right: 0;
-        }
-
+        border-radius: 5px;
       }
     }
-    .header {
-      @include breakpoint(med-lg) {
-        order: 1;
-        width: 100%;
-        padding-top: 1.3rem;
-      }
-      h1 {
-        font-size: 40px;
-        line-height: 48px;
-        display: flex;
-        flex-direction: column-reverse;
-      }
+    p, a {
+      color: $gray-text;
     }
-    .body {
+    p {
+      text-align: right;
+      font-size: 75%;
+      margin: -.25rem 1rem .25rem;
       @include breakpoint(med-lg) {
-        order: 2;
-        width: 70%;
-        * {
-          padding-right: 2rem;
-        }
-      }
-      ul, ol {
-        padding-left: 1.5rem;
+        margin-right: 0;
       }
     }
   }
+  .header {
+    @include breakpoint(med-lg) {
+      order: 1;
+      width: 100%;
+      padding-top: 1.3rem;
+    }
+    h1 {
+      font-size: 40px;
+      line-height: 48px;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+  .body {
+    @include breakpoint(med-lg) {
+      order: 2;
+      width: 70%;
+      * {
+        padding-right: 2rem; // ensure that all portable text blocks have right padding in multi-column view.
+      }
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+      line-height: initial;
+      li {
+        padding-bottom: 1rem;
+      }
+    }
+  }
+  
 }
