@@ -41,8 +41,6 @@ export const query = graphql`
     topMethods: allMethodCentralityCsv(limit: 6) {
       nodes {
         label
-        method
-        id
       }
     }
     methodCards: allSanityMethod {
@@ -62,17 +60,6 @@ export const query = graphql`
           _rawAsset(resolveReferences: {maxDepth: 10})
         }
       }
-    }
-    methods: allSanityMethod (sort: {fields: title}) {
-      nodes {
-        title
-        slug {
-          current
-        }
-        id
-        metaDescription
-      }
-      totalCount
     }
     disciplines: allSanityDiscipline (sort: {fields: title}) {
       nodes {
