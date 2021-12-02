@@ -1,8 +1,6 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV || "development"}`,
-});
+require("dotenv").config(); // cf. Gatsby's use of .env.dev/.env.prod — may need to add more specific path
 
-const clientConfig = require("./client-config");
+const clientConfig = require("./client-config"); // may not be necessary, since I'm using dotenv
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -17,7 +15,7 @@ module.exports = {
       options: {
         projectId: "4g5tw1k0",
         dataset: "production",
-        watchMode: true,
+        watchMode: true, // !isProd, --> sets watchMode only in developmnet
         overlayDrafts: true,
         token: process.env.WEB_PREVIEW_TOKEN
       },
