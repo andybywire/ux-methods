@@ -1,1 +1,0 @@
-Preview currently uses Gatsby localhost address, leveraging the HMR module for live updates. This works in development, but will not work on the production server. For previews in production, consider integrating the previewTemplate.js here, which uses the Javascript client to display draft updates to unpublished content.
