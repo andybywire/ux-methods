@@ -124,12 +124,12 @@ figure {
   }
   .resource-cards {
     h2 {
-      margin-top: 4rem;
+      margin-top: 6rem;
       font-size: 1.5rem;
       font-weight: 600;
       padding-bottom: .5rem;
       @include breakpoint(medium) {
-        margin-top: 6rem;
+        margin-top: 8rem;
         display: inline-block;
       }
       @include breakpoint(medium) {
@@ -163,6 +163,10 @@ figure {
   a {
     color: $light-text;
   }
+}
+
+.resource-cards {
+  padding: 1rem 1rem 5rem;
 }
 
 // 404 page Styles

@@ -2,13 +2,14 @@
         '../style/mixins.scss';
 
 section.search {
+  padding-top: 3rem;
   margin-bottom: 2rem;
   // scroll site search into view from Search anchor link:
-  padding-top: 80px;
-  margin-top: -90px;
+  // padding-top: 80px;
+  // margin-top: -80px;
   @include breakpoint(medium) {
-    padding-top: 100px;
-    margin-top: -100px;
+    // padding-top: 100px;
+    // margin-top: -100px;
   }
   form {
     @include breakpoint(medium) {
@@ -109,6 +110,7 @@ section.search {
     }
     li {
       list-style: none;
+      padding-bottom: 1.5rem;
       span {
         font-size: 1rem;
       }
