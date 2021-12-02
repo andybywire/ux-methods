@@ -1,16 +1,14 @@
-import React from "react"
-import { graphql } from "gatsby"
-import * as s from "./method.module.scss"
+import React from 'react'
+import { graphql } from 'gatsby'
+import * as s from './method.module.scss'
 import Layout from '../components/layout'
-import SanityImage from "gatsby-plugin-sanity-image"
-import PortableText from "../components/portableText"
-import Card from "../components/cards/card"
-import CompactCard from "../components/cards/compactCard"
-import ResourceCard from "../components/cards/resourceCard"
+import SanityImage from 'gatsby-plugin-sanity-image'
+import PortableText from '../components/portableText'
+import Card from '../components/cards/card'
+import CompactCard from '../components/cards/compactCard'
+import ResourceCard from '../components/cards/resourceCard'
 
 export default function MethodPage({data, data: { method }}) {
-
-  // Consider moving these transformation methods into gatsby-node.js
 
   // Get methods which provide input for the current method
   const inputMethods = data.input.nodes.map(item => item.methodA);
@@ -20,7 +18,6 @@ export default function MethodPage({data, data: { method }}) {
   const inputCards = data.cards.nodes.filter(card => inputMethods.includes(card.uri.current));
 
   // Get related methods for which the current method's outputs provide inputs
-  // -> future need: sort by sharedTransput count
   const relatedMethods = data.allSharedTransputCsv.nodes.map(item => item.methodB);
 
   // Filter method cards to only those on the relatedMethods list
@@ -28,11 +25,11 @@ export default function MethodPage({data, data: { method }}) {
 
   return (
     <Layout>
-      <article>
+      <article className={s.method}>
         <section className={s.overview}>
           <div className={s.hero}>
-            <SanityImage {...method.heroImage} width={500} alt=""/>
-            <p>Photo by <a href={method.heroImage._rawAsset.source.url}>{method.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>
+            <SanityImage {...method.heroImage} width={500} alt=''/>
+            <p>Photo by <a href={method.heroImage._rawAsset.source.url} tabIndex='-1'>{method.heroImage._rawAsset.creditLine.replace(' by ',' via ')}</a></p>
           </div>
           <div className={s.header}>
             <h1>
@@ -47,10 +44,9 @@ export default function MethodPage({data, data: { method }}) {
         {inputCards.length !== 0 &&
         <section>
           <h2>Preparation</h2>
-          <p>Card Sorting is often more effective when it is informed by these complementary methods.</p>
+          <p>{method.title} is often more effective when it is informed by these complementary methods.</p>
           <CompactCard content={inputCards} />
-        </section>
-        }
+        </section>}
         <section className={s.details}>
           <div className={s.steps}>
             <h2>Steps</h2>
@@ -58,7 +54,7 @@ export default function MethodPage({data, data: { method }}) {
           </div>
           <div className={s.outcomes}>
             <h2>Outcomes</h2>
-            <p>Card Sorting typically produces insight and solutions focused on these areas:</p>
+            <p>{method.title} typically produces insight and solutions focused on these areas:</p>
             <ul>
             {data.method.transputReference.outputReference.map(output => (
               <li key={output.id}>
@@ -73,15 +69,13 @@ export default function MethodPage({data, data: { method }}) {
         <section>
           <h2>{method.title} Resources</h2>
           <ResourceCard content={data.resources.nodes} />
-        </section>
-      }
+        </section>}
       </article>
       {relatedMethods.length !== 0 &&
-      <section className="resource-cards">
+      <section className={[s.resourceCards, 'resource-cards'].join(' ')}>
         <h2>Next Steps</h2>
         <Card content={sharedCards} />
-      </section>
-      }
+      </section>}
     </Layout>
   )
 }

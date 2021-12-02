@@ -91,6 +91,10 @@ figure {
   background-color: $dark-background;
   color: $light-text;
   padding-bottom: 6rem;
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   @include breakpoint(medium) {
     padding-bottom: 10rem;
   }
