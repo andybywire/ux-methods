@@ -1,22 +1,19 @@
-import React from "react"
-import { graphql } from "gatsby"
-import * as s from "./method.module.scss"
-import SanityImage from "gatsby-plugin-sanity-image"
-import PortableText from "../components/portableText"
-import Layout from "../components/layout"
-import Card from "../components/cards/card"
+import React from 'react';
+import { graphql } from 'gatsby';
+import * as s from './method.module.scss';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import PortableText from '../components/portableText';
+import Layout from '../components/layout';
+import Card from '../components/cards/card';
 
 export default function DisciplinePage({data: { discipline }, data: { methods }}) {
 
   return (
     <Layout>
-      <article>
-
-
+      <article className={s.discipline}>
         <section className={[s.overview, s.discipline].join(' ')}>
           <div className={s.hero}>
-            <SanityImage {...discipline.heroImage} width={500} alt=""/>
-            {/*<p>Photo by <a href={discipline.heroImage._rawAsset.source.url}>{discipline.heroImage._rawAsset.creditLine.replace(" by "," via ")}</a></p>*/}
+            <SanityImage {...discipline.heroImage} width={500} alt=''/>
           </div>
           <div className={s.disciplineSummary}>
             <div className={s.header}>
@@ -30,13 +27,11 @@ export default function DisciplinePage({data: { discipline }, data: { methods }}
             </div>
           </div>
         </section>
-
         {methods.length !== 0 &&
         <section>
           <h2>{discipline.title} Methods</h2>
           <Card content={methods.nodes} />
-        </section>
-        }
+        </section>}
       </article>
     </Layout>
   )

@@ -1,5 +1,5 @@
-@import '../style/variables.scss';
-@import '../style/mixins.scss';
+@import '../style/variables.scss',
+        '../style/mixins.scss';
 
 article.method, article.discipline {
   padding: 1rem;
@@ -74,7 +74,7 @@ article.method, article.discipline {
           }
         }
       }
-
+      // discipline template specific styles for the overview section
       &.discipline {
         @include breakpoint(med-lg) {
           align-items: stretch;
