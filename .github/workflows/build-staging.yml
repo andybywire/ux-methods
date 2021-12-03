@@ -12,8 +12,8 @@ jobs:
         - name: Set Up SSH
           run: |
             mkdir -p ~/.ssh/
-            echo "${{ secrets.UXM_DEV_DREAMHOST_SSH_KEY }}" > ~/.ssh/deploy_key
-            sudo chmod 600 ~/.ssh/deploy_key
+            echo "${{ secrets.UXM_DEV_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_dev
+            sudo chmod 600 ~/.ssh/uxm_dev
 
         - name: SFTP Log In Check
-          run: ssh -a ~/.ssh/deploy_key uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
+          run: sftp -a ~/.ssh/uxm_dev uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
