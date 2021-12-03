@@ -22,7 +22,9 @@ export default function Search() {
   
   let query = '';
 
-  if (window.location !== "undefined") { 
+  const isBrowser = typeof window !== "undefined";
+
+  if (isBrowser) { 
     const { search } = window.location;
     query = new URLSearchParams(search).get('search');
   } 
@@ -61,7 +63,7 @@ export default function Search() {
           }}><MdClose /></button>
         </section>
       }
-      {results.length === 0 && window.location.search &&
+      {results.length === 0 && isBrowser && window.location.search &&
         <section className={s.searchResults}>
           <p>Sorry, "{searchQuery}" returned no results.</p>
           <button type="reset" onClick={() => {
