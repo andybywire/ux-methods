@@ -4,36 +4,16 @@ on:
   push: # action needs to run once successfully before worklflow_dispatch will work
   workflow_dispatch:
 
-# Separate out levels into different jobs and set default there — do this once I have a basic, simpler flow working. cf. https://stackoverflow.com/a/69494898/5087128
-# defaults:
-#   run:
-#     working-directory: web
-
 jobs:
   build-and-deploy:
     name: Build and deploy Gatsby site
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout Code
-          uses: actions/checkout@v2.3.1
+        - name: Set Up SSH
+          run: |
+            mkdir -p ~/.ssh/
+            echo "${{ secrets.UXM_DEV_DREAMHOST_SSH_KEY }}" > ~/.ssh/deploy_key
+            sudo chmod 600 ~/.ssh/deploy_key
 
-        - name: Install Node.js
-          uses: actions/setup-node@v1
-          with:
-            node-version: '17.x'
-
-        - name: Install Project Dependencies
-          run: npm ci
-          working-directory: web
-
-        - name: Install Gatsby CLI
-          run: npm install -g gatsby-cli@4.3.0
-          working-directory: web
-
-        - name: Build
-          run: gatsby build
-          working-directory: web
-        
-        - name: Verify build
-          run: ls -la public
-          working-directory: web
+        - name: SFTP Log In Check
+          run: sftp -a ~/.ssh/deploy_key uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
