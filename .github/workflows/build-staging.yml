@@ -14,26 +14,30 @@ jobs:
     name: Build and deploy Gatsby site
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2.3.1
+        - name: Text Branch Workflow
+          run: echo "Here's a test message"
 
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '17.x'
 
-      - name: Install Project Dependencies
-        run: npm ci
-          working-directory: web
+      # - name: Checkout Code
+      #   uses: actions/checkout@v2.3.1
 
-      - name: Install Gatsby CLI
-        run: npm install -g gatsby-cli@4.3.0
-          working-directory: web
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '17.x'
 
-      - name: Build
-        run: gatsby build
-          working-directory: web
+      # - name: Install Project Dependencies
+      #   run: npm ci
+      #     working-directory: web
+
+      # - name: Install Gatsby CLI
+      #   run: npm install -g gatsby-cli@4.3.0
+      #     working-directory: web
+
+      # - name: Build
+      #   run: gatsby build
+      #     working-directory: web
       
-      - name: Verify build
-        run: ls -la public
-          working-directory: web
+      # - name: Verify build
+      #   run: ls -la public
+      #     working-directory: web
