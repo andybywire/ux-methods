@@ -27,7 +27,7 @@ jobs:
 
         - name: Install Project Dependencies
           run: npm ci
-            working-directory: web
+          working-directory: web
 
       # - name: Install Gatsby CLI
       #   run: npm install -g gatsby-cli@4.3.0
