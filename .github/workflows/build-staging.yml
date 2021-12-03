@@ -1,6 +1,7 @@
 name: Build Web & Deploy to Staging
 
 on:
+  push: # action needs to run once successfully before worklflow_dispatch will work
   workflow_dispatch:
 
 # Separate out levels into different jobs and set default there — do this once I have a basic, simpler flow working. cf. https://stackoverflow.com/a/69494898/5087128
