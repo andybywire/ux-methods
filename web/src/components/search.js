@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { useFlexSearch } from 'react-use-flexsearch';
 import { MdClose } from 'react-icons/md';
 import * as s from './search.module.scss';
 
 export default function Search() {
+
+  useEffect(() => {
+    const { search } = window.location;
+    query = new URLSearchParams(search).get('search');
+  });
+
   const data = useStaticQuery(graphql`
     query {
       localSearchPages {
@@ -13,8 +19,14 @@ export default function Search() {
       }
     }
   `);
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('search');
+  
+  let query = '';
+
+  if (window.location !== "undefined") { 
+    const { search } = window.location;
+    query = new URLSearchParams(search).get('search');
+  } 
+
   const [searchQuery, setSearchQuery] = useState(query || '');
   const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
 
