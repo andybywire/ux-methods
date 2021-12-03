@@ -16,4 +16,4 @@ jobs:
             sudo chmod 600 ~/.ssh/uxm_dev
 
         - name: SFTP Log In Check
-          run: sftp -a ~/.ssh/uxm_dev uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
+          run: sftp -i ~/.ssh/uxm_dev uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
