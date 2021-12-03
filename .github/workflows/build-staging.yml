@@ -14,9 +14,6 @@ jobs:
     name: Build and deploy Gatsby site
     runs-on: ubuntu-latest
     steps:
-        - name: Text Branch Workflow
-          run: echo "Here's a test message"
-
         - name: Checkout Code
           uses: actions/checkout@v2.3.1
 
@@ -29,14 +26,14 @@ jobs:
           run: npm ci
           working-directory: web
 
-      # - name: Install Gatsby CLI
-      #   run: npm install -g gatsby-cli@4.3.0
-      #     working-directory: web
+        - name: Install Gatsby CLI
+          run: npm install -g gatsby-cli@4.3.0
+          working-directory: web
 
-      # - name: Build
-      #   run: gatsby build
-      #     working-directory: web
-      
-      # - name: Verify build
-      #   run: ls -la public
-      #     working-directory: web
+        - name: Build
+          run: gatsby build
+          working-directory: web
+        
+        - name: Verify build
+          run: ls -la public
+          working-directory: web
