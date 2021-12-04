@@ -9,7 +9,30 @@ jobs:
     name: Build and deploy Gatsby site
     runs-on: ubuntu-latest
     steps:
-      
+        - name: Checkout Code
+          uses: actions/checkout@v2.3.1
+
+        - name: Install Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: '17.x'
+
+        - name: Install Project Dependencies
+          run: npm ci
+          working-directory: web
+
+        - name: Install Gatsby CLI
+          run: npm install -g gatsby-cli@4.3.0
+          working-directory: web
+
+        - name: Build
+          run: gatsby build
+          working-directory: web
+        
+        - name: Verify build
+          run: ls -la public
+          working-directory: web
+
         - name: Set Up SSH
           run: |
             mkdir -p ~/.ssh/
@@ -18,4 +41,9 @@ jobs:
             ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
 
         - name: SFTP Log In Check
-          run: sftp -i ~/.ssh/uxm_dev uxm_dev@jacksonville.dreamhost.com <<< $'pwd'
+          run: sftp -i ~/.ssh/uxm_dev uxm_dev@jacksonville.dreamhost.com <<< $'cd dev.uxmethods.org \n put -r public/*'
+
+
+# https://www.andrewvillazon.com/automatically-deploying-with-github-actions/
+# https://help.dreamhost.com/hc/en-us/articles/216499537-How-to-configure-passwordless-login-in-Mac-OS-X-and-Linux
+# Tip: get passwordless log-in working on local machine first. 
