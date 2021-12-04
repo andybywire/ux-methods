@@ -70,5 +70,3 @@ yarn.lock
 # Secrets
 .env.development
 .env
-uxm_dev
-uxm_dev.pub
