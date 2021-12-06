@@ -1,4 +1,6 @@
-require("dotenv").config(); // cf. Gatsby's use of .env.dev/.env.prod — may need to add more specific path
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
 const clientConfig = require("./client-config"); // may not be necessary, since I'm using dotenv
 

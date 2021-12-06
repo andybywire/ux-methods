@@ -10,6 +10,7 @@
   "scripts": {
     "clean-cache": "gatsby clean",
     "dev": "gatsby develop -H 0.0.0.0",
+    "staging": "GATSBY_STAGING=true gatsby develop",
     "lint": "eslint .",
     "format": "prettier-eslint --write \"**/*.js\" \"!.cache/**\" \"!node_modules/**\" \"!public/**\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
