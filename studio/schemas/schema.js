@@ -23,9 +23,10 @@ import referencedOutput from './objects/referencedOutput'
 import describedMethod  from './objects/describedMethod'
 import publisher from './objects/publisher'
 import conceptScheme from './concepts/conceptScheme'
-import sources from './objects/sources'
+import source from './objects/source'
 import credit from './objects/credit'
 import socialMedia from './objects/socialMedia'
+import dateStamps from './objects/dateStamps'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -52,8 +53,9 @@ export default createSchema({
     bodyPortableText,
     bodyImage,
     heroImage,
-    sources,
+    source,
     credit,
-    socialMedia
+    socialMedia,
+    dateStamps
   ]),
 })

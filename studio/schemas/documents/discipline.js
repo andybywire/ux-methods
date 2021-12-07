@@ -34,6 +34,11 @@ export default {
       }
     },
     {
+      name: 'dateStamps',
+      type: 'dateStamps',
+      title: 'Creation & Revision Dates'
+    },
+    {
       name: 'metaDescription',
       type: 'text',
       title: 'Short Description',

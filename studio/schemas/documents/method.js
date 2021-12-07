@@ -34,6 +34,11 @@ export default {
       }
     },
     {
+      name: 'dateStamps',
+      type: 'dateStamps',
+      title: 'Creation & Revision Dates'
+    },
+    {
       name: 'metaDescription',
       type: 'text',
       title: 'Short Description',
@@ -59,8 +64,9 @@ export default {
     },
     {
       name: 'overviewSources',
-      type: 'sources',
-      title: 'Overview Sources'
+      type: 'array',
+      title: 'Overview Sources',
+      of: [{ type: 'source'}]
     },
     {
       name: 'steps',
@@ -69,8 +75,9 @@ export default {
     },
     {
       name: 'stepSources',
-      type: 'sources',
-      title: 'Step Sources'
+      type: 'array',
+      title: 'Step Sources',
+      of: [{ type: 'source'}]
     },
     {
       name: 'transputReference',

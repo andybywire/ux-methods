@@ -1,12 +1,13 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import * as s from './method.module.scss'
-import Layout from '../components/layout'
-import SanityImage from 'gatsby-plugin-sanity-image'
-import PortableText from '../components/portableText'
-import Card from '../components/cards/card'
-import CompactCard from '../components/cards/compactCard'
-import ResourceCard from '../components/cards/resourceCard'
+import React from 'react';
+import { graphql } from 'gatsby';
+import * as s from './method.module.scss';
+import Layout from '../components/layout';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import PortableText from '../components/portableText';
+import Card from '../components/cards/card';
+import CompactCard from '../components/cards/compactCard';
+import ResourceCard from '../components/cards/resourceCard';
+import { FiExternalLink } from 'react-icons/fi';
 
 export default function MethodPage({data, data: { method }}) {
 
@@ -40,6 +41,12 @@ export default function MethodPage({data, data: { method }}) {
           </div>
           <div className={s.description}>
             <PortableText blocks={method.overview} />
+            {method.overviewSources.length === 1 && 
+              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a></p>}
+            {method.overviewSources.length === 2 && 
+              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a> and <a href={method.overviewSources[1].source}>{method.overviewSources[1].name}<FiExternalLink /></a></p>}
+            {method.overviewSources.length > 2 && 
+              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a>, <a href={method.overviewSources[1].source}>{method.overviewSources[1].name}<FiExternalLink /></a>, and <a href={method.overviewSources[2].source}>{method.overviewSources[2].name}<FiExternalLink /></a></p>}  
           </div>
         </section>
         {inputCards.length !== 0 &&
@@ -52,6 +59,12 @@ export default function MethodPage({data, data: { method }}) {
           <div className={s.steps}>
             <h2>Steps</h2>
             <PortableText blocks={method.steps} />
+            {method.stepSources.length === 1 && 
+              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a></p>}
+            {method.stepSources.length === 2 && 
+              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a> and <a href={method.stepSources[1].source}>{method.stepSources[1].name}<FiExternalLink /></a></p>}
+            {method.stepSources.length > 2 && 
+              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a>, <a href={method.stepSources[1].source}>{method.stepSources[1].name}<FiExternalLink /></a>, and <a href={method.stepSources[2].source}>{method.stepSources[2].name}<FiExternalLink /></a></p>}  
           </div>
           <div className={s.outcomes}>
             <h2>Outcomes</h2>
@@ -94,7 +107,15 @@ query($slug: String!, $uri: String!) {
     id
     metaDescription
     overview: _rawOverview(resolveReferences: {maxDepth: 10})
+    overviewSources {
+      name
+      source
+    }
     steps: _rawSteps(resolveReferences: {maxDepth: 10})
+    stepSources {
+      name
+      source
+    }
     heroImage {
       ...ImageWithPreview
       _rawAsset(resolveReferences: {maxDepth: 10})

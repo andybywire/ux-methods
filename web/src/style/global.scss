@@ -164,12 +164,22 @@ figure {
     color: $light-text;
   }
 }
-
 .resource-cards {
   padding: 1rem 1rem 5rem;
 }
 
-// 404 page Styles
+// Method & Discipline shared styles
+.source-link {
+  font-size: 90%;
+  svg {
+    position: relative;
+    top: .1rem;
+    text-decoration: none;
+    padding-left: .25rem;
+  }
+}
+
+// 404 page styles
 .not-found {
   padding-bottom: 8rem;
   a:hover {
