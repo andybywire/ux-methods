@@ -15,6 +15,7 @@ main {
 article,
 section.resource-cards,
 section.search,
+section.admin-metadata,
 footer > section {
   margin: 0 auto;
   max-width: $max-width;
@@ -165,18 +166,42 @@ figure {
   }
 }
 .resource-cards {
-  padding: 1rem 1rem 5rem;
+  padding: 1rem 1rem 3rem;
+}
+.admin-metadata {
+  padding: 1rem;
+  font-size: 90%;
+  
+  @include breakpoint(full) {
+    padding: 1rem 0 2rem;
+  }
+  h1 {
+    font-size: 1.5rem;
+    border-top: 1px solid $light-gray-text;
+    padding-top: 0.5rem;
+    @include breakpoint(medium) {
+      width: 50%;
+    }
+    @include breakpoint(large) {
+      width: 33%
+    }
+  }
+  p {
+    padding-top: 1rem;
+    font-style: italic;
+  }
+  svg {
+    position: relative;
+    top: 2px;
+    padding-left: 0.25rem;
+  }
 }
 
 // Method & Discipline shared styles
-.source-link {
-  font-size: 90%;
-  svg {
-    position: relative;
-    top: .1rem;
-    text-decoration: none;
-    padding-left: .25rem;
-  }
+.citation {
+  font-size: 70%;
+  vertical-align: top;
+  padding-left: .25rem;
 }
 
 // 404 page styles

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { graphql } from 'gatsby';
 import * as s from './method.module.scss';
 import Layout from '../components/layout';
@@ -24,6 +24,40 @@ export default function MethodPage({data, data: { method }}) {
   // Filter method cards to only those on the relatedMethods list
   const sharedCards = data.cards.nodes.filter(card => relatedMethods.includes(card.uri.current));
 
+  const overviewCite = method.overviewSources;
+  const stepCite = method.stepSources;
+  const citations = overviewCite.concat(stepCite);
+
+  const overviewCiteList = overviewCite.map((citation) => {
+      const citationIndex = overviewCite.findIndex(i => i.name === citation.name);
+      const citeNumber = citationIndex + 1;
+      return (`<a href="#source${citeNumber}">[${citeNumber}]</a>`)
+    });
+
+  const stepCiteList = stepCite.map((citation) => {
+    const citationIndex = stepCite.findIndex(i => i.name === citation.name);
+    const citeNumber = citationIndex + 1 + overviewCite.length;
+    return (`<a href="#source${citeNumber}">[${citeNumber}]</a>`)
+  });
+
+  // Get last update date, convert to date, and specify options
+  const latestUpdate = new Date(method.dateStamps.revisedAt || method.dateStamps.createdAt);
+  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+  // Add citation footnote references to description  
+  useEffect(() => {
+    const description = document.getElementById("description").childNodes[0].lastChild;
+    const insertedText = `<span class="citation">${overviewCiteList.join(' ')}</span>`;
+    description.insertAdjacentHTML('beforeend', insertedText);
+  }, []);
+
+  // Add citation footnote references to steps
+  useEffect(() => {
+    const steps = document.getElementById("steps").getElementsByTagName("OL")[0].lastChild;
+    const insertedText = `<span class="citation">${stepCiteList.join(' ')}</span>`;
+    steps.insertAdjacentHTML('beforeend', insertedText);
+  }, []); 
+
   return (
     <Layout>
       <article className={s.method}>
@@ -39,14 +73,8 @@ export default function MethodPage({data, data: { method }}) {
               <span>Method</span>
             </h1>
           </div>
-          <div className={s.description}>
-            <PortableText blocks={method.overview} />
-            {method.overviewSources.length === 1 && 
-              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a></p>}
-            {method.overviewSources.length === 2 && 
-              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a> and <a href={method.overviewSources[1].source}>{method.overviewSources[1].name}<FiExternalLink /></a></p>}
-            {method.overviewSources.length > 2 && 
-              <p className="source-link">Adapted from <a href={method.overviewSources[0].source}>{method.overviewSources[0].name}<FiExternalLink /></a>, <a href={method.overviewSources[1].source}>{method.overviewSources[1].name}<FiExternalLink /></a>, and <a href={method.overviewSources[2].source}>{method.overviewSources[2].name}<FiExternalLink /></a></p>}  
+          <div id="description" className={s.description}>
+            <PortableText blocks={method.overview} />                  
           </div>
         </section>
         {inputCards.length !== 0 &&
@@ -56,15 +84,9 @@ export default function MethodPage({data, data: { method }}) {
           <CompactCard content={inputCards} />
         </section>}
         <section className={s.details}>
-          <div className={s.steps}>
+          <div id="steps" className={s.steps}>
             <h2>Steps</h2>
             <PortableText blocks={method.steps} />
-            {method.stepSources.length === 1 && 
-              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a></p>}
-            {method.stepSources.length === 2 && 
-              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a> and <a href={method.stepSources[1].source}>{method.stepSources[1].name}<FiExternalLink /></a></p>}
-            {method.stepSources.length > 2 && 
-              <p className="source-link">Adapted from <a href={method.stepSources[0].source}>{method.stepSources[0].name}<FiExternalLink /></a>, <a href={method.stepSources[1].source}>{method.stepSources[1].name}<FiExternalLink /></a>, and <a href={method.stepSources[2].source}>{method.stepSources[2].name}<FiExternalLink /></a></p>}  
           </div>
           <div className={s.outcomes}>
             <h2>Outcomes</h2>
@@ -90,6 +112,16 @@ export default function MethodPage({data, data: { method }}) {
         <h2>Next Steps</h2>
         <Card content={sharedCards} />
       </section>}
+      <section className="admin-metadata">
+        <h1>References</h1>
+        {citations.length > 0 && 
+          <ol>
+            {citations.map((item, index) => 
+              <li id={"source" + (index + 1)}><a href={item.source}>{item.name} <FiExternalLink /></a></li>
+            )}
+          </ol>}
+          <p class="datestamp">{method.title} Method details last edited on {latestUpdate.toLocaleDateString('en-US', dateOptions)}</p>
+      </section>
     </Layout>
   )
 }
@@ -126,6 +158,10 @@ query($slug: String!, $uri: String!) {
         prefLabel
         definition
       }
+    }
+    dateStamps {
+      createdAt
+      revisedAt
     }
   }
   allSharedTransputCsv (filter: {methodA: {eq: $uri}}) {
