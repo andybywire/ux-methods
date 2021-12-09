@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { graphql } from 'gatsby';
 import * as s from './method.module.scss';
 import Layout from '../components/layout';
+import {Helmet} from "react-helmet";
 import SanityImage from 'gatsby-plugin-sanity-image';
 import PortableText from '../components/portableText';
 import Card from '../components/cards/card';
@@ -58,8 +59,51 @@ export default function MethodPage({data, data: { method }}) {
     steps.insertAdjacentHTML('beforeend', insertedText);
   }, []); 
 
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "url": method.uri.current,
+    "headline": method.title,
+    "datePublished": method.dateStamps.createdAt,
+    "dateModified": method.dateStamps.reviseAt,
+    "image": {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "url": method.heroImage.asset.url
+    },
+    "author": {
+      "@id": "https://www.andyfitzgeraldconsulting.com/#person",
+      "@type": "Person",
+      "description": "Andy Fitzgerald is an independent user experience professional with applied expertise in design research, information architecture, interaction design, and usability testing.",
+      "disambiguatingDescription": "User experience architecture and design consultant.",  
+      "email": "mailto:andy@andyfitzgeraldconsulting.com",
+      "image": "https://andyfitzgeraldconsulting.com/img/about/andyfitzgerald.jpg",
+      "jobTitle": "Information Architect",
+      "name": "Andy Fitzgerald",
+      "givenName": "Andy",
+      "familyName": "Fitzgerald",
+      "alternateName": "andybywire",
+      "url": "https://www.andyfitzgeraldconsulting.com",
+      "sameAs": [
+        "https://www.oreilly.com/pub/au/6128",
+        "https://alistapart.com/author/andyfitzgerald/",
+        "http://www.iasummit.org/person/andy-fitzgerald/",
+        "https://www.worldiaday.org/people/andy-fitzgerald",
+        "https://www.uxbooth.com/author/andyfitzgerald/",
+        "https://aycl.uie.com/experts/andy_fitzgerald",
+        "https://www.theiaconference.com/person/andy-fitzgerald/",
+        "https://www.crunchbase.com/person/andy-fitzgerald"
+      ]
+    }
+  };
+
   return (
     <Layout>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(ldJson)}
+        </script>
+      </Helmet>
       <article className={s.method}>
         <section className={s.overview}>
           <div className={s.hero}>
@@ -151,6 +195,9 @@ query($slug: String!, $uri: String!) {
     heroImage {
       ...ImageWithPreview
       _rawAsset(resolveReferences: {maxDepth: 10})
+      asset {
+        url
+      }
     }
     transputReference {
       outputReference {
