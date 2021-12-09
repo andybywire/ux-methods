@@ -51,8 +51,8 @@ article.article {
     @include breakpoint(med-lg) {
       order: 2;
       width: 70%;
-      * {
-        padding-right: 2rem; // ensure that all portable text blocks have right padding in multi-column view.
+      h2, p, ol, ul {
+        padding-right: 4rem; // ensure that all portable text blocks have right padding in multi-column view.
       }
     }
     ul, ol {
