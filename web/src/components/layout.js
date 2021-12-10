@@ -45,7 +45,7 @@ const Layout = ({layoutClass, children}) => {
 
   const staging = process.env.GATSBY_STAGING ? process.env.GATSBY_STAGING : false;
 
-  console.log(process.env.GATSBY_STAGING);
+  console.log("Staging environment? " + process.env.GATSBY_STAGING);
 
   return (
     <>
