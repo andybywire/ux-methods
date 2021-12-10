@@ -32,13 +32,13 @@ export default function MethodPage({data, data: { method }}) {
   const overviewCiteList = overviewCite.map((citation) => {
       const citationIndex = overviewCite.findIndex(i => i.name === citation.name);
       const citeNumber = citationIndex + 1;
-      return (`<a href="#source${citeNumber}">[${citeNumber}]</a>`)
+      return (`<a href="#sources">[${citeNumber}]</a>`)
     });
 
   const stepCiteList = stepCite.map((citation) => {
     const citationIndex = stepCite.findIndex(i => i.name === citation.name);
     const citeNumber = citationIndex + 1 + overviewCite.length;
-    return (`<a href="#source${citeNumber}">[${citeNumber}]</a>`)
+    return (`<a href="#sources">[${citeNumber}]</a>`)
   });
 
   // Get last update date, convert to date, and specify options
@@ -162,7 +162,7 @@ export default function MethodPage({data, data: { method }}) {
         <h2>Next Steps</h2>
         <Card content={sharedCards} />
       </section>}
-      <section className="admin-metadata">
+      <section id="sources" className={`${s.sources} admin-metadata`}>
         <h1>References</h1>
         {citations.length > 0 && 
           <ol>
