@@ -8,7 +8,7 @@ import PortableText from '../components/portableText';
 import Card from '../components/cards/card';
 import CompactCard from '../components/cards/compactCard';
 import ResourceCard from '../components/cards/resourceCard';
-import { FiExternalLink } from 'react-icons/fi';
+import { FiCornerDownLeft, FiExternalLink } from 'react-icons/fi';
 
 export default function MethodPage({data, data: { method }}) {
 
@@ -47,16 +47,22 @@ export default function MethodPage({data, data: { method }}) {
 
   // Add citation footnote references to description  
   useEffect(() => {
-    const description = document.getElementById("description").childNodes[0].lastChild;
+    const description = document.getElementById("description").firstChild.firstChild.hasChildNodes() ?
+      document.getElementById("description").childNodes[0].lastChild :
+      document.getElementById("description").firstChild;
     const insertedText = `<span class="citation">${overviewCiteList.join(' ')}</span>`;
-    description.insertAdjacentHTML('beforeend', insertedText);
+    if (description) {
+      description.insertAdjacentHTML('beforeend', insertedText);
+    }
   }, []);
 
   // Add citation footnote references to steps
   useEffect(() => {
     const steps = document.getElementById("steps").getElementsByTagName("OL")[0].lastChild;
     const insertedText = `<span class="citation">${stepCiteList.join(' ')}</span>`;
-    steps.insertAdjacentHTML('beforeend', insertedText);
+    if (steps) {
+      steps.insertAdjacentHTML('beforeend', insertedText);
+    }
   }, []); 
 
   const ldJson = {
