@@ -14,11 +14,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Build Stuido with Sanity CLI
+      - name: Move to Studio
+        run: cd studio
+      - name: Build Studio with Sanity CLI
         uses: sanity-io/github-action-sanity@v0.2-alpha
         with:
           args: build
-        working-directory: studio
       - name: Verify Build
         run: ls -la dist
-        working-directory: studio
