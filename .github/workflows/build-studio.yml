@@ -40,7 +40,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.UXM_CMS_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_cms
-          sudo chmod 600 ~/.ssh/uxm_dev
+          sudo chmod 600 ~/.ssh/uxm_cms
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
 
       - name: SFTP Upload
