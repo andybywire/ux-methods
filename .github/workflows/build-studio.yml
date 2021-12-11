@@ -1,0 +1,26 @@
+name: Build & Deploy Sanity Studio
+
+on:
+  push:
+    branches:
+      - studio # to remove after development
+      - main
+    workflow_dispatch: # will be available once workflow is merged with main
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy Sanity Studio
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Build Stuido with Sanity CLI
+        uses: sanity-io/github-action-sanity@v0.2-alpha
+        # env:
+          # SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        with:
+          args: build
+        working-directory: studio
+      - name: Verify Build
+        run: ls -la dist
+        working-directory: studio
