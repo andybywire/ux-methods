@@ -16,8 +16,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Build Stuido with Sanity CLI
         uses: sanity-io/github-action-sanity@v0.2-alpha
-        # env:
-          # SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
         with:
           args: build
         working-directory: studio
