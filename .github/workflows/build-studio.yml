@@ -24,13 +24,14 @@ jobs:
         run: npm ci
         working-directory: studio
 
-      - name: Move to Studio
-        run: cd studio
+      - name: Install Sanity CLI
+        run: npm install -g @sanity/cli
+        working-directory: studio
 
-      - name: Build Studio with Sanity CLI
-        uses: sanity-io/github-action-sanity@v0.2-alpha
-        with:
-          args: build
-          
+      - name: Build Studio
+        run: sanity build
+        working-directory: studio
+
       - name: Verify Build
         run: ls -la dist
+        working-directory: studio
