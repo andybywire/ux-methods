@@ -14,11 +14,23 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '17.x'
+
+      - name: Install Project Dependencies
+        run: npm ci
+        working-directory: studio
+
       - name: Move to Studio
         run: cd studio
+
       - name: Build Studio with Sanity CLI
         uses: sanity-io/github-action-sanity@v0.2-alpha
         with:
           args: build
+          
       - name: Verify Build
         run: ls -la dist
