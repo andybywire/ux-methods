@@ -24,7 +24,7 @@ const hiddenDocTypes = (listItem) =>
 
 export default () =>
   S.list()
-    .title('UX Methods')
+    .title('UX Methods — Test')
     .items([
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
