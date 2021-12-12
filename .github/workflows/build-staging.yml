@@ -1,5 +1,4 @@
 name: Build & Deploy to Staging
-description: Build the UX Methods Gatsby site and deploy to dev.uxmethods.org. Set to trigger only when updates are made to the staging branch.
 
 on:
   push:

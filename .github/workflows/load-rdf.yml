@@ -1,5 +1,4 @@
 name: Build & Deploy UX Methods
-description: Transform and load Sanity content as RDF, build the UX Methods Gatsby site, and deploy to produciton. Set to trigger manually and when updates are made to Method content in Sanity.
 
 on:
   # push: — Disabling for active developemnt
