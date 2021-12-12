@@ -2,14 +2,14 @@ name: Build & Deploy Sanity Studio
 
 on:
   push:
-    branches:
-      - studio # to remove after development
-      - main
-    workflow_dispatch: # will be available once workflow is merged with main
+    paths: 
+      - 'studio/*'
+    workflow_dispatch: 
 
 jobs:
   build-and-deploy:
     name: Build & Deploy Sanity Studio
+    if: ${{ github.ref == 'refs/heads/master' }} 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
