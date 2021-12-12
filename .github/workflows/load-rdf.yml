@@ -1,16 +1,16 @@
 name: Build & Deploy UX Methods
-description: 
+description: Transform and load Sanity content as RDF, build the UX Methods Gatsby site, and deploy to produciton. Set to trigger manually and when updates are made to Method content in Sanity.
 
 on:
   # push: — Disabling for active developemnt
   workflow_dispatch:
   repository_dispatch:
-    types: [method]
+    types: [method] # Webhook trigger update when content of type Method has been updated.
 
 jobs:
   load-rdf-job:
     runs-on: ubuntu-latest
-    name: Transform and load Sanity content as RDF
+    name: Transform and load Sanity content as RDF then build and upload UX Methods
     steps:
       - name: Get Sanity Data
         id: sanityData
@@ -43,6 +43,37 @@ jobs:
           contentType: 'multipart/form-data'
           bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
           files: '{ "file": "rdfData.ttl" }'
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '17.x'
+
+      - name: Install Project Dependencies
+        run: npm ci
+        working-directory: web
+
+      - name: Install Gatsby CLI
+        run: npm install -g gatsby-cli@4.3.0
+        working-directory: web
+
+      - name: Build
+        run: gatsby build
+        working-directory: web
+      
+      - name: Verify build
+        run: ls -la public
+        working-directory: web
+
+      - name: Set Up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.UXM_PROD_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_prod
+          sudo chmod 600 ~/.ssh/uxm_prod
+          ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
+
+      - name: SFTP Upload
+        run: sftp -i ~/.ssh/uxm_prod uxm_prod@jacksonville.dreamhost.com <<< $'cd uxmethods.org \n put -r web/public/*'      
 
 # Use Gatsby-source-remote-file to get .csv from data.world: https://www.gatsbyjs.com/plugins/gatsby-source-remote-file/
 # Then gatsby-transformer-csv to read it into data I can query: https://www.gatsbyjs.com/plugins/gatsby-transformer-csv/
