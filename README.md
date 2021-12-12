@@ -1,1 +1,1 @@
-- Lint and Prettier scripts are copied from the Sanity-Gatsby starter package and are yet to be meaningfully configured. Look into how best to use these when the need arises.
+# UX Methods
