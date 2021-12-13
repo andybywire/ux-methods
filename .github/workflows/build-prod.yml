@@ -1,10 +1,11 @@
 name: Build & Deploy UX Methods
 
 on:
-  # push: — Disabling for active developemnt
   workflow_dispatch:
   repository_dispatch:
-    types: [method] # Webhook trigger update when content of type Method has been updated.
+    types: 
+      - method
+      - discipline
 
 jobs:
   load-rdf-job:
