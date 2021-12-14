@@ -6,6 +6,8 @@ on:
     types: 
       - method
       - discipline
+      - resource
+      - article
 
 jobs:
   load-rdf-job:

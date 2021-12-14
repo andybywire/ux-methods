@@ -28,6 +28,8 @@ export default function MethodPage({data, data: { method }}) {
   const overviewCite = method.overviewSources;
   const stepCite = method.stepSources;
   const citations = overviewCite.concat(stepCite);
+  // try: const citations = [...overviewCite, ...stepCite];
+  // try consoleLog()ing it first
 
   const overviewCiteList = overviewCite.map((citation) => {
       const citationIndex = overviewCite.findIndex(i => i.name === citation.name);
