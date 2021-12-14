@@ -11,7 +11,7 @@ The User Experience Practices Knowledge Graph
 		•
 		<a href="#progressive-web-app">Progressive Web App</a>
   		•
-		<a href="knowledge-graph-integration-and-continuous-integration-workflows">Knowledge Graph & CI Workflows</a>
+		<a href="#knowledge-graph-integration-and-continuous-integration-workflows">Knowledge Graph & CI Workflows</a>
 	</strong>
 </p>
 <br />
@@ -19,7 +19,8 @@ The User Experience Practices Knowledge Graph
 ## Overview
 [UX Methods](https://www.uxmethods.org/) is a content-first Jamstack website built with [Sanity](https://www.sanity.io/) and [Gatsby](https://www.gatsbyjs.com/), and coordinated with a lightweight knowledge graph running on [Data.world](https://data.world/). Its goal is to document and interconnect the practices and techniques of user experience design, and to provide a use case from which to explore the possibilities of ["boutique" knowledge graphs](https://www.linkedin.com/pulse/uxmethodsorg-boutique-knowledge-graph-case-study-andy-fitzgerald/?trackingId=FsKbRBiJS9SiKWq3uiBDug%3D%3D). 
 
-This repository is a monorepo of three interrelated but distinct pieces: content management, web application, and continuous integration, which includes knowledge graph production and integration. 
+This repository is a monorepo of three interrelated but distinct pieces: content management, web application, and continuous integration, which includes knowledge graph production and integration.
+<br />
 
 ## Content Management
 UX Methodsis built and maintained with as a content first resource. This means that content is structured to communicate meaning based on user and organization needs, not around the web requirements of particular "pages." UX Methods uses the fully decoupled headless CMS Sanity to structure, produce, and distribute content. This functionality is located in the [**studio**](https://github.com/andybywire/ux-methods/tree/main/studio) folder of this repository. 
