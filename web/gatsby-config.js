@@ -44,8 +44,6 @@ module.exports = {
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-remove-trailing-slashes",
-
     {
       resolve: "gatsby-plugin-manifest",
       options: {
