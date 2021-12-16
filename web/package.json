@@ -29,6 +29,7 @@
     "gatsby": "^4.1.0",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-google-tagmanager": "^4.3.0",
+    "gatsby-plugin-html-attributes": "^1.0.5",
     "gatsby-plugin-image": "^2.3.0",
     "gatsby-plugin-local-search": "^2.0.1",
     "gatsby-plugin-manifest": "^4.3.0",

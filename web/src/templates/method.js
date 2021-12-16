@@ -109,6 +109,12 @@ export default function MethodPage({data, data: { method }}) {
     <Layout>
       <Helmet>
         <link rel="canonical" href={method.uri.current} />
+        <meta property="og:title" content={method.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={method.uri.current} />
+        <meta property="og:image" content={method.heroImage.asset.url} />
+        <meta property="og:description" content={method.metaDescription} />
+        <meta property="og:site_name" content="UX Methods" />
         <script type="application/ld+json">
           {JSON.stringify(ldJson)}
         </script>

@@ -8,8 +8,8 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.uxmethods.org",
-    title: "web",
+    siteUrl: "https://uxmethods.org",
+    title: "UX Methods",
   },
   plugins: [
     {
@@ -44,6 +44,13 @@ module.exports = {
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
+    {
+      resolve: 'gatsby-plugin-html-attributes',
+      options: {
+        lang: "en",
+        prefix: "og: https://ogp.me/ns#"
+      }
+    },
     {
       resolve: "gatsby-plugin-manifest",
       options: {
