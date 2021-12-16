@@ -122,7 +122,7 @@ export default function MethodPage({data, data: { method }}) {
       <article className={s.method}>
         <section className={s.overview}>
           <div className={s.hero}>
-            <SanityImage {...method.heroImage} width={500} alt=''/>
+            <SanityImage {...method.heroImage} width={500} alt='' loading='eager' />
             {method.heroImage._rawAsset.creditLine && 
             <p>Photo by <a href={method.heroImage._rawAsset.source.url} tabIndex='-1'>{method.heroImage._rawAsset.creditLine.replace(' by ',' via ')}</a></p>}
           </div>
