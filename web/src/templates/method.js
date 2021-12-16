@@ -108,6 +108,7 @@ export default function MethodPage({data, data: { method }}) {
   return (
     <Layout>
       <Helmet>
+        <link rel="canonical" href={method.uri.current} />
         <script type="application/ld+json">
           {JSON.stringify(ldJson)}
         </script>
