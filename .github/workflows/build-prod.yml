@@ -8,9 +8,9 @@ on:
       - discipline
       - resource
       - article
-    push:
-      paths: 
-        - 'web/*'
+  push:
+    paths: 
+      - 'web/*'
 
 jobs:
   load-rdf-job:
