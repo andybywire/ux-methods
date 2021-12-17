@@ -10,7 +10,7 @@ const ResourceCard = ({ content }) => {
     {content.map(resource => (
       <li className={[s.card, s.resource].join(' ')} key={resource.id}>
         <a href={resource.resourceUrl}>
-          <SanityImage {...resource.resourceImage} width={500} alt=''/>
+          <SanityImage {...resource.resourceImage} width={100} alt=''/>
           <div>
             <h3>{resource.title}</h3>
             <p><span>{resource.author ? resource.author + ' | ':'' }{resource.publisher.pubName}</span><span><FiExternalLink /></span></p>

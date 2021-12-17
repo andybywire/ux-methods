@@ -14,7 +14,7 @@ const Card = ({ content, gridStyle }) => {
     {content.map(resource => (
       <li className={cardStyle} key={resource.id}>
         <Link to={`/${resource._type}/${resource.slug.current}`}>
-          <SanityImage {...resource.heroImage} width={500} alt=''/>
+          <SanityImage {...resource.heroImage} width={375} alt=''/>
           <div>
             <h3>{resource.title}</h3>
             <p>{resource.metaDescription}</p>
