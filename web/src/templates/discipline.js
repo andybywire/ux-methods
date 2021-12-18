@@ -48,6 +48,13 @@ export default function DisciplinePage({data: { discipline }, data: { methods }}
   return (
     <Layout>
       <Helmet>
+        <link rel="canonical" href={discipline.uri.current} />
+        <meta property="og:title" content={discipline.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={discipline.uri.current} />
+        <meta property="og:image" content={discipline.heroImage.asset.url} />
+        <meta property="og:description" content={discipline.metaDescription} />
+        <meta property="og:site_name" content="UX Methods" />
         <script type="application/ld+json">
           {JSON.stringify(ldJson)}
         </script>
@@ -55,7 +62,7 @@ export default function DisciplinePage({data: { discipline }, data: { methods }}
       <article className={s.discipline}>
         <section className={[s.overview, s.discipline].join(' ')}>
           <div className={s.hero}>
-            <SanityImage {...discipline.heroImage} width={500} alt=''/>
+            <SanityImage {...discipline.heroImage} width={500} alt='' loading='eager' />
           </div>
           <div className={s.disciplineSummary}>
             <div className={s.header}>
