@@ -62,14 +62,14 @@ module.exports = {
         background_color: `#28B7FF`,
         display: `minimal-ui`,
         start_url: `/`,
-        icon: `src/images/pwa_icon.png`,
+        icon: `src/images/pwa_icon.png`, // not maskable; condider adding in the future
         include_favicon: false,
       },
     },
     {
       resolve: `gatsby-plugin-offline`,
       options: {
-        precachePages: [`/`,`/about`, `/offline`],
+        precachePages: [`/index.html`,`/about/index.html`, `/offline/index.html`],
       },
     },
     {
