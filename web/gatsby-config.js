@@ -8,94 +8,102 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://uxmethods.org",
-    title: "UX Methods",
+    siteUrl: `https://uxmethods.org`,
+    title: `UX Methods`,
   },
   plugins: [
     {
-      resolve: "gatsby-source-sanity",
+      resolve: `gatsby-source-sanity`,
       options: {
-        projectId: "4g5tw1k0",
-        dataset: "production",
+        projectId: `4g5tw1k0`,
+        dataset: `production`,
         watchMode: true, // !isProd, --> sets watchMode only in developmnet
         overlayDrafts: true,
         token: process.env.WEB_PREVIEW_TOKEN
       },
     },
     {
-      resolve: "gatsby-source-remote-file",
+      resolve: `gatsby-source-remote-file`,
       options: {
-        url: "https://download.data.world/s/7fmfrnnh6emdyir57sgcsyamp2hmhx",
-        name: "sharedTransput",
-        ext: ".csv",
-        errorHandling: "warn"
+        url: `https://download.data.world/s/7fmfrnnh6emdyir57sgcsyamp2hmhx`,
+        name: `sharedTransput`,
+        ext: `.csv`,
+        errorHandling: `warn`
       },
     },
     {
-      resolve: "gatsby-source-remote-file",
+      resolve: `gatsby-source-remote-file`,
       options: {
-        url: "https://download.data.world/s/rf7r5f64zntb63fe3mhauanr6mntn4",
-        name: "methodCentrality",
-        ext: ".csv",
-        errorHandling: "warn"
+        url: `https://download.data.world/s/rf7r5f64zntb63fe3mhauanr6mntn4`,
+        name: `methodCentrality`,
+        ext: `.csv`,
+        errorHandling: `warn`
       },
     },
-    "gatsby-transformer-csv",
-    "gatsby-plugin-sass",
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
+    `gatsby-transformer-csv`,
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: 'gatsby-plugin-html-attributes',
       options: {
-        lang: "en",
-        prefix: "og: https://ogp.me/ns#"
+        lang: `en`,
+        prefix: `og: https://ogp.me/ns#`
       }
     },
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        icon: "src/images/icon.png",
+        lang: `en`,
+        name: `UX Methods`,
+        short_name: `UX Methods`,
+        description: `UX Methods is a community powered, linked data driven knowledge graph for learning about the techinques of user experience design.`,
+        theme_color: `#182125`,
+        background_color: `#28B7FF`,
+        display: `minimal-ui`,
+        start_url: `/index.html`,
+        icon: `src/images/icon.png`,
       },
     },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `nunito sans\:100,200,300,400,500,600,700,800`,
-          `hind\:100,200,300,400,500,600,700,800`
+          "nunito sans\:100,200,300,400,500,600,700,800",
+          "hind\:100,200,300,400,500,600,700,800"
         ],
         display: 'swap'
       }
     },
     {
-      resolve: "gatsby-plugin-google-tagmanager",
+      resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        id: "GTM-MRLDV3L",
+        id: `GTM-MRLDV3L`,
         defaultDataLayer: { platform: "gatsby" },
         enableWebVitalsTracking: true,
       },
     },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: "images",
-        path: "./src/images/",
+        name: `images`,
+        path: `./src/images/`,
       },
-      __key: "images",
+      __key: `images`,
     },
     {
-      resolve: "gatsby-plugin-sanity-image",
+      resolve: `gatsby-plugin-sanity-image`,
       options: {
-        projectId: "4g5tw1k0",
-        dataset: "production",
+        projectId: `4g5tw1k0`,
+        dataset: `production`,
         customImageTypes: ["SanityHeroImage"],
         __experimentalAspectRatio: true
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: `gatsby-plugin-react-svg`,
       options: {
         rule: {
           include: /svg/
@@ -103,10 +111,10 @@ module.exports = {
       }
     },
     {
-      resolve: "gatsby-plugin-local-search",
+      resolve: `gatsby-plugin-local-search`,
       options: {
-        name: "pages",
-        engine: "flexsearch",
+        name: `pages`,
+        engine: `flexsearch`,
         query: `
           query {
             allSanityMethod {
@@ -135,7 +143,7 @@ module.exports = {
             }
           }
         `,
-        ref: "id",
+        ref: `id`,
         index: ["title", "excerpt", "overview"],
         store: ["title", "excerpt", "type", "slug"],
         normalizer: ({ data }) =>
