@@ -2,7 +2,8 @@ import React, { useEffect} from 'react';
 import SideNav from './sideNav';
 import Header from './header';
 import Footer from './footer';
-import {Helmet} from "react-helmet";
+import {Helmet} from 'react-helmet';
+import favicon from '../images/favicon.png';
 
 const Layout = ({layoutClass, children}) => {
 
@@ -54,6 +55,7 @@ const Layout = ({layoutClass, children}) => {
           <meta name="description" content="UX Methods is a community powered, linked data driven knowledge graph for learning about the techniques of user experience design." />
           {process.env.GATSBY_STAGING && 
           <meta name="robots" content="noindex, nofollow" />}
+          <link rel="icon" href={favicon} type="image/png"></link>
       </Helmet>
       <a href='#main-content' className='show-on-focus'>Skip to Main Content</a>
       <Header />
