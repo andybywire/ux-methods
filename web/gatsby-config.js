@@ -61,7 +61,7 @@ module.exports = {
         theme_color: `#182125`,
         background_color: `#28B7FF`,
         display: `minimal-ui`,
-        start_url: `/index.html`,
+        start_url: `/`,
         icon: `src/images/pwa_icon.png`,
         include_favicon: false,
       },
@@ -69,7 +69,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-offline`,
       options: {
-        precachePages: [`/index.html`,`/about/index.html`, `/offline/index.html`],
+        precachePages: [`/`,`/about`, `/offline`],
       },
     },
     {
