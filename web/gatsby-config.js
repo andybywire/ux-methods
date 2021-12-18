@@ -64,7 +64,7 @@ module.exports = {
         start_url: `/`,
         icon: `src/images/pwa_icon.png`,
         icon_options: {
-          purpose: `any maskable`, // Consider adding more control over icon/maskable icon with manual config
+          purpose: `maskable`, // Consider adding more control over icon/maskable icon with manual config
         },
         include_favicon: false,
       },
