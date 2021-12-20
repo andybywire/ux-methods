@@ -61,8 +61,8 @@ module.exports = {
         theme_color: `#182125`,
         background_color: `#28B7FF`,
         display: `minimal-ui`,
-        start_url: `/index.html`,
-        icon: `src/images/pwa_icon.png`,
+        start_url: `/`,
+        icon: `src/images/pwa_icon.png`, // not maskable; condider adding in the future
         include_favicon: false,
       },
     },

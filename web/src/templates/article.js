@@ -1,9 +1,10 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import * as s from './article.module.scss'
-import Layout from '../components/layout'
-import SanityImage from 'gatsby-plugin-sanity-image'
-import PortableText from '../components/portableText'
+import React from 'react';
+import { graphql } from 'gatsby';
+import * as s from './article.module.scss';
+import Layout from '../components/layout';
+import Contact from '../components/contact';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import PortableText from '../components/portableText';
 
 export default function MethodPage({data:{article}}) {
 
@@ -20,6 +21,7 @@ export default function MethodPage({data:{article}}) {
             <PortableText blocks={article.body} />
           </div>
       </article>
+      <Contact />
     </Layout>
   )
 }
