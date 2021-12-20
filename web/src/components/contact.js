@@ -3,8 +3,30 @@ import { useForm } from 'react-hook-form';
 
 export default function Contact() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  // const onSubmit = data => console.log(data);
   console.log(errors);
+
+
+  const onSubmit = async data => {
+
+    console.log(data);
+
+    try {
+      await fetch('/api/contact/index.php', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        type: 'application/json'
+      })  
+      // setIsSubmitting(false)
+      // setHasSubmitted(true)
+    } catch (err) {
+      // setFormData(err)
+      console.log(err);
+    }
+  }
+
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
