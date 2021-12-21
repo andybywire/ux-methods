@@ -29,6 +29,13 @@ if ($_POST){
     // $sendEmail->send();
     // send email
     mail($adminEmail, $from, $subject, $message);
+    // indicate success
+    echo json_encode(
+        [
+           "sent" => false,
+           "message" => $SendMailSuccessMessage
+        ]
+    );
 } else {
  // tell the user about error
  echo json_encode(
