@@ -21,7 +21,9 @@ export default function MethodPage({data:{article}}) {
             <PortableText blocks={article.body} />
           </div>
       </article>
+      {article.slug.current === 'about' &&
       <Contact />
+      }
     </Layout>
   )
 }

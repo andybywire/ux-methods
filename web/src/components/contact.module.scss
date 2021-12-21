@@ -1,0 +1,99 @@
+@import '../style/variables.scss',
+        '../style/mixins.scss';
+
+        // 'medium': 600px,
+        // 'med-lg': 800px,
+        // 'large':  1000px,
+
+.contact {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: 1rem;
+  @include breakpoint(med-lg) {
+    display: flex;
+    flex-wrap: wrap;
+    h1, p, form {
+      width: 66%;
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    label {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 1rem;
+      width: 100%;
+      @include breakpoint(medium) {
+        &.name, &.email {
+          width: 48%;
+        }
+      }
+      span {
+        font-family: $header;
+        padding-bottom: .5rem;
+        color: $gray-text;
+        font-weight: 600;
+      }
+      textarea {
+        height: 5rem;
+      }
+      input, textarea {
+        padding: .5rem;
+        border-radius: 5px;
+        border: solid 1px $gray-text;
+        &:focus {
+          outline-color: $primary;
+        }
+      }
+      p {
+        width: 90%;
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+        padding-left: 1.5rem;
+        font-size: 80%;
+        line-height: 1.25;
+        color: $alert;
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-bottom: -0.25rem;
+          margin-left: -1.5rem;
+          padding-right: 0.25rem;
+        }
+      }
+    }
+    input[type=submit] {
+      background-color: $primary-dark-bg;
+      color: $light-text;
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      font-family: $header;
+      font-weight: 600;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-bottom: 5rem;
+      &:focus {
+        outline-color: $primary-text-link;
+      }
+      @include breakpoint(med-lg) {
+        width: 30%;
+        margin-left: 70%;
+        padding: 1rem 3rem;
+      }
+      // &[type=submit] {
+      //   width: 100%;
+      //   border-radius: 5px;
+      // }
+      // &[type=reset] {
+      //   display: block;
+      //   margin: 2rem auto;
+      //   border-radius: 30px;
+      //   line-height: 0;
+    }
+  }
+}

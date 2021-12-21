@@ -8,7 +8,7 @@ include_once('config.php');
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
-if( empty($_POST['Name']) && empty($_POST['Email']) ) {
+if( empty($_POST['name']) && empty($_POST['email']) ) {
     echo json_encode(
         [
            "sent" => false,
@@ -21,9 +21,9 @@ if( empty($_POST['Name']) && empty($_POST['Email']) ) {
 if ($_POST){
     //@important: Please change this before using
     http_response_code(200);
-    $subject = 'Contact from: ' . $_POST['Name'];
-    $from = $_POST['Email'];
-    $message = $_POST['Message'];       
+    $subject = 'Contact from: ' . $_POST['name'];
+    $from = $_POST['email'];
+    $message = $_POST['message'];       
     //Actual sending email
     // $sendEmail = new Sender($adminEmail, $from, $subject, $message);
     // $sendEmail->send();
@@ -32,7 +32,7 @@ if ($_POST){
     // indicate success
     echo json_encode(
         [
-           "sent" => false,
+           "sent" => true,
            "message" => $SendMailSuccessMessage
         ]
     );
