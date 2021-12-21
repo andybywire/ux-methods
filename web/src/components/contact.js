@@ -6,23 +6,34 @@ export default function Contact() {
   // const onSubmit = data => console.log(data);
   console.log(errors);
 
+  // remove async here: 
 
-  const onSubmit = async data => {
+  const onSubmit = data => {
 
     console.log(data);
 
-    try {
-      await fetch('/api/contact/index.php', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        type: 'application/json'
+    fetch('/api/contact/index.php', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          type: 'application/json'
+        })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
       })  
-      // setIsSubmitting(false)
-      // setHasSubmitted(true)
-    } catch (err) {
-      // setFormData(err)
-      console.log(err);
-    }
+
+    // try {
+    //   await fetch('/api/contact/index.php', {
+    //     method: 'POST',
+    //     body: JSON.stringify(data),
+    //     type: 'application/json'
+    //   })  
+    //   // setIsSubmitting(false)
+    //   // setHasSubmitted(true)
+    // } catch (err) {
+    //   // setFormData(err)
+    //   console.log(err);
+    // }
   }
 
 
