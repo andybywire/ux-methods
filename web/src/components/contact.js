@@ -20,6 +20,7 @@ export default function Contact() {
   } = useForm({
     mode: "onBlur" // "onChange"
   });
+  // this isn't working, I don't think:
   {errors && console.log(errors);}
 
   // Below: I removed async here; bring back once this is more or less working. 
