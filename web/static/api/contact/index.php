@@ -7,9 +7,9 @@ $emailFrom = $adminEmail;
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
-// Prevent direct access —— do I need this?
+// Prevent direct access
 if (!isset($_POST['submit'])) {
-  echo "<h1>Error</h1>\n
+  echo "<h1>Nope</h1>\n
         <p>Accessing this page directly is not allowed.</p>";
   exit;
 }
