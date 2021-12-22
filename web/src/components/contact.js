@@ -64,21 +64,19 @@ export default function Contact() {
 
   if (isSubmitting) {
     // Returns a "Submitting comment" state if being processed
-    return <h3>Submitting comment…</h3>
+    return (
+      <section className={s.contact}>
+        <h1>Sending your message ...</h1>
+      </section>
+    )
   }
   if (hasSubmitted) {
     // Returns the data that the user submitted for them to preview after submission
     return (
-      <>
-        <h3>Thanks for your comment!</h3>
-        <ul>
-          <li>test
-            {/* Name: {formData.name} <br />
-            Email: {formData.email} <br />
-            Comment: {formData.comment} */}
-          </li>
-        </ul>
-      </>
+      <section className={s.contact}>
+        <h1>Message sent!</h1>
+        <p className={s.confirmation}>Thank you for getting in touch.</p>
+      </section>
     )
   }
 
