@@ -21,7 +21,7 @@ export default function Contact() {
     mode: "onChange" // "onBlur"
   });
   // this isn't working, I don't think:
-  {errors && console.log(errors);}
+  // {errors && console.log(errors);}
 
   // Below: I removed async here; bring back once this is more or less working. 
   // I should at least know _how_ to do this (i.e. to better choose to or not)
@@ -68,6 +68,9 @@ export default function Contact() {
       </section>
     )
   }
+
+  // Need to add a response here if mail() returns sent: false. 
+
   if (hasSubmitted) {
     // Returns the data that the user submitted for them to preview after submission
     return (
