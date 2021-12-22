@@ -16,47 +16,47 @@ if ($_POST){
   $pattern  = '/[\r\n]|Content-Type:|Bcc:|Cc:/i';
 
   if (preg_match($pattern, $name) || preg_match($pattern, $email) || preg_match($pattern, $subject)) {
-    // Send news of our success back to the UI
+    // Report header injection
     echo json_encode(
       [
         "sent" => false,
         "message" => "Header injection detected"
       ]
     );
-    die("Message not sent: Header injection detected.");
-  }
-
-  $emailIsValid = preg_match('/^[^0-9][A-z0-9._%+-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,6}$/', $email);
-
-  if($name && $email && $emailIsValid && $subject) {
-    $subject = "$subject";
-    $message = wordwrap($message, 70);
-    $body = "Name: $name <br /> 
-              Email: $email <br /> 
-              Message: $message";
-    $headers  = "MIME-Version: 1.1\r\n";
-    $headers .= "Content-type: text/html; charset=utf-8\r\n";
-    $headers .= "From: $emailFrom\r\n";
-    $headers .= "Return-Path: $emailTo\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "X-Mailer: PHP/". phpversion();
-
-    mail($emailTo, $subject, $body, $headers);
-
-    // Send news of our success back to the UI
-    echo json_encode(
-      [
-        "sent" => true,
-        "message" => "The message was sent"
-      ]
-    );
   } else {
-    // Tell the user about error
-    echo json_encode(
-      [
-        "sent" => false,
-        "message" => "The message was not sent"
-      ]
-    );
+
+    $emailIsValid = preg_match('/^[^0-9][A-z0-9._%+-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,6}$/', $email);
+
+    if($name && $email && $emailIsValid && $subject) {
+      $subject = "$subject";
+      $message = wordwrap($message, 70);
+      $body = "Name: $name <br /> 
+                Email: $email <br /> 
+                Message: $message";
+      $headers  = "MIME-Version: 1.1\r\n";
+      $headers .= "Content-type: text/html; charset=utf-8\r\n";
+      $headers .= "From: $emailFrom\r\n";
+      $headers .= "Return-Path: $emailTo\r\n";
+      $headers .= "Reply-To: $email\r\n";
+      $headers .= "X-Mailer: PHP/". phpversion();
+
+      mail($emailTo, $subject, $body, $headers);
+
+      // Send news of our success back to the UI
+      echo json_encode(
+        [
+          "sent" => true,
+          "message" => "The message was sent"
+        ]
+      );
+    } else {
+      // Tell the user about error
+      echo json_encode(
+        [
+          "sent" => false,
+          "message" => "The message was not sent"
+        ]
+      );
+    }
   }
 }
