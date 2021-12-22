@@ -90,12 +90,13 @@ export default function Contact() {
         </label>
         <label for="email" className={s.email}>
           <span>Email</span>
-          <input type="text" id="email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
+          <input type="text" id="email" {...register("email", {required: true, pattern: /^[^0-9][A-z0-9._%+-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,6}$/})} />
           {(errors?.email?.type === "required" || errors?.email?.type === "pattern") && <p><FiAlertTriangle />Please enter a valid email address. Don't worry&mdash;I won't use your email for anything else. </p>}
         </label>
         <label for="subject" className={s.subject}>
           <span>Subject</span>
-          <input type="text" id="subject" {...register("subject", {})} />
+          <input type="text" id="subject" {...register("subject", {required: true})} />
+          {errors?.subject?.type === "required" && <p><FiAlertTriangle />This field is required</p>}
         </label>
         <label for="message" className={s.message}>
           <span>Message</span>
