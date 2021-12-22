@@ -7,24 +7,6 @@ $emailFrom = $adminEmail;
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
-// Prevent direct access
-if (!isset($_POST['submit'])) {
-  echo "<h1>Nope</h1>\n
-        <p>Accessing this page directly is not allowed.</p>";
-  exit;
-}
-
-// Detect an empty form —— do I need this?
-// if( empty($_POST['name']) && empty($_POST['email']) && empty($_POST['message']) ) {
-//   echo json_encode(
-//     [
-//         "sent" => false,
-//         "message" => "The submitted form was empty."
-//     ]
-//   ); 
-//   exit();
-// }
-
 if ($_POST){
   $name    = stripslashes(trim($_POST['name']));
   $email   = stripslashes(trim($_POST['email']));
@@ -34,6 +16,13 @@ if ($_POST){
   $pattern  = '/[\r\n]|Content-Type:|Bcc:|Cc:/i';
 
   if (preg_match($pattern, $name) || preg_match($pattern, $email) || preg_match($pattern, $subject)) {
+    // Send news of our success back to the UI
+    echo json_encode(
+      [
+        "sent" => false,
+        "message" => "Header injection detected"
+      ]
+    );
     die("Message not sent: Header injection detected.");
   }
 

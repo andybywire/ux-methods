@@ -102,7 +102,7 @@ export default function Contact() {
           <textarea id="message" {...register("message", {required: true})} />
           {errors?.message?.type === "required" && <p><FiAlertTriangle />My mind reading is pretty good, though it's usually better if you tell me why you're writing.</p>}
         </label>
-        <input type="submit" name="submit"/>
+        <input type="submit"/>
       </form>
     </section>
   )
