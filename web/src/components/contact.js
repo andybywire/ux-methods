@@ -20,19 +20,15 @@ export default function Contact() {
   } = useForm({
     mode: "onBlur" // "onChange"
   });
-  // const onSubmit = data => console.log(data);
-  console.log(errors);
+  {errors && console.log(errors);}
 
-  // removed async here; bring back once this is more or less working.
+  // Below: I removed async here; bring back once this is more or less working. 
   // I should at least know _how_ to do this (i.e. to better choose to or not)
   // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
 
   const onSubmit = data => {
-
     setIsSubmitting(true)
-        
     setFormData(data)
-
 
     console.log(data);
 
@@ -43,21 +39,22 @@ export default function Contact() {
         })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
+        console.log('PHP response:', data);
       })
       .then(setIsSubmitting(false))
       .then(setHasSubmitted(true))
-
+    
+    // Async/Await version:   
     // try {
     //   await fetch('/api/contact/index.php', {
     //     method: 'POST',
     //     body: JSON.stringify(data),
     //     type: 'application/json'
     //   })  
-    //   // setIsSubmitting(false)
-    //   // setHasSubmitted(true)
+    //   setIsSubmitting(false)
+    //   setHasSubmitted(true)
     // } catch (err) {
-    //   // setFormData(err)
+    //    setFormData(err)
     //   console.log(err);
     // }
   }

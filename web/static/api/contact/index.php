@@ -1,11 +1,7 @@
 <?php
 $adminEmail =  "contact@dev.uxmethods.org"; // Set this as an ENV variable
-
 $emailTo = $adminEmail;
 $emailFrom = $adminEmail;
-
-
-
 
 // Read JSON -- php://input is a read-only stream that allows you to read raw data from the request body.
 $rest_json = file_get_contents("php://input");
@@ -48,11 +44,11 @@ if ($_POST){
     $body = "Name: $name <br /> 
               Email: $email <br /> 
               Message: $message";
-    $headers  = 'MIME-Version: 1.1';
-    $headers .= 'Content-type: text/html; charset=utf-8';
-    $headers .= "From: $emailFrom";
-    $headers .= "Return-Path: $emailTo";
-    $headers .= "Reply-To: $email";
+    $headers  = "MIME-Version: 1.1\r\n";
+    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $headers .= "From: $emailFrom\r\n";
+    $headers .= "Return-Path: $emailTo\r\n";
+    $headers .= "Reply-To: $email\r\n";
     $headers .= "X-Mailer: PHP/". phpversion();
 
     mail($emailTo, $subject, $body, $headers);
@@ -61,7 +57,7 @@ if ($_POST){
     echo json_encode(
       [
         "sent" => true,
-        "message" => "The message was sent."
+        "message" => "The message was sent"
       ]
     );
   } else {
@@ -69,35 +65,8 @@ if ($_POST){
     echo json_encode(
       [
         "sent" => false,
-        "message" => "The message was not sent."
+        "message" => "The message was not sent"
       ]
     );
   }
-
-
-  
-//   http_response_code(200); // test removing this
-//   $subject = 'Message from ' . $_POST['name'] . 'via UX Methods';
-//   $from = $_POST['email'];
-//   $message = $_POST['message'];       
-//   //Actual sending email
-//   // $sendEmail = new Sender($adminEmail, $from, $subject, $message);
-//   // $sendEmail->send();
-//   // send email
-//   mail($adminEmail, $from, $subject, $message);
-//   // indicate success
-//   echo json_encode(
-//     [
-//       "sent" => true,
-//       "message" => $SendMailSuccessMessage
-//     ]
-//   );
-// } else {
-//  // tell the user about error
-//  echo json_encode(
-//     [
-//       "sent" => false,
-//       "message" => $SendMailFailederrorMessage
-//     ]
-//  );
-// }
+}
