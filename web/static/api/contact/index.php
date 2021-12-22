@@ -1,7 +1,13 @@
 <?php
-$adminEmail =  "contact@dev.uxmethods.org"; // Set this as an ENV variable
+if($_SERVER['HTTP_HOST'] == "dev.uxmethods.org") {
+  $adminEmail =  "contact@dev.uxmethods.org"; 
+  } else {
+  $adminEmail =  "contact@uxmethods.org"; 
+}
+
 $emailTo = $adminEmail;
 $emailFrom = $adminEmail;
+
 
 // Read JSON -- php://input is a read-only stream that allows you to read raw data from the request body.
 $rest_json = file_get_contents("php://input");
