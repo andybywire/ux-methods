@@ -8,11 +8,11 @@ $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
 // Prevent direct access —— do I need this?
-// if (!isset($_POST['submit'])) {
-//   echo "<h1>Error</h1>\n
-//         <p>Accessing this page directly is not allowed.</p>";
-//   exit;
-// }
+if (!isset($_POST['submit'])) {
+  echo "<h1>Error</h1>\n
+        <p>Accessing this page directly is not allowed.</p>";
+  exit;
+}
 
 // Detect an empty form —— do I need this?
 // if( empty($_POST['name']) && empty($_POST['email']) && empty($_POST['message']) ) {
@@ -41,6 +41,7 @@ if ($_POST){
 
   if($name && $email && $emailIsValid && $subject) {
     $subject = "$subject";
+    $message = wordwrap($message, 70);
     $body = "Name: $name <br /> 
               Email: $email <br /> 
               Message: $message";
