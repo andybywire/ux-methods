@@ -18,7 +18,7 @@ export default function Contact() {
     handleSubmit, 
     formState: { errors } 
   } = useForm({
-    mode: "onBlur" // "onChange"
+    mode: "onChange" // "onBlur"
   });
   // this isn't working, I don't think:
   {errors && console.log(errors);}
@@ -90,8 +90,10 @@ export default function Contact() {
         </label>
         <label for="email" className={s.email}>
           <span>Email</span>
-          <input type="text" id="email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
-          {(errors?.email?.type === "required" || errors?.email?.type === "pattern") && <p><FiAlertTriangle />Please enter a valid email address. Don't worry&mdash;I won't use your email for anything else. </p>}
+          <input type="text" id="email" {...register("email", {required: true})} />
+          {(errors?.email?.type === "required") && <p><FiAlertTriangle />Please enter a valid email address. Don't worry&mdash;I won't use your email for anything else. </p>}
+          {/* <input type="text" id="email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
+          {(errors?.email?.type === "required" || errors?.email?.type === "pattern") && <p><FiAlertTriangle />Please enter a valid email address. Don't worry&mdash;I won't use your email for anything else. </p>} */}
         </label>
         <label for="subject" className={s.subject}>
           <span>Subject</span>
