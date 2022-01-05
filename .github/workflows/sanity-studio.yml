@@ -18,7 +18,7 @@ jobs:
         run: npm ci
         working-directory: studio
       - name: Install Sanity CLI
-        run: npm install @sanity/cli
+        run: npm install -g @sanity/cli
         working-directory: studio
       - name: Build Studio
         run: sanity build
