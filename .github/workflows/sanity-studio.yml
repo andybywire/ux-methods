@@ -19,7 +19,6 @@ jobs:
         working-directory: studio
       - name: Install Sanity CLI
         run: npm install -g @sanity/cli
-        working-directory: studio
       - name: Build Studio
         run: sanity build
         working-directory: studio
@@ -30,6 +29,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.SANITY_CMS_DREAMHOST_SSH_KEY }}" > ~/.ssh/sanity_cms
+          sudo chmod 600 ~/.ssh/sanity_cms
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
       - name: SFTP Upload
         run: sftp -i ~/.ssh/sanity_cms sanity_cms@JACKSONVILLE.dreamhost.com <<< $'cd studio.uxmethods.org \n put -r studio/dist/*'
