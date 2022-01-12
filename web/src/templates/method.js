@@ -226,7 +226,7 @@ query($slug: String!, $uri: String!) {
       revisedAt
     }
   }
-  allSharedTransputCsv (filter: {methodA: {eq: $uri}}) {
+  allSharedTransputCsv (filter: {methodA: {eq: $uri}}, limit: 6) {
     nodes {
       methodA
       id

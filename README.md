@@ -23,7 +23,7 @@ This repository is a monorepo of three interrelated but distinct pieces: content
 <br />
 
 ## Content Management
-UX Methodsis built and maintained with as a content first resource. This means that content is structured to communicate meaning based on user and organization needs, not around the web requirements of particular "pages." UX Methods uses the fully decoupled headless CMS Sanity to structure, produce, and distribute content. This functionality is located in the [**studio**](https://github.com/andybywire/ux-methods/tree/main/studio) folder of this repository. 
+UX Methods is built and maintained with as a content first resource. This means that content is structured to communicate meaning based on user and organization needs, not around the web requirements of particular "pages." UX Methods uses the fully decoupled headless CMS Sanity to structure, produce, and distribute content. This functionality is located in the [**studio**](https://github.com/andybywire/ux-methods/tree/main/studio) folder of this repository. 
 
 <h3 align="center">
 <img width="500" src="https://user-images.githubusercontent.com/3710835/146045406-6413d563-bf66-4b2c-b40a-f40b9e19b759.png" alt="Screenshot of UXMethods.org website on desktop and mobile">
