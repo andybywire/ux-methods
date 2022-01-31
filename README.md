@@ -14,7 +14,6 @@ The User Experience Practices Knowledge Graph
 		<a href="#knowledge-graph-integration-and-continuous-integration-workflows">Knowledge Graph & CI Workflows</a>
 	</strong>
 </p>
-<br />
 <p align="center">
 	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-prod.yml/badge.svg"/>
 	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-staging.yml/badge.svg"/>
