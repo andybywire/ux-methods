@@ -1,4 +1,4 @@
-name: Build & Deploy Sanity Studio
+name: Studio
 
 on:
   push:

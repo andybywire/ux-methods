@@ -1,4 +1,4 @@
-name: Build & Deploy UX Methods
+name: Production
 
 on:
   workflow_dispatch:
