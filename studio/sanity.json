@@ -12,7 +12,8 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "asset-source-unsplash"
+    "asset-source-unsplash",
+    "@sanity/dashboard"
   ],
   "env": {
     "development": {
