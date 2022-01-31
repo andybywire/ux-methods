@@ -1,6 +1,3 @@
-![build & deploy badge](https://github.com/andybywire/ux-methods/actions/workflows/build-prod.yml/badge.svg)
-![build staging badge](https://github.com/andybywire/ux-methods/actions/workflows/build-staging.yml/badge.svg)
-![build stastudio badge](https://github.com/andybywire/ux-methods/actions/workflows/build-studio.yml/badge.svg)
 <h1 align="center">
 <img src="https://user-images.githubusercontent.com/3710835/145916510-9a2a8af3-38a9-4c87-9e7d-e1d0bd4f6040.png" alt="UX Methods.org wordmark">
 </h1>
@@ -16,6 +13,12 @@ The User Experience Practices Knowledge Graph
   		•
 		<a href="#knowledge-graph-integration-and-continuous-integration-workflows">Knowledge Graph & CI Workflows</a>
 	</strong>
+</p>
+<br />
+<p align="center">
+	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-prod.yml/badge.svg"/>
+	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-staging.yml/badge.svg"/>
+	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-studio.yml/badge.svg"/>
 </p>
 <br />
 
