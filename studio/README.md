@@ -10,4 +10,4 @@
 - Fully customizable [field validation](https://www.sanity.io/docs/validation) and [document organization](https://www.sanity.io/docs/overview-structure-builder)
 
 ## Running Sanity Studio Locally
-This repository can be cloned and installed locally, but in order to collaborate on the UX Methods dataset, you will need to be granted read/write permissions. Please [contact me](https://www.andyfitzgeraldconsulting.com/contact/) if you would like to discuss collaborting on the content data set. 
+This repository can be cloned and installed locally, but in order to collaborate on the UX Methods dataset, you will need to be granted read/write permissions. Please [contact me](https://www.andyfitzgeraldconsulting.com/contact/) if you would like to discuss collaborating on the content data set. 
