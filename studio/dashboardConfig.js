@@ -4,20 +4,27 @@ export default {
       name: 'project-info',
       layout: {
         width: 'small',
-        height: 'medium'
+        height: 'small'
+      }
+    },
+    {
+      name: 'gh-actions',
+      layout: {
+        width: 'small',
+        height: 'small'
       }
     },
     {
       name: 'project-users',
       layout: {
         width: 'small',
-        height: 'medium'
+        height: 'small'
       }
     },
     {
       name: 'cats',
       layout: {
-        width: 'small',
+        width: 'medium',
         height: 'medium'
       }
     }

@@ -14,7 +14,8 @@
     "@sanity/desk-tool",
     "asset-source-unsplash",
     "@sanity/dashboard",
-    "cats"
+    "cats",
+    "dashboard-widget-github-actions"
   ],
   "env": {
     "development": {
