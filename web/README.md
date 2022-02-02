@@ -16,7 +16,7 @@ npm install
 npm run dev
 ```
 
-You should now see a local version of UX Methods running at http://localhost:8000
+You should now see a local version of UX Methods running at http://localhost:8000.
 
 ## Gatsby Guides
 For those new to Gatsby, the Gatsby team recommends starting with their [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/tutorial/). It starts with zero assumptions about your level of ability and walks through every step of the process. Other helpful Gatsby resources include:
