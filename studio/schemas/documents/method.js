@@ -1,4 +1,5 @@
 import { RiGitCommitLine, RiBubbleChartFill } from 'react-icons/ri'
+import MetaDescription from '../../components/MetaDescription'
 
 export default {
   name: 'method',
@@ -44,6 +45,17 @@ export default {
       title: 'Short Description',
       rows: 3,
       validation: Rule => Rule.required()
+    },
+    {
+      name: 'shortDescription',
+      type: 'text',
+      title: 'Short Description',
+      rows: 3,
+      validation: Rule => [
+        Rule.max(100),
+        Rule.required()
+      ],
+      inputComponent: MetaDescription
     },
     {
       name: 'heroImage',

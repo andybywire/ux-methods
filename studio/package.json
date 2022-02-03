@@ -18,6 +18,7 @@
     "sanity"
   ],
   "dependencies": {
+    "@reach/auto-id": "^0.16.0",
     "@sanity/base": "^2.25.4",
     "@sanity/core": "^2.25.0",
     "@sanity/dashboard": "^2.25.4",
