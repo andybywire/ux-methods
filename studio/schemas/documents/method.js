@@ -44,13 +44,6 @@ export default {
       type: 'text',
       title: 'Short Description',
       rows: 3,
-      validation: Rule => Rule.required()
-    },
-    {
-      name: 'shortDescription',
-      type: 'text',
-      title: 'Short Description',
-      rows: 3,
       validation: Rule => [
         Rule.max(100),
         Rule.required()
