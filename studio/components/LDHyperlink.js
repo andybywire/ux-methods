@@ -17,11 +17,50 @@ const LDHyperlink = React.forwardRef((props, ref) => {
     onFocus,      // Method to handle focus state
     onBlur,       // Method to handle blur state  
     onChange,     // Method to handle patch events
+    parent,       // Parent document data
   } = props
+
+  const webHookData = {
+    link: value,
+    resourceId: parent._id
+  } 
 
   const inputId = useId();
   const toast = useToast();
-  const webHook = () => alert('button clicked, second action');
+
+  const webHook = () =>
+    fetch(
+      'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(webHookData)
+      }
+    ).then(response => {
+      if (response.ok) {
+        console.log("Webhook successfully received.");
+        console.log(webHookData);
+        toast.push({
+          status: 'info',
+          title: 'Linked Data request received',
+          description: 'Linked Data retrieval can take a minute. It\'s okay to navigate away from this screen.',
+          closable: true
+        });
+      } else {
+        return Promise.reject(response);
+      }
+    }).catch(err => {
+      console.warn('There was a problem', err);
+      toast.push({
+        status: 'error',
+        title: 'There was a problem:',
+        description: 'The Linked Data request failed. Check the console for error messages.',
+        closable: true
+      });
+    });
+
 
   // Creates a change handler for patching data
   const handleChange = React.useCallback(
@@ -68,7 +107,6 @@ const LDHyperlink = React.forwardRef((props, ref) => {
                 toast.push({
                   status: 'info',
                   title: 'Linked Data request sent',
-                  description: 'Linked Data retrieval can take a minute. It\'s okay to navigate away from this screen.',
                   closable: true
                 });
                 webHook();
