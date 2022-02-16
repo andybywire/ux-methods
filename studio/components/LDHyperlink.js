@@ -21,6 +21,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
   } = props
 
   const webHookData = {
+    event_type: "data-update",
     link: value,
     resourceId: parent._id
   } 
@@ -30,11 +31,14 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const webHook = () =>
     fetch(
-      'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
+      'https://api.github.com/repos/andybywire/ld-link-wf/dispatches',
+      // webhook test address:
+      // 'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': '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'
         },
         body: JSON.stringify(webHookData)
       }
