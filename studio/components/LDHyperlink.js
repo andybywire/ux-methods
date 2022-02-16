@@ -21,24 +21,28 @@ const LDHyperlink = React.forwardRef((props, ref) => {
   } = props
 
   const webHookData = {
-    event_type: "data-update",
-    link: value,
-    resourceId: parent._id
+    "event_type": "data-update",
+    "link": value,
+    "resourceId": parent._id
   } 
 
   const inputId = useId();
   const toast = useToast();
+  const authToken = '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';
 
   const webHook = () =>
     fetch(
       'https://api.github.com/repos/andybywire/ld-link-wf/dispatches',
+      
       // webhook test address:
       // 'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
+      // url: https://webhook.site/#!/e4b37a01-fc61-4db6-aba2-d1992ede129f/b3976e29-c009-4ca4-952a-60e2e0ae394c/1
+      
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': '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'
+          Accept: 'application/vnd.github.v3+json',
+          Authorization: 'token ' + authToken
         },
         body: JSON.stringify(webHookData)
       }
