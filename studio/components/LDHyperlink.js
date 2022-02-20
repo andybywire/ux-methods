@@ -32,7 +32,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
       //     https://api.github.com/repos/andybywire/ld-link-wf/dispatches
 
   const webHookData = {
-    event_type: "data-update"
+    // event_type: "data-update"
   }; 
 
   webHookData.link = value;  
@@ -40,18 +40,19 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const inputId = useId();
   const toast = useToast();
-  const authToken = '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';
+  // const authToken = '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';
 
   const webHook = () =>
     fetch(
       // 'https://api.github.com/repos/andybywire/ld-link-wf/dispatches',
-      'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
+      //'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
+      'http://localhost:3030/ld',
 
       {
         method: 'POST',
         headers: {
-          Accept: 'application/vnd.github.v3+json',
-          Authorization: 'token ' + authToken,
+          // Accept: 'application/vnd.github.v3+json',
+          // Authorization: 'token ' + authToken,
           'User-Agent': 'andybywire'
         },
         body: JSON.stringify(webHookData)
