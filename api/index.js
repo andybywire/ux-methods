@@ -11,7 +11,7 @@ const BodyParser = require('body-parser');
 
 // Initialize Express & define a port
 const app = express();
-const port = 3030;
+const port = 8888;
 
 const got = require('got');
 const metascraper = require('metascraper')([
@@ -46,6 +46,10 @@ app.use(cors()); // Enable cors for all origins
 //   /** Use this when local frontend / development **/
 //   // origin: "http://localhost:3030",
 // }));
+
+app.get('/', (req, res) => {
+  res.send('UX Methods API')
+})
 
 app.post("/ld", (req, res) => {
   const response = JSON.parse(req.body);
