@@ -13,7 +13,7 @@ jobs:
       - name: Smoke Test
         run: | 
           echo "PROJECT_ID=${{ secrets.UXM_PROJECT_ID }}" > .env
-          echo "PROJECT_ID=${{ secrets.SANTIY_UXM_API_TOKEN }}" >> .env
+          echo "UXM_TOKEN=${{ secrets.SANTIY_UXM_API_TOKEN }}" >> .env
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/
