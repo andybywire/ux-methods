@@ -16,6 +16,9 @@ jobs:
       #     echo "UXM_TOKEN=${{ secrets.SANTIY_UXM_API_TOKEN }}" >> .env
       - name: Checkout Branch
         uses: actions/checkout@v2
+      - name: Verify directory
+        run: ls -la
+        working-directory: api
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/
@@ -23,7 +26,7 @@ jobs:
           sudo chmod 600 ~/.ssh/uxm_api
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
       - name: SFTP Upload API Scripts
-        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org/api \n put -r /api'  
+        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org/api \n put -r api'  
 
 # Sequence of steps:
 # - .env file — only needs to be sent when variables change, so probably only once. Create/leave block, but comment out? 
