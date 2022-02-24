@@ -48,7 +48,8 @@ app.use(cors()); // Enable cors for all origins
 // }));
 
 app.get('/', (req, res) => {
-  res.send('UX Methods API')
+  res.send('UX Methods API');
+  res.send(process.version);
 })
 
 app.post("/ld", (req, res) => {
