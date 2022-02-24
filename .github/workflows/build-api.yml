@@ -10,15 +10,26 @@ jobs:
     name: Install UX Methods API and Start Node
     runs-on: ubuntu-latest
     steps: 
-      - name: Smoke Test
-        run: | 
-          echo "PROJECT_ID=${{ secrets.UXM_PROJECT_ID }}" > .env
-          echo "UXM_TOKEN=${{ secrets.SANTIY_UXM_API_TOKEN }}" >> .env
+      # - name: Write .env
+      #   run: | 
+      #     echo "PROJECT_ID=${{ secrets.UXM_PROJECT_ID }}" > .env
+      #     echo "UXM_TOKEN=${{ secrets.SANTIY_UXM_API_TOKEN }}" >> .env
+      - name: Checkout Branch
+        uses: actions/checkout@v2
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.UXM_API_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_api
           sudo chmod 600 ~/.ssh/uxm_api
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
-      - name: SFTP Upload
-        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n put -r .env'  
+      - name: SFTP Upload API Scripts
+        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org/api \n put -r /api'  
+
+# Sequence of steps:
+# - .env file — only needs to be sent when variables change, so probably only once. Create/leave block, but comment out? 
+# - Install nodemon globally on Dreamhost — again, only once. Create/comment out block? This should remain available. (to test)
+# - Establish SSH
+# - Check out branch
+# - Put files
+# - NPM install – cf. heredoc/herestring: https://www.baeldung.com/linux/heredoc-herestring 
+# - nodemon index.js
