@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Smoke Test
-        run: echo 'Here is a quick test'
+        run: echo ${{ secrets.UXM_PROJECT_ID }}
