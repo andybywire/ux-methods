@@ -28,6 +28,7 @@ jobs:
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
       - name: SFTP Upload API Scripts
         run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n mput app.js package.json package-lock.json'
+        working-directory: api
       - name: Install packages & start API
         run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org && npm install'
 
