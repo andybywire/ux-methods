@@ -1,0 +1,14 @@
+name: API
+
+on:
+  push: 
+    branches:
+      - api
+
+jobs:
+  install-and-start:
+    name: Install UX Methods API and Start Node
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Smoke Test
+      - run: echo 'Here\'s a quick test'
