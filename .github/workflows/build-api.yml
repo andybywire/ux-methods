@@ -19,4 +19,4 @@ jobs:
           sudo chmod 600 ~/.ssh/uxm_api
           ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
       - name: SFTP Upload
-        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n put -r ~/test'  
+        run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n put -r test'  
