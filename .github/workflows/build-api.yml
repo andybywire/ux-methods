@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Smoke Test
-      - run: echo 'Here\'s a quick test'
+        run: echo 'Here\'s a quick test'
