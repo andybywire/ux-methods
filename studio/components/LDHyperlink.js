@@ -40,7 +40,6 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const inputId = useId();
   const toast = useToast();
-  // const authToken = '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';
 
   const webHook = () =>
     fetch(
