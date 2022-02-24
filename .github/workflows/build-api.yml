@@ -29,7 +29,7 @@ jobs:
       - name: SFTP Upload API Scripts
         run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n put -r api'
       - name: Install packages & start API
-        run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org/api && npm install && nodemon index.js'
+        run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org/api && npm install'
 
 # Sequence of steps:
 # - .env file — only needs to be sent when variables change, so probably only once. Create/leave block, but comment out? 
@@ -39,3 +39,16 @@ jobs:
 # - Put files
 # - NPM install – cf. heredoc/herestring: https://www.baeldung.com/linux/heredoc-herestring & https://www.baeldung.com/linux/run-multi-line-shell-code
 # - nodemon index.js
+
+# Dealing with processes
+# https://stackoverflow.com/questions/10522532/stop-node-js-program-from-command-line
+# See running processes on terminal: 
+# $ ps aux | grep npm
+# Kill a particular process (ID is second number from left):
+# $ kill -9 PROCESS_ID
+# Kill all node processes:
+# $ killall node
+
+# https://www.reddit.com/r/node/comments/p6ezi6/how_to_keep_a_nodejs_app_running_after_i_close/
+# $ nohup npm start &
+# The & will put the npm process in the background. The nohup tells Linux to “no hang up” when the terminal session is terminated (ssh in this case). You’ll need to manually kill the process ID that’s returned at command line to shutdown the app.
