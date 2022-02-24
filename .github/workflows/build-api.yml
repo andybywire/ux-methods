@@ -29,7 +29,7 @@ jobs:
       - name: SFTP Upload API Scripts
         run: sftp -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< $'cd api.uxmethods.org \n put -r api'
       - name: Install packages & start API
-        run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org/api && npm install'
+        run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org && npm install'
 
 # Sequence of steps:
 # - .env file — only needs to be sent when variables change, so probably only once. Create/leave block, but comment out? 
