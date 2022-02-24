@@ -12,3 +12,9 @@ jobs:
     steps: 
       - name: Smoke Test
         run: echo ${{ secrets.UXM_PROJECT_ID }}
+      - name: Set Up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.UXM_API_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_api
+          sudo chmod 600 ~/.ssh/uxm_api
+          ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
