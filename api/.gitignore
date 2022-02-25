@@ -1,0 +1,13 @@
+# Dependency directories
+node_modules/
+
+# Images directory
+img/
+
+# Mac files
+.DS_Store
+
+# Secrets
+.env.development
+.env.production
+.env

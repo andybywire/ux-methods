@@ -1,4 +1,5 @@
 import { RiLinksLine, RiArticleLine } from 'react-icons/ri'
+import LDHyperlink from '../../components/LDHyperlink'
 
 export default {
   name: 'resource',
@@ -6,6 +7,12 @@ export default {
   icon: RiLinksLine,
   title: 'Resources',
   fields: [
+    {
+      name: 'resourceUrl',
+      type: 'url',
+      title: 'Resource URL',
+      inputComponent: LDHyperlink
+    },
     {
       name: 'title',
       type: 'string',
@@ -24,11 +31,6 @@ export default {
       name: 'pubDate',
       type: 'date',
       title: 'Date First Published'
-    },
-    {
-      name: 'resourceUrl',
-      type: 'url',
-      title: 'Resource URL'
     },
     {
       name: 'metaDescription',
