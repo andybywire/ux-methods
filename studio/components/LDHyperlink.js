@@ -20,20 +20,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
     parent,       // Parent document data
   } = props
 
-  // Webhook Test Addresses
-
-      // webhook test address:
-      // 'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
-      // url: https://webhook.site/#!/e4b37a01-fc61-4db6-aba2-d1992ede129f/b3976e29-c009-4ca4-952a-60e2e0ae394c/1
-
-      // curl --verbose -H "Authorization: token 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" \
-      //     --request POST \
-      //     --data '{"event_type": "data-update"}' \
-      //     https://api.github.com/repos/andybywire/ld-link-wf/dispatches
-
-  const webHookData = {
-    // event_type: "data-update"
-  }; 
+  const webHookData = {}; 
 
   webHookData.link = value;  
   webHookData.resourceId = parent._id;
@@ -43,17 +30,13 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const webHook = () =>
     fetch(
-      // 'https://api.github.com/repos/andybywire/ld-link-wf/dispatches',
-      //'https://webhook.site/e4b37a01-fc61-4db6-aba2-d1992ede129f',
       //'http://localhost:8888/ld',
       'https://api.uxmethods.org/ld',
 
       {
         method: 'POST',
         headers: {
-          // Accept: 'application/vnd.github.v3+json',
-          // Authorization: 'token ' + authToken,
-          'User-Agent': 'andybywire'
+          'User-Agent': 'UXMethods'
         },
         body: JSON.stringify(webHookData)
       }

@@ -8,9 +8,9 @@ export default {
   title: 'Resources',
   fields: [
     {
-      name: 'ldHyperlink',
+      name: 'resourceUrl',
       type: 'url',
-      title: 'Resource URL (Linked Data)',
+      title: 'Resource URL',
       inputComponent: LDHyperlink
     },
     {
@@ -31,11 +31,6 @@ export default {
       name: 'pubDate',
       type: 'date',
       title: 'Date First Published'
-    },
-    {
-      name: 'resourceUrl',
-      type: 'url',
-      title: 'Resource URL'
     },
     {
       name: 'metaDescription',
