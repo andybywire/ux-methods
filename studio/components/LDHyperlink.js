@@ -117,7 +117,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
           </Box>
         </Flex>
       </FormField>
-      <Text muted size={1}>Update status.</Text>
+      <Text muted size={1}>Update status</Text>
     </Stack>
   )
 })
