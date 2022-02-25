@@ -47,9 +47,12 @@ app.use(cors()); // Enable cors for all origins
 //   // origin: "http://localhost:3030",
 // }));
 
+const updated = new Date();
+
+const message = 'UX Methods API • Node ' + process.version + '<br>' + 'Last updated ' + updated;
+
 app.get('/', (req, res) => {
-  res.send('UX Methods API');
-  res.send(process.version);
+  res.send(message)
 })
 
 app.post("/ld", (req, res) => {
