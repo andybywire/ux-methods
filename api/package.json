@@ -4,8 +4,7 @@
   "description": "API functionality for UX Methods ",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon index.js",
-    "prod": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andy Fitzgerald",

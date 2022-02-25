@@ -152,6 +152,7 @@ app.post("/ld", (req, res) => {
           console.log("Done!");
         })
     
+        // should delete image from server after upload
 
     } catch(e) {
       console.error(e);
