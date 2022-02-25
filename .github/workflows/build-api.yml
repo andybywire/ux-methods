@@ -10,7 +10,7 @@ jobs:
     name: Install UX Methods API and Start Node
     runs-on: ubuntu-latest
     steps: 
-      # Uncomment if you need to recreate the .env file on Dreamhost from GitHub repository secrets (or add to them)
+      # Uncomment if you need to recreate the .env file on DreamHost from GitHub repository secrets (or add to them)
       # - name: Write .env
       #   run: | 
       #     echo "PROJECT_ID=${{ secrets.UXM_PROJECT_ID }}" > .env
@@ -28,27 +28,3 @@ jobs:
         working-directory: api
       - name: Install packages & start API
         run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org && npm install && touch tmp/restart.txt'
-
-      # add 'touch tmp/restart.txt' — I should just assume this is necessary to restart for updates
-
-# Sequence of steps:
-# - .env file — only needs to be sent when variables change, so probably only once. Create/leave block, but comment out? 
-# - Install nodemon globally on Dreamhost — again, only once. Create/comment out block? This should remain available. (to test)
-# - Establish SSH
-# - Check out branch
-# - Put files
-# - NPM install – cf. heredoc/herestring: https://www.baeldung.com/linux/heredoc-herestring & https://www.baeldung.com/linux/run-multi-line-shell-code
-# - nodemon index.js
-
-# Dealing with processes
-# https://stackoverflow.com/questions/10522532/stop-node-js-program-from-command-line
-# See running processes on terminal: 
-# $ ps aux | grep npm
-# Kill a particular process (ID is second number from left):
-# $ kill -9 PROCESS_ID
-# Kill all node processes:
-# $ killall node
-
-# https://www.reddit.com/r/node/comments/p6ezi6/how_to_keep_a_nodejs_app_running_after_i_close/
-# $ nohup npm start &
-# The & will put the npm process in the background. The nohup tells Linux to “no hang up” when the terminal session is terminated (ssh in this case). You’ll need to manually kill the process ID that’s returned at command line to shutdown the app.
