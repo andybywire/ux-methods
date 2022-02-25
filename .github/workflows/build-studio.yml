@@ -3,7 +3,7 @@ name: Studio
 on:
   push:
     paths: 
-      - 'studio/*'
+      - 'studio/**'
   workflow_dispatch: 
 
 jobs:
