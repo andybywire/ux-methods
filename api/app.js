@@ -11,7 +11,7 @@ const BodyParser = require('body-parser');
 
 // Initialize Express & define a port
 const app = express();
-const port = 8888; // 80 sends it to the bare localhost url
+const port = 8888;
 
 const got = require('got');
 const metascraper = require('metascraper')([
@@ -49,7 +49,8 @@ app.use(cors()); // Enable cors for all origins
 
 const updated = new Date();
 
-const message = 'UX Methods API • Node ' + process.version + '<br>' + 'Last updated ' + updated;
+const message = `<p>UX Methods API • Node ${process.version}</p>
+                 <p>Last updated: ${updated}</p>`;
 
 app.get('/', (req, res) => {
   res.send(message)
@@ -161,7 +162,7 @@ app.post("/ld", (req, res) => {
     }
     // do I need to call next() before I close this out? 
     // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction#using_middleware  
-    
+
   })();
 
   res.status(200).end('Linked data request received.');
