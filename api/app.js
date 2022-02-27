@@ -11,7 +11,7 @@ const BodyParser = require('body-parser');
 
 // Initialize Express & define a port
 const app = express();
-const port = 8888;
+const port = 8888; // 80 sends it to the bare localhost url
 
 const got = require('got');
 const metascraper = require('metascraper')([
@@ -63,6 +63,8 @@ app.post("/ld", (req, res) => {
   // console.log(resourceId);
 
   const targetUrl = submittedUrl;
+
+  // This is all my "middleware" function (cf. MDN docs):
 
   (async () => {
     try{
@@ -151,15 +153,20 @@ app.post("/ld", (req, res) => {
         .then(() => {
           console.log("Done!");
         })
-    
+        
         // should delete image from server after upload
 
     } catch(e) {
       console.error(e);
     }
+    // do I need to call next() before I close this out? 
+    // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction#using_middleware  
+    
   })();
 
   res.status(200).end('Linked data request received.');
+  // use this to communicate receiving, then success or failure. 
+  // in the case of success, note the number of data points found? I'll be getting these to update Sanity anyway
 });
 
 app.listen(port, () => {

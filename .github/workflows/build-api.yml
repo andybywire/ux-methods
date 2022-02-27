@@ -28,3 +28,12 @@ jobs:
         working-directory: api
       - name: Install packages & start API
         run: ssh -i ~/.ssh/uxm_api uxm_api@jacksonville.dreamhost.com <<< 'cd api.uxmethods.org && npm install && touch tmp/restart.txt'
+
+
+# nodemon app.js &> /dev/null & disown -ah && exit
+# `command &> out` redirects both stdout & stderr (bash and zsh support this, but sh and ksh do not)
+# --> https://askubuntu.com/questions/625224/how-to-redirect-stderr-to-a-file
+# `disown -ah` removes all jobs from the shell and make them ignore SIGHUP
+# --> https://devimalplanet.com/how-to-exit-terminal-leave-process-running
+# consider adding a judicious `killall node` if/when I ever need to programmatically restart nodemon
+# for now, it's picking up updates to app.js just fine

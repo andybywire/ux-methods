@@ -30,8 +30,8 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const webHook = () =>
     fetch(
-      //'http://localhost:8888/ld',
-      'https://api.uxmethods.org/ld',
+      'http://localhost:8888/ld',
+      //'http://api.uxmethods.org:8888/ld',
 
       {
         method: 'POST',
