@@ -28,9 +28,12 @@ const LDHyperlink = React.forwardRef((props, ref) => {
   const inputId = useId();
   const toast = useToast();
 
+  const apiBaseURL = process.env.SANITY_STUDIO_DEV_API_URL || 'http://api.uxmethods.org:';
+
   const webHook = () =>
     fetch(
-      'http://localhost:8888/ld',
+      `${apiBaseURL}8888/ld`,
+      //'http://localhost:8888/ld',
       //'http://api.uxmethods.org:8888/ld',
 
       {
