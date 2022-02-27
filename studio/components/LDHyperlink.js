@@ -33,9 +33,6 @@ const LDHyperlink = React.forwardRef((props, ref) => {
   const webHook = () =>
     fetch(
       `${apiBaseURL}/ld`,
-      // 'http://localhost:8888/ld',
-      // 'https://api.uxmethods.org/ld',
-
       {
         method: 'POST',
         headers: {
@@ -49,8 +46,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
         console.log(webHookData);
         toast.push({
           status: 'info',
-          title: 'Linked Data request received',
-          description: 'Linked Data retrieval can take a minute. It\'s okay to navigate away from this screen.',
+          title: 'Linked Data received',
           closable: true
         });
       } else {
