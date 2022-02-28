@@ -2,12 +2,14 @@ name: API
 
 on:
   push: 
-    branches:
-      - api
+    paths:
+      - 'api/**'
+  workflow_dispatch: 
 
 jobs:
   install-and-start:
     name: Install UX Methods API and Start Node
+    if: ${{ github.ref == 'refs/heads/main' }} 
     runs-on: ubuntu-latest
     steps: 
       # Uncomment if you need to recreate the .env file on DreamHost from GitHub repository secrets (or add to them)

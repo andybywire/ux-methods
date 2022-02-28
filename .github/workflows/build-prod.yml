@@ -10,7 +10,7 @@ on:
       - article
   push:
     paths: 
-      - 'web/*'
+      - 'web/**'
 
 jobs:
   load-rdf-job:
