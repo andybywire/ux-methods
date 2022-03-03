@@ -73,6 +73,16 @@ const LDHyperlink = React.forwardRef((props, ref) => {
     [onChange]
   )
 
+  const isURL = (str) => {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
   return (
     <Stack space={1}>
       <FormField
@@ -105,12 +115,21 @@ const LDHyperlink = React.forwardRef((props, ref) => {
               tone="default"
               justify="flex-end"
               onClick={() => {
-                toast.push({
-                  status: 'info',
-                  title: 'Linked Data request sent',
-                  closable: true
-                });
-                webHook();
+                const valueUrl = isURL(value);
+                if (valueUrl) {
+                  toast.push({
+                    status: 'info',
+                    title: 'Linked Data request sent.',
+                    closable: true
+                  });
+                  webHook();
+                } else {
+                  toast.push({
+                    status: 'error',
+                    title: 'Please enter a valid URL.',
+                    closable: true
+                  }); 
+                }
               }}
             />
           </Box>
