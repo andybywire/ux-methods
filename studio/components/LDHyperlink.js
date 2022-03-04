@@ -20,10 +20,11 @@ const LDHyperlink = React.forwardRef((props, ref) => {
     parent,       // Parent document data
   } = props
 
-  const webHookData = {}; 
-
-  webHookData.link = value;  
-  webHookData.resourceId = parent._id;
+  // Webhook payload. If you need to specify particular keys—-such as `event-type` for GitHub Actions workflows--those can be added here. 
+  const webHookData = {
+    link: value,  
+    resourceId: parent._id
+  }; 
 
   const inputId = useId();
   const toast = useToast();
@@ -32,7 +33,7 @@ const LDHyperlink = React.forwardRef((props, ref) => {
 
   const webHook = () =>
     fetch(
-      `${apiBaseURL}/ld`,
+      `${apiBaseURL}/ld`, // URL to which to POST the webhook 
       {
         method: 'POST',
         headers: {
@@ -112,24 +113,16 @@ const LDHyperlink = React.forwardRef((props, ref) => {
               padding={[3]}
               text="Get Linked Data"
               mode="ghost"
+              disabled={!isURL(value)}      // Button disables until a valid URL is entered
               tone="default"
               justify="flex-end"
               onClick={() => {
-                const valueUrl = isURL(value);
-                if (valueUrl) {
-                  toast.push({
-                    status: 'info',
-                    title: 'Linked Data request sent.',
-                    closable: true
-                  });
-                  webHook();
-                } else {
-                  toast.push({
-                    status: 'error',
-                    title: 'Please enter a valid URL.',
-                    closable: true
-                  }); 
-                }
+                toast.push({
+                  status: 'info',
+                  title: 'Linked Data request sent.',
+                  closable: true
+                });
+                webHook();
               }}
             />
           </Box>
