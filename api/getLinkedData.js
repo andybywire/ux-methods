@@ -8,7 +8,7 @@ const metascraper = require('metascraper')([
   require('metascraper-image')()
 ]);
 
-const allowedOrigin = (process.env.NODE_ENV == "development") ? "http://localhost:3333" : "https://cms.uxmethods.org/";
+const allowedOrigin = (process.env.NODE_ENV == "development") ? "http://localhost:3333" : "https://cms.uxmethods.org";
 
 module.exports = async (req, res, next) => {
   const requestOrigin = req.headers.origin;
