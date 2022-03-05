@@ -9,6 +9,7 @@ const client = sanityClient({
   projectId: projectId,
   dataset: 'production',
   apiVersion: '2021-03-25',
+  useCdn: true,
   token: uxmToken
 });
 

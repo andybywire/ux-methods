@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
           patch: {
             id: resourceId,
             set: {
-              title: metadata.title != null ? metadata.title : "",
+              title: metadata.title != null ? metadata.title : "", 
               author: metadata.author != null ? metadata.author : "",
               publisher: {
                 pubName: metadata.publisher != null ? metadata.publisher : "",
