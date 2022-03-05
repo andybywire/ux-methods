@@ -1,5 +1,6 @@
 # Mac files
 .DS_Store
+_local
 
 # Dependency directories
 /node_modules
