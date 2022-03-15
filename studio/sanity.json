@@ -15,7 +15,9 @@
     "asset-source-unsplash",
     "@sanity/dashboard",
     "cats",
-    "dashboard-widget-github-actions"
+    "dashboard-widget-github-actions",
+    "parts-list",
+    "taxonomy-manager"
   ],
   "env": {
     "development": {
