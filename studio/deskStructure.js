@@ -1,7 +1,6 @@
 import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
-import { RiNodeTree, RiSettings4Line } from 'react-icons/ri'
-import { AiFillTags, AiOutlineTags } from 'react-icons/ai'
+import { RiSettings4Line } from 'react-icons/ri'
 
 import StudioPreview from './src/components/preview'
 import MobilePreview from './src/components/mobilePreview'
@@ -28,22 +27,8 @@ export default () =>
     .items([
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
-      S.listItem()
-        .title('Concepts')
-        .icon(AiFillTags)
-        .child(
-          S.documentList()
-            .title('Concepts')
-            .filter('_type == "skosConcept"')
-        ),
-      S.listItem()
-      .title('Taxonomy Schemes')
-      .icon(RiNodeTree)
-      .child(
-        S.documentList()
-          .title('Taxonomy Schemes')
-          .filter('_type == "skosConceptScheme"')
-      ),
+      S.documentTypeListItem("skosConcept").title("Concepts"),
+      S.documentTypeListItem("skosConceptScheme").title("Taxonomy Schemes"),
       S.listItem()
       .title('Taxonomy Settings')
       .icon(RiSettings4Line)
@@ -52,7 +37,7 @@ export default () =>
         .schemaType('skosTaxonomySettings')
         .documentId('skosTaxonomySettings')
         ),
-        S.divider(),
+      S.divider(),
       // S.listItem()
       //   .title('I/O Taxonomy')
       //   .icon(RiNodeTree)

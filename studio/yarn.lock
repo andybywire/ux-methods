@@ -9770,9 +9770,13 @@
 
 "sanity-plugin-taxonomy-manager@file:../../sanity-plugin-taxonomy-manager":
   "resolved" "file:../../sanity-plugin-taxonomy-manager"
-  "version" "1.0.0"
+  "version" "0.1.0"
   dependencies:
-    "prop-types" "^15.8.1"
+    "@reach/auto-id" "^0.16.0"
+    "@sanity/base" "^2.28.2"
+    "@sanity/form-builder" "^2.29.1"
+    "@sanity/ui" "^0.37.5"
+    "react-icons" "^4.3.1"
 
 "sax@~1.2.4":
   "integrity" "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
