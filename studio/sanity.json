@@ -16,8 +16,7 @@
     "@sanity/dashboard",
     "cats",
     "dashboard-widget-github-actions",
-    "parts-list",
-    "taxonomy-manager"
+    "parts-list"
   ],
   "env": {
     "development": {
