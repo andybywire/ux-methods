@@ -1,6 +1,7 @@
 import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
-import { RiSettings4Line } from 'react-icons/ri'
+import { RiSettings4Line, RiNodeTree } from 'react-icons/ri'
+import { AiOutlineTags, AiFillTags } from 'react-icons/ai'
 
 import StudioPreview from './src/components/preview'
 import MobilePreview from './src/components/mobilePreview'
@@ -80,20 +81,20 @@ export default () =>
                   S.documentList()
                     .title('Evaluation Concepts')
                     .filter('_type == "concept" && "transputTaxonomy_Evaluation" in broaderConcept[]._ref')
-                ),
-              S.listItem()
-                .title('Concepts by Top Concept')
-                .child(
-                  S.documentTypeList('concept')
-                    .title('Concepts by Top Concept')
-                    .filter('_type == "concept" && topConcept == true')
-                    .child(topConceptId =>
-                      S.documentList()
-                        .title('Concepts')
-                        .filter('_type == "concept" && $topConceptId in broaderConcept[]._ref')
-                        .params({ topConceptId })
-                    )
                 )
+              // S.listItem()
+              //   .title('Concepts by Top Concept')
+              //   .child(
+              //     S.documentTypeList('concept')
+              //       .title('Concepts by Top Concept')
+              //       .filter('_type == "concept" && topConcept == true')
+              //       .child(topConceptId =>
+              //         S.documentList()
+              //           .title('Concepts')
+              //           .filter('_type == "concept" && $topConceptId in broaderConcept[]._ref')
+              //           .params({ topConceptId })
+              //       )
+              //   )
             ])
         ),
       // S.divider(),
