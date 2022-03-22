@@ -17,7 +17,7 @@ export const getDefaultDocumentNode = ({schemaType}) => {
 }
 
 const hiddenDocTypes = (listItem) =>
-!['concept', 'siteSettings', 'skosTaxonomySettings', 'skosConcept', 'skosConceptScheme'].includes(
+!['concept', 'siteSettings', 'skosConcept', 'skosConceptScheme'].includes(
   listItem.getId()
 )
 
@@ -29,14 +29,6 @@ export default () =>
       S.divider(),
       S.documentTypeListItem("skosConcept").title("Concepts"),
       S.documentTypeListItem("skosConceptScheme").title("Taxonomy Schemes"),
-      S.listItem()
-      .title('Taxonomy Settings')
-      .icon(RiSettings4Line)
-      .child(
-        S.document()
-        .schemaType('skosTaxonomySettings')
-        .documentId('skosTaxonomySettings')
-        ),
       S.divider(),
       // S.listItem()
       //   .title('I/O Taxonomy')
