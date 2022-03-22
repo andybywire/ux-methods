@@ -82,19 +82,6 @@ export default () =>
                     .title('Evaluation Concepts')
                     .filter('_type == "concept" && "transputTaxonomy_Evaluation" in broaderConcept[]._ref')
                 )
-              // S.listItem()
-              //   .title('Concepts by Top Concept')
-              //   .child(
-              //     S.documentTypeList('concept')
-              //       .title('Concepts by Top Concept')
-              //       .filter('_type == "concept" && topConcept == true')
-              //       .child(topConceptId =>
-              //         S.documentList()
-              //           .title('Concepts')
-              //           .filter('_type == "concept" && $topConceptId in broaderConcept[]._ref')
-              //           .params({ topConceptId })
-              //       )
-              //   )
             ])
         ),
       // S.divider(),
