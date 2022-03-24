@@ -47,7 +47,7 @@ jobs:
       - name: Upload RDF to Data.World
         uses: fjogeleit/http-request-action@master
         with:
-          url: 'https://api.data.world/v0/uploads/andyfitzgerald/methods-transput-data/files'
+          url: 'https://api.data.world/v0/uploads/andyfitzgerald/method-io-data/files'
           method: 'POST'
           contentType: 'multipart/form-data'
           bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
