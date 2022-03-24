@@ -1,6 +1,6 @@
 name: Methods ETL
 
-on: push
+# on: push
 
 jobs:
   methods-etl:
