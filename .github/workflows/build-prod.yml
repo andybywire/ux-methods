@@ -36,14 +36,14 @@ jobs:
       #   with:
       #     test-input: 'Here is a custom input message.'
       #     sanity-data: ${{ steps.sanityData.outputs.response }}
-      # - name: Upload RDF file as artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: rdfData
-      #     path: rdfData.ttl
       - name: Extract & Transform
         uses: ./actions/method-transform
         id: extract-transform
+      - name: Upload RDF file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: rdfData
+          path: rdfData.ttl
       - name: Upload RDF to Data.World
         uses: fjogeleit/http-request-action@master
         with:
