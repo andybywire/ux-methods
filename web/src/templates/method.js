@@ -13,14 +13,14 @@ import { FiCornerDownLeft, FiExternalLink } from 'react-icons/fi';
 export default function MethodPage({data, data: { method }}) {
 
   // Get methods which provide input for the current method
-  const inputMethods = data.input.nodes.map(item => item.methodA);
+  const inputMethods = data.input.nodes.map(item => item.origin);
 
   // Filter method cards to only those on the inputMethods list
   // -> "define what you want to keep and then return true for those values"
   const inputCards = data.cards.nodes.filter(card => inputMethods.includes(card.uri.current));
 
   // Get related methods for which the current method's outputs provide inputs
-  const relatedMethods = data.allSharedTransputCsv.nodes.map(item => item.methodB);
+  const relatedMethods = data.allSharedTransputCsv.nodes.map(item => item.destination);
 
   // Filter method cards to only those on the relatedMethods list
   const sharedCards = data.cards.nodes.filter(card => relatedMethods.includes(card.uri.current));
@@ -226,20 +226,20 @@ query($slug: String!, $uri: String!) {
       revisedAt
     }
   }
-  allSharedTransputCsv (filter: {methodA: {eq: $uri}}, limit: 6) {
+  allSharedTransputCsv (filter: {origin: {eq: $uri}}, limit: 6) {
     nodes {
-      methodA
+      origin
       id
-      sharedTransput
-      methodB
+      sharedOutputCount
+      destination
     }
   }
-  input: allSharedTransputCsv (filter: {methodB: {eq: $uri}}, sort: {order: DESC, fields: sharedTransput}, limit: 6) {
+  input: allSharedTransputCsv (filter: {destination: {eq: $uri}}, sort: {order: DESC, fields: sharedOutputCount}, limit: 6) {
     nodes {
-      methodA
+      origin
       id
-      sharedTransput
-      methodB
+      sharedOutputCount
+      destination
     }
   }
   cards: allSanityMethod {
