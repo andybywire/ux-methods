@@ -18,29 +18,32 @@ jobs:
     name: Transform and load Sanity content as RDF then build and upload UX Methods
     if: ${{ github.ref == 'refs/heads/main' }} 
     steps:
-      - name: Get Sanity Data
-        id: sanityData
-        uses: fjogeleit/http-request-action@master
-        with:
-          url: 'https://4g5tw1k0.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20%24type%5D%7B%0A%20%20title%2C%0A%20%20_id%2C%0A%20%20%22methodId%22%3A%20slug.current%2C%0A%20%20%22inputs%22%3A%20transputReference.inputsReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22inputId%22%3A%20conceptId.current%0A%20%20%7D%2C%0A%20%20%22outputs%22%3A%20transputReference.outputReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22outputId%22%3A%20conceptId.current%0A%20%20%7D%0A%7D&%24broader=%22transputTaxonomy_Recommendation%22&%24pageSlug=%22card-sorting%22&%24type=%22method%22'
-          method: 'GET'
-      # Echo data in action log to verify content
-      - name: Show Response
-        run: echo ${{ steps.sanityData.outputs.response }}
-      # Checkout the repository so the workflow can access actions in it.
+      # - name: Get Sanity Data
+      #   id: sanityData
+      #   uses: fjogeleit/http-request-action@master
+      #   with:
+      #     url: 'https://4g5tw1k0.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20%24type%5D%7B%0A%20%20title%2C%0A%20%20_id%2C%0A%20%20%22methodId%22%3A%20slug.current%2C%0A%20%20%22inputs%22%3A%20transputReference.inputsReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22inputId%22%3A%20conceptId.current%0A%20%20%7D%2C%0A%20%20%22outputs%22%3A%20transputReference.outputReference%5B%5D-%3E%7B%0A%20%20%20%20prefLabel%2C%0A%20%20%20%20%22outputId%22%3A%20conceptId.current%0A%20%20%7D%0A%7D&%24broader=%22transputTaxonomy_Recommendation%22&%24pageSlug=%22card-sorting%22&%24type=%22method%22'
+      #     method: 'GET'
+      # # Echo data in action log to verify content
+      # - name: Show Response
+      #   run: echo ${{ steps.sanityData.outputs.response }}
+      # # Checkout the repository so the workflow can access actions in it.
       - name: Checkout Branch
         uses: actions/checkout@v2
-      - name: Transform RDF
-        uses: ./actions/rdf-transform # Uses an action in the root directory
-        id: transform
-        with:
-          test-input: 'Here is a custom input message.'
-          sanity-data: ${{ steps.sanityData.outputs.response }}
-      - name: Upload RDF file as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: rdfData
-          path: rdfData.ttl
+      # - name: Transform RDF
+      #   uses: ./actions/rdf-transform # Uses an action in the root directory
+      #   id: transform
+      #   with:
+      #     test-input: 'Here is a custom input message.'
+      #     sanity-data: ${{ steps.sanityData.outputs.response }}
+      # - name: Upload RDF file as artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: rdfData
+      #     path: rdfData.ttl
+      - name: Extract & Transform
+        uses: ./actions/method-transform
+        id: extract-transform
       - name: Upload RDF to Data.World
         uses: fjogeleit/http-request-action@master
         with:
@@ -49,7 +52,6 @@ jobs:
           contentType: 'multipart/form-data'
           bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
           files: '{ "file": "rdfData.ttl" }'
-
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
