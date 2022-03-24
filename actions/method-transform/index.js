@@ -1,4 +1,3 @@
-const core = require('@actions/core')
 const fs = require('fs')
 const sanityClient = require('@sanity/client')
 const client = sanityClient({
