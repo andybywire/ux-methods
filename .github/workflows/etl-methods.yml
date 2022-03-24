@@ -1,0 +1,17 @@
+name: Methods ETL
+
+on: push
+
+jobs:
+  methods-etl:
+    runs-on: ubuntu-latest
+    name: Extract, transform, and load Method output data.
+    steps:
+      - name: Extract & Transform
+        uses: ./actions/method-transform
+        id: extract-transform
+      - name: Upload RDF file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: rdfData
+          path: rdfData.ttl

@@ -27,67 +27,67 @@ export default () =>
     .title('UX Methods')
     .items([
       ...S.documentTypeListItems().filter(hiddenDocTypes),
-      S.listItem()
-        .title('I/O Taxonomy')
-        .icon(RiNodeTree)
-        .child(
-          S.list()
-            .title('Concepts')
-            .items([
-              S.listItem()
-                .title('All Concepts')
-                .icon(AiOutlineTags)
-                .child(
-                  S.documentList()
-                    .title('All Concepts')
-                    .filter('_type == "concept"')
-                ),
-              S.listItem()
-                .title('Top Concepts')
-                .icon(AiOutlineTags)
-                .child(
-                  S.documentList()
-                    .title('Top Concepts')
-                    .filter('_type == "concept" && topConcept == true')
-                ),
-              S.listItem()
-                .title('Finding Concepts')
-                .icon(AiFillTags)
-                .child(
-                  S.documentList()
-                    .title('Finding Concepts')
-                    .filter('_type == "concept" && "transputTaxonomy_Finding" in broaderConcept[]._ref')
-                ),
-              S.listItem()
-                .title('Definition Concepts')
-                .icon(AiFillTags)
-                .child(
-                  S.documentList()
-                    .title('Definition Concepts')
-                    .filter('_type == "concept" && "transputTaxonomy_Definition" in broaderConcept[]._ref')
-                ),
-              S.listItem()
-                .title('Recommendation Concepts')
-                .icon(AiFillTags)
-                .child(
-                  S.documentList()
-                    .title('Recommendation Concepts')
-                    .filter('_type == "concept" && "transputTaxonomy_Recommendation" in broaderConcept[]._ref')
-                ),
-              S.listItem()
-                .title('Evaluation Concepts')
-                .icon(AiFillTags)
-                .child(
-                  S.documentList()
-                    .title('Evaluation Concepts')
-                    .filter('_type == "concept" && "transputTaxonomy_Evaluation" in broaderConcept[]._ref')
-                )
-            ])
-        ),
-      // S.divider(),
-      // S.documentTypeListItem("skosConcept").title("Concepts"),
-      // S.documentTypeListItem("skosConceptScheme").title("Taxonomy Schemes"),
-      // S.divider(),
+      // S.listItem()
+      //   .title('I/O Taxonomy')
+      //   .icon(RiNodeTree)
+      //   .child(
+      //     S.list()
+      //       .title('Concepts')
+      //       .items([
+      //         S.listItem()
+      //           .title('All Concepts')
+      //           .icon(AiOutlineTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('All Concepts')
+      //               .filter('_type == "concept"')
+      //           ),
+      //         S.listItem()
+      //           .title('Top Concepts')
+      //           .icon(AiOutlineTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('Top Concepts')
+      //               .filter('_type == "concept" && topConcept == true')
+      //           ),
+      //         S.listItem()
+      //           .title('Finding Concepts')
+      //           .icon(AiFillTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('Finding Concepts')
+      //               .filter('_type == "concept" && "transputTaxonomy_Finding" in broaderConcept[]._ref')
+      //           ),
+      //         S.listItem()
+      //           .title('Definition Concepts')
+      //           .icon(AiFillTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('Definition Concepts')
+      //               .filter('_type == "concept" && "transputTaxonomy_Definition" in broaderConcept[]._ref')
+      //           ),
+      //         S.listItem()
+      //           .title('Recommendation Concepts')
+      //           .icon(AiFillTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('Recommendation Concepts')
+      //               .filter('_type == "concept" && "transputTaxonomy_Recommendation" in broaderConcept[]._ref')
+      //           ),
+      //         S.listItem()
+      //           .title('Evaluation Concepts')
+      //           .icon(AiFillTags)
+      //           .child(
+      //             S.documentList()
+      //               .title('Evaluation Concepts')
+      //               .filter('_type == "concept" && "transputTaxonomy_Evaluation" in broaderConcept[]._ref')
+      //           )
+      //       ])
+      //   ),
+      S.divider(),
+      S.documentTypeListItem("skosConcept").title("Concepts"),
+      S.documentTypeListItem("skosConceptScheme").title("Taxonomy Schemes"),
+      S.divider(),
       S.listItem()
         .title('Settings')
         .icon(RiSettings4Line)

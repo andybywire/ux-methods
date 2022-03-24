@@ -234,7 +234,7 @@ query($slug: String!, $uri: String!) {
       methodB
     }
   }
-  input: allSharedTransputCsv (filter: {methodB: {eq: $uri}}) {
+  input: allSharedTransputCsv (filter: {methodB: {eq: $uri}}, sort: {order: DESC, fields: sharedTransput}, limit: 6) {
     nodes {
       methodA
       id

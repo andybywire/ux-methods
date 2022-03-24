@@ -88,6 +88,44 @@ export default {
       name: 'transputReference',
       type: 'transputReference',
       title: 'Input/Output'
+    },
+    {
+      name: 'input',
+      title: 'Inputs to this Method',
+      description: 'What evidence, insight, or recommendations are needed in order to use this method?',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'skosConcept'}],
+          options: {
+            filter: '_type == $type && (scheme->title == $scheme)',
+            filterParams: {
+              type: 'skosConcept',
+              scheme: 'Transput'
+            }
+          }
+        }
+      ]
+    },
+    {
+      name: 'output',
+      title: 'Outputs of this Method',
+      description: 'What evidence, insight, or recommendations does this method produce?',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'skosConcept'}],
+          options: {
+            filter: '_type == $type && (scheme->title == $scheme)',
+            filterParams: {
+              type: 'skosConcept',
+              scheme: 'Transput'
+            }
+          }
+        }
+      ]
     }
   ],
   preview: {

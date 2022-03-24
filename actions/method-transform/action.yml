@@ -1,0 +1,5 @@
+name: 'Extract and Transform Methods RDF'
+description: 'Get Sanity Method data and transform into RDF. Saves a .ttl file at the root of the runner.'
+runs:
+  using: 'node16'
+  main: 'index.js'
