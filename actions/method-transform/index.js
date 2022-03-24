@@ -32,11 +32,11 @@ client.fetch(query, params)
       let methodIri = method.iri;
       // if there are inputs, write them out as triples
       method.hasInput && method.hasInput.forEach(input => {
-        rdfData += `<${methodIri}> <https://uxmethods.org/ontology/hasInput> <${input.iriBase + input.prefLabel.replace(' ', '')}>.\n`;
+        rdfData += `<${methodIri}> <https://uxmethods.org/ontology/hasInput> <${input.iriBase + input.prefLabel.replaceAll(' ', '')}>.\n`;
       });
       // if there are outputs, write them out as triples
       method.hasOutput && method.hasOutput.forEach(output => {
-        rdfData += `<${methodIri}> <https://uxmethods.org/ontology/hasOutput> <${output.iriBase + output.prefLabel.replace(' ', '')}>.\n`;
+        rdfData += `<${methodIri}> <https://uxmethods.org/ontology/hasOutput> <${output.iriBase + output.prefLabel.replaceAll(' ', '')}>.\n`;
       });
     })
   })
