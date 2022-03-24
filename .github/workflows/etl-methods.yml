@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Extract, transform, and load Method output data.
     steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
       - name: Extract & Transform
         uses: ./actions/method-transform
         id: extract-transform
