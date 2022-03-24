@@ -1,6 +1,6 @@
 name: Methods ETL
 
-# on: push
+on: workflow_dispatch
 
 jobs:
   methods-etl:
