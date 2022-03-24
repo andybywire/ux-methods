@@ -151,7 +151,7 @@ export default function MethodPage({data, data: { method }}) {
             <h2>Outcomes</h2>
             <p>{method.title} typically produces insight and solutions focused on these areas:</p>
             <ul>
-            {data.method.transputReference.outputReference.map(output => (
+            {data.method.output.map(output => (
               <li key={output.id}>
                 <h3>{output.prefLabel}</h3>
                 <p>{output.definition}</p>
@@ -214,13 +214,10 @@ query($slug: String!, $uri: String!) {
         url
       }
     }
-    output: _rawOutput(resolveReferences: {maxDepth: 10})
-    transputReference {
-      outputReference {
-        id
-        prefLabel
-        definition
-      }
+    output {
+      id
+      prefLabel
+      definition
     }
     dateStamps {
       createdAt
