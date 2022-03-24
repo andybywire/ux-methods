@@ -12,8 +12,17 @@ jobs:
       - name: Extract & Transform
         uses: ./actions/method-transform
         id: extract-transform
+      # Upload artifact as needed for debugging
       - name: Upload RDF file as artifact
         uses: actions/upload-artifact@v2
         with:
           name: rdfData
           path: rdfData.ttl
+      - name: Upload RDF to Data.World
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://api.data.world/v0/uploads/andyfitzgerald/method-io-data/files'
+          method: 'POST'
+          contentType: 'multipart/form-data'
+          bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
+          files: '{ "file": "rdfData.ttl" }'
