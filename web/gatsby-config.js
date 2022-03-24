@@ -26,7 +26,7 @@ module.exports = {
       resolve: `gatsby-source-remote-file`,
       options: {
         url: `https://download.data.world/s/7fmfrnnh6emdyir57sgcsyamp2hmhx`,
-        name: `sharedTransput`,
+        name: `sharedOutput`,
         ext: `.csv`,
         errorHandling: `warn`
       },

@@ -20,7 +20,7 @@ export default function MethodPage({data, data: { method }}) {
   const inputCards = data.cards.nodes.filter(card => inputMethods.includes(card.uri.current));
 
   // Get related methods for which the current method's outputs provide inputs
-  const relatedMethods = data.allSharedTransputCsv.nodes.map(item => item.destination);
+  const relatedMethods = data.allSharedOutputCsv.nodes.map(item => item.destination);
 
   // Filter method cards to only those on the relatedMethods list
   const sharedCards = data.cards.nodes.filter(card => relatedMethods.includes(card.uri.current));
@@ -214,6 +214,7 @@ query($slug: String!, $uri: String!) {
         url
       }
     }
+    output: _rawOutput(resolveReferences: {maxDepth: 10})
     transputReference {
       outputReference {
         id
@@ -226,7 +227,7 @@ query($slug: String!, $uri: String!) {
       revisedAt
     }
   }
-  allSharedTransputCsv (filter: {origin: {eq: $uri}}, limit: 6) {
+  allSharedOutputCsv (filter: {origin: {eq: $uri}}, limit: 6) {
     nodes {
       origin
       id
@@ -234,7 +235,7 @@ query($slug: String!, $uri: String!) {
       destination
     }
   }
-  input: allSharedTransputCsv (filter: {destination: {eq: $uri}}, sort: {order: DESC, fields: sharedOutputCount}, limit: 6) {
+  input: allSharedOutputCsv (filter: {destination: {eq: $uri}}, sort: {order: DESC, fields: sharedOutputCount}, limit: 6) {
     nodes {
       origin
       id
