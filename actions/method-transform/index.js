@@ -51,14 +51,3 @@ client.fetch(query, params)
   .catch((error) => {
     console.error('Upload failed:', error.message)
   })
-
-
-
-
-
-// Using ESM (scroll to bottom):
-// https://github.com/actions/github-script/issues/168
-
-// Guide (including how to test locally):
-// https://spacejelly.dev/posts/how-to-create-a-custom-github-action-with-node-javascript/
-// run: `node index.js` in terminal
