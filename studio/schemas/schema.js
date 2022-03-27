@@ -8,7 +8,6 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import method from './documents/method'
 import resource from './documents/resource'
 import discipline from './documents/discipline'
-import concept from './concepts/concept'
 import article from './documents/article'
 import siteSettings from './documents/siteSettings'
 
@@ -16,13 +15,9 @@ import siteSettings from './documents/siteSettings'
 import bodyPortableText from './objects/bodyPortableText'
 import bodyImage from './objects/bodyImage'
 import heroImage from './objects/heroImage'
-import referencedDiscipline from './objects/referencedDiscipline'
-import transputReference from './objects/transputReference'
-import referencedInput from './objects/referencedInput'
-import referencedOutput from './objects/referencedOutput'
-import describedMethod  from './objects/describedMethod'
+import referencedDiscipline from './objects/referencedDiscipline' // can be simplified w/ a direct relationship
+import describedMethod  from './objects/describedMethod' // can be simplified w/ a direct relationship
 import publisher from './objects/publisher'
-import conceptScheme from './concepts/conceptScheme'
 import source from './objects/source'
 import credit from './objects/credit'
 import socialMedia from './objects/socialMedia'
@@ -41,15 +36,10 @@ export default createSchema({
     discipline,
     resource,
     article,
-    concept,
     siteSettings,
     referencedDiscipline,
-    transputReference,
-    referencedInput,
-    referencedOutput,
     describedMethod,
     publisher,
-    conceptScheme,
     bodyPortableText,
     bodyImage,
     heroImage,

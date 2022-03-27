@@ -12,20 +12,14 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "asset-source-unsplash",
     "@sanity/dashboard",
+    "@sanity/vision",
+    "asset-source-unsplash",
     "cats",
     "dashboard-widget-github-actions",
     "parts-list",
     "taxonomy-manager"
   ],
-  "env": {
-    "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
-    }
-  },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
