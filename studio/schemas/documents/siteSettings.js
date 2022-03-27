@@ -88,12 +88,6 @@ export default {
       title: 'Site Credits',
       type: 'array',
       of: [{ type: 'credit'}]
-    },
-    {
-      name: 'conceptSchemes',
-      title: 'Taxonomy Settings',
-      type: 'array',
-      of: [{ type: 'conceptScheme'}]
     }
   ]
 }
