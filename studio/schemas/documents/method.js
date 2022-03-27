@@ -102,7 +102,7 @@ export default {
             filter: '_type == $type && (scheme->title == $scheme)',
             filterParams: {
               type: 'skosConcept',
-              scheme: 'Transput'
+              scheme: 'Outcomes'
             }
           }
         }
@@ -121,7 +121,7 @@ export default {
             filter: '_type == $type && (scheme->title == $scheme)',
             filterParams: {
               type: 'skosConcept',
-              scheme: 'Transput'
+              scheme: 'Outcomes'
             }
           }
         }
