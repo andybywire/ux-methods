@@ -8,6 +8,9 @@
     "11ty"
   ],
   "type": "module",
+  "engines": {
+		"node": ">=18.0.0"
+	},
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:studio": "npm run dev --workspace=studio"
