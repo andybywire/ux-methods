@@ -3,21 +3,17 @@
   "private": true,
   "version": "2.0.0",
   "description": "11ty site with Sanity Studio for UX Methods",
-  "type": "module",
-  "scripts": {
-    "build": "lerna run build --parallel",
-    "dev": "lerna run dev --parallel",
-    "format": "lerna run format",
-    "build-studio": "lerna bootstrap && cd studio && npm run build",
-    "build-web": "lerna bootstrap && (cd studio && SANITY_AUTH_TOKEN=$SANITY_DEPLOY_STUDIO_TOKEN npm run graphql-deploy) && (cd web && npm run build)",
-    "graphql-deploy": "lerna run graphql-deploy",
-    "lint": "lerna run lint",
-    "postinstall": "lerna bootstrap",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "sanity",
     "11ty"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:studio": "npm run dev --workspace=studio"
+  },
+  "workspaces": [
+    "studio"
   ],
   "devDependencies": {
     "npm-run-all": "^4.1.5"
