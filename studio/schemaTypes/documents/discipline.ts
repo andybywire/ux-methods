@@ -34,7 +34,7 @@ export default defineType({
       type: 'slug',
       title: 'URI',
       description: 'Full Uniform Resource Identifier (URI) for this resource.',
-      // value: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required(),
       options: {
         source: (doc: any) => `https://uxmethods.org/discipline/${doc.slug.current}`,
         slugify: (input) => input.replace(/\s+/g, ''),

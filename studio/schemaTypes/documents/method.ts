@@ -4,11 +4,11 @@ import {RiGitCommitLine, RiBubbleChartFill} from 'react-icons/ri'
 
 /**
  * Method Type
- * A pupose-driven activity defined by a set of executable steps that can
+ * A purpose-driven activity defined by a set of executable steps that can
  * be completed within a foreseeable timline design to create a particular 
  * set of outcomes. 
  *
- * TODO: Account for input component
+ * TODO: Account for metaDescription input component
  * TODO: Account for `transputReferece` field
  */
 export default defineType({
@@ -38,9 +38,9 @@ export default defineType({
       type: 'slug',
       title: 'URI',
       description: 'Full Uniform Resource Identifier (URI) for this resource.',
-      // value: Rule => Rule.required(),
+      validation: Rule => Rule.required(),
       options: {
-        // source: doc => `https://uxmethods.org/method/${doc.slug.current}`,
+        source: (doc: any): string => `https://uxmethods.org/method/${doc.slug.current}`,
         slugify: (input) => input.replace(/\s+/g, ''),
       },
     }),
