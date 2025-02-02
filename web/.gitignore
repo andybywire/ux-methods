@@ -1,0 +1,12 @@
+# Dependencies
+/node_modules
+
+# Logs
+/logs
+*.log
+
+# Misc
+.DS_Store
+
+# Dotenv and similar local-only files
+*.local

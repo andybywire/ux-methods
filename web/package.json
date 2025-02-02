@@ -1,0 +1,22 @@
+{
+  "name": "ux-methods-web",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rm -rf _site && npx @11ty/eleventy --watch --serve --port=8888",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  }
+}
