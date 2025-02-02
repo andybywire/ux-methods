@@ -1,6 +1,12 @@
 import {defineType, defineField} from 'sanity'
 import {RiCompasses2Fill} from 'react-icons/ri'
 
+/**
+ * Discipline Type
+ * An area of practice under the broader "UX Umbrella" of user centered
+ * experience design that groups similar activities, areas of expertise,
+ * and areas of design focus.
+ */
 export default defineType({
   name: 'discipline',
   type: 'document',
@@ -34,11 +40,11 @@ export default defineType({
         slugify: (input) => input.replace(/\s+/g, ''),
       },
     }),
-    // defineField({
-    //   name: 'dateStamps',
-    //   type: 'dateStamps',
-    //   title: 'Creation & Revision Dates',
-    // }),
+    defineField({
+      name: 'dateStamps',
+      type: 'dateStamps',
+      title: 'Creation & Revision Dates',
+    }),
     defineField({
       name: 'metaDescription',
       type: 'text',
@@ -46,29 +52,29 @@ export default defineType({
       rows: 3,
       validation: (Rule) => Rule.required(),
     }),
-    // defineField({
-    //   name: 'heroImage',
-    //   type: 'heroImage',
-    //   title: 'Hero Image',
-    // }),
-    // defineField({
-    //   name: 'overview',
-    //   type: 'bodyPortableText',
-    //   title: 'Discipline Overview',
-    // }),
+    defineField({
+      name: 'heroImage',
+      type: 'heroImage',
+      title: 'Hero Image',
+    }),
+    defineField({
+      name: 'overview',
+      type: 'bodyPortableText',
+      title: 'Discipline Overview',
+    }),
   ],
-  // preview: {
-  //   select: {
-  //     title: 'title',
-  //     icon: 'icon',
-  //     thumb: 'heroImage',
-  //   },
-  //   prepare(selection) {
-  //     const {title, icon, thumb} = selection
-  //     return {
-  //       title: title,
-  //       media: thumb ? thumb : icon,
-  //     }
-  //   },
-  // },
+  preview: {
+    select: {
+      title: 'title',
+      icon: 'icon',
+      thumb: 'heroImage',
+    },
+    prepare(selection) {
+      const {title, icon, thumb} = selection
+      return {
+        title: title,
+        media: thumb ? thumb : icon,
+      }
+    },
+  },
 })
