@@ -6,7 +6,12 @@
 		<title>UX Methods V2</title>
 	</head>
 	<body>
-	<h1>UX Methods V2</h1>	
+	<h1>{{ metadata.title }}</h1>	
 	{{ content | safe }}
+	<p>Page content from layout via metadata data function:</p>
+	<ul>
+		<li>{{ metadata.tagline }}</li>
+		<li>{{ metadata.description }}</li>
+	</ul>
 	</body>
 </html>
