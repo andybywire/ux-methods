@@ -1,0 +1,12 @@
+---
+layout: base.njk
+pagination:
+  alias: discipline
+  data: disciplines
+  size: 1
+permalink: /discipline/{{ discipline.slug | slug }}/index.html
+---
+<main>
+  <h1>{{ discipline.title }}</h1>
+  <p>{{ discipline.metaDescription }}</p>
+</main>

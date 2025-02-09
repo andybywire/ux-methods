@@ -3,4 +3,10 @@ layout: base.njk
 ---
 <main>
   <p>Page content from template</p>
+  <h2>Disciplines</h2>
+  <ul>
+    {% for discipline in disciplines %}
+      <li><a href="discipline/{{ discipline.slug }}">{{ discipline.title }}</a></li>
+    {% endfor %} 
+  </ul>
 </main>

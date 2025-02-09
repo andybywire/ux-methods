@@ -10,3 +10,6 @@
 
 # Dotenv and similar local-only files
 *.local
+
+# Static site
+_site
