@@ -1,6 +1,9 @@
 // Add keys the keys and values defined in .env to process.env
 // import 'dotenv/config'
 
+import "tsx/esm";
+import { renderToStaticMarkup } from "react-dom/server";
+
 // Filter & Shortcode imports
 // TBD
 
@@ -8,6 +11,21 @@
 // import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export default function (eleventyConfig) {
+
+	eleventyConfig.addExtension(["11ty.jsx", "11ty.ts", "11ty.tsx"], {
+		key: "11ty.js",
+		compile: function () {
+			return async function (data) {
+				let content = await this.defaultRenderer(data);
+				return renderToStaticMarkup(content);
+			};
+		},
+	});
+
+  eleventyConfig.addTemplateFormats("11ty.jsx,11ty.tsx")
+
+
+
   // eleventyConfig.addPassthroughCopy('.htaccess')
   // eleventyConfig.addPassthroughCopy('style')
   // eleventyConfig.addPassthroughCopy('assets')
@@ -23,6 +41,7 @@ export default function (eleventyConfig) {
 
   // Filters
   // eleventyConfig.addFilter('date', dateFilter) // Moment.js
+  // eleventyConfig.addFilter('embeddedContent', embeddedContent)
 
   // RSS feed
   // eleventyConfig.addPlugin(pluginRss)
