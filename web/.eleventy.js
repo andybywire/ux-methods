@@ -52,7 +52,7 @@ export default function (eleventyConfig) {
   })
 
   return {
-    htmlTemplateEngine: 'njk',
+    htmlTemplateEngine: 'njks, 11ty.js, 11ty.jsx',
     dir: {
       data: '../_data',
       input: '_src',

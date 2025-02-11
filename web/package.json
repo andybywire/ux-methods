@@ -13,7 +13,10 @@
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@sanity/client": "^6.27.2",
-    "groq": "^3.72.1"
+    "groq": "^3.72.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsx": "^4.19.2"
   },
   "prettier": {
     "semi": false,
