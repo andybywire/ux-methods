@@ -1,0 +1,13 @@
+---
+layout: base.njk
+pagination:
+  data: methods
+  alias: method
+  size: 1
+permalink: /method/{{ method.slug | slug }}/index.html
+---
+<h1>{{ method.title }}</h1>
+{{ method.overview | safe }}
+<h2>Steps</h2>
+{{ method.steps | safe }}
+<p><a href="/">back to index</a></p>

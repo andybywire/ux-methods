@@ -7,12 +7,12 @@
 		<title>UX Methods V2</title>
 	</head>
 	<body class="container --w-md">
-	<h1>{{ metadata.title }}</h1>	
-	{{ content | safe }}
-	<p>Page content from layout via metadata data function:</p>
-	<ul>
-		<li>{{ metadata.tagline }}</li>
-		<li>{{ metadata.description }}</li>
-	</ul>
+	<main>
+		{{ content | safe }}
+	</main>
+	<footer>
+		<p>{{ metadata.tagline }}</p>
+		<p>{{ metadata.description }}</p>
+	</footer>
 	</body>
 </html>

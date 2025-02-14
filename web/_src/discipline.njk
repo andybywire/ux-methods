@@ -6,9 +6,7 @@ pagination:
   size: 1
 permalink: /discipline/{{ discipline.slug | slug }}/index.html
 ---
-<main>
-  <h1>{{ discipline.title }}</h1>
-  <p>{{ discipline.metaDescription }}</p>
-  {{ discipline.overview | safe }}
-  <p><a href="/">back to index</a></p>
-</main>
+<h1>{{ discipline.title }}</h1>
+<p>{{ discipline.metaDescription }}</p>
+{{ discipline.overview | safe }}
+<p><a href="/">back to index</a></p>
