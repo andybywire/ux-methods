@@ -1,4 +1,4 @@
-class DisciplineJs {
+class Discipline {
   data() {
     return {
       layout: 'base.njk',
@@ -12,7 +12,7 @@ class DisciplineJs {
       },
     }
   }
-  
+
   render({discipline}) {
     return disciplineTemplate(discipline)
   }
@@ -24,8 +24,9 @@ export function disciplineTemplate(discipline) {
   return `<main>
             <h1>${discipline.title}</h1>
             <p>${discipline.metaDescription}</p>
+            ${discipline.overview}
             <p><a href="/">back to index</a></p>
           </main>`
 }
 
-export default DisciplineJs
+export default Discipline
