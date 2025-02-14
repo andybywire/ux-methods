@@ -10,4 +10,18 @@ permalink: /method/{{ method.slug | slug }}/index.html
 {{ method.overview | safe }}
 <h2>Steps</h2>
 {{ method.steps | safe }}
+<h2>Outcomes</h2>
+<p>{{ method.title | safe }} typically produces insight and solutions focused on these areas:</p>
+<ul>
+  {% for outcome in method.outcomes %}
+    <li>
+      <h3>{{ outcome.prefLabel }}</h3>
+      <p>{{ outcome.definition }}</p>
+    </li>
+  {% endfor %}
+</ul>
+
+
+
+
 <p><a href="/">back to index</a></p>

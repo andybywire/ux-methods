@@ -29,6 +29,10 @@ async function getMethods() {
       },
       overview,
       steps,
+      "outcomes": output[]->{
+        prefLabel,
+        definition,
+      },
     }
   `)
   const preparedMethods = methods.map(prepareMethod)
