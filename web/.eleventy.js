@@ -26,7 +26,7 @@ export default function (eleventyConfig) {
       data: '../_data',
       input: '_src',
       includes: '../_includes',
-      layouts: '../_layouts',
+      layouts: '../_includes',
       output: '_site'
     },
   }
