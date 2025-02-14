@@ -8,27 +8,15 @@
 // import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export default function (eleventyConfig) {
-  // eleventyConfig.addPassthroughCopy('.htaccess')
-  // eleventyConfig.addPassthroughCopy('style')
-  // eleventyConfig.addPassthroughCopy('assets')
-  // eleventyConfig.addPassthroughCopy('serviceworker.js')
-  // eleventyConfig.addPassthroughCopy({'assets/js': 'js'})
-  // eleventyConfig.addPassthroughCopy({'assets/icons': 'icons'})
-  // eleventyConfig.addPassthroughCopy('manifest.json')
-  // eleventyConfig.addPassthroughCopy('robots.txt');
-
-  // Shortcodes
-  // eleventyConfig.addShortcode('responsiveImage', responsiveImage)
-  // eleventyConfig.addShortcode('imageUrlFor', imageUrlFor)
-
-  // Filters
-  // eleventyConfig.addFilter('date', dateFilter) // Moment.js
-
-  // RSS feed
-  // eleventyConfig.addPlugin(pluginRss)
-
+  // Pass through all assets (css, js, images, etc)
+  eleventyConfig.addPassthroughCopy({ "_src/style": "style" });
+  eleventyConfig.addPassthroughCopy({ "_src/js": "js" });
+  eleventyConfig.addPassthroughCopy({ "_src/assets": "assets" });  // If you have other assets
+  
+  // Watch all asset directories for changes
+  eleventyConfig.addWatchTarget("_src/**/*");  // Watch everything in _src
+  
   eleventyConfig.setServerOptions({
-    // watch: ['style/**/*.css'],
     showAllHosts: true,
   })
 
@@ -39,6 +27,7 @@ export default function (eleventyConfig) {
       input: '_src',
       includes: '../_includes',
       layouts: '../_layouts',
+      output: '_site'
     },
   }
 }

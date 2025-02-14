@@ -22,7 +22,7 @@ class DisciplineJs {
 // Creating is separately here to be able to reuse in Sanity Studio preview
 export function disciplineTemplate(discipline) {
   return `<main>
-            <h1>test ${discipline.title}</h1>
+            <h1>${discipline.title}</h1>
             <p>${discipline.metaDescription}</p>
             <p><a href="/">back to index</a></p>
           </main>`

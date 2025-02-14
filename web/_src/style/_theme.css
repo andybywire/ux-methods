@@ -1,0 +1,669 @@
+:root {
+	
+	/* Set up the base - fonts, sizing, spacing, color palettes, and elevations. */
+	
+	/* Font Family */
+	--font-display: 'SF Pro Display', sans-serif;
+	--font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+	--font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+
+	/* Font Size */
+	--font-2xl: clamp(2rem, 0.313rem + 4.688vw, 2.75rem);
+	--font-xl: clamp(20px, -0.75rem + 5vw, 28px);
+	--font-lg: clamp(18px, -0.75rem + 5vw, 24px);
+	--font-md: 16px;
+	--font-sm: 14px;
+
+	/* Spacing */
+	--spacing: clamp(16px, -0.75rem + 5vw, 24px);
+	--spacing-xs: calc(0.25 * var(--spacing));
+	--spacing-sm: calc(0.5 * var(--spacing));
+	--spacing-md: var(--spacing);
+	--spacing-lg: calc(1.5 * var(--spacing));
+	--spacing-xl: calc(2.5 * var(--spacing));
+	--spacing-2xl: calc(5 * var(--spacing));
+	--spacing-width-xs: 16rem;
+	--spacing-width-md: 39rem;
+	--spacing-width-xl: 65rem;
+
+	/* Neutral Palette */
+	--neutral-50: hsla(60, 9.1%, 97.8%, 1);
+	--neutral-100: hsla(60, 4.8%, 95.9%, 1);
+	--neutral-200: hsla(20, 5.9%, 90%, 1);
+	--neutral-300: hsla(24, 5.7%, 82.9%, 1);
+	--neutral-400: hsla(24, 5.4%, 63.9%, 1);
+	--neutral-500: hsla(25, 5.3%, 44.7%, 1);
+	--neutral-600: hsla(33, 5.5%, 32.4%, 1);
+	--neutral-700: hsla(30, 6.3%, 25.1%, 1);
+	--neutral-800: hsla(12, 6.5%, 15.1%, 1);
+	--neutral-900: hsla(24, 9.8%, 10%, 1);
+	--neutral-950: hsla(20, 14.3%, 4.1%, 1);
+
+	/* Primary Palette */
+	--primary-50: hsla(208, 100%, 96.9%, 1);
+	--primary-100: hsla(209, 94.6%, 92.7%, 1);
+	--primary-200: hsla(210, 96.9%, 87.3%, 1);
+	--primary-300: hsla(211, 96.4%, 78.4%, 1);
+	--primary-400: hsla(213, 93.9%, 67.8%, 1);
+	--primary-500: hsla(217, 91.2%, 59.8%, 1);
+	--primary-600: hsla(221, 83.2%, 53.3%, 1);
+	--primary-700: hsla(224, 76.3%, 48%, 1);
+	--primary-800: hsla(225, 70.7%, 40.2%, 1);
+	--primary-900: hsla(225, 64.3%, 32.9%, 1);
+	--primary-950: hsla(225, 57%, 21%, 1);
+
+	/* Light Elevation */
+	--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
+	--shadow-md: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
+	--shadow-lg: 0px 16px 24px -16px rgba(0, 0, 0, 0.2);
+}
+
+/* Light color theme is the default, so we set it on :root. The utility class .theme-default will reset to the default theme when nested inside another themed element. */
+
+:root, .theme-default {
+	--bg-strong: var(--neutral-50);
+	--bg-default: var(--neutral-100);
+	--bg-muted: var(--neutral-200);
+	--bg-selection: var(--neutral-300);
+	
+	--text-strong: var(--neutral-950);
+	--text-default: var(--neutral-600);
+	--text-muted: var(--neutral-500);
+	--text-interactive: var(--text-strong);
+	
+	--border-strong: var(--neutral-600);
+	--border-default: var(--neutral-400);
+	--border-muted: var(--neutral-300);
+}
+
+/* A color theme using the brand primary color */
+
+.theme-primary {
+	/* Primary Theme Colors */
+	--bg-strong: white;
+	--bg-default: var(--primary-100);
+	--bg-muted: var(--primary-200);
+	--bg-selection: var(--primary-500);
+
+	--text-strong: var(--primary-950);
+	--text-default: var(--primary-700);
+	--text-muted: var(--primary-500);
+	--text-interactive: var(--text-strong);
+
+	--border-strong: var(--primary-600);
+	--border-default: var(--primary-400);
+	--border-muted: var(--primary-200);
+}
+
+/* Invert the colors. If media query detects light mode, this class turns an element into a dark theme. */
+
+.theme-inverted {
+	/* Inverted Colors */
+	--bg-strong: black;
+	--bg-default: var(--neutral-950);
+	--bg-muted: var(--neutral-800);
+	--bg-selection: hsla(0, 0%, 100%, 0.15);
+
+	--text-strong: var(--neutral-50);
+	--text-default: var(--neutral-300);
+	--text-muted: var(--neutral-400);
+	--text-interactive: var(--text-strong);
+
+	--border-strong: var(--neutral-300);
+	--border-default: var(--neutral-500);
+	--border-muted: var(--neutral-800);
+}
+
+/* Set the theme for an element to light or dark regardless of user dark mode preference. 
+
+Use sparingly - useful for setting text color on top of images or other media that doesn't change to match dark or light mode.  */
+
+.theme-light {
+	--bg-strong: var(--neutral-50);
+	--bg-default: var(--neutral-100);
+	--bg-muted: var(--neutral-200);
+	--bg-selection: var(--neutral-300);
+	
+	--text-strong: var(--neutral-950);
+	--text-default: var(--neutral-600);
+	--text-muted: var(--neutral-500);
+	--text-interactive: var(--text-strong);
+	
+	--border-strong: var(--neutral-600);
+	--border-default: var(--neutral-400);
+	--border-muted: var(--neutral-300);
+}
+
+.theme-dark {
+	--bg-strong: black;
+	--bg-default: var(--neutral-950);
+	--bg-muted: var(--neutral-800);
+	--bg-selection: hsla(0, 0%, 100%, 0.15);
+	
+	--text-strong: var(--neutral-50);
+	--text-default: var(--neutral-300);
+	--text-muted: var(--neutral-400);
+	--text-interactive: var(--text-strong);
+	
+	--border-strong: var(--neutral-300);
+	--border-default: var(--neutral-500);
+	--border-muted: var(--neutral-800);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root, .theme-default {
+		/* Dark Theme Colors */
+		--bg-strong: black;
+		--bg-default: var(--neutral-950);
+		--bg-muted: var(--neutral-800);
+		--bg-selection: hsla(0, 0%, 100%, 0.15);
+
+		--text-strong: var(--neutral-50);
+		--text-default: var(--neutral-300);
+		--text-muted: var(--neutral-400);
+		--text-interactive: var(--text-strong);
+
+		--border-strong: var(--neutral-300);
+		--border-default: var(--neutral-500);
+		--border-muted: var(--neutral-800);
+
+		/* Dark Elevation */
+		--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
+		--shadow-md: 0px 12px 16px -18px rgba(0, 0, 0, 0.2);
+		--shadow-lg: 0px 24px 40px -24px rgba(0, 0, 0, 0.2);
+	}
+
+	/* Dark mode inverted matches the light color theme */
+	.theme-inverted {
+		--bg-strong: var(--neutral-50);
+		--bg-default: var(--neutral-100);
+		--bg-muted: var(--neutral-200);
+		--bg-selection: var(--neutral-300);
+
+		--text-strong: var(--neutral-950);
+		--text-default: var(--neutral-700);
+		--text-muted: var(--neutral-500);
+		--text-interactive: var(--text-strong);
+
+		--border-strong: var(--neutral-600);
+		--border-default: var(--neutral-400);
+		--border-muted: var(--neutral-200);
+	}
+
+	.primary {
+		/* Primary Theme Colors */
+		--bg-strong: white;
+		--bg-default: var(--primary-950);
+		--bg-muted: var(--primary-800);
+		--bg-selection: var(--primary-700);
+
+		--text-strong: var(--primary-50);
+		--text-default: var(--primary-300);
+		--text-muted: var(--primary-400);
+		--text-interactive: var(--text-strong);
+
+		--border-strong: var(--primary-600);
+		--border-default: var(--primary-800);
+		--border-muted: var(--primary-950);
+	}
+}
+
+body {
+	background: var(--bg-default);
+	color: var(--text-default);
+	font-family: var(--font-sans);
+	font-size: var(--font-md);
+	line-height: 1.45;
+	font-weight: 500;
+}
+
+::selection {
+	background-color: var(--bg-selection);
+	color: var(--text-strong);
+	mix-blend-mode: multiply2;
+}
+
+img {
+	width: 100%;
+	max-width: 100%;
+	display: flex;
+	background: var(--bg-muted);
+}
+
+a {
+	color: var(--text-interactive);
+	text-decoration: underline;
+	text-decoration-color: var(--border-default);
+	text-underline-offset: 0.125em;
+	transition: color, opacity, text-decoration, text-decoration-color 67ms ease-in-out;
+}
+
+.--text-muted a {
+	opacity: 0.75;
+}
+
+a:hover {
+	color: var(--text-interactive);
+	text-decoration-color: var(--text-interactive);
+	opacity: 1;
+}
+
+blockquote {
+	font-size: var(--font-lg);
+	color: var(--text-strong);
+	border-left: 1px solid var(--border-default);
+	padding-left: var(--spacing-md);
+	margin: var(--spacing-md) auto;
+	line-height: 1.3;
+}
+
+strong,
+.--font-strong {
+	font-weight: 800;
+}
+
+em,
+.--font-emphasis {
+	font-style: italic;
+}
+
+aside {
+	font-size: var(--font-md);
+	color: var(--text-default);
+	border-left: 1px solid var(--border-default);
+	padding-left: var(--spacing-md);
+	margin: var(--spacing-md) 0;
+	font-style: italic;
+}
+
+.caption {
+	display: block;
+	font-size: var(--font-sm);
+	color: var(--text-muted);
+	padding-top: var(--spacing-xs);
+	max-width: var(--spacing-width-md);
+	margin: 0 auto;
+}
+
+.hero {
+	font-family: var(--font-display);
+	font-size: var(--font-2xl);
+	color: var(--text-strong);
+	font-weight: 700;
+	font-variation-settings: "wght" 700;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
+	line-height: 1;
+}
+
+h1 {
+	font-family: var(--font-display);
+	font-size: var(--font-xl);
+	color: var(--text-strong);
+	font-weight: 700;
+	font-variation-settings: "wght" 700;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
+}
+
+h2 {
+	font-family: var(--font-sans);
+	font-size: var(--font-lg);
+	color: var(--text-default);
+	font-weight: 700;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
+}
+
+h3 {
+	font-family: var(--font-sans);
+	font-size: var(--font-md);
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+h4,
+h5,
+h6 {
+	font-family: var(--font-sans);
+	font-size: var(--font-sm);
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+p {
+	color: var(--text-default);
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: clamp(-0.02em, 1vw + 1rem, -0.02em);
+}
+
+p+p:not(.label) {
+	margin-top: var(--spacing-sm);
+}
+
+p a {
+	display: inline-block;
+}
+
+.--font-sans,
+.--font-default {
+	font-family: var(--font-sans);
+}
+
+.--font-serif,
+.--font-alternate {
+	font-family: var(--font-serif);
+}
+
+.--font-serif {
+	font-size: 1.125em;
+}
+
+/* Text Size */
+
+.--text-xl {
+	font-size: var(--font-xl);
+	line-height: 125%;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.03em);
+}
+
+.--text-lg {
+	font-size: var(--font-lg);
+	line-height: 125%;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.06em);
+}
+
+.--text-md {
+	font-size: var(--font-md);
+	line-height: 125%;
+}
+
+.--text-sm {
+	font-size: var(--font-sm);
+	line-height: 125%;
+}
+
+/* Text Color */
+
+.--text-strong {
+	color: var(--text-strong);
+}
+
+.--text-default {
+	color: var(--text-default);
+}
+
+.--text-muted {
+	color: var(--text-muted);
+}
+
+.--text-interactive {
+	color: var(--text-interactive);
+}
+
+/* Line Height */
+
+.--leading-default {
+	line-height: 1.45;
+}
+
+.--leading-tight {
+	line-height: 1.25;
+}
+
+.--leading-none {
+	line-height: 1;
+}
+
+/* Background Color */
+
+.--bg-strong {
+	background-color: var(--bg-strong);
+}
+
+.--bg-default {
+	background-color: var(--bg-default);
+}
+
+.--bg-muted {
+	background-color: var(--bg-muted);
+}
+
+/* Border */
+
+hr,
+.rule {
+	border: 1px double var(--border-muted);
+	/* For retina screens */
+	transform: scaleY(0.5);
+}
+
+.--border-strong {
+	border-color: var(--border-strong);
+}
+
+.--border-default {
+	border-color: var(--border-default);
+}
+
+.--border-muted {
+	border-color: var(--border-muted);
+}
+
+/* Shadow */
+
+.--shadow-sm {
+	box-shadow: var(--shadow-sm);
+}
+
+.--shadow-md {
+	box-shadow: var(--shadow-md);
+}
+
+.--shadow-lg {
+	box-shadow: var(--shadow-lg);
+}
+
+/* Rounded */
+
+.--rounded-sm {
+	border-radius: var(--spacing-xs);
+}
+
+.--rounded-md {
+	border-radius: var(--spacing-sm);
+}
+
+.--rounded-lg {
+	border-radius: var(--spacing-md);
+}
+
+/* Layout */
+
+.--w-xs {
+	max-width: var(--spacing-width-xs, 20rem);
+}
+
+.--w-md {
+	max-width: var(--spacing-width-md, 40rem);
+}
+
+.--w-xl {
+	max-width: var(--spacing-width-xl, 50rem);
+}
+
+/* Left and right margin value should match padding on #page */
+/* This class must be paired with container because of the use of !important */
+.container.--w-full {
+	width: auto;
+	margin-left: calc(-1 * var(--spacing-lg)) !important;
+	margin-right: calc(-1 * var(--spacing-lg)) !important;
+}
+
+/* Padding is used for utility spacing because it doesn't interfere with auto margins, which are used in other layout classes. */
+
+/* Padding Top */
+
+.--pt-xs {
+	padding-top: var(--spacing-xs);
+}
+
+.--pt-sm {
+	padding-top: var(--spacing-sm);
+}
+
+.--pt-md {
+	padding-top: var(--spacing-md);
+}
+
+.--pt-lg {
+	padding-top: var(--spacing-lg);
+}
+
+.--pt-xl {
+	padding-top: var(--spacing-xl);
+}
+
+.--pt-2xl {
+	padding-top: var(--spacing-2xl);
+}
+
+/* Padding Right */
+
+.--pr-xs {
+	padding-right: var(--spacing-xs);
+}
+
+.--pr-sm {
+	padding-right: var(--spacing-sm);
+}
+
+.--pr-md {
+	padding-right: var(--spacing-md);
+}
+
+.--pr-lg {
+	padding-right: var(--spacing-lg);
+}
+
+.--pr-xl {
+	padding-right: var(--spacing-xl);
+}
+
+.--pr-2xl {
+	padding-right: var(--spacing-2xl);
+}
+
+/* Padding Bottom */
+
+.--pb-xs {
+	padding-bottom: var(--spacing-xs);
+}
+
+.--pb-sm {
+	padding-bottom: var(--spacing-sm);
+}
+
+.--pb-md {
+	padding-bottom: var(--spacing-md);
+}
+
+.--pb-lg {
+	padding-bottom: var(--spacing-lg);
+}
+
+.--pb-xl {
+	padding-bottom: var(--spacing-xl);
+}
+
+.--pb-2xl {
+	padding-bottom: var(--spacing-2xl);
+}
+
+/* Padding Left */
+
+.--pl-xs {
+	padding-left: var(--spacing-xs);
+}
+
+.--pl-sm {
+	padding-left: var(--spacing-sm);
+}
+
+.--pl-md {
+	padding-left: var(--spacing-md);
+}
+
+.--pl-lg {
+	padding-left: var(--spacing-lg);
+}
+
+.--pl-xl {
+	padding-left: var(--spacing-xl);
+}
+
+.--pl-2xl {
+	padding-left: var(--spacing-2xl);
+}
+
+/* Padding Y */
+
+.--py-xs {
+	padding-top: var(--spacing-xs);
+	padding-bottom: var(--spacing-xs);
+}
+
+.--py-sm {
+	padding-top: var(--spacing-sm);
+	padding-bottom: var(--spacing-sm);
+}
+
+.--py-md {
+	padding-top: var(--spacing-md);
+	padding-bottom: var(--spacing-md);
+}
+
+.--py-lg {
+	padding-top: var(--spacing-lg);
+	padding-bottom: var(--spacing-lg);
+}
+
+.--py-xl {
+	padding-top: var(--spacing-xl);
+	padding-bottom: var(--spacing-xl);
+}
+
+.--py-2xl {
+	padding-top: var(--spacing-2xl);
+	padding-bottom: var(--spacing-2xl);
+}
+
+/* Padding X */
+
+.--px-xs {
+	padding-right: var(--spacing-xs);
+	padding-left: var(--spacing-xs);
+}
+
+.--px-sm {
+	padding-right: var(--spacing-sm);
+	padding-left: var(--spacing-sm);
+}
+
+.--px-md {
+	padding-right: var(--spacing-md);
+	padding-left: var(--spacing-md);
+}
+
+.--px-lg {
+	padding-right: var(--spacing-lg);
+	padding-left: var(--spacing-lg);
+}
+
+.--px-xl {
+	padding-right: var(--spacing-xl);
+	padding-left: var(--spacing-xl);
+}
+
+.--px-2xl {
+	padding-right: var(--spacing-2xl);
+	padding-left: var(--spacing-2xl);
+}
