@@ -21,8 +21,7 @@ export default function (eleventyConfig) {
   })
 
   return {
-    htmlTemplateEngine: 'njk', // to vet: do we need this?
-    markdownTemplateEngine: 'none',
+    htmlTemplateEngine: 'njk', 
     dir: {
       data: '../_data',
       input: '_src',
