@@ -6,7 +6,16 @@ pagination:
   size: 1
 permalink: /discipline/{{ discipline.slug | slug }}/index.html
 ---
+<p><a href="/">< back to index</a></p>
 <h1>{{ discipline.title }}</h1>
 <p>{{ discipline.metaDescription }}</p>
 {{ discipline.overview | safe }}
-<p><a href="/">back to index</a></p>
+<h2>{{ discipline.title | safe }} Methods</h2>
+<ul>
+  {% for method in discipline.methods %}
+    <li>
+      <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
+      <p>{{ method.metaDescription }}</p>
+    </li>
+  {% endfor %}
+</ul>

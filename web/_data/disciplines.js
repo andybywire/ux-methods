@@ -27,6 +27,14 @@ async function getDisciplines() {
         "url": heroImage.asset->url,
       },
       overview,
+      "methods": *[
+          _type == "method" 
+          && ^._id in disciplinesReference[]._ref
+        ]{
+          title, 
+          metaDescription,
+          "slug": slug.current,
+        }
     }
   `)
   const preparedDisciplines = disciplines.map(prepareDiscipline)

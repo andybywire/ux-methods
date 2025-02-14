@@ -6,6 +6,7 @@ pagination:
   size: 1
 permalink: /method/{{ method.slug | slug }}/index.html
 ---
+<p><a href="/">< back to index</a></p>
 <h1>{{ method.title }}</h1>
 {{ method.overview | safe }}
 <h2>Steps</h2>
@@ -20,8 +21,3 @@ permalink: /method/{{ method.slug | slug }}/index.html
     </li>
   {% endfor %}
 </ul>
-
-
-
-
-<p><a href="/">back to index</a></p>
