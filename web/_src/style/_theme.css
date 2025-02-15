@@ -1,4 +1,6 @@
 :root {
+
+	/* _theme.css sets up some utility classes - fonts, sizing, spacing, color palettes, and elevations. */
 	
 	/* Set up the base - fonts, sizing, spacing, color palettes, and elevations. */
 	
@@ -238,10 +240,6 @@ a {
 	transition: color, opacity, text-decoration, text-decoration-color 67ms ease-in-out;
 }
 
-.--text-muted a {
-	opacity: 0.75;
-}
-
 a:hover {
 	color: var(--text-interactive);
 	text-decoration-color: var(--text-interactive);
@@ -359,10 +357,14 @@ p a {
 
 /* Text Size */
 
-.--text-xl {
-	font-size: var(--font-xl);
+.--text-sm {
+	font-size: var(--font-sm);
 	line-height: 125%;
-	letter-spacing: clamp(0em, 1vw + 1rem, -0.03em);
+}
+
+.--text-md {
+	font-size: var(--font-md);
+	line-height: 125%;
 }
 
 .--text-lg {
@@ -371,28 +373,29 @@ p a {
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.06em);
 }
 
-.--text-md {
-	font-size: var(--font-md);
+.--text-xl {
+	font-size: var(--font-xl);
 	line-height: 125%;
-}
-
-.--text-sm {
-	font-size: var(--font-sm);
-	line-height: 125%;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.03em);
 }
 
 /* Text Color */
 
-.--text-strong {
-	color: var(--text-strong);
+
+.--text-muted {
+	color: var(--text-muted);
+}
+
+.--text-muted a {
+	opacity: 0.75;
 }
 
 .--text-default {
 	color: var(--text-default);
 }
 
-.--text-muted {
-	color: var(--text-muted);
+.--text-strong {
+	color: var(--text-strong);
 }
 
 .--text-interactive {
@@ -401,30 +404,34 @@ p a {
 
 /* Line Height */
 
-.--leading-default {
-	line-height: 1.45;
+.--leading-none {
+	line-height: 1;
 }
 
 .--leading-tight {
 	line-height: 1.25;
 }
 
-.--leading-none {
-	line-height: 1;
+.--leading-default {
+	line-height: 1.45;
+}
+
+.--leading-loose {
+	line-height: 1.65;
 }
 
 /* Background Color */
 
-.--bg-strong {
-	background-color: var(--bg-strong);
+.--bg-muted {
+	background-color: var(--bg-muted);
 }
 
 .--bg-default {
 	background-color: var(--bg-default);
 }
 
-.--bg-muted {
-	background-color: var(--bg-muted);
+.--bg-strong {
+	background-color: var(--bg-strong);
 }
 
 /* Border */
@@ -436,17 +443,19 @@ hr,
 	transform: scaleY(0.5);
 }
 
-.--border-strong {
-	border-color: var(--border-strong);
+.--border-muted {
+	border-color: var(--border-muted);
 }
 
 .--border-default {
 	border-color: var(--border-default);
 }
 
-.--border-muted {
-	border-color: var(--border-muted);
+.--border-strong {
+	border-color: var(--border-strong);
 }
+
+
 
 /* Shadow */
 
@@ -498,10 +507,9 @@ hr,
 	margin-right: calc(-1 * var(--spacing-lg)) !important;
 }
 
-/* Padding is used for utility spacing because it doesn't interfere with auto margins, which are used in other layout classes. */
+/* Padding is used for utility spacing instead of margin because it doesn't interfere with auto margins, which are used in other layout classes.*/
 
 /* Padding Top */
-
 .--pt-xs {
 	padding-top: var(--spacing-xs);
 }
@@ -527,7 +535,6 @@ hr,
 }
 
 /* Padding Right */
-
 .--pr-xs {
 	padding-right: var(--spacing-xs);
 }
@@ -553,7 +560,6 @@ hr,
 }
 
 /* Padding Bottom */
-
 .--pb-xs {
 	padding-bottom: var(--spacing-xs);
 }
@@ -579,7 +585,6 @@ hr,
 }
 
 /* Padding Left */
-
 .--pl-xs {
 	padding-left: var(--spacing-xs);
 }
@@ -604,66 +609,64 @@ hr,
 	padding-left: var(--spacing-2xl);
 }
 
-/* Padding Y */
-
-.--py-xs {
-	padding-top: var(--spacing-xs);
-	padding-bottom: var(--spacing-xs);
-}
-
-.--py-sm {
-	padding-top: var(--spacing-sm);
-	padding-bottom: var(--spacing-sm);
-}
-
-.--py-md {
-	padding-top: var(--spacing-md);
-	padding-bottom: var(--spacing-md);
-}
-
-.--py-lg {
-	padding-top: var(--spacing-lg);
-	padding-bottom: var(--spacing-lg);
-}
-
-.--py-xl {
-	padding-top: var(--spacing-xl);
-	padding-bottom: var(--spacing-xl);
-}
-
-.--py-2xl {
-	padding-top: var(--spacing-2xl);
-	padding-bottom: var(--spacing-2xl);
-}
-
-/* Padding X */
-
+/* Padding X (left and right) */
 .--px-xs {
-	padding-right: var(--spacing-xs);
 	padding-left: var(--spacing-xs);
+	padding-right: var(--spacing-xs);
 }
 
 .--px-sm {
-	padding-right: var(--spacing-sm);
 	padding-left: var(--spacing-sm);
+	padding-right: var(--spacing-sm);
 }
 
 .--px-md {
-	padding-right: var(--spacing-md);
 	padding-left: var(--spacing-md);
+	padding-right: var(--spacing-md);
 }
 
 .--px-lg {
-	padding-right: var(--spacing-lg);
 	padding-left: var(--spacing-lg);
+	padding-right: var(--spacing-lg);
 }
 
 .--px-xl {
-	padding-right: var(--spacing-xl);
 	padding-left: var(--spacing-xl);
+	padding-right: var(--spacing-xl);
 }
 
 .--px-2xl {
-	padding-right: var(--spacing-2xl);
 	padding-left: var(--spacing-2xl);
+	padding-right: var(--spacing-2xl);
+}
+
+/* Padding Y (top and bottom) */
+.--py-xs {
+	padding-bottom: var(--spacing-xs);
+	padding-top: var(--spacing-xs);
+}
+
+.--py-sm {
+	padding-bottom: var(--spacing-sm);
+	padding-top: var(--spacing-sm);
+}
+
+.--py-md {
+	padding-bottom: var(--spacing-md);
+	padding-top: var(--spacing-md);
+}
+
+.--py-lg {
+	padding-bottom: var(--spacing-lg);
+	padding-top: var(--spacing-lg);
+}
+
+.--py-xl {
+	padding-bottom: var(--spacing-xl);
+	padding-top: var(--spacing-xl);
+}
+
+.--py-2xl {
+	padding-bottom: var(--spacing-2xl);
+	padding-top: var(--spacing-2xl);
 }
