@@ -1,4 +1,4 @@
-import {client} from '../utils/sanityClient.js'
+import {client} from './utils/sanityClient.js'
 import {toHTML} from '@portabletext/to-html'
 import groq from 'groq'
 
