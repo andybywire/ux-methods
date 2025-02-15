@@ -6,18 +6,48 @@ pagination:
   size: 1
 permalink: /method/{{ method.slug | slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p>
-<h1>{{ method.title }}</h1>
-{{ method.overview | safe }}
-<h2>Steps</h2>
-{{ method.steps | safe }}
-<h2>Outcomes</h2>
-<p>{{ method.title | safe }} typically produces insight and solutions focused on these areas:</p>
-<ul>
-  {% for outcome in method.outcomes %}
-    <li>
-      <h3>{{ outcome.prefLabel }}</h3>
-      <p>{{ outcome.definition }}</p>
-    </li>
-  {% endfor %}
-</ul>
+<p><a href="/">< back to index</a></p> {# temporary #}
+
+<article>
+  <section> 
+    {# FPO: method hero #}
+    <h1>{{ method.title }}</h1>
+    <p>{{ method.overview | safe }}</p>
+  </section>
+  <section>  
+    <h2>Preparation</h2>
+    {# FPO: method inputs #}
+    <p>FPO</p>
+  </section>
+  <section>
+    <h2>Steps</h2>
+    <p>{{ method.steps | safe }}</p>
+  </section>
+  <section>
+    <h2>Outcomes</h2>
+    <p>{{ method.title }} typically produces insight and solutions focused on these areas:</p>
+    <ul>
+      {% for outcome in method.outcomes %}
+        <li>
+          <h3>{{ outcome.prefLabel }}</h3>
+          <p>{{ outcome.definition }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section>  
+    <h2>Resources</h2>
+    {# FPO: method resources (external links) #}
+    <p>FPO</p>
+  </section>
+  <section>  
+    <h2>Next Steps</h2>
+    {# FPO: method next methods #}
+    <p>FPO</p>
+  </section>
+  <section>  
+    <h2>References</h2>
+    {# FPO: citations #}
+    <p>FPO</p>
+  </section>
+</article>
