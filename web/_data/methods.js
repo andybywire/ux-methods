@@ -64,6 +64,12 @@ async function getMethods() {
           prefLabel,
           definition,
         }, 
+        "resources": *[_type == "resource" && references(^._id)]{
+          title,
+          author,
+          resourceUrl,
+          "publisher": publisher.pubName
+        }
       }
   `)
   // Prepare previews of all methods for previous and next methods sections
