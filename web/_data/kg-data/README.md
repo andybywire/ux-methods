@@ -1,0 +1,1 @@
+This is a temporary directory for static `.csv`s of knowledge graph data to fill out 11ty data queries and templates. It will be replaced by a new instance of GraphBD, or an updated version of the Data.world implementation.  
