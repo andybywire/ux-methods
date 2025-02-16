@@ -17,12 +17,14 @@ const sharedOutput = readFileSync(join(process.cwd(), '_data/kg-data/shared-outp
 function prepareMethod(methods, methodPreviews) {
   const preparedMethods = methods.map((method) => {
     // Filter and assign methods preview list to previous methods
+    // TODO: mapping is not yet weighted to prioritize strongest connections
     const previousMethods = methodPreviews.filter((methodPreview) => {
       return sharedOutput.some((relationship) => {
-        return relationship.origin === method.uri && relationship.destination === methodPreview.uri
+        return relationship.destination === method.uri && relationship.origin === methodPreview.uri
       })
     })
     // Filter and assign methods preview list to next methods
+    // TODO: mapping is not yet weighted to prioritize strongest connections
     const nextMethods = methodPreviews.filter((methodPreview) => {
       return sharedOutput.some((relationship) => {
         return relationship.origin === method.uri && relationship.destination === methodPreview.uri
