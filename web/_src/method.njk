@@ -16,8 +16,14 @@ permalink: /method/{{ method.slug | slug }}/index.html
   </section>
   <section>  
     <h2>Preparation</h2>
-    {# FPO: method inputs #}
-    <p>FPO</p>
+    <ul>    
+      {% for method in method.prepareMethods.slice(0,6) %}
+        <li>
+          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <p>{{ method.metaDescription }}</p>
+        </li>
+      {% endfor %}
+    </ul>
   </section>
   <section>
     <h2>Steps</h2>
@@ -37,13 +43,25 @@ permalink: /method/{{ method.slug | slug }}/index.html
   </section>
   <section>  
     <h2>Resources</h2>
-    {# FPO: method resources (external links) #}
-    <p>FPO</p>
+    <ul>    
+      {% for resource in method.resources.slice(0,6) %}
+        <li>
+          <a href="{{ resource.resourceUrl }}">{{ resource.title }}</a>
+          <p>{{ resource.author }} | {{ resource.publisher }}</p>
+        </li>
+      {% endfor %}
+    </ul>
   </section>
   <section>  
     <h2>Next Steps</h2>
-    {# FPO: method next methods #}
-    <p>FPO</p>
+    <ul>    
+      {% for method in method.continueMethods.slice(0,6) %}
+        <li>
+          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <p>{{ method.metaDescription }}</p>
+        </li>
+      {% endfor %}
+    </ul>
   </section>
   <section>  
     <h2>References</h2>
