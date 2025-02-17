@@ -27,6 +27,7 @@ hr {
 
 .discipline a {
 	display: flex;
+	width:auto;
 	padding:var(--spacing-sm);
 	text-decoration: none;
 }
