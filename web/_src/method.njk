@@ -6,13 +6,14 @@ pagination:
   size: 1
 permalink: /method/{{ method.slug | slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
+<div class="--py-lg">
+  <p><a href="/">↖ back to index</a></p> {# temporary #}
+</div>
 
-<article>
-  <section> 
-    {# FPO: method hero #}
+<article class="flow">
+  <section>
     <h1>{{ method.title }}</h1>
-    <p>{{ method.overview | safe }}</p>
+    <p class="--text-lg --font-serif">{{ method.overview | safe }}</p>
   </section>
   <section>  
     <h2>Preparation</h2>
@@ -26,7 +27,7 @@ permalink: /method/{{ method.slug | slug }}/index.html
   <section>
     <h2>Outcomes</h2>
     <p>{{ method.title }} typically produces insight and solutions focused on these areas:</p>
-    <ul>
+    <ul class="flow">
       {% for outcome in method.outcomes %}
         <li>
           <h3>{{ outcome.prefLabel }}</h3>

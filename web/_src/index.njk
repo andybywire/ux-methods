@@ -14,3 +14,92 @@ layout: base.njk
     <li class="method"><a href="method/{{ method.slug }}">{{ method.title }}</a></li>
   {% endfor %} 
 </ul>
+
+<div id="network-graph"></div>
+
+<script src="/r/js/d3.min.js"></script>
+<script>
+d3.json("/r/data/network.json").then(data => {
+    const container = document.getElementById('network-graph');
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+    
+    const svg = d3.select("#network-graph")
+        .append("svg")
+        .attr("viewBox", [0, 0, width, height])
+        .attr("style", "width: 100%; height: 100%;");
+    
+    // Create the force simulation
+    const simulation = d3.forceSimulation(data.nodes)
+        .force("link", d3.forceLink(data.links)
+            .id(d => d.slug)  // Use slug as the node identifier
+            .distance(150))
+        .force("charge", d3.forceManyBody().strength(-200))
+        .force("center", d3.forceCenter(width / 2, height / 2));
+    
+    // Add the links
+    const links = svg.append("g")
+        .selectAll("line")
+        .data(data.links)
+        .join("line")
+        .attr("class", "link");
+    
+    // Add the nodes
+    const nodes = svg.append("g")
+        .selectAll("circle")
+        .data(data.nodes)
+        .join("circle")
+        .attr("class", d => `node node-${d.type}`)
+        .call(drag(simulation));  // Make nodes draggable
+    
+    // Add labels
+    const labels = svg.append("g")
+        .selectAll("text")
+        .data(data.nodes)
+        .join("text")
+        .attr("class", "node-label")
+        .text(d => d.title);
+    
+    // Update positions on each tick
+    simulation.on("tick", () => {
+        links
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+        
+        nodes
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+            
+        labels
+            .attr("x", d => d.x)
+            .attr("y", d => d.y);
+    });
+    
+    // Drag behavior
+    function drag(simulation) {
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+        
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+        
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+        
+        return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+    }
+});
+</script>

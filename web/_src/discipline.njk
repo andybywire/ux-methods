@@ -6,20 +6,22 @@ pagination:
   size: 1
 permalink: /discipline/{{ discipline.slug | slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
+<div class="--py-lg">
+  <p><a href="/">↖ back to index</a></p> {# temporary #}
+</div>
 
 <article>
   <section> 
     {# FPO: discipline hero #}
     <h1>{{ discipline.title }}</h1>
     <p>{{ discipline.metaDescription }}</p>
-    {{ discipline.overview | safe }}
+    <div>{{ discipline.overview | safe }}</div>
   </section>
   <section>  
-    <h2>{{ discipline.title | safe }} Methods</h2>
+    <h2 class="--mb-md">{{ discipline.title | safe }} Methods</h2>
     <ul>
       {% for method in discipline.methods %}
-        <li>
+        <li class="method">
           <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
           <p>{{ method.metaDescription }}</p>
         </li>
