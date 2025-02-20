@@ -11,6 +11,20 @@ hr {
 	margin: var(--spacing-lg) auto;
 }
 
+footer {
+	border-top: 1px solid var(--border-muted);
+	padding-top: var(--spacing-sm);
+	padding-bottom: var(--spacing-2xl);
+	margin-top: var(--spacing-2xl);
+}
+
+footer p {
+	font-size: var(--font-sm);
+	color: var(--text-muted);	
+}
+
+article>*+*
+
 [id] {
 	scroll-margin-top: var(--spacing-lg);
 }
@@ -113,4 +127,54 @@ hr {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+
+/* Network */
+
+#network-graph {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--border-muted);;
+    margin: 2rem 0;
+}
+
+#network-graph .node {
+    cursor: pointer;
+}
+
+#network-graph .node-discipline {
+    fill: var(--primary-500);
+    r: 24;
+}
+
+#network-graph .node-method {
+    stroke: var(--primary-500);
+    r: 8;
+}
+
+#network-graph .node:hover {
+	outline: 1px solid var(--primary-500);
+}
+
+#network-graph .link {
+    stroke: var(--border-default);
+    stroke-opacity: 0.6;
+}
+
+#network-graph .node-label {
+	fill: var(--text-muted);
+    pointer-events: none;
+	font-size: var(--font-sm);
+    transform: translate(12px, 4px);
+}
+
+.tooltip {
+    position: absolute;
+    padding: 8px;
+    background: var(--primary-500);;
+    color: white;
+    border-radius: 4px;
+    pointer-events: none;
+    display: none;
 }

@@ -5,7 +5,7 @@
 	/* Set up the base - fonts, sizing, spacing, color palettes, and elevations. */
 	
 	/* Font Family */
-	--font-display: 'SF Pro Display', sans-serif;
+	--font-display: var(--font-serif);
 	--font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 	--font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 
@@ -297,9 +297,13 @@ h1 {
 	font-family: var(--font-display);
 	font-size: var(--font-xl);
 	color: var(--text-strong);
-	font-weight: 700;
+	font-weight: 500;
+	margin-top: var(--spacing-xl);
+	margin-bottom: var(--spacing-xl);
+	text-align: center;
 	font-variation-settings: "wght" 700;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
+	text-transform: uppercase;
 }
 
 h2 {
@@ -308,6 +312,7 @@ h2 {
 	color: var(--text-default);
 	font-weight: 700;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
+	margin-bottom: var(--spacing-sm);
 }
 
 h3 {
@@ -339,6 +344,10 @@ p+p:not(.label) {
 
 p a {
 	display: inline-block;
+}
+
+ol li:not(:last-child) {
+	margin-bottom: var(--spacing-sm);
 }
 
 .--font-sans,
