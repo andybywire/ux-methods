@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-deploy:
     name: Build & Deploy Sanity Studio
-    # if: ${{ github.ref == 'refs/heads/v2' }} # disable for testing
+    if: ${{ github.ref == 'refs/heads/studio-v3' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -24,17 +24,9 @@ jobs:
         run: npm ci --legacy-peer-deps
         working-directory: studio
 
-      # - name: Install Sanity CLI
-      #   run: npm install -g @sanity/cli
-      #   working-directory: studio
-
       - name: Build Studio
         run: npx sanity build --no-auto-updates
         working-directory: studio
-
-      # - name: Verify Build
-      #   run: ls -la dist
-      #   working-directory: studio
 
       - name: Set Up SSH
         run: |
