@@ -1,0 +1,71 @@
+---
+layout: base.njk
+pagination:
+  data: methods
+  alias: method
+  size: 1
+permalink: /method/{{ method.slug | slug }}/index.html
+---
+<p><a href="/">< back to index</a></p> {# temporary #}
+
+<article>
+  <section> 
+    {# FPO: method hero #}
+    <h1>{{ method.title }}</h1>
+    <p>{{ method.overview | safe }}</p>
+  </section>
+  <section>  
+    <h2>Preparation</h2>
+    <ul>    
+      {% for method in method.prepareMethods.slice(0,6) %}
+        <li>
+          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <p>{{ method.metaDescription }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section>
+    <h2>Steps</h2>
+    <p>{{ method.steps | safe }}</p>
+  </section>
+  <section>
+    <h2>Outcomes</h2>
+    <p>{{ method.title }} typically produces insight and solutions focused on these areas:</p>
+    <ul>
+      {% for outcome in method.outcomes %}
+        <li>
+          <h3>{{ outcome.prefLabel }}</h3>
+          <p>{{ outcome.definition }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section>  
+    <h2>Resources</h2>
+    <ul>    
+      {% for resource in method.resources.slice(0,6) %}
+        <li>
+          <a href="{{ resource.resourceUrl }}">{{ resource.title }}</a>
+          <p>{{ resource.author }} | {{ resource.publisher }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section>  
+    <h2>Next Steps</h2>
+    <ul>    
+      {% for method in method.continueMethods.slice(0,6) %}
+        <li>
+          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <p>{{ method.metaDescription }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section>  
+    <h2>References</h2>
+    {# FPO: citations #}
+    <p>FPO</p>
+  </section>
+</article>

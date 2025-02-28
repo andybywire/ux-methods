@@ -1,0 +1,115 @@
+@import '_reset.css';
+@import '_photoswipe.css';
+@import '_theme.css';
+
+#page {
+	padding: 0 var(--spacing-lg);
+}
+
+hr {
+	max-width: var(--spacing-width-md);
+	margin: var(--spacing-lg) auto;
+}
+
+[id] {
+	scroll-margin-top: var(--spacing-lg);
+}
+/* Spaces subsequent children apart */
+.flow>*+* {
+	margin-top: var(--spacing-lg);
+}
+
+
+.discipline {
+	background: var(--bg-muted);
+	margin-bottom:2px;
+}
+
+.discipline a {
+	display: flex;
+	padding:var(--spacing-sm);
+	text-decoration: none;
+}
+
+.discipline:hover {
+	background: var(--bg-strong);
+}
+
+/* Buttons */
+/* The colors for these need to be abstracted a bit to be more adaptable between dark and light mode */
+
+.button {
+	cursor: pointer;
+	display: inline-flex;
+	background: var(--text-strong);
+	color: var(--bg-strong);
+	font-size: var(--font-sm);
+	padding: var(--spacing-sm) var(--spacing-lg);
+	border-radius: var(--spacing-2xl);
+}
+
+.button:hover {
+	filter: brightness(90%);
+}
+
+@media (prefers-color-scheme: dark) {
+	.button:hover {
+		filter: brightness(120%);
+	}
+}
+
+.button.--sm {
+	font-size: var(--font-sm);
+	padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.button.--lg {
+	font-size: var(--font-lg);
+	padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+/* --primary colors won't change between dark and light mode */
+/*  */
+.button.--strong {
+	background: var(--primary-500);
+	color: var(--primary-50);
+}
+
+.button.--muted {
+	background: var(--bg-default);
+	color: var(--text-default);
+	border: 1px solid var(--border-muted);
+}
+
+.button.--error {
+	background: var(--bg-default);
+	color: var(--text-interactive);
+	border: 1px solid var(--border-muted);
+}
+
+.button.--disabled {
+	cursor: not-allowed;
+	background: var(--bg-muted);
+	color: var(--text-muted);
+	filter: none;
+}
+
+.card {
+	cursor: pointer;
+	display: flex;
+	background: var(--bg-strong);
+	box-shadow: var(--shadow-md);
+	border-radius: var(--spacing-xs);
+}
+
+.card:hover {
+	filter: contrast(110%);
+	filter: brightness(110%);
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}

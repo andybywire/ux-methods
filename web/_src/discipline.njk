@@ -1,0 +1,42 @@
+---
+layout: base.njk
+pagination:
+  data: disciplines
+  alias: discipline
+  size: 1
+permalink: /discipline/{{ discipline.slug | slug }}/index.html
+---
+<p><a href="/">< back to index</a></p> {# temporary #}
+
+<article>
+  <section> 
+    {# FPO: discipline hero #}
+    <h1>{{ discipline.title }}</h1>
+    <p>{{ discipline.metaDescription }}</p>
+    {{ discipline.overview | safe }}
+  </section>
+  <section>  
+    <h2>{{ discipline.title | safe }} Methods</h2>
+    <ul>
+      {% for method in discipline.methods %}
+        <li>
+          <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
+          <p>{{ method.metaDescription }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</article>
+{#   
+<h1>{{ discipline.title }}</h1>
+<p>{{ discipline.metaDescription }}</p>
+{{ discipline.overview | safe }}
+<h2>{{ discipline.title | safe }} Methods</h2>
+<ul>
+  {% for method in discipline.methods %}
+    <li>
+      <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
+      <p>{{ method.metaDescription }}</p>
+    </li>
+  {% endfor %}
+</ul> #}

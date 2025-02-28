@@ -5,5 +5,5 @@ _local
 # Dependency directories
 /node_modules
 
-# lerna files
-/lerna-debug.log
+# Local development directories
+/_kg-integration

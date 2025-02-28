@@ -1,8 +1,0 @@
-{
-  "packages": [
-    "studio",
-    "web",
-    "api"
-  ],
-  "version": "1.0.0"
-}
