@@ -38,5 +38,7 @@ jobs:
             sudo chmod 600 ~/.ssh/do_uxm_dev
             ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts
 
-        - name: SFTP Upload
-          run: sftp -i ~/.ssh/do_uxm_dev 24.199.98.130 <<< $'cd /var/www/dev/html \n put -r web/_site/*'
+        - name: Clean & SFTP Upload
+          run: |
+            ssh -i ~/.ssh/do_uxm_dev dev@24.199.98.130 "rm -rf /var/www/dev/html"
+            sftp -i ~/.ssh/do_uxm_dev dev@24.199.98.130 <<< $'cd /var/www/dev/html \n put -r web/_site/*'
