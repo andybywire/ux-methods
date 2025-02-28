@@ -9,6 +9,7 @@ on:
 jobs:
   build-and-deploy:
     name: Build and deploy 11ty site to `dev` subdomain
+    if: ${{ github.ref == 'refs/heads/11ty-v3' }}
     runs-on: ubuntu-latest
     steps:
         - name: Checkout Code
