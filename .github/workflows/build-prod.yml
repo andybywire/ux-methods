@@ -2,15 +2,15 @@ name: Production
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: 
-      - method
-      - discipline
-      - resource
-      - article
-  push:
-    paths: 
-      - 'web/**'
+  # repository_dispatch:
+  #   types: 
+  #     - method
+  #     - discipline
+  #     - resource
+  #     - article
+  # push:
+  #   paths: 
+  #     - 'web/**'
 
 jobs:
   load-rdf-job:

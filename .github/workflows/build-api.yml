@@ -1,9 +1,9 @@
 name: API
 
 on:
-  push: 
-    paths:
-      - 'api/**'
+  # push: 
+  #   paths:
+  #     - 'api/**'
   workflow_dispatch: 
 
 jobs:

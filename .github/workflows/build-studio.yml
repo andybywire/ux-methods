@@ -9,39 +9,31 @@ on:
 jobs:
   build-and-deploy:
     name: Build & Deploy Sanity Studio
-    if: ${{ github.ref == 'refs/heads/main' }} 
+    if: ${{ github.ref == 'refs/heads/studio-v3' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '17.x'
+          node-version: '23'
 
       - name: Install Project Dependencies
         run: npm ci --legacy-peer-deps
         working-directory: studio
 
-      - name: Install Sanity CLI
-        run: npm install -g @sanity/cli
-        working-directory: studio
-
       - name: Build Studio
-        run: sanity build
-        working-directory: studio
-
-      - name: Verify Build
-        run: ls -la dist
+        run: npx sanity build --no-auto-updates
         working-directory: studio
 
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.UXM_CMS_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_cms
-          sudo chmod 600 ~/.ssh/uxm_cms
-          ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
+          echo "${{ secrets.DO_UXM_CMS_SSH_KEY }}" > ~/.ssh/do_uxm_cms
+          sudo chmod 600 ~/.ssh/do_uxm_cms
+          ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts
 
       - name: SFTP Upload
-        run: sftp -i ~/.ssh/uxm_cms uxm_cms@jacksonville.dreamhost.com <<< $'cd cms.uxmethods.org \n put -r studio/dist/*'
+        run: sftp -i ~/.ssh/do_uxm_cms cms@24.199.98.130 <<< $'cd /var/www/cms/html \n put -r studio/dist/*'
