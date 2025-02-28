@@ -19,7 +19,7 @@ permalink: /method/{{ method.slug }}/index.html
     <ul>    
       {% for method in method.prepareMethods.slice(0,6) %}
         <li>
-          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}
@@ -57,7 +57,7 @@ permalink: /method/{{ method.slug }}/index.html
     <ul>    
       {% for method in method.continueMethods.slice(0,6) %}
         <li>
-          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}

@@ -20,7 +20,7 @@ permalink: /discipline/{{ discipline.slug }}/index.html
     <ul>
       {% for method in discipline.methods %}
         <li>
-          <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
+          <h3><a href="/method/{{ method.slug }}/">{{ method.title }}</a></h3>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}
