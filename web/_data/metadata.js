@@ -1,4 +1,4 @@
-import {client} from './utils/sanityClient.js'
+import {client} from '../utils/sanityClient.js'
 import groq from 'groq'
 
 export default async function getMetadata() {

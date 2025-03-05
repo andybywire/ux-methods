@@ -1,6 +1,7 @@
-import {client} from './utils/sanityClient.js'
+import {client} from '../utils/sanityClient.js'
 import {toHTML} from '@portabletext/to-html'
 import groq from 'groq'
+// import { uxmComponents } from '../utils/serializers.js'
 import {readFileSync} from 'fs'
 import {join} from 'path'
 
@@ -53,11 +54,12 @@ async function getMethods() {
         "createdAt": dateStamp.createdAt,
         "revisedAt": dateStamp.revisedAt,
         metaDescription,
-        "heroImage": {
-          "caption": heroImage.caption,
-          "altText": heroImage.alt,
-          "url": heroImage.asset->url,
-        },
+        heroImage,
+        // "heroImage": {
+        //   "caption": heroImage.caption,
+        //   "altText": heroImage.alt,
+        //   "url": heroImage.asset->url,
+        // },
         overview,
         steps,
         "outcomes": output[]->{
