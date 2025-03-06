@@ -65,6 +65,7 @@ async function getMethods() {
           title,
           author,
           resourceUrl,
+          resourceImage,
           "publisher": publisher.pubName
         }
       }
