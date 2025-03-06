@@ -10,7 +10,7 @@ permalink: /discipline/{{ discipline.slug }}/index.html
 
 <article>
   <section> 
-    {# FPO: discipline hero #}
+    {% basicHero discipline.heroImage %}
     <h1>{{ discipline.title }}</h1>
     <p>{{ discipline.metaDescription }}</p>
     {{ discipline.overview | safe }}

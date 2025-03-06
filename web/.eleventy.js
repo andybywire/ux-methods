@@ -2,7 +2,7 @@
 // import 'dotenv/config'
 
 // Filter & Shortcode imports
-import methodHero from "./_11ty/shortcodes/methodHero.js";
+import basicHero from "./_11ty/shortcodes/basicHero.js";
 
 // Plugins
 // import pluginRss from "@11ty/eleventy-plugin-rss";
@@ -14,7 +14,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "_src/assets": "assets" });  // If you have other assets
   
 	// Shortcodes
-	eleventyConfig.addShortcode('methodHero', methodHero);
+	eleventyConfig.addShortcode('basicHero', basicHero);
 
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget("_src/**/*");  // Watch everything in _src

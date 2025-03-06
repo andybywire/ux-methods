@@ -55,11 +55,6 @@ async function getMethods() {
         "revisedAt": dateStamp.revisedAt,
         metaDescription,
         heroImage,
-        // "heroImage": {
-        //   "caption": heroImage.caption,
-        //   "altText": heroImage.alt,
-        //   "url": heroImage.asset->url,
-        // },
         overview,
         steps,
         "outcomes": output[]->{
