@@ -4,13 +4,13 @@ pagination:
   data: methods
   alias: method
   size: 1
-permalink: /method/{{ method.slug | slug }}/index.html
+permalink: /method/{{ method.slug }}/index.html
 ---
 <p><a href="/">< back to index</a></p> {# temporary #}
 
 <article>
   <section> 
-    {# FPO: method hero #}
+    {% basicHero method.heroImage %}
     <h1>{{ method.title }}</h1>
     <p>{{ method.overview | safe }}</p>
   </section>
@@ -19,7 +19,7 @@ permalink: /method/{{ method.slug | slug }}/index.html
     <ul>    
       {% for method in method.prepareMethods.slice(0,6) %}
         <li>
-          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}
@@ -46,6 +46,9 @@ permalink: /method/{{ method.slug | slug }}/index.html
     <ul>    
       {% for resource in method.resources.slice(0,6) %}
         <li>
+          {% if resource.resourceImage %}
+            {% basicImage resource.resourceImage %}
+          {% endif %}
           <a href="{{ resource.resourceUrl }}">{{ resource.title }}</a>
           <p>{{ resource.author }} | {{ resource.publisher }}</p>
         </li>
@@ -57,7 +60,7 @@ permalink: /method/{{ method.slug | slug }}/index.html
     <ul>    
       {% for method in method.continueMethods.slice(0,6) %}
         <li>
-          <a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a>
+          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}

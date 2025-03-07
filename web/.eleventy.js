@@ -2,32 +2,37 @@
 // import 'dotenv/config'
 
 // Filter & Shortcode imports
-// TBD
+import basicHero from './_11ty/shortcodes/basicHero.js'
+import basicImage from './_11ty/shortcodes/basicImage.js'
 
 // Plugins
 // import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export default function (eleventyConfig) {
   // Pass through all assets (css, js, images, etc)
-  eleventyConfig.addPassthroughCopy({ "_src/style": "style" });
-  eleventyConfig.addPassthroughCopy({ "_src/js": "js" });
-  eleventyConfig.addPassthroughCopy({ "_src/assets": "assets" });  // If you have other assets
-  
+  eleventyConfig.addPassthroughCopy({'_src/style': 'style'})
+  eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
+  eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
+
+  // Shortcodes
+  eleventyConfig.addShortcode('basicHero', basicHero)
+  eleventyConfig.addShortcode('basicImage', basicImage)
+
   // Watch all asset directories for changes
-  eleventyConfig.addWatchTarget("_src/**/*");  // Watch everything in _src
-  
+  eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src
+
   eleventyConfig.setServerOptions({
     showAllHosts: true,
   })
 
   return {
-    htmlTemplateEngine: 'njk', 
+    htmlTemplateEngine: 'njk',
     dir: {
       data: '../_data',
       input: '_src',
       includes: '../_includes',
       layouts: '../_includes',
-      output: '_site'
+      output: '_site',
     },
   }
 }

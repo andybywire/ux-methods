@@ -1,4 +1,4 @@
-import {client} from './utils/sanityClient.js'
+import {client} from '../utils/sanityClient.js'
 import {toHTML} from '@portabletext/to-html'
 import groq from 'groq'
 
@@ -21,11 +21,7 @@ async function getDisciplines() {
       "createdAt": dateStamp.createdAt,
       "revisedAt": dateStamp.revisedAt,
       metaDescription,
-      "heroImage": {
-        "caption": heroImage.caption,
-        "altText": heroImage.alt,
-        "url": heroImage.asset->url,
-      },
+      heroImage,
       overview,
       "methods": *[
           _type == "method" 

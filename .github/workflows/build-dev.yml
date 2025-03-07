@@ -1,0 +1,45 @@
+name: Dev
+
+on:
+  push:
+    paths:
+      - 'web/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy 11ty site to `dev` subdomain
+    if: ${{ github.ref == 'refs/heads/11ty-v3' }}
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        
+        - name: Install Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '23'
+
+        - name: Install Project Dependencies
+          run: npm ci --legacy-peer-deps
+          working-directory: web
+
+        - name: Build 11ty
+          run: npx @11ty/eleventy
+          working-directory: web
+        
+        - name: Verify build
+          run: ls -la _site
+          working-directory: web
+
+        - name: Set Up SSH
+          run: |
+            mkdir -p ~/.ssh/
+            echo "${{ secrets.DO_UXM_DEV_SSH_KEY }}" > ~/.ssh/do_uxm_dev
+            sudo chmod 600 ~/.ssh/do_uxm_dev
+            ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts
+
+        - name: Clean & SFTP Upload
+          run: |
+            ssh -i ~/.ssh/do_uxm_dev dev@24.199.98.130 "rm -rf /var/www/dev/html/*"
+            sftp -i ~/.ssh/do_uxm_dev dev@24.199.98.130 <<< $'cd /var/www/dev/html \n put -r web/_site/*'

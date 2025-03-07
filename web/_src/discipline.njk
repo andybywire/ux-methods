@@ -4,13 +4,13 @@ pagination:
   data: disciplines
   alias: discipline
   size: 1
-permalink: /discipline/{{ discipline.slug | slug }}/index.html
+permalink: /discipline/{{ discipline.slug }}/index.html
 ---
 <p><a href="/">< back to index</a></p> {# temporary #}
 
 <article>
   <section> 
-    {# FPO: discipline hero #}
+    {% basicHero discipline.heroImage %}
     <h1>{{ discipline.title }}</h1>
     <p>{{ discipline.metaDescription }}</p>
     {{ discipline.overview | safe }}
@@ -20,7 +20,7 @@ permalink: /discipline/{{ discipline.slug | slug }}/index.html
     <ul>
       {% for method in discipline.methods %}
         <li>
-          <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
+          <h3><a href="/method/{{ method.slug }}/">{{ method.title }}</a></h3>
           <p>{{ method.metaDescription }}</p>
         </li>
       {% endfor %}
