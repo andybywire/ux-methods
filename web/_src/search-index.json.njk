@@ -1,0 +1,18 @@
+[
+  {% for discipline in disciplines %}
+  {
+    "title": "{{ discipline.title | safe }}",
+    "description": "{{ discipline.metaDescription | safe }}",
+    "slug": "{{ discipline.slug | safe }}",
+    "type": "discipline"
+  }{% if not loop.last %},{% endif %}
+  {% endfor %},
+  {% for method in methods %}
+  {
+    "title": "{{ method.title | safe }}",
+    "description": "{{ method.metaDescription | safe }}",
+    "slug": "{{ method.slug | safe }}",
+    "type": "method"
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+]
