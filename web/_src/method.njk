@@ -6,15 +6,17 @@ pagination:
   size: 1
 permalink: /method/{{ method.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
+<div class="--py-lg">
+  <p><a href="/">↖ back to index</a></p> {# temporary #}
+</div>
 
-<article>
-  <section> 
+<article class="flow">
+  <section class="hero"> 
     {% basicHero method.heroImage %}
     <h1>{{ method.title }}</h1>
     <p>{{ method.overview | safe }}</p>
   </section>
-  <section>  
+  <section class="preparation boxed">  
     <h2>Preparation</h2>
     <ul>    
       {% for method in method.prepareMethods.slice(0,6) %}
@@ -25,11 +27,11 @@ permalink: /method/{{ method.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>
+  <section class="steps boxed">
     <h2>Steps</h2>
     <p>{{ method.steps | safe }}</p>
   </section>
-  <section>
+  <section class="outcomes boxed">
     <h2>Outcomes</h2>
     <p>{{ method.title }} typically produces insight and solutions focused on these areas:</p>
     <ul>
@@ -41,7 +43,7 @@ permalink: /method/{{ method.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>  
+  <section class="resources boxed">  
     <h2>Resources</h2>
     <ul>    
       {% for resource in method.resources.slice(0,6) %}
@@ -55,7 +57,7 @@ permalink: /method/{{ method.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>  
+  <section class="next-steps boxed">  
     <h2>Next Steps</h2>
     <ul>    
       {% for method in method.continueMethods.slice(0,6) %}
@@ -66,7 +68,7 @@ permalink: /method/{{ method.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>  
+  <section class="references boxed">  
     <h2>References</h2>
     {# FPO: citations #}
     <p>FPO</p>

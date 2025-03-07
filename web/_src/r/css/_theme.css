@@ -1,11 +1,9 @@
 :root {
-
 	/* _theme.css sets up some utility classes - fonts, sizing, spacing, color palettes, and elevations. */
-	
-	/* Set up the base - fonts, sizing, spacing, color palettes, and elevations. */
-	
+
+
 	/* Font Family */
-	--font-display: 'SF Pro Display', sans-serif;
+	--font-display: var(--font-serif);
 	--font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 	--font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 
@@ -15,8 +13,11 @@
 	--font-lg: clamp(18px, -0.75rem + 5vw, 24px);
 	--font-md: 16px;
 	--font-sm: 14px;
+	--font-xs: 11px;
 
 	/* Spacing */
+	/* Fluid spacing scale based on view width, from 16px to 24px */
+	/* Fluid spacing scale based on view width, from 16px to 24px */
 	--spacing: clamp(16px, -0.75rem + 5vw, 24px);
 	--spacing-xs: calc(0.25 * var(--spacing));
 	--spacing-sm: calc(0.5 * var(--spacing));
@@ -28,32 +29,6 @@
 	--spacing-width-md: 39rem;
 	--spacing-width-xl: 65rem;
 
-	/* Neutral Palette */
-	--neutral-50: hsla(60, 9.1%, 97.8%, 1);
-	--neutral-100: hsla(60, 4.8%, 95.9%, 1);
-	--neutral-200: hsla(20, 5.9%, 90%, 1);
-	--neutral-300: hsla(24, 5.7%, 82.9%, 1);
-	--neutral-400: hsla(24, 5.4%, 63.9%, 1);
-	--neutral-500: hsla(25, 5.3%, 44.7%, 1);
-	--neutral-600: hsla(33, 5.5%, 32.4%, 1);
-	--neutral-700: hsla(30, 6.3%, 25.1%, 1);
-	--neutral-800: hsla(12, 6.5%, 15.1%, 1);
-	--neutral-900: hsla(24, 9.8%, 10%, 1);
-	--neutral-950: hsla(20, 14.3%, 4.1%, 1);
-
-	/* Primary Palette */
-	--primary-50: hsla(208, 100%, 96.9%, 1);
-	--primary-100: hsla(209, 94.6%, 92.7%, 1);
-	--primary-200: hsla(210, 96.9%, 87.3%, 1);
-	--primary-300: hsla(211, 96.4%, 78.4%, 1);
-	--primary-400: hsla(213, 93.9%, 67.8%, 1);
-	--primary-500: hsla(217, 91.2%, 59.8%, 1);
-	--primary-600: hsla(221, 83.2%, 53.3%, 1);
-	--primary-700: hsla(224, 76.3%, 48%, 1);
-	--primary-800: hsla(225, 70.7%, 40.2%, 1);
-	--primary-900: hsla(225, 64.3%, 32.9%, 1);
-	--primary-950: hsla(225, 57%, 21%, 1);
-
 	/* Light Elevation */
 	--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
 	--shadow-md: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
@@ -63,156 +38,108 @@
 /* Light color theme is the default, so we set it on :root. The utility class .theme-default will reset to the default theme when nested inside another themed element. */
 
 :root, .theme-default {
-	--bg-strong: var(--neutral-50);
-	--bg-default: var(--neutral-100);
-	--bg-muted: var(--neutral-200);
-	--bg-selection: var(--neutral-300);
+	/* Neutral color LCH values */
+	--lightness: 80%;
+	--chroma: 0.035;
+	--hue: 60;
+
+	/* Base Color */
+	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
+	--color-prep: color-mix(in srgb, var(--color-base) 50%, rgb(255, 177, 177) 50%);
+	--color-steps: color-mix(in srgb, var(--color-base) 50%, rgb(130, 255, 130) 50%);
+	--color-outcomes: color-mix(in srgb, var(--color-base) 50%, rgb(132, 132, 255) 50%);
+
+	/* Relative color definitions */
+	--bg-strong: lch(from var(--color-base) 100% c var(--hue));
+	--bg-default: lch(from var(--color-base) 90% c var(--hue));
+	--bg-muted: lch(from var(--color-base) 80% c var(--hue));
+	--bg-selection: lch(from var(--color-base) 75% c var(--hue));
+	/* Neutral color LCH values */
+	--lightness: 80%;
+	--chroma: 0.035;
+	--hue: 60;
+
+	/* Base Color */
+	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
+	--color-prep: color-mix(in srgb, var(--color-base) 50%, rgb(255, 177, 177) 50%);
+	--color-steps: color-mix(in srgb, var(--color-base) 50%, rgb(130, 255, 130) 50%);
+	--color-outcomes: color-mix(in srgb, var(--color-base) 50%, rgb(132, 132, 255) 50%);
+
+	/* Relative color definitions */
+	--bg-strong: lch(from var(--color-base) 100% c var(--hue));
+	--bg-default: lch(from var(--color-base) 90% c var(--hue));
+	--bg-muted: lch(from var(--color-base) 80% c var(--hue));
+	--bg-selection: lch(from var(--color-base) 75% c var(--hue));
 	
-	--text-strong: var(--neutral-950);
-	--text-default: var(--neutral-600);
-	--text-muted: var(--neutral-500);
-	--text-interactive: var(--text-strong);
+	--text-strong: lch(from var(--color-base) 10% c var(--hue));
+	--text-default: lch(from var(--color-base) 20% c var(--hue));
+	--text-muted: lch(from var(--color-base) 40% c var(--hue));
+	--text-interactive: lch(from var(--color-base) 5% c var(--hue));
+	--text-strong: lch(from var(--color-base) 10% c var(--hue));
+	--text-default: lch(from var(--color-base) 20% c var(--hue));
+	--text-muted: lch(from var(--color-base) 40% c var(--hue));
+	--text-interactive: lch(from var(--color-base) 5% c var(--hue));
 	
-	--border-strong: var(--neutral-600);
-	--border-default: var(--neutral-400);
-	--border-muted: var(--neutral-300);
-}
+	--border-strong: lch(from var(--color-base) 40% c var(--hue));
+	--border-default: lch(from var(--color-base) 60% c var(--hue));
+	--border-muted: lch(from var(--color-base) 80% c var(--hue));
 
-/* A color theme using the brand primary color */
+	background: var(--bg-default);
+	color: var(--text-default);
+	--border-strong: lch(from var(--color-base) 40% c var(--hue));
+	--border-default: lch(from var(--color-base) 60% c var(--hue));
+	--border-muted: lch(from var(--color-base) 80% c var(--hue));
 
-.theme-primary {
-	/* Primary Theme Colors */
-	--bg-strong: white;
-	--bg-default: var(--primary-100);
-	--bg-muted: var(--primary-200);
-	--bg-selection: var(--primary-500);
-
-	--text-strong: var(--primary-950);
-	--text-default: var(--primary-700);
-	--text-muted: var(--primary-500);
-	--text-interactive: var(--text-strong);
-
-	--border-strong: var(--primary-600);
-	--border-default: var(--primary-400);
-	--border-muted: var(--primary-200);
-}
-
-/* Invert the colors. If media query detects light mode, this class turns an element into a dark theme. */
-
-.theme-inverted {
-	/* Inverted Colors */
-	--bg-strong: black;
-	--bg-default: var(--neutral-950);
-	--bg-muted: var(--neutral-800);
-	--bg-selection: hsla(0, 0%, 100%, 0.15);
-
-	--text-strong: var(--neutral-50);
-	--text-default: var(--neutral-300);
-	--text-muted: var(--neutral-400);
-	--text-interactive: var(--text-strong);
-
-	--border-strong: var(--neutral-300);
-	--border-default: var(--neutral-500);
-	--border-muted: var(--neutral-800);
-}
-
-/* Set the theme for an element to light or dark regardless of user dark mode preference. 
-
-Use sparingly - useful for setting text color on top of images or other media that doesn't change to match dark or light mode.  */
-
-.theme-light {
-	--bg-strong: var(--neutral-50);
-	--bg-default: var(--neutral-100);
-	--bg-muted: var(--neutral-200);
-	--bg-selection: var(--neutral-300);
-	
-	--text-strong: var(--neutral-950);
-	--text-default: var(--neutral-600);
-	--text-muted: var(--neutral-500);
-	--text-interactive: var(--text-strong);
-	
-	--border-strong: var(--neutral-600);
-	--border-default: var(--neutral-400);
-	--border-muted: var(--neutral-300);
-}
-
-.theme-dark {
-	--bg-strong: black;
-	--bg-default: var(--neutral-950);
-	--bg-muted: var(--neutral-800);
-	--bg-selection: hsla(0, 0%, 100%, 0.15);
-	
-	--text-strong: var(--neutral-50);
-	--text-default: var(--neutral-300);
-	--text-muted: var(--neutral-400);
-	--text-interactive: var(--text-strong);
-	
-	--border-strong: var(--neutral-300);
-	--border-default: var(--neutral-500);
-	--border-muted: var(--neutral-800);
+	background: var(--bg-default);
+	color: var(--text-default);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root, .theme-default {
-		/* Dark Theme Colors */
-		--bg-strong: black;
-		--bg-default: var(--neutral-950);
-		--bg-muted: var(--neutral-800);
-		--bg-selection: hsla(0, 0%, 100%, 0.15);
 
-		--text-strong: var(--neutral-50);
-		--text-default: var(--neutral-300);
-		--text-muted: var(--neutral-400);
-		--text-interactive: var(--text-strong);
+		--bg-strong: lch(from var(--color-base) 0% c var(--hue));
+		--bg-default: lch(from var(--color-base) 10% c var(--hue));
+		--bg-muted: lch(from var(--color-base) 70% c var(--hue));
+		--bg-selection: lch(from var(--color-base) 25% c var(--hue));
+		
+		--text-strong: lch(from var(--color-base) 90% c var(--hue));
+		--text-default: lch(from var(--color-base) 80% c var(--hue));
+		--text-muted: lch(from var(--color-base) 60% c var(--hue));
+		--text-interactive: lch(from var(--color-base) 95% c var(--hue));
+		
+		--border-strong: lch(from var(--color-base) 20% c var(--hue));
+		--border-default: lch(from var(--color-base) 60% c var(--hue));
+		--border-muted: lch(from var(--color-base) 20% c var(--hue));
 
-		--border-strong: var(--neutral-300);
-		--border-default: var(--neutral-500);
-		--border-muted: var(--neutral-800);
-
+		--bg-strong: lch(from var(--color-base) 0% c var(--hue));
+		--bg-default: lch(from var(--color-base) 10% c var(--hue));
+		--bg-muted: lch(from var(--color-base) 70% c var(--hue));
+		--bg-selection: lch(from var(--color-base) 25% c var(--hue));
+		
+		--text-strong: lch(from var(--color-base) 90% c var(--hue));
+		--text-default: lch(from var(--color-base) 80% c var(--hue));
+		--text-muted: lch(from var(--color-base) 60% c var(--hue));
+		--text-interactive: lch(from var(--color-base) 95% c var(--hue));
+		
+		--border-strong: lch(from var(--color-base) 20% c var(--hue));
+		--border-default: lch(from var(--color-base) 60% c var(--hue));
+		--border-muted: lch(from var(--color-base) 20% c var(--hue));
 		/* Dark Elevation */
 		--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
 		--shadow-md: 0px 12px 16px -18px rgba(0, 0, 0, 0.2);
 		--shadow-lg: 0px 24px 40px -24px rgba(0, 0, 0, 0.2);
 	}
+}
 
-	/* Dark mode inverted matches the light color theme */
-	.theme-inverted {
-		--bg-strong: var(--neutral-50);
-		--bg-default: var(--neutral-100);
-		--bg-muted: var(--neutral-200);
-		--bg-selection: var(--neutral-300);
+html {
 
-		--text-strong: var(--neutral-950);
-		--text-default: var(--neutral-700);
-		--text-muted: var(--neutral-500);
-		--text-interactive: var(--text-strong);
+}
 
-		--border-strong: var(--neutral-600);
-		--border-default: var(--neutral-400);
-		--border-muted: var(--neutral-200);
-	}
+html {
 
-	.primary {
-		/* Primary Theme Colors */
-		--bg-strong: white;
-		--bg-default: var(--primary-950);
-		--bg-muted: var(--primary-800);
-		--bg-selection: var(--primary-700);
-
-		--text-strong: var(--primary-50);
-		--text-default: var(--primary-300);
-		--text-muted: var(--primary-400);
-		--text-interactive: var(--text-strong);
-
-		--border-strong: var(--primary-600);
-		--border-default: var(--primary-800);
-		--border-muted: var(--primary-950);
-	}
 }
 
 body {
-	background: var(--bg-default);
-	color: var(--text-default);
 	font-family: var(--font-sans);
 	font-size: var(--font-md);
 	line-height: 1.45;
@@ -244,6 +171,59 @@ a:hover {
 	color: var(--text-interactive);
 	text-decoration-color: var(--text-interactive);
 	opacity: 1;
+}
+
+h1 {
+	font-family: var(--font-display);
+	font-size: var(--font-xl);
+	color: var(--text-strong);
+	font-weight: 500;
+	margin-top: var(--spacing-xl);
+	margin-bottom: var(--spacing-xl);
+	text-align: center;
+	font-variation-settings: "wght" 700;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
+	text-transform: uppercase;
+}
+
+h2 {
+	font-family: var(--font-sans);
+	font-size: var(--font-lg);
+	color: var(--text-default);
+	font-weight: 700;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
+	margin-bottom: var(--spacing-sm);
+}
+
+h3 {
+	font-family: var(--font-sans);
+	font-size: var(--font-md);
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+h4,
+h5,
+h6 {
+	font-family: var(--font-sans);
+	font-size: var(--font-sm);
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+p {
+	color: var(--text-default);
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: clamp(-0.02em, 1vw + 1rem, -0.02em);
+}
+
+p+p:not(.label) {
+	margin-top: var(--spacing-sm);
+}
+
+p a {
+	display: inline-block;
 }
 
 blockquote {
@@ -283,63 +263,50 @@ aside {
 	margin: 0 auto;
 }
 
-.hero {
-	font-family: var(--font-display);
-	font-size: var(--font-2xl);
-	color: var(--text-strong);
-	font-weight: 700;
-	font-variation-settings: "wght" 700;
-	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
-	line-height: 1;
+/* Font Family */
+
+ol li:not(:last-child) {
+	margin-bottom: var(--spacing-sm);
 }
 
-h1 {
-	font-family: var(--font-display);
-	font-size: var(--font-xl);
-	color: var(--text-strong);
-	font-weight: 700;
-	font-variation-settings: "wght" 700;
-	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
-}
-
-h2 {
-	font-family: var(--font-sans);
+blockquote {
 	font-size: var(--font-lg);
-	color: var(--text-default);
-	font-weight: 700;
-	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
+	color: var(--text-strong);
+	border-left: 1px solid var(--border-default);
+	padding-left: var(--spacing-md);
+	margin: var(--spacing-md) auto;
+	line-height: 1.3;
 }
 
-h3 {
-	font-family: var(--font-sans);
+strong,
+.--font-strong {
+	font-weight: 800;
+}
+
+em,
+.--font-emphasis {
+	font-style: italic;
+}
+
+aside {
 	font-size: var(--font-md);
-	color: var(--text-muted);
-	font-weight: 500;
+	color: var(--text-default);
+	border-left: 1px solid var(--border-default);
+	padding-left: var(--spacing-md);
+	margin: var(--spacing-md) 0;
+	font-style: italic;
 }
 
-h4,
-h5,
-h6 {
-	font-family: var(--font-sans);
+.caption {
+	display: block;
 	font-size: var(--font-sm);
 	color: var(--text-muted);
-	font-weight: 500;
+	padding-top: var(--spacing-xs);
+	max-width: var(--spacing-width-md);
+	margin: 0 auto;
 }
 
-p {
-	color: var(--text-default);
-	font-size: inherit;
-	font-weight: inherit;
-	letter-spacing: clamp(-0.02em, 1vw + 1rem, -0.02em);
-}
-
-p+p:not(.label) {
-	margin-top: var(--spacing-sm);
-}
-
-p a {
-	display: inline-block;
-}
+/* Font Family */
 
 .--font-sans,
 .--font-default {
@@ -349,10 +316,6 @@ p a {
 .--font-serif,
 .--font-alternate {
 	font-family: var(--font-serif);
-}
-
-.--font-serif {
-	font-size: 1.125em;
 }
 
 /* Text Size */
@@ -380,7 +343,6 @@ p a {
 }
 
 /* Text Color */
-
 
 .--text-muted {
 	color: var(--text-muted);
@@ -454,8 +416,6 @@ hr,
 .--border-strong {
 	border-color: var(--border-strong);
 }
-
-
 
 /* Shadow */
 

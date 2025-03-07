@@ -6,17 +6,20 @@ pagination:
   size: 1
 permalink: /discipline/{{ discipline.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
+<div class="--py-lg">
+  <p><a href="/">↖ back to index</a></p> {# temporary #}
+</div>
 
-<article>
-  <section> 
+<article class="discipline flow" >
+  <section>
+    <p class="--text-sm --text-muted">Discipline</p>
     {% basicHero discipline.heroImage %}
     <h1>{{ discipline.title }}</h1>
     <p>{{ discipline.metaDescription }}</p>
     {{ discipline.overview | safe }}
   </section>
   <section>  
-    <h2>{{ discipline.title | safe }} Methods</h2>
+    <h2 class="--mb-md">{{ discipline.title | safe }} Methods</h2>
     <ul>
       {% for method in discipline.methods %}
         <li>

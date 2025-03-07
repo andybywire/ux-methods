@@ -10,9 +10,8 @@ import basicImage from './_11ty/shortcodes/basicImage.js'
 
 export default function (eleventyConfig) {
   // Pass through all assets (css, js, images, etc)
-  eleventyConfig.addPassthroughCopy({'_src/style': 'style'})
-  eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
-  eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
+  eleventyConfig.addPassthroughCopy({ "_src/r/css": "r/css" });
+  eleventyConfig.addPassthroughCopy({ "_src/r/js": "r/js" });
 
   // Shortcodes
   eleventyConfig.addShortcode('basicHero', basicHero)

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/style/main.css">
+		<link rel="stylesheet" href="/r/css/main.css">
 		<title>UX Methods V2</title>
 		<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.basic.js" async></script>
 	</head>
@@ -11,10 +11,48 @@
 	<main>
 		{{ content | safe }}
 	</main>
-	<hr /> {# temporary #}
 	<footer>
+			<form class="theme-control">
+
+				<label for="hue-slider">hue </label>
+				<input
+					type="range"
+					name="hue-slider"
+					id="hue-slider"
+					value="60"
+					min="0"
+					max="360" />
+
+				<label for="chroma-slider">chroma</label>
+				<input
+					type="range"
+					name="chroma-slider"
+					id="chroma-slider"
+					value="35"
+					min="10"
+					max="200" />
+					
+			</form>
 		<p>{{ metadata.tagline }}</p>
 		<p>{{ metadata.description }}</p>
 	</footer>
 	</body>
+	<script>
+		const rootElem = document.querySelector(":root");
+		const hueSlider = document.getElementById("hue-slider");
+		const chromaSlider = document.getElementById("chroma-slider");
+
+		hueSlider.addEventListener("input", handleHueChange);
+		chromaSlider.addEventListener("input", handleChromaChange);
+
+		function handleHueChange(e) {
+			rootElem.style.setProperty("--hue", e.target.value);
+		}
+
+		function handleChromaChange(e) {
+			// Convert slider value (0-200) to OKLCH chroma range (0-0.2)
+			const chromaValue = (e.target.value / 1000).toFixed(3);
+			rootElem.style.setProperty("--chroma", chromaValue);
+		}
+	</script>
 </html>
