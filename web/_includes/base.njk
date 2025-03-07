@@ -1,20 +1,16 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/style/main.css">
-		<title>UX Methods V2</title>
-		<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.basic.js" async></script>
-	</head>
-	<body class="container --w-md --px-md">
-	<main>
-		{{ content | safe }}
-	</main>
-	<hr /> {# temporary #}
-	<footer>
-		<p>{{ metadata.tagline }}</p>
-		<p>{{ metadata.description }}</p>
-	</footer>
+	{% include 'partials/head.njk' %}
+	<body>
+		{% include 'partials/header.njk' %}
+		<main class="container --w-md --px-md">
+			{{ content | safe }}
+		</main>
+		<hr/>
+		{# temporary #}
+		<footer>
+			<p>{{ metadata.tagline }}</p>
+			<p>{{ metadata.description }}</p>
+		</footer>
 	</body>
 </html>
