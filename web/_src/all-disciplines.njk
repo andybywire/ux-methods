@@ -1,0 +1,14 @@
+---
+layout: base.njk
+title: "UX Disciplines"
+permalink: /disciplines/index.html
+---
+<h1>UX Disciplines</h1>
+<ul>
+  {% for discipline in disciplines %}
+    <li>
+      <a href="/discipline/{{ discipline.slug }}/">{{ discipline.title }}</a>
+      <p>{{ discipline.metaDescription }}</p>
+    </li>
+  {% endfor %}
+</ul>

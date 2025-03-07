@@ -1,0 +1,13 @@
+---
+layout: base.njk
+title: "UX Methods A-Z"
+---
+<h1>UX Methods A-Z</h1>
+<ul>
+  {% for method in methods %}
+    <li>
+      <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
+      <p>{{ method.metaDescription }}</p>
+    </li>
+  {% endfor %}
+</ul>
