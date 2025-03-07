@@ -14,6 +14,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
   eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
 
+  // Filters
+  eleventyConfig.addFilter("prependPipe", (value) => ` | ${value}`);
+  
   // Shortcodes
   eleventyConfig.addShortcode('basicHero', basicHero)
   eleventyConfig.addShortcode('basicImage', basicImage)
