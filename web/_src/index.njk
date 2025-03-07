@@ -1,8 +1,6 @@
 ---
 layout: base.njk
 ---
-<H1>{{ metadata.title }}</H1>
-
 {# Search #}
 <input type="text" id="search" placeholder="Search..."/>
 <ul id="search-results"></ul>
@@ -23,43 +21,4 @@ layout: base.njk
     </li>
   {% endfor %}
 </ul>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    fetch('/search-index.json')
-      .then(response => response.json())
-      .then(items => {
-        const options = {
-          keys: [
-            {
-              name: 'title',
-              weight: 0.7
-            }, {
-              name: 'description',
-              weight: 0.3 
-            }
-          ],
-          threshold: 0.5,
-          distance: 80,
-          minMatchCharLength: 3
-        };
-
-        const fuse = new Fuse(items, options);
-
-        const searchInput = document.getElementById('search');
-        const searchResults = document.getElementById('search-results');
-
-        searchInput.addEventListener('input', function () {
-          const query = searchInput.value;
-          const results = fuse.search(query);
-
-          searchResults.innerHTML = '';
-          results.forEach(result => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${result.item.type}/${result.item.slug}" tabindex="0">${result.item.title}</a>`;
-            searchResults.appendChild(li);
-          });
-        });
-      });
-  });
-</script>
+{% include 'searchScript.html' %}

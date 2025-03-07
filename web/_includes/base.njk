@@ -1,16 +1,11 @@
 <!doctype html>
 <html lang="en">
-	{% include 'partials/head.njk' %}
+	{% include 'head.njk' %}
 	<body>
-		{% include 'partials/header.njk' %}
+		{% include 'header.njk' %}
 		<main class="container --w-md --px-md">
 			{{ content | safe }}
 		</main>
-		<hr/>
-		{# temporary #}
-		<footer>
-			<p>{{ metadata.tagline }}</p>
-			<p>{{ metadata.description }}</p>
-		</footer>
+		{% include 'footer.njk' %}
 	</body>
 </html>

@@ -33,7 +33,7 @@ export default function (eleventyConfig) {
     dir: {
       data: '../_data',
       input: '_src',
-      includes: '../_includes',
+      includes: '../_includes/partials',
       layouts: '../_includes',
       output: '_site',
     },
