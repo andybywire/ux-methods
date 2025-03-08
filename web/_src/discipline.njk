@@ -6,8 +6,6 @@ pagination:
   size: 1
 permalink: /discipline/{{ resource.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
-
 <article>
   <section> 
     {% basicHero resource.heroImage %}
@@ -19,24 +17,8 @@ permalink: /discipline/{{ resource.slug }}/index.html
     <h2>{{ resource.title | safe }} Methods</h2>
     <ul>
       {% for method in resource.methods %}
-        <li>
-          <h3><a href="/method/{{ method.slug }}/">{{ method.title }}</a></h3>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+        {% resourceCard method %}
       {% endfor %}
     </ul>
   </section>
 </article>
-{#   
-<h1>{{ discipline.title }}</h1>
-<p>{{ discipline.metaDescription }}</p>
-{{ discipline.overview | safe }}
-<h2>{{ discipline.title | safe }} Methods</h2>
-<ul>
-  {% for method in discipline.methods %}
-    <li>
-      <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
-      <p>{{ method.metaDescription }}</p>
-    </li>
-  {% endfor %}
-</ul> #}

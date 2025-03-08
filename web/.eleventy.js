@@ -4,7 +4,8 @@
 // Filter & Shortcode imports
 import basicHero from './_11ty/shortcodes/basicHero.js'
 import basicImage from './_11ty/shortcodes/basicImage.js'
-import methodCard from './_11ty/shortcodes/methodCard.js'
+import resourceCard from './_11ty/shortcodes/resourceCard.js'
+import resourceCardExt from './_11ty/shortcodes/resourceCardExt.js'
 
 // Plugins
 // import pluginRss from "@11ty/eleventy-plugin-rss";
@@ -21,7 +22,8 @@ export default function (eleventyConfig) {
   // Shortcodes
   eleventyConfig.addShortcode('basicHero', basicHero)
   eleventyConfig.addShortcode('basicImage', basicImage)
-  eleventyConfig.addShortcode('methodCard', methodCard)
+  eleventyConfig.addShortcode('resourceCard', resourceCard)
+  eleventyConfig.addShortcode('resourceCardExt', resourceCardExt)
 
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src
