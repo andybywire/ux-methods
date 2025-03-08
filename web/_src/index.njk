@@ -1,17 +1,26 @@
 ---
 layout: base.njk
 ---
-<H1>{{ metadata.title }}</H1>
-{# action trigger test #}
+{# Search #}
+<input type="text" id="search" placeholder="Search..."/>
+<ul id="search-results"></ul>
+
 <h2>Disciplines</h2>
 <ul>
   {% for discipline in disciplines %}
-    <li class="discipline"><a href="discipline/{{ discipline.slug }}">{{ discipline.title }}</a></li>
-  {% endfor %} 
+    <li class="discipline">
+      <a href="discipline/{{ discipline.slug }}" tabindex="0">{{ discipline.title }}</a>
+    </li>
+  {% endfor %}
 </ul>
+
+
 <h2>Methods</h2>
 <ul>
   {% for method in methods %}
-    <li class="method"><a href="method/{{ method.slug }}">{{ method.title }}</a></li>
-  {% endfor %} 
+    <li class="method">
+      <a href="method/{{ method.slug }}" tabindex="0">{{ method.title }}</a>
+    </li>
+  {% endfor %}
 </ul>
+{% include 'searchScript.html' %}

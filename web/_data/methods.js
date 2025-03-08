@@ -49,6 +49,7 @@ async function getMethods() {
   const methods = await client.fetch(groq`
     *[_type == "method"] | order(title) {
         title,
+        "type": "method",
         "slug": slug.current,
         "uri": uri.current,
         "createdAt": dateStamp.createdAt,
@@ -76,6 +77,8 @@ async function getMethods() {
       title: method.title,
       slug: method.slug,
       uri: method.uri,
+      type: 'method',
+      heroImage: method.heroImage,
       metaDescription: method.metaDescription,
     }
   })

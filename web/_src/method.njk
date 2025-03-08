@@ -2,38 +2,33 @@
 layout: base.njk
 pagination:
   data: methods
-  alias: method
+  alias: resource
   size: 1
-permalink: /method/{{ method.slug }}/index.html
+permalink: /method/{{ resource.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
-
 <article>
   <section> 
-    {% basicHero method.heroImage %}
-    <h1>{{ method.title }}</h1>
-    <p>{{ method.overview | safe }}</p>
+    {% basicHero resource.heroImage %}
+    <h1>{{ resource.title }}</h1>
+    <p>{{ resource.overview | safe }}</p>
   </section>
   <section>  
     <h2>Preparation</h2>
     <ul>    
-      {% for method in method.prepareMethods.slice(0,6) %}
-        <li>
-          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+      {% for method in resource.prepareMethods.slice(0,6) %}
+        {% resourceCard method %}
       {% endfor %}
     </ul>
   </section>
   <section>
     <h2>Steps</h2>
-    <p>{{ method.steps | safe }}</p>
+    <p>{{ resource.steps | safe }}</p>
   </section>
   <section>
     <h2>Outcomes</h2>
-    <p>{{ method.title }} typically produces insight and solutions focused on these areas:</p>
+    <p>{{ resource.title }} typically produces insight and solutions focused on these areas:</p>
     <ul>
-      {% for outcome in method.outcomes %}
+      {% for outcome in resource.outcomes %}
         <li>
           <h3>{{ outcome.prefLabel }}</h3>
           <p>{{ outcome.definition }}</p>
@@ -44,25 +39,16 @@ permalink: /method/{{ method.slug }}/index.html
   <section>  
     <h2>Resources</h2>
     <ul>    
-      {% for resource in method.resources.slice(0,6) %}
-        <li>
-          {% if resource.resourceImage %}
-            {% basicImage resource.resourceImage %}
-          {% endif %}
-          <a href="{{ resource.resourceUrl }}">{{ resource.title }}</a>
-          <p>{{ resource.author }} | {{ resource.publisher }}</p>
-        </li>
+      {% for resource in resource.resources.slice(0,6) %}
+        {% resourceCardExt resource%}
       {% endfor %}
     </ul>
   </section>
   <section>  
     <h2>Next Steps</h2>
     <ul>    
-      {% for method in method.continueMethods.slice(0,6) %}
-        <li>
-          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+      {% for method in resource.continueMethods.slice(0,6) %}
+        {% resourceCard method %}
       {% endfor %}
     </ul>
   </section>

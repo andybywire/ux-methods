@@ -4,6 +4,8 @@
 // Filter & Shortcode imports
 import basicHero from './_11ty/shortcodes/basicHero.js'
 import basicImage from './_11ty/shortcodes/basicImage.js'
+import resourceCard from './_11ty/shortcodes/resourceCard.js'
+import resourceCardExt from './_11ty/shortcodes/resourceCardExt.js'
 
 // Plugins
 // import pluginRss from "@11ty/eleventy-plugin-rss";
@@ -14,9 +16,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
   eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
 
+  // Filters
+  eleventyConfig.addFilter("prependPipe", (value) => ` | ${value}`);
+  
   // Shortcodes
   eleventyConfig.addShortcode('basicHero', basicHero)
   eleventyConfig.addShortcode('basicImage', basicImage)
+  eleventyConfig.addShortcode('resourceCard', resourceCard)
+  eleventyConfig.addShortcode('resourceCardExt', resourceCardExt)
 
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src
@@ -30,7 +37,7 @@ export default function (eleventyConfig) {
     dir: {
       data: '../_data',
       input: '_src',
-      includes: '../_includes',
+      includes: '../_includes/partials',
       layouts: '../_includes',
       output: '_site',
     },

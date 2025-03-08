@@ -2,41 +2,23 @@
 layout: base.njk
 pagination:
   data: disciplines
-  alias: discipline
+  alias: resource
   size: 1
-permalink: /discipline/{{ discipline.slug }}/index.html
+permalink: /discipline/{{ resource.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
-
 <article>
   <section> 
-    {% basicHero discipline.heroImage %}
-    <h1>{{ discipline.title }}</h1>
-    <p>{{ discipline.metaDescription }}</p>
-    {{ discipline.overview | safe }}
+    {% basicHero resource.heroImage %}
+    <h1>{{ resource.title }}</h1>
+    <p>{{ resource.metaDescription }}</p>
+    {{ resource.overview | safe }}
   </section>
   <section>  
-    <h2>{{ discipline.title | safe }} Methods</h2>
+    <h2>{{ resource.title | safe }} Methods</h2>
     <ul>
-      {% for method in discipline.methods %}
-        <li>
-          <h3><a href="/method/{{ method.slug }}/">{{ method.title }}</a></h3>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+      {% for method in resource.methods %}
+        {% resourceCard method %}
       {% endfor %}
     </ul>
   </section>
 </article>
-{#   
-<h1>{{ discipline.title }}</h1>
-<p>{{ discipline.metaDescription }}</p>
-{{ discipline.overview | safe }}
-<h2>{{ discipline.title | safe }} Methods</h2>
-<ul>
-  {% for method in discipline.methods %}
-    <li>
-      <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
-      <p>{{ method.metaDescription }}</p>
-    </li>
-  {% endfor %}
-</ul> #}
