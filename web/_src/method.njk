@@ -18,10 +18,7 @@ permalink: /method/{{ resource.slug }}/index.html
     <h2>Preparation</h2>
     <ul>    
       {% for method in resource.prepareMethods.slice(0,6) %}
-        <li>
-          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+        {% methodCard method %}
       {% endfor %}
     </ul>
   </section>
@@ -59,10 +56,7 @@ permalink: /method/{{ resource.slug }}/index.html
     <h2>Next Steps</h2>
     <ul>    
       {% for method in resource.continueMethods.slice(0,6) %}
-        <li>
-          <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
-          <p>{{ method.metaDescription }}</p>
-        </li>
+        {% methodCard method %}
       {% endfor %}
     </ul>
   </section>

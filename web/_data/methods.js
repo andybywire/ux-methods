@@ -76,6 +76,7 @@ async function getMethods() {
       title: method.title,
       slug: method.slug,
       uri: method.uri,
+      heroImage: method.heroImage,
       metaDescription: method.metaDescription,
     }
   })
