@@ -6,18 +6,26 @@ pagination:
   size: 1
 permalink: /discipline/{{ resource.slug }}/index.html
 ---
-<article>
-  <section> 
-    {% basicHero resource.heroImage %}
-    <h1>{{ resource.title }}</h1>
-    <p>{{ resource.metaDescription }}</p>
-    {{ resource.overview | safe }}
+<article class="discipline">
+  <section class="overview discipline"> 
+    <div class="hero">    
+      {% basicHero resource.heroImage %}
+    </div>
+    <div class="discipline-summary">
+      <div class="header">
+        <h1>{{ resource.title }}</h1>
+      </div>
+      <div class="description">
+        <p>{{ resource.overview | safe }}</p>
+      </div>
+    </div>
+  </section>
   </section>
   <section>  
     <h2>{{ resource.title | safe }} Methods</h2>
-    <ul>
+    <ul class="grid">
       {% for method in resource.methods %}
-        {% resourceCard method %}
+        {% resourceCard method, "full-card"%}
       {% endfor %}
     </ul>
   </section>

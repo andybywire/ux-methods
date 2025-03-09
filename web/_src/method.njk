@@ -6,39 +6,48 @@ pagination:
   size: 1
 permalink: /method/{{ resource.slug }}/index.html
 ---
-<article>
-  <section> 
-    {% basicHero resource.heroImage %}
-    <h1>{{ resource.title }}</h1>
-    <p>{{ resource.overview | safe }}</p>
+<article class="method">
+  <section class="overview"> 
+    <div class="hero">      
+      {% basicHero resource.heroImage %}
+    </div>
+    <div class="header">
+      <h1>{{ resource.title }}</h1>
+    </div>
+    <div class="description">
+      <p>{{ resource.overview | safe }}</p>
+    </div>
   </section>
   <section>  
     <h2>Preparation</h2>
-    <ul>    
+    <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
+    <ul class="grid">    
       {% for method in resource.prepareMethods.slice(0,6) %}
         {% resourceCard method %}
       {% endfor %}
     </ul>
   </section>
-  <section>
-    <h2>Steps</h2>
-    <p>{{ resource.steps | safe }}</p>
-  </section>
-  <section>
-    <h2>Outcomes</h2>
-    <p>{{ resource.title }} typically produces insight and solutions focused on these areas:</p>
-    <ul>
-      {% for outcome in resource.outcomes %}
-        <li>
-          <h3>{{ outcome.prefLabel }}</h3>
-          <p>{{ outcome.definition }}</p>
-        </li>
-      {% endfor %}
-    </ul>
+  <section class="details">
+    <div class="steps">
+      <h2>Steps</h2>
+      <p>{{ resource.steps | safe }}</p>
+    </div>
+    <div class="outcomes">
+      <h2>Outcomes</h2>
+      <p>{{ resource.title }} typically produces insight and solutions focused on these areas:</p>
+      <ul>
+        {% for outcome in resource.outcomes %}
+          <li>
+            <h3>{{ outcome.prefLabel }}</h3>
+            <p>{{ outcome.definition }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </section>
   <section>  
     <h2>Resources</h2>
-    <ul>    
+    <ul class="grid">    
       {% for resource in resource.resources.slice(0,6) %}
         {% resourceCardExt resource%}
       {% endfor %}
@@ -46,9 +55,9 @@ permalink: /method/{{ resource.slug }}/index.html
   </section>
   <section>  
     <h2>Next Steps</h2>
-    <ul>    
+    <ul class="grid">    
       {% for method in resource.continueMethods.slice(0,6) %}
-        {% resourceCard method %}
+        {% resourceCard method, "full-card" %}
       {% endfor %}
     </ul>
   </section>

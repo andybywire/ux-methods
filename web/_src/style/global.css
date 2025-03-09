@@ -2,15 +2,24 @@
 @import './normalize.css';
 /* @import './mixins.css'; */
 
+/* Breakpoints
+$breakpoints: (
+  'medium': 600px,
+  'med-lg': 800px,
+  'large':  1000px,
+  'full': 1180px
+) !default; */
+
+
 body {
   font-family: var(--body);
   font-size: 18px;
 }
 main {
   padding-top: 60px; /* leaves room for the header */
-  /* @include breakpoint(med-lg) {
+  @media (min-width: 800px) {
     padding-top: 110px;
-  } */
+  }
 }
 article,
 section.resource-cards,
@@ -100,20 +109,20 @@ figure {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  /* @include breakpoint(medium) {
+  @media (min-width: 600px) {
     padding-bottom: 10rem;
-  } */
+  }
   .headline {
     margin-top: 2rem;
     h1 {
       font-size: 2rem;
       text-align: center;
       padding: 1rem 0 3rem;
-      /* @include breakpoint(medium) {
+      @media (min-width: 600px) {
         padding: 2rem 0;
         font-size: 2.75rem;
         font-weight: 600;
-      } */
+      }
     }
     .display {
       display: none;
@@ -122,9 +131,9 @@ figure {
       font-size: 1.25rem;
       text-align: center;
       padding-bottom: 3rem;
-      /* @include breakpoint(med-lg) {
+      @media (min-width: 800px) {
         display: block;
-      } */
+      }
     }
   }
   .resource-cards {
@@ -133,13 +142,13 @@ figure {
       font-size: 1.5rem;
       font-weight: 600;
       padding-bottom: .5rem;
-      /* @include breakpoint(medium) {
+      @media (min-width: 600px) {
         margin-top: 8rem;
         display: inline-block;
       }
-      @include breakpoint(medium) {
+      @media (min-width: 600px) {
         width: 70%;
-      } */
+      }
     }
     .header-link {
       display: none;
@@ -147,7 +156,7 @@ figure {
     .full-card {
       display: none;
     }
-    /* @include breakpoint(medium) {
+    @media (min-width: 600px) {
       .compact-card {
         display: none;
       }
@@ -159,7 +168,7 @@ figure {
         width: 30%;
         text-align: right;
       }
-    } */
+    }
     .list-link {
       display: block;
       text-align: right;
@@ -176,19 +185,19 @@ figure {
   padding: 1rem;
   font-size: 90%;
   
-  /* @include breakpoint(full) {
+  @media (min-width: 1180px) {
     padding: 1rem 0 2rem;
-  } */
+  }
   h1 {
     font-size: 1.5rem;
     border-top: 1px solid var(--light-gray-text);
     padding-top: 0.5rem;
-    /* @include breakpoint(medium) {
+    @media (min-width: 600px) {
       width: 50%;
     }
-    @include breakpoint(large) {
+    @media (min-width: 1000px) {
       width: 33%
-    } */
+    }
   }
   p {
     padding-top: 1rem;
@@ -228,28 +237,28 @@ article.method, article.discipline {
   padding: 1rem;
   section {
     margin-bottom: 2rem;
-    /* @include breakpoint(med-lg) {
+    @media (min-width: 800px) {
       margin-bottom: 4rem;
-    } */
+    }
     &.overview {
-      /* @include breakpoint(med-lg) {
+      @media (min-width: 800px) {
         display: flex;
         flex-wrap: wrap;
-      } */
+      }
       .hero {
         margin: -1rem -1rem 1rem;
-        /* @include breakpoint(med-lg) {
+        @media (min-width: 800px) {
           margin: 1rem 0 0;
           order: 3;
           width: 30%;
-        } */
+        }
         img {
           height: 225px;
           width: 100%;
           object-fit: cover;
-          /* @include breakpoint(med-lg) {
+          @media (min-width: 800px) {
             border-radius: 5px;
-          } */
+          }
         }
         p, a {
           color: var(--gray-text);
@@ -258,16 +267,16 @@ article.method, article.discipline {
           text-align: right;
           font-size: 75%;
           margin: -.25rem 1rem .25rem;
-          /* @include breakpoint(med-lg) {
+          @media (min-width: 800px) {
             margin-right: 0;
-          } */
+          }
         }
       }
       .header {
-        /* @include breakpoint(med-lg) {
+        @media (min-width: 800px) {
           order: 1;
           width: 100%;
-        } */
+        }
         h1 {
           font-size: 40px;
           line-height: 48px;
@@ -288,21 +297,21 @@ article.method, article.discipline {
         }
       }
       .description {
-        /* @include breakpoint(med-lg) {
+        @media (min-width: 800px) {
           order: 2;
           width: 70%;
           p, ol, ul {
             padding-right: 2rem;
           }
-        } */
+        }
       }
       /* discipline template specific styles for the overview section */
       &.discipline {
-        /* @include breakpoint(med-lg) {
+        @media (min-width: 800px) {
           align-items: stretch;
-        } */
+        }
         .hero {
-          /* @include breakpoint(med-lg) {
+          @media (min-width: 800px) {
             order: 1;
             width: 50%;
             margin-top: 0;
@@ -311,15 +320,15 @@ article.method, article.discipline {
               height: 100%;
             }
           }
-          @include breakpoint(large) {
+          @media (min-width: 1000px) {
             height: 100%;
             img {
               height: auto;
             }
-          } */
+          }
         }
         .discipline-summary {
-          /* @include breakpoint(med-lg) {
+          @media (min-width: 800px) {
             order: 2;
             width: 45%;
             padding-left: 5%;
@@ -329,7 +338,7 @@ article.method, article.discipline {
                 padding-right: 0;
               }
             }
-          } */
+          }
         }
       }
     }
@@ -343,7 +352,7 @@ article.method, article.discipline {
           }
         }
       }
-      /* @include breakpoint(med-lg) {
+      @media (min-width: 800px) {
         display: flex;
         .steps {
           width: 70%;
@@ -364,7 +373,7 @@ article.method, article.discipline {
             }
           }
         }
-      } */
+      }
     }
     ol {
       padding-left: 1.5rem;
@@ -395,10 +404,10 @@ section.sources {
   }
 }
 .dark {
-  /* @include breakpoint(medium) {
+  @media (min-width: 600px) {
     grid-row-gap: 3rem;
     grid-column-gap: 3.5rem;
-  } */
+  }
 }
 
 /* Shared styles across cards */
@@ -446,8 +455,8 @@ li.dark {
   }
 }
 
-/* 
-li.card {
+
+li.full-card {
   display: flex;
   flex-direction: column;
   img {
@@ -466,7 +475,7 @@ li.card {
   a {
     overflow: hidden;
   }
-} */
+}
 
 li.dark {
   div {
@@ -495,9 +504,9 @@ li.compact-card {
     p {
       line-height: 1.33;
       margin: .1rem 0 0 0;
-      /* @include breakpoint(med-lg) {
+      @media (min-width: 800px) {
         font-size: 90%;
-      } */
+      }
     }
   }
 }
