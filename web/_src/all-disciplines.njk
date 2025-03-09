@@ -3,9 +3,11 @@ layout: base.njk
 title: "UX Disciplines"
 permalink: /disciplines/index.html
 ---
-<h1>UX Disciplines</h1>
-<ul>
-  {% for discipline in disciplines %}
-    {% resourceCard discipline %}
-  {% endfor %}
-</ul>
+<section class="resource-cards">
+  <h1>UX Disciplines</h1>
+  <ul class="grid">
+    {% for discipline in disciplines %}
+      {% resourceCard discipline %}
+    {% endfor %}
+  </ul>
+</section>

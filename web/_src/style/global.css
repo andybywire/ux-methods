@@ -1,0 +1,529 @@
+@import './variables.css';
+@import './normalize.css';
+/* @import './mixins.css'; */
+
+body {
+  font-family: var(--body);
+  font-size: 18px;
+}
+main {
+  padding-top: 60px; /* leaves room for the header */
+  /* @include breakpoint(med-lg) {
+    padding-top: 110px;
+  } */
+}
+article,
+section.resource-cards,
+section.search,
+section.admin-metadata,
+footer > section {
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
+h1, h2, h3, h4, h4 {
+  font-family: var(--header);
+  font-weight: bold;
+  margin: 0;
+  a {
+    text-decoration: none;
+  }
+}
+h3 {
+  font-size: 1.1rem;
+}
+p {
+  line-height: 1.5;
+}
+a, a:visited {
+  color: var(--text);
+  transition: color 0.25s ease-out;
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--primary-text-link);
+  transition: color 0.25s ease-out;
+}
+figure {
+  width: 100%;
+  margin: 0;
+  figcaption {
+    color: var(--gray-text);
+    padding-top: .5rem;
+  }
+}
+.show-on-focus {
+  position: absolute;
+  &:focus, &:active {
+    position: static;
+    display: block;
+    padding: 1rem 1rem 0;
+    background-color: var(--card-background);
+    color: var(--primary-dark-bg);
+    font-weight: bold;
+  }
+}
+
+/* Navigation Styles */
+.dropdown-toggle {
+  & svg {
+    transform: rotate(0deg);
+    transition: transform .25s ease-in; 
+    /* closing transition */
+  }
+  + ul {
+      display: none;
+      max-height: 0px;
+      transition: max-height .25s ease-in; 
+      /* closing transition */
+  }
+}
+.dropdown-toggle.show {
+  & svg {
+    transform: rotate(180deg);
+    transition: transform .25s ease-in; 
+    /* opening transition */
+  }
+  & + ul {
+      display: list-item;
+      max-height: 450px;
+      transition: max-height .25s ease-in; 
+      /* opening transition */
+  }
+}
+
+/* Home page styles */
+.index {
+  background-color: var(--dark-background);
+  color: var(--light-text);
+  padding-bottom: 6rem;
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  /* @include breakpoint(medium) {
+    padding-bottom: 10rem;
+  } */
+  .headline {
+    margin-top: 2rem;
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      padding: 1rem 0 3rem;
+      /* @include breakpoint(medium) {
+        padding: 2rem 0;
+        font-size: 2.75rem;
+        font-weight: 600;
+      } */
+    }
+    .display {
+      display: none;
+      margin: 0 auto;
+      width: 45rem;
+      font-size: 1.25rem;
+      text-align: center;
+      padding-bottom: 3rem;
+      /* @include breakpoint(med-lg) {
+        display: block;
+      } */
+    }
+  }
+  .resource-cards {
+    h2 {
+      margin-top: 6rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding-bottom: .5rem;
+      /* @include breakpoint(medium) {
+        margin-top: 8rem;
+        display: inline-block;
+      }
+      @include breakpoint(medium) {
+        width: 70%;
+      } */
+    }
+    .header-link {
+      display: none;
+    }
+    .full-card {
+      display: none;
+    }
+    /* @include breakpoint(medium) {
+      .compact-card {
+        display: none;
+      }
+      .full-card {
+        display: block;
+      }
+      .header-link {
+        display: inline-block;
+        width: 30%;
+        text-align: right;
+      }
+    } */
+    .list-link {
+      display: block;
+      text-align: right;
+    }
+  }
+  a {
+    color: var(--light-text);
+  }
+}
+.resource-cards {
+  padding: 1rem 1rem 3rem;
+}
+.admin-metadata {
+  padding: 1rem;
+  font-size: 90%;
+  
+  /* @include breakpoint(full) {
+    padding: 1rem 0 2rem;
+  } */
+  h1 {
+    font-size: 1.5rem;
+    border-top: 1px solid var(--light-gray-text);
+    padding-top: 0.5rem;
+    /* @include breakpoint(medium) {
+      width: 50%;
+    }
+    @include breakpoint(large) {
+      width: 33%
+    } */
+  }
+  p {
+    padding-top: 1rem;
+    font-style: italic;
+  }
+  svg {
+    position: relative;
+    top: 2px;
+    padding-left: 0.25rem;
+  }
+}
+
+/* Method & Discipline shared styles */
+.citation {
+  font-size: 70%;
+  vertical-align: top;
+  padding-left: .25rem;
+}
+
+/* 404 page styles */
+.not-found {
+  padding-bottom: 8rem;
+  a:hover {
+    color: var(--primary-dark-bg);
+  }
+  .links {
+    font-weight: 300;
+  }
+  .headline .display {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* Method detail styles */
+article.method, article.discipline {
+  padding: 1rem;
+  section {
+    margin-bottom: 2rem;
+    /* @include breakpoint(med-lg) {
+      margin-bottom: 4rem;
+    } */
+    &.overview {
+      /* @include breakpoint(med-lg) {
+        display: flex;
+        flex-wrap: wrap;
+      } */
+      .hero {
+        margin: -1rem -1rem 1rem;
+        /* @include breakpoint(med-lg) {
+          margin: 1rem 0 0;
+          order: 3;
+          width: 30%;
+        } */
+        img {
+          height: 225px;
+          width: 100%;
+          object-fit: cover;
+          /* @include breakpoint(med-lg) {
+            border-radius: 5px;
+          } */
+        }
+        p, a {
+          color: var(--gray-text);
+        }
+        p {
+          text-align: right;
+          font-size: 75%;
+          margin: -.25rem 1rem .25rem;
+          /* @include breakpoint(med-lg) {
+            margin-right: 0;
+          } */
+        }
+      }
+      .header {
+        /* @include breakpoint(med-lg) {
+          order: 1;
+          width: 100%;
+        } */
+        h1 {
+          font-size: 40px;
+          line-height: 48px;
+          display: flex;
+          flex-direction: column-reverse;
+          span:nth-child(2) {
+            font-family: var(--header);
+            color: var(--card-background);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1;
+            padding-bottom: .5rem;
+          }
+          &.no-eyebrow {
+            padding-top: 1.3rem;
+          }
+        }
+      }
+      .description {
+        /* @include breakpoint(med-lg) {
+          order: 2;
+          width: 70%;
+          p, ol, ul {
+            padding-right: 2rem;
+          }
+        } */
+      }
+      /* discipline template specific styles for the overview section */
+      &.discipline {
+        /* @include breakpoint(med-lg) {
+          align-items: stretch;
+        } */
+        .hero {
+          /* @include breakpoint(med-lg) {
+            order: 1;
+            width: 50%;
+            margin-top: 0;
+            height: auto;
+            img {
+              height: 100%;
+            }
+          }
+          @include breakpoint(large) {
+            height: 100%;
+            img {
+              height: auto;
+            }
+          } */
+        }
+        .discipline-summary {
+          /* @include breakpoint(med-lg) {
+            order: 2;
+            width: 45%;
+            padding-left: 5%;
+            div {
+              width: 100%;
+              p {
+                padding-right: 0;
+              }
+            }
+          } */
+        }
+      }
+    }
+    &.details {
+      .outcomes {
+        ul {
+          list-style: none;
+          padding-inline-start: 1.3rem;
+          p {
+            margin-top: 0;
+          }
+        }
+      }
+      /* @include breakpoint(med-lg) {
+        display: flex;
+        .steps {
+          width: 70%;
+          ol {
+            padding-right: 6rem;
+          }
+          p {
+            padding-right: 3rem;
+          }
+        }
+        .outcomes {
+          width: 30%;
+          ul {
+            list-style: none;
+            padding-inline-start: 0;
+            p {
+              margin-top: 0;
+            }
+          }
+        }
+      } */
+    }
+    ol {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: .75rem;
+      line-height: 1.5;
+    }
+  }
+}
+.resource-cards {
+  padding: 1rem;
+  padding-bottom: 4rem;
+}
+section.sources {
+  padding-top: 80px;
+}
+
+/* Card grid and cards  */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(var(--card-min),3fr));
+  grid-gap: 2rem;
+  padding: 0;
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+}
+.dark {
+  /* @include breakpoint(medium) {
+    grid-row-gap: 3rem;
+    grid-column-gap: 3.5rem;
+  } */
+}
+
+/* Shared styles across cards */
+li.card {
+  list-style: none;
+  max-width: var(--card-max);
+  background-color: var(--background);
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.25s ease-in;
+  border: 0;
+  &:hover {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.25s ease-in;
+  }
+  img {
+    object-fit: cover;
+    /* make sure that any pure white images have at least some contrast with the rest of the card: */
+    filter: brightness(0.95);
+  }
+  div p {
+    color: var(--gray-text);
+  }
+}
+li.dark {
+  background-color: var(--card-background);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.1s ease-in;
+  border: 0;
+  img {
+    filter: none;
+  }
+  h3 {
+    color: var(--light-text);
+  }
+  &:hover {
+    box-shadow:
+      0 0 1px 2px rgba(43, 182, 252, 1),
+      1px 2px 8px rgba(0, 0, 0, 0.75);
+    transition: 0.1s ease-in;
+  }
+  div p {
+    color: var(--light-text);
+    font-weight: 300;
+  }
+}
+
+/* 
+li.card {
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 225px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+  div {
+    padding: .5rem .75rem .75rem;
+    p {
+      margin: .25rem 0;
+      font-size: 90%;
+      line-height: 1.25;
+    }
+  }
+  a {
+    overflow: hidden;
+  }
+} */
+
+li.dark {
+  div {
+    padding: .25rem .75rem .75rem;
+    p {
+      line-height: 1.5;
+    }
+  }
+}
+
+li.compact-card {
+  min-height: 6rem;
+  a {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    max-width: var(--card-max);
+  }
+  img {
+    width: 30%;
+    border-radius: 5px 0 0 5px;
+  }
+  div {
+    padding: .5rem;
+    width: 70%;
+    p {
+      line-height: 1.33;
+      margin: .1rem 0 0 0;
+      /* @include breakpoint(med-lg) {
+        font-size: 90%;
+      } */
+    }
+  }
+}
+li.dark {
+  div {
+    padding-left: .75rem;
+  }
+}
+.resource {
+  h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      margin-left: .5rem;
+    }
+  }
+}
