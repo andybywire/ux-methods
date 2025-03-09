@@ -1,6 +1,7 @@
 @import './variables.css';
 @import './normalize.css';
 @import './components/header.css';
+@import './components/footer.css';
 /* @import './mixins.css'; */
 
 /* Breakpoints

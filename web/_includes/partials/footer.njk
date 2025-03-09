@@ -1,4 +1,30 @@
 <footer>
-  <p>{{ metadata.tagline }}</p>
-  <p>{{ metadata.description }}</p>
+  <section>
+    <div class="overview">
+      <h1>{{ metadata.title }}</h1>
+      <p>{{ metadata.description }}</p>
+    </div>
+    <div class="social">
+      <h1>Share This Project</h1>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.uxmethods.org/" target="_blank" rel="noopener">
+        {% include 'icons/linkedIn.svg' %}
+      </a>
+      <a href="#" target="_blank" rel="noopener">
+        {% include 'icons/bluesky.svg' %}
+      </a>
+      <a href="#" target="_blank" rel="noopener">
+        {% include 'icons/mastadon.svg' %}
+      </a>
+    </div>
+    <div class="colophon">
+      <h1>Colophon</h1>
+      <p>{{ metadata.colophon | safe }}</p>
+    </div>
+    <div class="credit">
+      {% for credit in metadata.credits %}
+        {{ credit | safe }}
+      {% endfor %}
+      {% include 'icons/creativeCommons.svg' %}
+    </div>
+  </section>
 </footer>

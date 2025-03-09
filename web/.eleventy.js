@@ -20,6 +20,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("prependPipe", (value) => ` | ${value}`);
   
   // Shortcodes
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   eleventyConfig.addShortcode('basicHero', basicHero)
   eleventyConfig.addShortcode('basicImage', basicImage)
   eleventyConfig.addShortcode('resourceCard', resourceCard)
@@ -37,7 +38,7 @@ export default function (eleventyConfig) {
     dir: {
       data: '../_data',
       input: '_src',
-      includes: '../_includes/partials',
+      includes: '../_includes',
       layouts: '../_includes',
       output: '_site',
     },
