@@ -1,5 +1,6 @@
 @import './variables.css';
 @import './normalize.css';
+@import './components/header.css';
 /* @import './mixins.css'; */
 
 /* Breakpoints
