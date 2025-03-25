@@ -12,7 +12,6 @@ $breakpoints: (
   'full': 1180px
 ) !default; */
 
-
 body {
   font-family: var(--body);
   font-size: 18px;
@@ -31,7 +30,11 @@ footer > section {
   margin: 0 auto;
   max-width: var(--max-width);
 }
-h1, h2, h3, h4, h4 {
+h1,
+h2,
+h3,
+h4,
+h4 {
   font-family: var(--header);
   font-weight: bold;
   margin: 0;
@@ -45,7 +48,8 @@ h3 {
 p {
   line-height: 1.5;
 }
-a, a:visited {
+a,
+a:visited {
   color: var(--text);
   transition: color 0.25s ease-out;
   text-decoration: underline;
@@ -59,12 +63,13 @@ figure {
   margin: 0;
   figcaption {
     color: var(--gray-text);
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
 }
 .show-on-focus {
   position: absolute;
-  &:focus, &:active {
+  &:focus,
+  &:active {
     position: static;
     display: block;
     padding: 1rem 1rem 0;
@@ -78,27 +83,27 @@ figure {
 .dropdown-toggle {
   & svg {
     transform: rotate(0deg);
-    transition: transform .25s ease-in; 
+    transition: transform 0.25s ease-in;
     /* closing transition */
   }
   + ul {
-      display: none;
-      max-height: 0px;
-      transition: max-height .25s ease-in; 
-      /* closing transition */
+    display: none;
+    max-height: 0px;
+    transition: max-height 0.25s ease-in;
+    /* closing transition */
   }
 }
 .dropdown-toggle.show {
   & svg {
     transform: rotate(180deg);
-    transition: transform .25s ease-in; 
+    transition: transform 0.25s ease-in;
     /* opening transition */
   }
   & + ul {
-      display: list-item;
-      max-height: 450px;
-      transition: max-height .25s ease-in; 
-      /* opening transition */
+    display: list-item;
+    max-height: 450px;
+    transition: max-height 0.25s ease-in;
+    /* opening transition */
   }
 }
 
@@ -139,42 +144,48 @@ figure {
     }
   }
   .resource-cards {
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+    }
     h2 {
       margin-top: 6rem;
       font-size: 1.5rem;
       font-weight: 600;
-      padding-bottom: .5rem;
       @media (min-width: 600px) {
         margin-top: 8rem;
         display: inline-block;
       }
       @media (min-width: 600px) {
-        width: 70%;
+        /* width: 70%; */
       }
     }
     .header-link {
       display: none;
     }
-    .full-card {
+    /* .full-card {
       display: none;
-    }
+    } */
     @media (min-width: 600px) {
-      .compact-card {
+      /* .compact-card {
         display: none;
       }
       .full-card {
         display: block;
-      }
+      } */
       .header-link {
-        display: inline-block;
-        width: 30%;
-        text-align: right;
+        display: block;
+        /* width: 30%;
+        text-align: right; */
       }
     }
-    .list-link {
+    /* .list-link {
       display: block;
       text-align: right;
-    }
+    } */
   }
   a {
     color: var(--light-text);
@@ -186,7 +197,7 @@ figure {
 .admin-metadata {
   padding: 1rem;
   font-size: 90%;
-  
+
   @media (min-width: 1180px) {
     padding: 1rem 0 2rem;
   }
@@ -198,7 +209,7 @@ figure {
       width: 50%;
     }
     @media (min-width: 1000px) {
-      width: 33%
+      width: 33%;
     }
   }
   p {
@@ -216,7 +227,7 @@ figure {
 .citation {
   font-size: 70%;
   vertical-align: top;
-  padding-left: .25rem;
+  padding-left: 0.25rem;
 }
 
 /* 404 page styles */
@@ -235,7 +246,8 @@ figure {
 }
 
 /* Method detail styles */
-article.method, article.discipline {
+article.method,
+article.discipline {
   padding: 1rem;
   section {
     margin-bottom: 2rem;
@@ -262,13 +274,14 @@ article.method, article.discipline {
             border-radius: 5px;
           }
         }
-        p, a {
+        p,
+        a {
           color: var(--gray-text);
         }
         p {
           text-align: right;
           font-size: 75%;
-          margin: -.25rem 1rem .25rem;
+          margin: -0.25rem 1rem 0.25rem;
           @media (min-width: 800px) {
             margin-right: 0;
           }
@@ -291,7 +304,7 @@ article.method, article.discipline {
             font-weight: bold;
             font-size: 13px;
             line-height: 1;
-            padding-bottom: .5rem;
+            padding-bottom: 0.5rem;
           }
           &.no-eyebrow {
             padding-top: 1.3rem;
@@ -302,7 +315,9 @@ article.method, article.discipline {
         @media (min-width: 800px) {
           order: 2;
           width: 70%;
-          p, ol, ul {
+          p,
+          ol,
+          ul {
             padding-right: 2rem;
           }
         }
@@ -381,7 +396,7 @@ article.method, article.discipline {
       padding-left: 1.5rem;
     }
     li {
-      margin-bottom: .75rem;
+      margin-bottom: 0.75rem;
       line-height: 1.5;
     }
   }
@@ -397,7 +412,7 @@ section.sources {
 /* Card grid and cards  */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(var(--card-min),3fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 3fr));
   grid-gap: 2rem;
   padding: 0;
   a {
@@ -434,7 +449,7 @@ li.card {
     color: var(--gray-text);
   }
 }
-li.dark {
+.index li {
   background-color: var(--card-background);
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
   transition: 0.1s ease-in;
@@ -457,7 +472,6 @@ li.dark {
   }
 }
 
-
 li.full-card {
   display: flex;
   flex-direction: column;
@@ -467,9 +481,9 @@ li.full-card {
     border-radius: 5px 5px 0 0;
   }
   div {
-    padding: .5rem .75rem .75rem;
+    padding: 0.5rem 0.75rem 0.75rem;
     p {
-      margin: .25rem 0;
+      margin: 0.25rem 0;
       font-size: 90%;
       line-height: 1.25;
     }
@@ -479,9 +493,9 @@ li.full-card {
   }
 }
 
-li.dark {
+.index li {
   div {
-    padding: .25rem .75rem .75rem;
+    padding: 0.25rem 0.75rem 0.75rem;
     p {
       line-height: 1.5;
     }
@@ -501,20 +515,20 @@ li.compact-card {
     border-radius: 5px 0 0 5px;
   }
   div {
-    padding: .5rem;
+    padding: 0.5rem;
     width: 70%;
     p {
       line-height: 1.33;
-      margin: .1rem 0 0 0;
+      margin: 0.1rem 0 0 0;
       @media (min-width: 800px) {
         font-size: 90%;
       }
     }
   }
 }
-li.dark {
+.index li {
   div {
-    padding-left: .75rem;
+    padding-left: 0.75rem;
   }
 }
 .resource {
@@ -534,7 +548,7 @@ li.dark {
     svg {
       position: relative;
       top: 2px;
-      margin-left: .5rem;
+      margin-left: 0.5rem;
     }
   }
 }

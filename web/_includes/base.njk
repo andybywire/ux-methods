@@ -3,7 +3,9 @@
 	{% include 'partials/head.njk' %}
 	<body>
 		{% include 'partials/header.njk' %}
-		<main id="main-content">
+		<main id="main-content" {% if data.class -%}
+				 											class="{{ data.class }}"
+														{%- endif %}>
 			{{ content | safe }}
 		</main>
 		{% include 'partials/footer.njk' %}
