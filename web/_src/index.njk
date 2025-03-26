@@ -9,9 +9,25 @@ data:
   <p class="display">{{ metadata.description }}</p>
 </section>
 
-{# Search #}
-<input type="text" id="search" placeholder="Search..."/>
-<ul id="search-results"></ul>
+<section id="site-search" class="search" aria-label="Site search">
+  <form autoComplete="off">
+    {# Hiding cancel button: https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x #}
+    <input type="search"             
+          id="search-box"
+          name="search"
+          aria-expanded="false"
+          aria-controls="search-results"
+          aria-describedby="search-description"/>
+    <label for="search-box">Search for a method by name, goal, or outcome.</label>
+    <span id="search-description" class="visually-hidden">
+      As you type, search results will appear below
+    </span>
+  </form>
+  <div id="search-result-list">
+    <h2 id="results-count"></h2>
+    <ul id="result-details" role="listbox" aria-label="Search results"></ul>
+  </div>
+</section>
 
 <section class="resource-cards">
   <header>
@@ -34,4 +50,6 @@ data:
 </ul>
 </section>
 
-{% include 'partials/searchScript.html' %}
+<script>
+  {% include 'partials/searchScript.js' %}
+</script>
