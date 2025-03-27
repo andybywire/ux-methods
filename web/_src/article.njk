@@ -6,5 +6,16 @@ pagination:
   size: 1
 permalink: /{{ resource.slug }}/index.html
 ---
-<h1>{{ resource.title }}</h1>
-{{ resource.body | safe }}
+<article class="article">
+  <div class="hero">
+    {% basicHero resource.heroImage %}
+  </div>
+
+  <div class="header">
+    <h1>{{ resource.title }}</h1>
+  </div>
+
+  <div class="body">
+    {{ resource.body | safe }}
+  </div>
+</article>
