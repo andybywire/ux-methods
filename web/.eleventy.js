@@ -14,6 +14,7 @@ export default function (eleventyConfig) {
   // Pass through all assets (css, js, images, etc)
   eleventyConfig.addPassthroughCopy({'_src/style': 'style'})
   eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
+  eleventyConfig.addPassthroughCopy({'_includes/icons': 'icons'})
   eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
 
   // Filters
