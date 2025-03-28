@@ -1,0 +1,53 @@
+@font-face {
+	font-family: 'Nunito Sans';
+	font-style: normal;
+	font-weight: 100,200,300,400,500,600,700,800;
+	font-stretch: 100%;
+	font-display: swap;
+	src: url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype-variations'),
+		url('/assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Nunito Sans';
+	font-style: italic;
+	font-weight: 100,200,300,400,500,600,700,800;
+	font-stretch: 100%;
+	font-display: swap;
+	src: url('/assets/fonts/NunitoSans-Italic-VariableFont_YTLC,opsz,wdth,wght.ttf') format('ttf supports variations'),
+		url('/assets/fonts/NunitoSans-Italic-VariableFont_YTLC,opsz,wdth,wght.ttf') format('ttf-variations');
+}
+@font-face {
+	font-family: 'Hind';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/assets/fonts/Hind-Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Hind';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/assets/fonts/Hind-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Hind';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/Hind-Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Hind';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Hind-SemiBold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Hind';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('/assets/fonts/Hind-Bold.ttf') format('truetype');
+}

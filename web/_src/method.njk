@@ -12,7 +12,10 @@ permalink: /method/{{ resource.slug }}/index.html
       {% basicHero resource.heroImage %}
     </div>
     <div class="header">
-      <h1>{{ resource.title }}</h1>
+      <h1>
+        <span>{{ resource.title }}</span>
+        <span>Method</span>
+        </h1>
     </div>
     <div class="description">
       <p>{{ resource.overview | safe }}</p>

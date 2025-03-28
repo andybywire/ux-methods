@@ -1,5 +1,6 @@
 @import './variables.css';
 @import './normalize.css';
+@import './fonts.css';
 @import './components/header.css';
 @import './components/footer.css';
 /* @import './mixins.css'; */
@@ -17,9 +18,9 @@ body {
   font-size: 18px;
 }
 main {
-  padding-top: 60px; /* leaves room for the header */
+  /* padding-top: 60px;  */
   @media (min-width: 800px) {
-    padding-top: 110px;
+    padding-top: 50px;
   }
 }
 article,
