@@ -196,13 +196,12 @@ figure {
   padding: 1rem 1rem 3rem;
 }
 .admin-metadata {
-  padding: 1rem;
   font-size: 90%;
-
+  margin-bottom: 0;
   @media (min-width: 1180px) {
     padding: 1rem 0 2rem;
   }
-  h1 {
+  h2 {
     font-size: 1.5rem;
     border-top: 1px solid var(--light-gray-text);
     padding-top: 0.5rem;
@@ -216,6 +215,11 @@ figure {
   p {
     padding-top: 1rem;
     font-style: italic;
+  }
+  li.source-citation {
+    @media (min-width: 800px) {
+      margin-bottom: 0;
+    }
   }
   svg {
     position: relative;
@@ -277,8 +281,8 @@ section.search {
       opacity: 0;
       pointer-events: none;
     }
-    &[type="search"]:focus::-webkit-search-cancel-button {
-      opacity: .5;
+    &[type='search']:focus::-webkit-search-cancel-button {
+      opacity: 0.5;
       pointer-events: all;
     }
     @media (min-width: 600px) {
@@ -329,7 +333,7 @@ section.search {
     padding: 0;
     background-color: var(--card-background);
     @media (min-width: 600px) {
-      padding: .5rem 2rem;
+      padding: 0.5rem 2rem;
       width: 80%;
     }
     h3 {
@@ -339,10 +343,10 @@ section.search {
       span {
         font-weight: 400;
         color: var(--light-gray-text);
-        padding-left: .5rem;
+        padding-left: 0.5rem;
         &::before {
-          content: " — ";
-          padding-right: .5rem;
+          content: ' — ';
+          padding-right: 0.5rem;
         }
       }
     }
@@ -366,7 +370,7 @@ section.search {
       a {
         display: inline-block;
         line-height: 0;
-        background:  var(--primary-dark-bg);
+        background: var(--primary-dark-bg);
         padding: 1.5rem;
         border-radius: 100px;
       }
@@ -407,13 +411,14 @@ section.search {
         border-radius: 5px;
       }
     }
-    p, a {
+    p,
+    a {
       color: var(--gray-text);
     }
     p {
       text-align: right;
       font-size: 75%;
-      margin: -.25rem 1rem .25rem;
+      margin: -0.25rem 1rem 0.25rem;
       @media (min-width: 800px) {
         margin-right: 0;
       }
@@ -437,11 +442,15 @@ section.search {
       order: 2;
       width: 70%;
       /* ensure that all portable text blocks have right padding in multi-column view. */
-      h2, p, ol, ul {
-        padding-right: 4rem; 
+      h2,
+      p,
+      ol,
+      ul {
+        padding-right: 4rem;
       }
     }
-    ul, ol {
+    ul,
+    ol {
       padding-left: 1.5rem;
       line-height: initial;
       li {

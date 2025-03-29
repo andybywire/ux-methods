@@ -74,9 +74,17 @@ permalink: /method/{{ resource.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>
-    <h2>References</h2>
-    {# FPO: citations #}
-    <p>FPO</p>
+  <section class="admin-metadata">
+    {% if resource.stepSources %}
+      <h2>References</h2>
+      <ol>
+        {% for citation in resource.stepSources %}
+          <li class="source-citation">
+            <a href="{{ citation.source }}">{{ citation.name }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+    <p class="datestamp">{{resource.title}} Method details last edited on {{ resource.dateStamps.createdAt }}</p>
   </section>
 </article>

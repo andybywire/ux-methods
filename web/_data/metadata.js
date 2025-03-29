@@ -6,6 +6,7 @@ function prepareMetadata(metadata) {
   return {
     ...metadata,
     colophon: toHTML(metadata.colophon),
+    overview: toHTML(metadata.overview),
     credits: metadata.credits.map(credit => toHTML(credit.creditBody))
   }
 }
@@ -16,6 +17,7 @@ async function getMetadata() {
       title,
       tagline,
       description,
+      overview,
       colophon,
       "credits": credits[]{
         creditBody

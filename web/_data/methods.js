@@ -55,14 +55,15 @@ async function getMethods() {
         "createdAt": dateStamp.createdAt,
         "revisedAt": dateStamp.revisedAt,
         metaDescription,
-        "heroImage": 
-          {
-            "credit": heroImage.asset->creditLine,
-            "source": heroImage.asset->source.url,
-            ...heroImage
-          },
+        "heroImage": {
+          "credit": heroImage.asset->creditLine,
+          "source": heroImage.asset->source.url,
+          ...heroImage
+         },
         overview,
         steps,
+        stepSources,
+        dateStamps,
         "outcomes": output[]->{
           prefLabel,
           definition,

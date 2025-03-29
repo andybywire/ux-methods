@@ -2,7 +2,7 @@
   <section>
     <div class="overview">
       <h1>{{ metadata.title }}</h1>
-      <p>{{ metadata.description }}</p>
+      {{ metadata.overview | safe }}
     </div>
     <div class="social">
       <h1>Share This Project</h1>
