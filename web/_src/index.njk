@@ -35,7 +35,7 @@ data:
     <a href="/all-methods" class="header-link">All Methods A-Z</a>
   </header>
   <ul class="grid">
-    {% for method in methods.slice(0, 6) %}
+    {% for method in metadata.rankedMethods.slice(0, 6) %}
       {% resourceCard method, "full-card" %}
     {% endfor %}
   </ul>

@@ -1,11 +1,11 @@
 {# 
 Mobile nav: Home || 🍔 
+										How to use this site
 										Methods
                     Disciplines
 										About
-									 [Search]
 
-Desktop nav: Home | Disciplines | Methods | About || Search
+Desktop nav: Home | How to use this site | Disciplines | Methods | About 
 
 - do not fix nav at top
 - do not use dropdowns
@@ -15,6 +15,7 @@ Desktop nav: Home | Disciplines | Methods | About || Search
 
 <header>
 	<nav>
+		<button id="openMenu" class="open-menu" aria-label="Open site menu" aria-expanded="false" type="button"></button>
 		<ul>
 			<li class="title">
 				<a href="/" tabindex="0">{{ metadata.title }}</a>
@@ -31,14 +32,6 @@ Desktop nav: Home | Disciplines | Methods | About || Search
 			<li>
 				<a href="/about" tabindex="0">About</a>
 			</li>
-			<li class="search-icon">
-				<a href="/#site-search" aria-label="Search this site" tabindex="0">
-					<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-				</a>
-			</li>
 		</ul>
-		<button id="openMenu" class="open-menu" aria-label="Open site menu" aria-expanded="false" type="button">
-			{% include "icons/search.svg" %}
-		</button>
 	</nav>
 </header>

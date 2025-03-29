@@ -25,17 +25,19 @@ permalink: /method/{{ resource.slug }}/index.html
       <p>{{ resource.overview | safe }}</p>
     </div>
   </section>
-  <section>
-    <h2>Preparation</h2>
-    <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
-    <ul class="grid">
-      {% for method in resource
-        .prepareMethods
-        .slice(0, 6) %}
-        {% resourceCard method %}
-      {% endfor %}
-    </ul>
-  </section>
+  {% if resource.prepareMethods | length > 0 %}
+    <section>
+      <h2>Preparation</h2>
+      <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
+      <ul class="grid">
+        {% for method in resource
+          .prepareMethods
+          .slice(0, 6) %}
+          {% resourceCard method %}
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
   <section class="details">
     <div class="steps">
       <h2>Steps</h2>
@@ -64,16 +66,18 @@ permalink: /method/{{ resource.slug }}/index.html
       {% endfor %}
     </ul>
   </section>
-  <section>
-    <h2>Next Steps</h2>
-    <ul class="grid">
-      {% for method in resource
-        .continueMethods
-        .slice(0, 6) %}
-        {% resourceCard method, "full-card" %}
-      {% endfor %}
-    </ul>
-  </section>
+  {% if resource.continueMethods | length > 0 %}
+    <section>
+      <h2>Next Steps</h2>
+      <ul class="grid">
+        {% for method in resource
+          .continueMethods
+          .slice(0, 6) %}
+          {% resourceCard method, "full-card" %}
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
   <section class="admin-metadata">
     {% if resource.stepSources %}
       <h2>References</h2>
