@@ -80,34 +80,6 @@ figure {
   }
 }
 
-/* Navigation Styles */
-.dropdown-toggle {
-  & svg {
-    transform: rotate(0deg);
-    transition: transform 0.25s ease-in;
-    /* closing transition */
-  }
-  + ul {
-    display: none;
-    max-height: 0px;
-    transition: max-height 0.25s ease-in;
-    /* closing transition */
-  }
-}
-.dropdown-toggle.show {
-  & svg {
-    transform: rotate(180deg);
-    transition: transform 0.25s ease-in;
-    /* opening transition */
-  }
-  & + ul {
-    display: list-item;
-    max-height: 450px;
-    transition: max-height 0.25s ease-in;
-    /* opening transition */
-  }
-}
-
 /* Home page styles */
 .index {
   background-color: var(--dark-background);
@@ -121,7 +93,7 @@ figure {
     padding-bottom: 10rem;
   }
   .headline {
-    margin-top: 2rem;
+    padding-top: 2rem;
     h1 {
       font-size: 2rem;
       text-align: center;
