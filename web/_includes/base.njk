@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
-	{% include 'head.njk' %}
+	{% include 'partials/head.njk' %}
 	<body>
-		{% include 'header.njk' %}
-		<main class="container --w-md --px-md">
+		{% include 'partials/header.njk' %}
+		<main id="main-content" {% if data.class -%}
+				 											class="{{ data.class }}"
+														{%- endif %}>
 			{{ content | safe }}
 		</main>
-		{% include 'footer.njk' %}
+		{% include 'partials/footer.njk' %}
 	</body>
 </html>

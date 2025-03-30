@@ -1,26 +1,55 @@
 ---
 layout: base.njk
+data: 
+  class: index
 ---
-{# Search #}
-<input type="text" id="search" placeholder="Search..."/>
-<ul id="search-results"></ul>
 
-<h2>Disciplines</h2>
-<ul>
-  {% for discipline in disciplines %}
-    <li class="discipline">
-      <a href="discipline/{{ discipline.slug }}" tabindex="0">{{ discipline.title }}</a>
-    </li>
-  {% endfor %}
+<section class="headline">
+  <h1>{{ metadata.tagline }}</h1>
+  <p class="display">{{ metadata.description }}</p>
+</section>
+
+<section id="site-search" class="search" aria-label="Site search">
+  <form autoComplete="off">
+    {# Hiding cancel button: https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x #}
+    <input type="search"             
+          id="search-box"
+          name="search"
+          aria-expanded="false"
+          aria-controls="search-results"
+          aria-describedby="search-description"/>
+    <label for="search-box">Search for a method by name, goal, or outcome.</label>
+    <span id="search-description" class="visually-hidden">
+      As you type, search results will appear below
+    </span>
+  </form>
+  <div id="search-result-list">
+    <h2 id="results-count"></h2>
+    <ul id="result-details" role="listbox" aria-label="Search results"></ul>
+  </div>
+</section>
+
+<section class="resource-cards">
+  <header>
+    <h2>Top UX Methods</h2>
+    <a href="/all-methods" class="header-link">All Methods A-Z</a>
+  </header>
+  <ul class="grid">
+    {% for method in metadata.rankedMethods.slice(0, 6) %}
+      {% resourceCard method, "full-card" %}
+    {% endfor %}
+  </ul>
+  <header>
+    <h2>UX Disciplines</h2>
+  </header>
+  <ul class="grid">
+    {% for discipline in disciplines %}
+      {% resourceCard discipline %}
+    {% endfor %}
+  </ul>
 </ul>
+</section>
 
-
-<h2>Methods</h2>
-<ul>
-  {% for method in methods %}
-    <li class="method">
-      <a href="method/{{ method.slug }}" tabindex="0">{{ method.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
-{% include 'searchScript.html' %}
+<script>
+  {% include 'partials/searchScript.js' %}
+</script>

@@ -6,9 +6,13 @@ import urlFor from '../../utils/imageUrl.js'
  * TODO: Make responsive to resize for different card and screen sizes
  * Note that with paired shortcodes, Nunjucks tags and other shortcodes can be included. 
  */
-export default (resource) => 
-        `<li>
-          <img src="${urlFor(resource.heroImage)}">
-          <a href="/${resource.type}/${ resource.slug }/">${ resource.title }</a>
-          <p>${ resource.metaDescription }</p>
+export default (resource, size = "compact-card") => 
+        `<li class="card ${size}">
+          <a href="/${resource.type}/${ resource.slug }/">
+            <img src="${urlFor(resource.heroImage)}">
+            <div>
+              <h3>${ resource.title }</h3>
+              <p>${ resource.metaDescription }</p>
+            </div>
+          </a>
         </li>`
