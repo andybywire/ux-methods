@@ -134,9 +134,16 @@ li.compact-card {
       align-items: flex-end;
       justify-content: space-between;
     }
-    svg {
-      position: relative;
-      top: 2px;
+    .byline {
+      flex: 1 2;
+    }
+    .icon {
+      background-color: var(--gray-text);
+      -webkit-mask-image: url('/icons/external.svg');
+      mask-image: url('/icons/external.svg');
+      mask-repeat: no-repeat;
+      height: 1.25rem;
+      width: 1.25rem;
       margin-left: 0.5rem;
     }
   }
