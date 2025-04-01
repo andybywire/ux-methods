@@ -1,5 +1,12 @@
 import urlFor from '../../utils/imageUrl.js'
 
+// Development Notes
+// - Height included to avoid layout shift: lets the browser know what the aspect ratio is. 
+//    This shifts with the current card layout anyway, given the variable height. Consider 
+//    fine tuning. 
+// - Loading should be set to "eager" if above the fold. Consider adding for future 
+//    performance optimizations.
+
 /**
  * ## Resource Card
  * Used for rendering method and discipline cards with responsive images.
@@ -19,17 +26,17 @@ import urlFor from '../../utils/imageUrl.js'
  */
 export default (resource, size = 'compact-card') => {
   const image = resource.heroImage
-  const srcset = [125,250,375,500,375,750,1025,1500] 
-  // srcset is based on multiples of image max-widths for each card size
-  const aspect = 0.75 // landscape 4:3
+  const srcset = 
+    size == 'compact-card' // if size is compact-card, use smaller image sizes
+      ? [125, 250] // compact card image sizes (max-width: 125px)
+      : [375, 750] // full card image sizes (max-width: 375px)
   const sizes =
     size == 'compact-card'
       ? '125px' // compact card image max width
       : '375px' // full card max width
   const srcSetContent = srcset
     .map((size) => {
-      const height = Math.floor(size * aspect)
-      const url = urlFor(resource.heroImage).width(size).height(height).auto('format').url()
+      const url = urlFor(resource.heroImage).width(size).height(size).auto('format').url()
       return `${url} ${size}w`
     })
     .join(',')
@@ -39,8 +46,8 @@ export default (resource, size = 'compact-card') => {
             <img src="${urlFor(image).width(srcset[0])}"
               srcset="${srcSetContent}"
               sizes="${sizes}"
-              max-width="${srcset[-1]}"
-              max-height="${srcset[-1] * aspect}"
+              max-width="${srcset[0]}"
+              max-height="${srcset[0]}"
               loading="lazy"
               alt="${image.altText}"
             >
