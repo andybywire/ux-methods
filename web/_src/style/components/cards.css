@@ -1,0 +1,143 @@
+/* Card grid and cards  */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 3fr));
+  grid-gap: 2rem;
+  padding: 0;
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+}
+.dark {
+  @media (min-width: 600px) {
+    grid-row-gap: 3rem;
+    grid-column-gap: 3.5rem;
+  }
+}
+
+/* Shared styles across cards */
+li.card {
+  list-style: none;
+  max-width: var(--card-max);
+  background-color: var(--background);
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.25s ease-in;
+  border: 0;
+  &:hover {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.25s ease-in;
+  }
+  img {
+    object-fit: cover;
+    /* make sure that any pure white images have at least some contrast with the rest of the card: */
+    filter: brightness(0.95);
+  }
+  div p {
+    color: var(--gray-text);
+  }
+}
+.index .resource-cards li {
+  background-color: var(--card-background);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.1s ease-in;
+  border: 0;
+  img {
+    filter: none;
+  }
+  h3 {
+    color: var(--light-text);
+  }
+  &:hover {
+    box-shadow:
+      0 0 1px 2px rgba(43, 182, 252, 1),
+      1px 2px 8px rgba(0, 0, 0, 0.75);
+    transition: 0.1s ease-in;
+  }
+  div p {
+    color: var(--light-text);
+    font-weight: 300;
+  }
+}
+
+li.full-card {
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 225px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+  div {
+    padding: 0.5rem 0.75rem 0.75rem;
+    p {
+      margin: 0.25rem 0;
+      font-size: 90%;
+      line-height: 1.25;
+    }
+  }
+  a {
+    overflow: hidden;
+  }
+}
+
+.index .resource-cards li {
+  div {
+    padding: 0.25rem 0.75rem 0.75rem;
+    p {
+      line-height: 1.5;
+    }
+  }
+}
+
+li.compact-card {
+  min-height: 6rem;
+  a {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    max-width: var(--card-max);
+  }
+  img {
+    width: 30%;
+    border-radius: 5px 0 0 5px;
+  }
+  div {
+    padding: 0.5rem;
+    width: 70%;
+    p {
+      line-height: 1.33;
+      margin: 0.1rem 0 0 0;
+      @media (min-width: 800px) {
+        font-size: 90%;
+      }
+    }
+  }
+}
+.index .resource-cards li {
+  div {
+    padding-left: 0.75rem;
+  }
+}
+.resource {
+  h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      margin-left: 0.5rem;
+    }
+  }
+}
