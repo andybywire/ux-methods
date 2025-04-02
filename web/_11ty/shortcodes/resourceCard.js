@@ -10,7 +10,7 @@ import urlFor from '../../utils/imageUrl.js'
 /**
  * ## Resource Card
  * Used for rendering method and discipline cards with responsive images.
-
+ *
  * @param {Object} resource - The resource object containing data for the card.
  * @param {Object} resource.heroImage - The object representing hero image metadata.
  *   - this entire object is supplied to the `urlFor` function to generate the parameterized image URL.
