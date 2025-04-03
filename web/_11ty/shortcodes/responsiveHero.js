@@ -36,7 +36,6 @@ export default (image, imgSize = 30, aspect = 0.75) => {
             sizes="${sizes}"
             max-width="${srcset[srcset.length - 1]}"
             max-height="${Math.floor(srcset[srcset.length - 1] * aspect)}"
-            loading="lazy"
             alt="${image.altText}"
           >`
 }
