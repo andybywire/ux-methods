@@ -6,6 +6,22 @@ pagination:
   size: 1
 permalink: /method/{{ resource.slug }}/index.html
 ---
+{% jsonld %}
+            {
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "url": "{{ resource.uri }}",
+              "headline": "{{ resource.title }}",
+              "datePublished": "{{ resource.dateStamps.createdAt }}",
+              "dateModified": "{{ resource.dateStamps.reviseAt | default(resource.dateStamps.createdAt) }}",
+              "image": {
+                "@type": "ImageObject",
+                "inLanguage": "en-US",
+                "url": "{{ resource.heroImage.url }}"
+              }
+            },
+{% endjsonld %}
+
 <article class="method">
   <section class="overview">
     <div class="hero">
@@ -57,16 +73,16 @@ permalink: /method/{{ resource.slug }}/index.html
     </div>
   </section>
   {% if resource.resources | length > 0 %}
-  <section>
-    <h2>Resources</h2>
-    <ul class="grid">
-      {% for resource in resource
-        .resources
-        .slice(0, 6) %}
-        {% resourceCardExt resource%}
-      {% endfor %}
-    </ul>
-  {% endif %}
+    <section>
+      <h2>Resources</h2>
+      <ul class="grid">
+        {% for resource in resource
+          .resources
+          .slice(0, 6) %}
+          {% resourceCardExt resource%}
+        {% endfor %}
+      </ul>
+    {% endif %}
   </section>
   {% if resource.continueMethods | length > 0 %}
     <section>

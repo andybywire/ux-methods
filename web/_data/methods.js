@@ -58,6 +58,7 @@ async function getMethods() {
         "heroImage": {
           "credit": heroImage.asset->creditLine,
           "source": heroImage.asset->source.url,
+          "url": heroImage.asset->url,
           ...heroImage
          },
         overview,

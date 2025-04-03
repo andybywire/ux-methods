@@ -25,6 +25,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addShortcode('resourceCard', resourceCard)
   eleventyConfig.addShortcode('resourceCardExt', resourceCardExt)
 
+  // Bundles
+  eleventyConfig.addBundle("jsonld");
+
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src
 
