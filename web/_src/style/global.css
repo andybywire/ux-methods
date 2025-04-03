@@ -538,6 +538,9 @@ article.discipline {
           align-items: stretch;
         }
         .hero {
+          img {
+            background-color: var(--light-text);
+          }
           @media (min-width: 800px) {
             order: 1;
             width: 50%;
