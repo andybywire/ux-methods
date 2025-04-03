@@ -5,18 +5,22 @@ import urlFor from '../../utils/imageUrl.js'
  * Used for rendering external resource cards with responsive images.
  * Use for external resources (links)
  * 
- * @param {Object} resource - The resource object containing data for the card.
- * @param {Object} resource.resourceImage - The object representing hero image metadata.
- *   - this entire object is supplied to the `urlFor` function to generate the parameterized image URL.
+ * @param {Object} resource - The resource object containing data for 
+ *  the card.
+ * @param {Object} resource.resourceImage - The object representing 
+ *  hero image metadata.
+ *   - this entire object is supplied to the `urlFor` function to 
+ *      generate the parameterized image URL.
  * 
- * @returns {string} An HTML string representing the external resource card.
+ * @returns {string} An HTML string representing the external 
+ *  resource card.
  */
 export default (resource) => {
   const {resourceImage, author, publisher, title, resourceUrl} = resource
 
   const image = resourceImage ? urlFor(resourceImage) : '/icons/heroPlaceholder.svg'
 
-  const srcset = [125, 250] // compact card image sizes (max-width: 125px)
+  const srcset = [125, 250] // compact card image sizes
   const sizes = '125px' // compact card image max width
   const srcSetContent = srcset
     .map((size) => {
