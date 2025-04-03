@@ -9,7 +9,7 @@ permalink: /method/{{ resource.slug }}/index.html
 <article class="method">
   <section class="overview">
     <div class="hero">
-      {% basicHero resource.heroImage %}
+      {% responsiveHero resource.heroImage %}
       {% if resource.heroImage.credit %}
         <p>Photo by <a href={{resource.heroImage.source}} tabIndex='-1'>{{resource.heroImage.credit.replace(' by ',' via ')}}</a>
         </p>
