@@ -1,24 +1,34 @@
 import urlFor from '../../utils/imageUrl.js'
 
-// Development Notes
-// - Height included to avoid layout shift: lets the browser know what the aspect ratio is. 
-//    This shifts with the current card layout anyway, given the variable height. Consider 
-//    fine tuning. 
-// - Loading should be set to "eager" if above the fold. Consider adding for future 
-//    performance optimizations.
+/** 
+ * ## Development Notes
+ * - Height included to avoid layout shift: lets the browser know 
+ *    what the aspect ratio is. This shifts with the current card 
+ *    layout anyway, given the variable height. Consider fine tuning.
+ * - Loading should be set to "eager" if above the fold. Consider 
+ *    adding for future performance optimizations.
+ */
+
 
 /**
  * ## Resource Card
- * Used for rendering method and discipline cards with responsive images.
+ * Used for rendering method and discipline cards with responsive 
+ * images.
  *
- * @param {Object} resource - The resource object containing data for the card.
- * @param {Object} resource.heroImage - The object representing hero image metadata.
- *   - this entire object is supplied to the `urlFor` function to generate the parameterized image URL.
- * @param {string} resource.type - The type of the resource (e.g., "method", "discipline").
+ * @param {Object} resource - The resource object containing data 
+ *  for the card.
+ * @param {Object} resource.heroImage - The object representing 
+ *  hero image metadata.
+ *   - this entire object is supplied to the `urlFor` function 
+ *      to generate the parameterized image URL.
+ * @param {string} resource.type - The type of the resource (e.g., 
+ *  "method", "discipline").
  * @param {string} resource.slug - The slug for the resource's URL.
  * @param {string} resource.title - The title of the resource.
- * @param {string} resource.metaDescription - A short description of the resource.
- * @param {string} [size='compact-card'] - The size of the card. Defaults to 'compact-card'.
+ * @param {string} resource.metaDescription - A short description of 
+ *  the resource.
+ * @param {string} [size='compact-card'] - The size of the card. 
+ *  Defaults to 'compact-card'.
  *   - 'compact-card': Uses a smaller image size (125px max width).
  *   - 'full-card': Uses a larger image size (375px max width).
  * 
