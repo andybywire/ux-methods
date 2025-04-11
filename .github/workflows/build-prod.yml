@@ -2,12 +2,12 @@ name: Production
 
 on:
   workflow_dispatch:
-  # repository_dispatch:
-  #   types:
-  #     - method
-  #     - discipline
-  #     - resource
-  #     - article
+  repository_dispatch:
+    types:
+      - method
+      - discipline
+      - resource
+      - article
   push:
     paths:
       - "web/**"
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and deploy 11ty site to Digital Ocean
     # name: Transform and load Sanity content as RDF then build and upload UX Methods
-    if: ${{ github.ref == 'refs/heads/v2' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v4
