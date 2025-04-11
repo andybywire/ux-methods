@@ -69,5 +69,5 @@ jobs:
 
       - name: Clean & FTP Upload
         run: |
-          ssh -i ~/.ssh/do_uxm_prod prod@24.199.98.130 "rm -rf /var/www/prod/html/*"
-          sftp -i ~/.ssh/do_uxm_prod prod@24.199.98.130 <<< $'cd /var/www/prod/html \n put -r web/_site/*'
+          ssh -i ~/.ssh/do_uxm_prod prod@24.199.98.130 "rm -rf /var/www/uxm/html/*"
+          sftp -i ~/.ssh/do_uxm_prod prod@24.199.98.130 <<< $'cd /var/www/uxm/html \n put -r web/_site/*'
