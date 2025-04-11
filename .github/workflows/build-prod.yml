@@ -57,7 +57,7 @@ jobs:
         working-directory: web
 
       - name: Verify build
-        run: ls -la web
+        run: ls -la ./_site
         working-directory: web
 
       - name: Set Up SSH
