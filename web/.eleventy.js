@@ -1,5 +1,5 @@
 // Add keys the keys and values defined in .env to process.env
-// import 'dotenv/config' 
+// import 'dotenv/config'
 
 // Filter & Shortcode imports
 import responsiveHero from './_11ty/shortcodes/responsiveHero.js'
