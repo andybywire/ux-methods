@@ -10,7 +10,7 @@ layout: base.njk
 <h2>Disciplines</h2>
 <ul>
   {% for discipline in disciplines %}
-    <li class="discipline">
+    <li class="discipline --pb-sm">
       <a href="discipline/{{ discipline.slug }}" tabindex="0">{{ discipline.title }}</a>
     </li>
   {% endfor %}

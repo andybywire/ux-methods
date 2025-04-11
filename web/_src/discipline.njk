@@ -12,8 +12,8 @@ permalink: /discipline/{{ discipline.slug }}/index.html
 
 <article class="discipline flow" >
   <section>
-    <p class="--text-sm --text-muted">Discipline</p>
     {% basicHero discipline.heroImage %}
+    <p class="--text-sm --text-muted">Discipline</p>
     <h1>{{ discipline.title }}</h1>
     <p>{{ discipline.metaDescription }}</p>
     {{ discipline.overview | safe }}
@@ -22,7 +22,7 @@ permalink: /discipline/{{ discipline.slug }}/index.html
     <h2 class="--mb-md">{{ discipline.title | safe }} Methods</h2>
     <ul>
       {% for method in discipline.methods %}
-        <li>
+        <li class="method">
           <h3><a href="/method/{{ method.slug }}/">{{ method.title }}</a></h3>
           <p>{{ method.metaDescription }}</p>
         </li>

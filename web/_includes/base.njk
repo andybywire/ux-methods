@@ -12,8 +12,8 @@
 		{{ content | safe }}
 	</main>
 	<footer>
-			<form class="theme-control">
-
+		<div class="theme-control">
+			<form>
 				<label for="hue-slider">hue </label>
 				<input
 					type="range"
@@ -31,8 +31,8 @@
 					value="35"
 					min="10"
 					max="200" />
-					
 			</form>
+		</div>
 		<p>{{ metadata.tagline }}</p>
 		<p>{{ metadata.description }}</p>
 	</footer>

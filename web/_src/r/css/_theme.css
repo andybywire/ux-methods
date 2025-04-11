@@ -174,16 +174,11 @@ a:hover {
 }
 
 h1 {
-	font-family: var(--font-display);
-	font-size: var(--font-xl);
+	font-family: var(--font-sans);
+	font-size: var(--font-2xl);
 	color: var(--text-strong);
-	font-weight: 500;
-	margin-top: var(--spacing-xl);
-	margin-bottom: var(--spacing-xl);
-	text-align: center;
+	font-weight: 700;
 	font-variation-settings: "wght" 700;
-	letter-spacing: clamp(0em, 1vw + 1rem, -0.3em);
-	text-transform: uppercase;
 }
 
 h2 {
@@ -193,6 +188,7 @@ h2 {
 	font-weight: 700;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
 	margin-bottom: var(--spacing-sm);
+	border-top:1px solid var(--border-muted)
 }
 
 h3 {

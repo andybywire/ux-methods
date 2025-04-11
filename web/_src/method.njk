@@ -6,16 +6,23 @@ pagination:
   size: 1
 permalink: /method/{{ method.slug }}/index.html
 ---
-<div class="--py-lg">
+<div class="nav">
   <p><a href="/">↖ back to index</a></p> {# temporary #}
 </div>
 
 <article class="flow">
-  <section class="hero"> 
+
+  <section class="hero">
+    <div class="hero-group">
+      <p class="label">Method</p>
+      <h1>{{ method.title }}</h1>
+    </div>
+
+    <p class="hero-description">{{ method.metaDescription | safe }}</p>
     {% basicHero method.heroImage %}
-    <h1>{{ method.title }}</h1>
-    <p>{{ method.overview | safe }}</p>
+    <p class="--pt-md">{{ method.overview | safe }}</p>
   </section>
+
   <section class="preparation boxed">  
     <h2>Preparation</h2>
     <ul>    
@@ -61,7 +68,7 @@ permalink: /method/{{ method.slug }}/index.html
     <h2>Next Steps</h2>
     <ul>    
       {% for method in method.continueMethods.slice(0,6) %}
-        <li>
+        <li class="method --pb-sm">
           <a href="/method/{{ method.slug }}/">{{ method.title }}</a>
           <p>{{ method.metaDescription }}</p>
         </li>
