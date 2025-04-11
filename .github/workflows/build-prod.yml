@@ -66,3 +66,8 @@ jobs:
           echo "${{ secrets.DO_UXM_PROD_SSH_KEY }}" > ~/.ssh/do_uxm_prod
           sudo chmod 600 ~/.ssh/do_uxm_prod
           ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts
+
+      - name: Clean & FTP Upload
+        run: |
+          ssh -i ~/.ssh/do_uxm_prod prod@24.199.98.130 "rm -rf /var/www/prod/html/*"
+          sftp -i ~/.ssh/do_uxm_prod prod@24.199.98.130 <<< $'cd /var/www/prod/html \n put -r web/_site/*'
