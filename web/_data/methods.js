@@ -49,14 +49,22 @@ async function getMethods() {
   const methods = await client.fetch(groq`
     *[_type == "method"] | order(title) {
         title,
+        "type": "method",
         "slug": slug.current,
         "uri": uri.current,
         "createdAt": dateStamp.createdAt,
         "revisedAt": dateStamp.revisedAt,
         metaDescription,
-        heroImage,
+        "heroImage": {
+          "credit": heroImage.asset->creditLine,
+          "source": heroImage.asset->source.url,
+          "url": heroImage.asset->url,
+          ...heroImage
+         },
         overview,
         steps,
+        stepSources,
+        dateStamps,
         "outcomes": output[]->{
           prefLabel,
           definition,
@@ -76,6 +84,8 @@ async function getMethods() {
       title: method.title,
       slug: method.slug,
       uri: method.uri,
+      type: 'method',
+      heroImage: method.heroImage,
       metaDescription: method.metaDescription,
     }
   })

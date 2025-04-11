@@ -1,0 +1,115 @@
+footer {
+  background-color: var(--card-background);
+  color: var(--light-text);
+  font-weight: 300;
+  padding: 1rem;
+}
+
+footer section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  row-gap: 1rem;
+}
+
+@media (min-width: 800px) {
+  footer section {
+    column-gap: 6%;
+    row-gap: 1rem;
+    padding-top: 60px;
+  }
+
+  footer section > div {
+    width: 47%;
+  }
+}
+
+footer a,
+footer a:visited {
+  color: var(--light-text);
+}
+
+footer a:hover {
+  color: var(--primary-dark-bg);
+}
+
+@media (min-width: 800px) {
+  footer .overview {
+    order: 1;
+  }
+}
+
+footer .social {
+  padding-top: 2rem;
+  & a {
+    text-decoration: none;
+    padding-right: 1rem;
+  }
+}
+
+footer .social h1 {
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  footer .social {
+    order: 3;
+  }
+
+  footer .social h1 {
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+  }
+}
+
+footer .social svg {
+  width: 3rem;
+  height: auto;
+  padding-right: 1rem;
+}
+
+footer .colophon {
+  padding-top: 2.25rem;
+}
+
+@media (min-width: 800px) {
+  footer .colophon {
+    order: 2;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 800px) {
+  footer .social {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 800px) {
+  footer .credit {
+    order: 4;
+  }
+}
+
+footer .credit p {
+  margin: 0.5rem 0;
+}
+
+footer .credit p,
+footer .credit a,
+footer .credit a:visited {
+  color: var(--gray-text-dark-bg);
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+footer .credit a:hover {
+  color: var(--primary-dark-bg);
+}
+
+footer .credit svg {
+  margin: 1rem 0;
+  width: 100px;
+  height: auto;
+} 

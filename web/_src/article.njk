@@ -1,0 +1,21 @@
+---
+layout: base.njk
+pagination: 
+  data: articles
+  alias: resource
+  size: 1
+permalink: /{{ resource.slug }}/index.html
+---
+<article class="article">
+  <div class="hero">
+    {% responsiveHero resource.heroImage, 50, 0.5625 %}
+  </div>
+
+  <div class="header">
+    <h1>{{ resource.title }}</h1>
+  </div>
+
+  <div class="body">
+    {{ resource.body | safe }}
+  </div>
+</article>

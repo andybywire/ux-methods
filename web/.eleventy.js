@@ -2,20 +2,31 @@
 // import 'dotenv/config'
 
 // Filter & Shortcode imports
-import basicHero from './_11ty/shortcodes/basicHero.js'
-import basicImage from './_11ty/shortcodes/basicImage.js'
+import responsiveHero from './_11ty/shortcodes/responsiveHero.js'
+import resourceCard from './_11ty/shortcodes/resourceCard.js'
+import resourceCardExt from './_11ty/shortcodes/resourceCardExt.js'
 
 // Plugins
 // import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export default function (eleventyConfig) {
   // Pass through all assets (css, js, images, etc)
-  eleventyConfig.addPassthroughCopy({ "_src/r/css": "r/css" });
-  eleventyConfig.addPassthroughCopy({ "_src/r/js": "r/js" });
+  eleventyConfig.addPassthroughCopy({'_src/style': 'style'})
+  eleventyConfig.addPassthroughCopy({'_src/js': 'js'})
+  eleventyConfig.addPassthroughCopy({'_includes/icons': 'icons'})
+  eleventyConfig.addPassthroughCopy({'_src/assets': 'assets'}) // If you have other assets
 
+  // Filters
+  eleventyConfig.addFilter("prependPipe", (value) => ` | ${value}`);
+  
   // Shortcodes
-  eleventyConfig.addShortcode('basicHero', basicHero)
-  eleventyConfig.addShortcode('basicImage', basicImage)
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+  eleventyConfig.addShortcode('responsiveHero', responsiveHero)
+  eleventyConfig.addShortcode('resourceCard', resourceCard)
+  eleventyConfig.addShortcode('resourceCardExt', resourceCardExt)
+
+  // Bundles
+  eleventyConfig.addBundle("jsonld");
 
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src

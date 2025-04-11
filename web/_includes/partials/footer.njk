@@ -1,0 +1,31 @@
+<footer>
+  <section>
+    <div class="overview">
+      <h1>{{ metadata.title }}</h1>
+      {{ metadata.overview | safe }}
+    </div>
+    <div class="social">
+      <h1>Share This Project</h1>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.uxmethods.org/" target="_blank" rel="noopener">
+        {% include 'icons/linkedIn.svg' %}
+      </a>
+      <a href="https://bsky.app/intent/compose?url=https://www.uxmethods.org/&text=UX%20Methods%20is%20a%20community%20powered,%20linked%20data%20driven%20knowledge%20graph%20for%20learning%20about%20the%20techniques%20of%20user%20experience%20design." target="_blank" rel="noopener">
+        {% include 'icons/bluesky.svg' %}
+      </a>
+      {# Mastadon is a bit more involved — add this later #}
+      {# <a href="#" target="_blank" rel="noopener">
+        {% include 'icons/mastadon.svg' %}
+      </a> #}
+    </div>
+    <div class="colophon">
+      <h1>Colophon</h1>
+      <p>{{ metadata.colophon | safe }}</p>
+    </div>
+    <div class="credit">
+      {% for credit in metadata.credits %}
+        {{ credit | safe }}
+      {% endfor %}
+      {% include 'icons/creativeCommons.svg' %}
+    </div>
+  </section>
+</footer>

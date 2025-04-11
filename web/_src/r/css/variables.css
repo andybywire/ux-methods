@@ -1,0 +1,32 @@
+/* UX Methods CSS variables */
+
+/* Typography */
+:root {
+  --header: 'Nunito Sans', Arial, sans-serif;
+  --body: 'Hind', Arial, sans-serif;
+
+  /* Colors */
+  --dark-background: #151B1E;
+  --card-background: #182125;
+  --background: #FFFFFF;
+  --text: #151B1E;
+  --light-text: #F9FAFB;
+  --light-gray-text: #D3DBDF;
+  --gray-text: #606F76;
+  --gray-text-dark-bg: #94A2A8;
+  --primary: #28B7FF;
+  --primary-dark-bg: #2BB6FC;
+  --primary-text-link: #0073ad;
+  --alert: #FF940F;
+
+  /* Grid */
+  --max-width: 1140px;
+  --card-min: 330px; 
+  --card-max: 375px;
+
+  /* Breakpoints */
+  --breakpoint-medium: 600px;
+  --breakpoint-med-lg: 800px;
+  --breakpoint-large: 1000px;
+  --breakpoint-full: 1180px;
+}
