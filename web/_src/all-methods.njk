@@ -1,0 +1,12 @@
+---
+layout: base.njk
+title: "UX Methods A-Z"
+---
+<section class="resource-cards">
+  <h1>UX Methods A-Z</h1>
+  <ul class="grid">
+    {% for method in methods %}
+      {% resourceCard method %}
+    {% endfor %}
+  </ul>
+</section>

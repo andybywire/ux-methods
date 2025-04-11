@@ -1,4 +1,4 @@
-import {client} from './utils/sanityClient.js'
+import {client} from '../utils/sanityClient.js'
 import {toHTML} from '@portabletext/to-html'
 import groq from 'groq'
 
@@ -16,25 +16,24 @@ async function getDisciplines() {
   const disciplines = await client.fetch(groq`
     *[_type == "discipline"] | order(title) {
       title,
+      "type": "discipline",
       "slug": slug.current,
       "uri": uri.current,
       "createdAt": dateStamp.createdAt,
       "revisedAt": dateStamp.revisedAt,
       metaDescription,
-      "heroImage": {
-        "caption": heroImage.caption,
-        "altText": heroImage.alt,
-        "url": heroImage.asset->url,
-      },
+      heroImage,
       overview,
       "methods": *[
           _type == "method" 
           && ^._id in disciplinesReference[]._ref
-        ]{
-          title, 
-          metaDescription,
-          "slug": slug.current,
-        }
+      ]{
+        title, 
+        "slug": slug.current,
+        heroImage,
+        "type": "method",
+        metaDescription,
+      }
     }
   `)
   const preparedDisciplines = disciplines.map(prepareDiscipline)

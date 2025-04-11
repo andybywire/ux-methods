@@ -1,0 +1,13 @@
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/style/global.css">
+		<title>UX Methods V2 {{ title | prependPipe if title }}{{ resource.title | prependPipe if resource.title}}</title>
+
+    </title>
+		<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.basic.js" async></script>
+		<script src="/js/main.js" type="module" defer></script>
+		<script type="application/ld+json">
+			{% getBundle "jsonld" %}
+		</script>
+	</head>

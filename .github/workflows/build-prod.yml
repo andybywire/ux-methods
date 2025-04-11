@@ -3,56 +3,59 @@ name: Production
 on:
   workflow_dispatch:
   # repository_dispatch:
-  #   types: 
+  #   types:
   #     - method
   #     - discipline
   #     - resource
   #     - article
-  # push:
-  #   paths: 
-  #     - 'web/**'
+  push:
+    paths:
+      - "web/**"
 
 jobs:
   load-rdf-job:
     runs-on: ubuntu-latest
-    name: Transform and load Sanity content as RDF then build and upload UX Methods
-    if: ${{ github.ref == 'refs/heads/main' }} 
+    name: Build and deploy 11ty site to Digital Ocean
+    # name: Transform and load Sanity content as RDF then build and upload UX Methods
+    if: ${{ github.ref == 'refs/heads/v2' }}
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v2
-      - name: Extract & Transform
-        uses: ./actions/method-transform
-        id: extract-transform
-      - name: Upload RDF file as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: rdfData
-          path: rdfData.ttl
-      # Artifact is needed for this upload step. Look into more efficient way to pass this — input/output
-      - name: Upload RDF to Data.World
-        uses: fjogeleit/http-request-action@master
-        with:
-          url: 'https://api.data.world/v0/uploads/andyfitzgerald/method-io-data/files'
-          method: 'POST'
-          contentType: 'multipart/form-data'
-          bearerToken : ${{ secrets.DATA_WORLD_READ_WRITE }}
-          files: '{ "file": "rdfData.ttl" }'
+        uses: actions/checkout@v4
+
+      # Data extractin and transformation. Reintegrate later. 
+      # - name: Extract & Transform
+      #   uses: ./actions/method-transform
+      #   id: extract-transform
+
+      # - name: Upload RDF file as artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: rdfData
+      #     path: rdfData.ttl
+      # # Artifact is needed for this upload step. Look into more efficient way to pass this — input/output
+
+      # - name: Upload RDF to Data.World
+      #   uses: fjogeleit/http-request-action@master
+      #   with:
+      #     url: "https://api.data.world/v0/uploads/andyfitzgerald/method-io-data/files"
+      #     method: "POST"
+      #     contentType: "multipart/form-data"
+      #     bearerToken: {{ secrets.DATA_WORLD_READ_WRITE }}
+      #     files: '{ "file": "rdfData.ttl" }'
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '17.x'
+          node-version: "23"
+
       - name: Install Project Dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
         working-directory: web
 
-      - name: Install Gatsby CLI
-        run: npm install -g gatsby-cli@4.3.0
+      - name: Build 11ty
+        run: npx @11ty/eleventy
         working-directory: web
 
-      - name: Build
-        run: gatsby build
-        working-directory: web
-      
       - name: Verify build
         run: ls -la public
         working-directory: web
@@ -60,9 +63,6 @@ jobs:
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.UXM_PROD_DREAMHOST_SSH_KEY }}" > ~/.ssh/uxm_prod
-          sudo chmod 600 ~/.ssh/uxm_prod
-          ssh-keyscan -H "jacksonville.dreamhost.com" > ~/.ssh/known_hosts
-
-      - name: SFTP Upload
-        run: sftp -i ~/.ssh/uxm_prod uxm_prod@jacksonville.dreamhost.com <<< $'cd uxmethods.org \n put -r web/public/*'      
+          echo "${{ secrets.DO_UXM_PROD_SSH_KEY }}" > ~/.ssh/do_uxm_prod
+          sudo chmod 600 ~/.ssh/do_uxm_prod
+          ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts

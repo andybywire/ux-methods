@@ -2,41 +2,36 @@
 layout: base.njk
 pagination:
   data: disciplines
-  alias: discipline
+  alias: resource
   size: 1
-permalink: /discipline/{{ discipline.slug | slug }}/index.html
+permalink: /discipline/{{ resource.slug }}/index.html
 ---
-<p><a href="/">< back to index</a></p> {# temporary #}
-
-<article>
-  <section> 
-    {# FPO: discipline hero #}
-    <h1>{{ discipline.title }}</h1>
-    <p>{{ discipline.metaDescription }}</p>
-    {{ discipline.overview | safe }}
+<article class="discipline">
+  <section class="overview discipline">
+    <div class="hero">
+      {% responsiveHero resource.heroImage,
+      50,
+      0.5625 %}
+    </div>
+    <div class="discipline-summary">
+      <div class="header">
+        <h1>
+          <span>{{ resource.title }}</span>
+          <span>Discipline</span>
+        </h1>
+      </div>
+      <div class="description">
+        <p>{{ resource.overview | safe }}</p>
+      </div>
+    </div>
   </section>
-  <section>  
-    <h2>{{ discipline.title | safe }} Methods</h2>
-    <ul>
-      {% for method in discipline.methods %}
-        <li>
-          <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
-          <p>{{ method.metaDescription }}</p>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
+</section>
+<section>
+  <h2>{{ resource.title | safe }} Methods</h2>
+  <ul class="grid">
+    {% for method in resource.methods %}
+      {% resourceCard method, "full-card"%}
+    {% endfor %}
+  </ul>
+</section>
 </article>
-{#   
-<h1>{{ discipline.title }}</h1>
-<p>{{ discipline.metaDescription }}</p>
-{{ discipline.overview | safe }}
-<h2>{{ discipline.title | safe }} Methods</h2>
-<ul>
-  {% for method in discipline.methods %}
-    <li>
-      <h3><a href="/method/{{ method.slug | slug }}/">{{ method.title }}</a></h3>
-      <p>{{ method.metaDescription }}</p>
-    </li>
-  {% endfor %}
-</ul> #}

@@ -1,19 +1,13 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/style/main.css">
-		<title>UX Methods V2</title>
-	</head>
-	<body class="container --w-md --px-md">
-	<main>
-		{{ content | safe }}
-	</main>
-	<hr /> {# temporary #}
-	<footer>
-		<p>{{ metadata.tagline }}</p>
-		<p>{{ metadata.description }}</p>
-	</footer>
+	{% include 'partials/head.njk' %}
+	<body>
+		{% include 'partials/header.njk' %}
+		<main id="main-content" {% if data.class -%}
+				 											class="{{ data.class }}"
+														{%- endif %}>
+			{{ content | safe }}
+		</main>
+		{% include 'partials/footer.njk' %}
 	</body>
 </html>

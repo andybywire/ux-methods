@@ -1,6 +1,7 @@
-import {client} from './utils/sanityClient.js'
+import {client} from '../utils/sanityClient.js'
 import {toHTML} from '@portabletext/to-html'
 import groq from 'groq'
+// import { uxmComponents } from '../utils/serializers.js'
 import {readFileSync} from 'fs'
 import {join} from 'path'
 
@@ -48,18 +49,22 @@ async function getMethods() {
   const methods = await client.fetch(groq`
     *[_type == "method"] | order(title) {
         title,
+        "type": "method",
         "slug": slug.current,
         "uri": uri.current,
         "createdAt": dateStamp.createdAt,
         "revisedAt": dateStamp.revisedAt,
         metaDescription,
         "heroImage": {
-          "caption": heroImage.caption,
-          "altText": heroImage.alt,
+          "credit": heroImage.asset->creditLine,
+          "source": heroImage.asset->source.url,
           "url": heroImage.asset->url,
-        },
+          ...heroImage
+         },
         overview,
         steps,
+        stepSources,
+        dateStamps,
         "outcomes": output[]->{
           prefLabel,
           definition,
@@ -68,6 +73,7 @@ async function getMethods() {
           title,
           author,
           resourceUrl,
+          resourceImage,
           "publisher": publisher.pubName
         }
       }
@@ -78,6 +84,8 @@ async function getMethods() {
       title: method.title,
       slug: method.slug,
       uri: method.uri,
+      type: 'method',
+      heroImage: method.heroImage,
       metaDescription: method.metaDescription,
     }
   })
