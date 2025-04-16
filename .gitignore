@@ -6,4 +6,5 @@ _local
 /node_modules
 
 # Local development directories
-/_kg-integration
+/_kg-integration/
+/_kg-integration/**
