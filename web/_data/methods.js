@@ -116,20 +116,17 @@ async function getSharedOutput() {
       data: transformedData
     }
     
-    // Ensure fallback directory exists
-    if (!existsSync(FALLBACK_DIR)) {
-      mkdirSync(FALLBACK_DIR, { recursive: true })
-    }
-
-    // In development, add timestamp to filename and clean up old files
+    // Only create directory and write files in development
     if (process.env.NODE_ENV !== 'production') {
+      // Ensure fallback directory exists
+      if (!existsSync(FALLBACK_DIR)) {
+        mkdirSync(FALLBACK_DIR, { recursive: true })
+      }
+
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
       const backupFile = join(FALLBACK_DIR, `kg-data-${timestamp}.json`)
       writeFileSync(backupFile, JSON.stringify(backupData, null, 2))
       cleanupFallbackData()
-    } else {
-      // In production, use the standard filename (handled by GitHub Actions)
-      writeFileSync(FALLBACK_FILE, JSON.stringify(backupData, null, 2))
     }
     
     return transformedData
