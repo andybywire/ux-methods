@@ -30,6 +30,7 @@ export default function (eleventyConfig) {
 
   // Watch all asset directories for changes
   eleventyConfig.addWatchTarget('_src/**/*') // Watch everything in _src
+  eleventyConfig.watchIgnores.add('_data/fallback-data/**/*') // Ignore fallback data directory
 
   eleventyConfig.setServerOptions({
     showAllHosts: true,
