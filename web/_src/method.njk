@@ -22,38 +22,53 @@ permalink: /method/{{ resource.slug }}/index.html
             },
 {% endjsonld %}
 
+<!-- Debug: Available Resource Properties -->
+<pre style="display: none;">
+{{ resource | dump(2) | safe }}
+</pre>
+
 <article class="method">
   <section class="overview">
     <div class="hero">
-      {% responsiveHero resource.heroImage %}
-      {% if resource.heroImage.credit %}
-        <p>Photo by <a href={{resource.heroImage.source}} tabIndex='-1'>{{resource.heroImage.credit.replace(' by ',' via ')}}</a>
+      <div class="title">
+        <h1>
+          <span>{{ resource.title }}</span>
+        </h1>
+        <p class="--text-lg --font-emphasis --text-muted">
+          <span>Method</span>
         </p>
-      {% endif %}
-    </div>
-    <div class="header">
-      <h1>
-        <span>{{ resource.title }}</span>
-        <span>Method</span>
-      </h1>
+        <p class="--text-lg --pt-lg">
+          <span>{{ resource.metaDescription }}</span>
+        </p>
+        <p class="--text-lg --pt-lg --font-emphasis --text-muted">
+          <span>Updated {{ resource.dateStamps.revisedAt | default(resource.dateStamps.createdAt) }}</span>
+        </p>
+      </div>
+      <div class="image">
+        {% responsiveHero resource.heroImage %}
+        {% if resource.heroImage.credit %}
+          <p>Photo by <a href={{resource.heroImage.source}} tabIndex='-1'>{{resource.heroImage.credit.replace(' by ',' via ')}}</a>
+          </p>
+        {% endif %}
+      </div>
     </div>
     <div class="description">
       <p>{{ resource.overview | safe }}</p>
     </div>
   </section>
-  {% if resource.prepareMethods | length > 0 %}
-    <section>
-      <h2>Preparation</h2>
-      <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
-      <ul class="grid">
-        {% for method in resource
-          .prepareMethods
-          .slice(0, 6) %}
-          {% resourceCard method %}
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+{% if resource.prepareMethods | length > 0 %}
+  <section>
+    <h2>Preparation</h2>
+    <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
+    <ul class="grid">
+      {% for method in resource
+        .prepareMethods
+        .slice(0, 6) %}
+        {% resourceCard method %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
   <section class="details">
     <div class="steps">
       <h2>Steps</h2>
@@ -72,8 +87,8 @@ permalink: /method/{{ resource.slug }}/index.html
       </ul>
     </div>
   </section>
-  {% if resource.resources | length > 0 %}
-    <section>
+{% if resource.resources | length > 0 %}
+  <section class="resources">
       <h2>Resources</h2>
       <ul class="grid">
         {% for resource in resource
@@ -82,20 +97,21 @@ permalink: /method/{{ resource.slug }}/index.html
           {% resourceCardExt resource%}
         {% endfor %}
       </ul>
-    {% endif %}
+
   </section>
-  {% if resource.continueMethods | length > 0 %}
-    <section>
-      <h2>Next Steps</h2>
-      <ul class="grid">
-        {% for method in resource
-          .continueMethods
-          .slice(0, 6) %}
-          {% resourceCard method, "full-card" %}
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+{% endif %}
+{% if resource.continueMethods | length > 0 %}
+  <section>
+    <h2>Next Steps</h2>
+    <ul class="grid">
+      {% for method in resource
+        .continueMethods
+        .slice(0, 6) %}
+        {% resourceCard method, "full-card" %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
   <section class="admin-metadata">
     {% if resource.stepSources %}
       <h2>References</h2>
@@ -107,6 +123,6 @@ permalink: /method/{{ resource.slug }}/index.html
         {% endfor %}
       </ol>
     {% endif %}
-    <p class="datestamp">{{resource.title}} Method details last edited on {{ resource.dateStamps.createdAt }}</p>
+    <p class="datestamp">{{resource.title}} Method details last edited on {{ resource.dateStamps.revisedAt | default(resource.dateStamps.createdAt) }}</p>
   </section>
 </article>

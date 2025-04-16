@@ -1,4 +1,31 @@
 footer {
+	border-top: 1px solid var(--border-muted);
+	padding-top: var(--spacing-sm);
+	padding-bottom: var(--spacing-2xl);
+	margin-top: var(--spacing-2xl);
+}
+
+footer p {
+	font-size: var(--font-sm);
+	color: var(--text-muted);	
+}
+
+footer {
+	border-top: 1px solid var(--border-muted);
+	padding-top: var(--spacing-sm);
+	padding-bottom: var(--spacing-2xl);
+	margin-top: var(--spacing-2xl);
+}
+
+footer p {
+	font-size: var(--font-sm);
+	color: var(--text-muted);	
+}
+
+
+/* From old site */
+/* 
+footer {
   background-color: var(--card-background);
   color: var(--light-text);
   font-weight: 300;
@@ -112,4 +139,4 @@ footer .credit svg {
   margin: 1rem 0;
   width: 100px;
   height: auto;
-} 
+}  */

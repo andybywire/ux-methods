@@ -1,11 +1,10 @@
 :root {
 	/* _theme.css sets up some utility classes - fonts, sizing, spacing, color palettes, and elevations. */
 
-
 	/* Font Family */
 	--font-display: var(--font-serif);
 	--font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
-	--font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+	--font-serif: 'Crimson Pro', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'Droid Serif', 'Times', 'Source Serif Pro', serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
 	/* Font Size */
 	--font-2xl: clamp(2rem, 0.313rem + 4.688vw, 2.75rem);
@@ -17,7 +16,6 @@
 
 	/* Spacing */
 	/* Fluid spacing scale based on view width, from 16px to 24px */
-	/* Fluid spacing scale based on view width, from 16px to 24px */
 	--spacing: clamp(16px, -0.75rem + 5vw, 24px);
 	--spacing-xs: calc(0.25 * var(--spacing));
 	--spacing-sm: calc(0.5 * var(--spacing));
@@ -25,104 +23,49 @@
 	--spacing-lg: calc(1.5 * var(--spacing));
 	--spacing-xl: calc(2.5 * var(--spacing));
 	--spacing-2xl: calc(5 * var(--spacing));
-	--spacing-width-xs: 16rem;
+	--spacing-width-sm: 16rem;
 	--spacing-width-md: 39rem;
-	--spacing-width-xl: 65rem;
+	--spacing-width-lg: 65rem;
 
+	/* Base Color */
+	/* Every other color is based these values. Modifying these will change every color */
+	--lightness: 50%;
+	--chroma: 0.035;
+	--hue: 180;
+	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
+}
+/*  Light / Dark mode matchesthe user's system preference. There is purposefully no control here to change between modes - we'll just match the system. */
+:root {
+	/* Light color theme is default when the user prefers light mode or has no preference. */
+	--bg-strong: lch(from var(--color-base) 100% c var(--hue));
+	--bg-default: lch(from var(--color-base) 90% c var(--hue));
+	--bg-muted: lch(from var(--color-base) 80% c var(--hue));
+	--bg-selection: lch(from var(--color-base) 75% c var(--hue));
+	--text-strong: lch(from var(--color-base) 10% c var(--hue));
+	--text-default: lch(from var(--color-base) 20% c var(--hue));
+	--text-muted: lch(from var(--color-base) 40% c var(--hue));
+	--text-interactive: lch(from var(--color-base) 5% c var(--hue));
+	--border-strong: lch(from var(--color-base) 40% c var(--hue));
+	--border-default: lch(from var(--color-base) 60% c var(--hue));
+	--border-muted: lch(from var(--color-base) 80% c var(--hue));
 	/* Light Elevation */
 	--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
 	--shadow-md: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
 	--shadow-lg: 0px 16px 24px -16px rgba(0, 0, 0, 0.2);
 }
-
-/* Light color theme is the default, so we set it on :root. The utility class .theme-default will reset to the default theme when nested inside another themed element. */
-
-:root, .theme-default {
-	/* Neutral color LCH values */
-	--lightness: 80%;
-	--chroma: 0.035;
-	--hue: 60;
-
-	/* Base Color */
-	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
-	--color-prep: color-mix(in srgb, var(--color-base) 50%, rgb(255, 177, 177) 50%);
-	--color-steps: color-mix(in srgb, var(--color-base) 50%, rgb(130, 255, 130) 50%);
-	--color-outcomes: color-mix(in srgb, var(--color-base) 50%, rgb(132, 132, 255) 50%);
-
-	/* Relative color definitions */
-	--bg-strong: lch(from var(--color-base) 100% c var(--hue));
-	--bg-default: lch(from var(--color-base) 90% c var(--hue));
-	--bg-muted: lch(from var(--color-base) 80% c var(--hue));
-	--bg-selection: lch(from var(--color-base) 75% c var(--hue));
-	/* Neutral color LCH values */
-	--lightness: 80%;
-	--chroma: 0.035;
-	--hue: 60;
-
-	/* Base Color */
-	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
-	--color-prep: color-mix(in srgb, var(--color-base) 50%, rgb(255, 177, 177) 50%);
-	--color-steps: color-mix(in srgb, var(--color-base) 50%, rgb(130, 255, 130) 50%);
-	--color-outcomes: color-mix(in srgb, var(--color-base) 50%, rgb(132, 132, 255) 50%);
-
-	/* Relative color definitions */
-	--bg-strong: lch(from var(--color-base) 100% c var(--hue));
-	--bg-default: lch(from var(--color-base) 90% c var(--hue));
-	--bg-muted: lch(from var(--color-base) 80% c var(--hue));
-	--bg-selection: lch(from var(--color-base) 75% c var(--hue));
-	
-	--text-strong: lch(from var(--color-base) 10% c var(--hue));
-	--text-default: lch(from var(--color-base) 20% c var(--hue));
-	--text-muted: lch(from var(--color-base) 40% c var(--hue));
-	--text-interactive: lch(from var(--color-base) 5% c var(--hue));
-	--text-strong: lch(from var(--color-base) 10% c var(--hue));
-	--text-default: lch(from var(--color-base) 20% c var(--hue));
-	--text-muted: lch(from var(--color-base) 40% c var(--hue));
-	--text-interactive: lch(from var(--color-base) 5% c var(--hue));
-	
-	--border-strong: lch(from var(--color-base) 40% c var(--hue));
-	--border-default: lch(from var(--color-base) 60% c var(--hue));
-	--border-muted: lch(from var(--color-base) 80% c var(--hue));
-
-	background: var(--bg-default);
-	color: var(--text-default);
-	--border-strong: lch(from var(--color-base) 40% c var(--hue));
-	--border-default: lch(from var(--color-base) 60% c var(--hue));
-	--border-muted: lch(from var(--color-base) 80% c var(--hue));
-
-	background: var(--bg-default);
-	color: var(--text-default);
-}
-
 @media (prefers-color-scheme: dark) {
-	:root, .theme-default {
-
+	:root {
+		/* Dark color theme is the default when the user prefers dark mode. */
 		--bg-strong: lch(from var(--color-base) 0% c var(--hue));
 		--bg-default: lch(from var(--color-base) 10% c var(--hue));
-		--bg-muted: lch(from var(--color-base) 70% c var(--hue));
+		--bg-muted: lch(from var(--color-base) 20% c var(--hue));
 		--bg-selection: lch(from var(--color-base) 25% c var(--hue));
-		
 		--text-strong: lch(from var(--color-base) 90% c var(--hue));
 		--text-default: lch(from var(--color-base) 80% c var(--hue));
 		--text-muted: lch(from var(--color-base) 60% c var(--hue));
 		--text-interactive: lch(from var(--color-base) 95% c var(--hue));
-		
-		--border-strong: lch(from var(--color-base) 20% c var(--hue));
-		--border-default: lch(from var(--color-base) 60% c var(--hue));
-		--border-muted: lch(from var(--color-base) 20% c var(--hue));
-
-		--bg-strong: lch(from var(--color-base) 0% c var(--hue));
-		--bg-default: lch(from var(--color-base) 10% c var(--hue));
-		--bg-muted: lch(from var(--color-base) 70% c var(--hue));
-		--bg-selection: lch(from var(--color-base) 25% c var(--hue));
-		
-		--text-strong: lch(from var(--color-base) 90% c var(--hue));
-		--text-default: lch(from var(--color-base) 80% c var(--hue));
-		--text-muted: lch(from var(--color-base) 60% c var(--hue));
-		--text-interactive: lch(from var(--color-base) 95% c var(--hue));
-		
-		--border-strong: lch(from var(--color-base) 20% c var(--hue));
-		--border-default: lch(from var(--color-base) 60% c var(--hue));
+		--border-strong: lch(from var(--color-base) 60% c var(--hue));
+		--border-default: lch(from var(--color-base) 40% c var(--hue));
 		--border-muted: lch(from var(--color-base) 20% c var(--hue));
 		/* Dark Elevation */
 		--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
@@ -131,68 +74,88 @@
 	}
 }
 
-html {
-
-}
-
-html {
-
-}
+/* Containers */
 
 body {
-	font-family: var(--font-sans);
+	background: var(--bg-default);
+	color: var(--text-default);
+	font-family: var(--font-serif);
 	font-size: var(--font-md);
 	line-height: 1.45;
 	font-weight: 500;
 }
 
-::selection {
-	background-color: var(--bg-selection);
-	color: var(--text-strong);
-	mix-blend-mode: multiply2;
+#page {
+	padding: 0 var(--spacing-lg);
 }
 
-img {
+#main-content {
+	max-width:var(--spacing-width-lg);
+	margin:0 auto;
+}
+
+.method .hero {
+	display:flex;
+	flex-direction:row;
+	gap:var(--spacing-lg);
+}
+
+.method .title {
+	flex-basis:50%;
+	flex:1;
+	border-top:2px solid var(--border-strong);
+	border-bottom:1px solid var(--border-muted);
+}
+
+.method .image {
+	flex-basis:50%;
+}
+
+.container {
+	position: relative;
 	width: 100%;
-	max-width: 100%;
-	display: flex;
-	background: var(--bg-muted);
+	margin-left: auto;
+	margin-right: auto;
 }
 
-a {
-	color: var(--text-interactive);
-	text-decoration: underline;
-	text-decoration-color: var(--border-default);
-	text-underline-offset: 0.125em;
-	transition: color, opacity, text-decoration, text-decoration-color 67ms ease-in-out;
+/* Left and right margin value should match padding on #page */
+/* This class must be paired with container because of the use of !important */
+.container.--w-full {
+	width: auto;
+	margin-left: calc(-1 * var(--spacing-lg)) !important;
+	margin-right: calc(-1 * var(--spacing-lg)) !important;
 }
 
-a:hover {
-	color: var(--text-interactive);
-	text-decoration-color: var(--text-interactive);
-	opacity: 1;
+.flow>*+* {
+	/* Spaces subsequent children apart */
+	margin-top: var(--spacing-lg);
 }
+
+/* Text Styles */
 
 h1 {
-	font-family: var(--font-sans);
+	font-family: var(--font-serif);
 	font-size: var(--font-2xl);
 	color: var(--text-strong);
-	font-weight: 700;
-	font-variation-settings: "wght" 700;
+	font-weight: 600;
+	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
+	font-variation-settings: "wght" 600;
+	margin:0;
 }
 
 h2 {
-	font-family: var(--font-sans);
+	font-family: var(--font-serif);
 	font-size: var(--font-lg);
 	color: var(--text-default);
-	font-weight: 700;
+	font-weight: 600;
+	font-style: italic;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
 	margin-bottom: var(--spacing-sm);
 	border-top:1px solid var(--border-muted)
 }
 
 h3 {
-	font-family: var(--font-sans);
+	font-family: var(--font-serif);
 	font-size: var(--font-md);
 	color: var(--text-muted);
 	font-weight: 500;
@@ -201,7 +164,7 @@ h3 {
 h4,
 h5,
 h6 {
-	font-family: var(--font-sans);
+	font-family: var(--font-serif);
 	font-size: var(--font-sm);
 	color: var(--text-muted);
 	font-weight: 500;
@@ -209,6 +172,7 @@ h6 {
 
 p {
 	color: var(--text-default);
+	margin: 0;
 	font-size: inherit;
 	font-weight: inherit;
 	letter-spacing: clamp(-0.02em, 1vw + 1rem, -0.02em);
@@ -222,13 +186,24 @@ p a {
 	display: inline-block;
 }
 
-blockquote {
-	font-size: var(--font-lg);
+a {
+	color: var(--text-default);
+	text-decoration: underline;
+	text-decoration-color: var(--border-default);
+	text-underline-offset: 0.125em;
+	transition: color, opacity, text-decoration, text-decoration-color 67ms ease-in-out;
+}
+
+a:hover {
 	color: var(--text-strong);
-	border-left: 1px solid var(--border-default);
-	padding-left: var(--spacing-md);
-	margin: var(--spacing-md) auto;
-	line-height: 1.3;
+	text-decoration-color: var(--border-strong);
+	opacity: 1;
+}
+
+a:visited {
+	color: var(--text-muted);
+	text-decoration-color: var(--border-muted);
+	opacity: 1;
 }
 
 strong,
@@ -241,7 +216,41 @@ em,
 	font-style: italic;
 }
 
-aside {
+::selection {
+	background-color: var(--bg-selection);
+	color: var(--text-strong);
+	mix-blend-mode: multiply2;
+}
+
+/* Blocks */
+
+img {
+	width: 100%;
+	max-width: 100%;
+	display: flex;
+	background: var(--bg-muted);
+}
+
+blockquote {
+	font-size: var(--font-lg);
+	color: var(--text-strong);
+	border-left: 1px solid var(--border-default);
+	padding-left: var(--spacing-md);
+	margin: var(--spacing-md) auto;
+	line-height: 1.3;
+}
+
+figure {
+	width: 100%;
+	margin: 0;
+	figcaption {
+	  color: var(--gray-text);
+	  padding-top: 0.5rem;
+	}
+  }
+
+aside,
+.aside {
 	font-size: var(--font-md);
 	color: var(--text-default);
 	border-left: 1px solid var(--border-default);
@@ -259,58 +268,142 @@ aside {
 	margin: 0 auto;
 }
 
-/* Font Family */
+.tooltip {
+	position: absolute;
+	padding: 8px;
+	background: var(--primary-500);;
+	color: white;
+	border-radius: 4px;
+	pointer-events: none;
+	display: none;
+  }
 
-ol li:not(:last-child) {
+label,
+.label {
+  font-size: var(--font-sm);
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-weight:600;
+}
+
+.nav  {
+	padding:0.5rem 0;
+}
+	
+.nav a:not(:hover) {
+	text-decoration:none;
+}
+
+.theme-control {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+
+
+/* Lists */
+
+ol {
+	list-style: none;
+	counter-reset: steps-counter;
+	margin-top:var(--spacing-md);
+  }
+  
+  ol li {
+	counter-increment: steps-counter;
+	/* display: flex; */
+	flex-direction:row;
+	gap:var(--spacing-sm);
+	padding-left:var(--spacing-lg);
+	position:relative;
+	padding-bottom:var(--spacing-xs);
+  }
+  
+  ol li::before {
+	content: counter(steps-counter);
+	border:0.1em solid var(--text-default);
+	border-radius:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	flex-basis:auto;
+	width:var(--spacing-md);
+	height:var(--spacing-md);
+  }
+
+  ol li:not(:last-child) {
 	margin-bottom: var(--spacing-sm);
 }
 
-blockquote {
-	font-size: var(--font-lg);
-	color: var(--text-strong);
-	border-left: 1px solid var(--border-default);
-	padding-left: var(--spacing-md);
-	margin: var(--spacing-md) auto;
-	line-height: 1.3;
-}
+/* Buttons */
+/* The colors for these need to be abstracted a bit to be more adaptable between dark and light mode */
+/*  later note: not sure if this is till true */
 
-strong,
-.--font-strong {
-	font-weight: 800;
-}
-
-em,
-.--font-emphasis {
-	font-style: italic;
-}
-
-aside {
-	font-size: var(--font-md);
-	color: var(--text-default);
-	border-left: 1px solid var(--border-default);
-	padding-left: var(--spacing-md);
-	margin: var(--spacing-md) 0;
-	font-style: italic;
-}
-
-.caption {
-	display: block;
+.button {
+	cursor: pointer;
+	display: inline-flex;
+	background: var(--text-strong);
+	color: var(--bg-strong);
 	font-size: var(--font-sm);
+	padding: var(--spacing-sm) var(--spacing-lg);
+	border-radius: var(--spacing-2xl);
+}
+
+.button:hover {
+	filter: brightness(90%);
+}
+
+@media (prefers-color-scheme: dark) {
+	.button:hover {
+		filter: brightness(120%);
+	}
+}
+
+.button.--sm {
+	font-size: var(--font-sm);
+	padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.button.--lg {
+	font-size: var(--font-lg);
+	padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+.button.--strong {
+	background: var(--text-strong);
+	color: var(--bg-strong);
+}
+
+.button.--muted {
+	background: var(--bg-default);
+	color: var(--text-default);
+	border: 1px solid var(--border-muted);
+}
+
+.button.--error {
+	background: var(--bg-default);
+	color: var(--text-interactive);
+	border: 1px solid var(--border-muted);
+}
+
+.button.--disabled {
+	cursor: not-allowed;
+	background: var(--bg-muted);
 	color: var(--text-muted);
-	padding-top: var(--spacing-xs);
-	max-width: var(--spacing-width-md);
-	margin: 0 auto;
+	filter: none;
 }
 
 /* Font Family */
 
-.--font-sans,
-.--font-default {
+.--font-sans {
 	font-family: var(--font-sans);
 }
 
-.--font-serif,
-.--font-alternate {
+.--font-serif {
 	font-family: var(--font-serif);
 }
 
@@ -427,21 +520,7 @@ hr,
 	box-shadow: var(--shadow-lg);
 }
 
-/* Rounded */
-
-.--rounded-sm {
-	border-radius: var(--spacing-xs);
-}
-
-.--rounded-md {
-	border-radius: var(--spacing-sm);
-}
-
-.--rounded-lg {
-	border-radius: var(--spacing-md);
-}
-
-/* Layout */
+/* Max Widths */
 
 .--w-xs {
 	max-width: var(--spacing-width-xs, 20rem);
@@ -453,14 +532,6 @@ hr,
 
 .--w-xl {
 	max-width: var(--spacing-width-xl, 50rem);
-}
-
-/* Left and right margin value should match padding on #page */
-/* This class must be paired with container because of the use of !important */
-.container.--w-full {
-	width: auto;
-	margin-left: calc(-1 * var(--spacing-lg)) !important;
-	margin-right: calc(-1 * var(--spacing-lg)) !important;
 }
 
 /* Padding is used for utility spacing instead of margin because it doesn't interfere with auto margins, which are used in other layout classes.*/
