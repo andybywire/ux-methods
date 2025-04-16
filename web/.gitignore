@@ -10,6 +10,8 @@
 
 # Dotenv and similar local-only files
 *.local
+_data/fallback-data/
+_data/fallback-data/**
 
 # Static site
 _site
