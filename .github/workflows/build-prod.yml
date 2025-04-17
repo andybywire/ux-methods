@@ -59,14 +59,6 @@ jobs:
         env:
           NODE_ENV: production
           KG_AUTH: ${{ secrets.KG_AUTH }}
-        continue-on-error: false
-
-      - name: Check for KG fallback usage
-        run: |
-          if grep -q "Using fallback data" web/_site/index.html; then
-            echo "WARNING: Using fallback KG data" >> $GITHUB_STEP_SUMMARY
-            echo "::warning::Using fallback KG data"
-          fi
 
       - name: Verify build
         run: ls -la ./_site
@@ -78,22 +70,6 @@ jobs:
           echo "${{ secrets.DO_UXM_PROD_SSH_KEY }}" > ~/.ssh/do_uxm_prod
           sudo chmod 600 ~/.ssh/do_uxm_prod
           ssh-keyscan -H "24.199.98.130" > ~/.ssh/known_hosts
-
-      - name: Manage fallback data directory
-        run: |
-          # Create directory if it doesn't exist
-          ssh -i ~/.ssh/do_uxm_prod prod@24.199.98.130 "mkdir -p /var/www/uxm/fallback-data"
-          
-          # Keep only the 2 most recent backup files
-          ssh -i ~/.ssh/do_uxm_prod prod@24.199.98.130 "ls -t /var/www/uxm/fallback-data/kg-data-*.json | tail -n +3 | xargs -r rm"
-
-      - name: Upload fallback data
-        run: |
-          if [ -f "web/_data/fallback-data/kg-data.json" ]; then
-            # Add timestamp to filename to keep history
-            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-            scp -i ~/.ssh/do_uxm_prod web/_data/fallback-data/kg-data.json prod@24.199.98.130:/var/www/uxm/fallback-data/kg-data-${TIMESTAMP}.json
-          fi
 
       - name: Clean & FTP Upload
         run: |
