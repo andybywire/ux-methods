@@ -4,7 +4,8 @@ on:
   push:
     paths: 
       - 'studio/**'
-  workflow_dispatch: 
+  workflow_dispatch:
+  repository_dispatch: 
 
 jobs:
   build-and-deploy:
