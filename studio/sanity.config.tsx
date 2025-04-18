@@ -6,6 +6,7 @@ import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
 import {schemaTypes} from './schemaTypes'
+import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
 // import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
 
 const hiddenDocTypes = (listItem: any) =>
@@ -60,6 +61,7 @@ export default defineConfig({
     taxonomyManager({
       baseUri: 'https://uxmethods.org/',
     }),
+    embeddingsIndexDashboard(),
   ],
 
   schema: {
