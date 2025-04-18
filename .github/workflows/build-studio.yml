@@ -30,7 +30,7 @@ jobs:
         working-directory: studio
 
       - name: Extract Studio Manifest
-        run: sanity manifest extract --output studio/dist/static
+        run: npx sanity manifest extract --output studio/dist/static
         working-directory: studio
 
       - name: Set Up SSH
