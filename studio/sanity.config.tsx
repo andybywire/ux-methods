@@ -65,11 +65,4 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-  document: {
-    comments: {
-      enabled: false,
-    },
-  },
-  tasks: {enabled: false},
-  scheduledPublishing: {enabled: false},
 })
