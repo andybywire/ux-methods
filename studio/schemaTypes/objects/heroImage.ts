@@ -6,6 +6,9 @@ export default defineType({
   title: 'Image',
   options: {
     hotspot: true,
+    aiAssist: {
+      imageDescriptionField: 'alt',
+    },
   },
   fields: [
     defineField({
@@ -15,10 +18,11 @@ export default defineType({
     }),
     defineField({
       name: 'alt',
-      type: 'string',
+      type: 'text',
       title: 'Alternative text',
       description:
         'Alternative (Alt) Text communicates the meaning of a non-decorative image relative to its document context. Leave blank for decorative images.',
+      rows: 2,
     }),
   ],
   preview: {

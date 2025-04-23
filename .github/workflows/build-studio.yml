@@ -4,12 +4,13 @@ on:
   push:
     paths: 
       - 'studio/**'
-  workflow_dispatch: 
+  workflow_dispatch:
+  repository_dispatch: 
 
 jobs:
   build-and-deploy:
     name: Build & Deploy Sanity Studio
-    if: ${{ github.ref == 'refs/heads/studio-v3' }}
+    if: ${{ github.ref == 'refs/heads/studio' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -26,6 +27,10 @@ jobs:
 
       - name: Build Studio
         run: npx sanity build --no-auto-updates
+        working-directory: studio
+
+      - name: Extract Studio Manifest
+        run: npx sanity manifest extract --output studio/dist/static
         working-directory: studio
 
       - name: Set Up SSH
