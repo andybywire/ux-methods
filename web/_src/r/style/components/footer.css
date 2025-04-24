@@ -11,6 +11,9 @@ footer p {
 }
 
 footer {
+  max-width: var(--spacing-width-md);
+  margin-right: auto;
+  margin-left: auto;
 	border-top: 1px solid var(--border-muted);
 	padding-top: var(--spacing-sm);
 	padding-bottom: var(--spacing-2xl);
@@ -20,6 +23,12 @@ footer {
 footer p {
 	font-size: var(--font-sm);
 	color: var(--text-muted);	
+}
+
+footer .social svg {
+  width: 3rem;
+  height: auto;
+  padding-right: 1rem;
 }
 
 

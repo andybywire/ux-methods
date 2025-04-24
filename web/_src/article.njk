@@ -6,16 +6,17 @@ pagination:
   size: 1
 permalink: /{{ resource.slug }}/index.html
 ---
-<article class="article">
-  <div class="hero">
+<article class="article container">
+  {# This image is currently not used in the article layout #}
+  {# <div class="hero">
     {% responsiveHero resource.heroImage, 50, 0.5625 %}
-  </div>
+  </div> #}
 
   <div class="header">
     <h1>{{ resource.title }}</h1>
   </div>
 
-  <div class="body">
+  <div class="prose content">
     {{ resource.body | safe }}
   </div>
 </article>

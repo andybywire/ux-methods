@@ -6,14 +6,14 @@ pagination:
   size: 1
 permalink: /discipline/{{ resource.slug }}/index.html
 ---
-<article class="discipline">
-  <section class="overview discipline">
+<article class="discipline container">
+  <section class="overview">
     <div class="hero">
       {% responsiveHero resource.heroImage,
       50,
       0.5625 %}
     </div>
-    <div class="discipline-summary">
+    <div class="summary">
       <div class="header">
         <h1>
           <span>{{ resource.title }}</span>
