@@ -29,6 +29,7 @@ import urlFor from '../../utils/imageUrl.js'
  *  the resource.
  * @param {string} [size='compact-card'] - The size of the card. 
  *  Defaults to 'compact-card'.
+ *   - 'chip': Uses the smallest image size (50px max width).
  *   - 'compact-card': Uses a smaller image size (125px max width).
  *   - 'full-card': Uses a larger image size (375px max width).
  * 
@@ -37,13 +38,17 @@ import urlFor from '../../utils/imageUrl.js'
 export default (resource, size = 'compact-card') => {
   const image = resource.heroImage
   const srcset = 
-    size == 'compact-card' // if size is compact-card, use smaller image sizes
-      ? [125, 250] // compact card image sizes (max-width: 125px)
-      : [375, 750] // full card image sizes (max-width: 375px)
+    size == 'chip'
+      ? [50, 100] // chip card image sizes (max-width: 50px)
+      : size == 'compact-card'
+        ? [125, 250] // compact card image sizes (max-width: 125px)
+        : [375, 750] // full card image sizes (max-width: 375px)
   const sizes =
-    size == 'compact-card'
-      ? '125px' // compact card image max width
-      : '375px' // full card max width
+    size == 'chip'
+      ? '50px' // chip card image max width
+      : size == 'compact-card'
+        ? '125px' // compact card image max width
+        : '375px' // full card max width
   const srcSetContent = srcset
     .map((size) => {
       const url = urlFor(resource.heroImage).width(size).height(size).auto('format').url()
@@ -51,7 +56,25 @@ export default (resource, size = 'compact-card') => {
     })
     .join(',')
 
-  return `<li class="card ${size}">
+  if (size === "chip") {
+    return `<li class="chip" data-slug="${resource.slug}">
+              <a href="/${resource.type}/${resource.slug}/">
+                <h3>${resource.title}</h3>
+                <div class="tooltip">
+                  <img src="${urlFor(image).width(srcset[0])}"
+                    srcset="${srcSetContent}"
+                    sizes="${sizes}"
+                    max-width="${srcset[0]}"
+                    max-height="${srcset[0]}"
+                    loading="lazy"
+                    alt="${image.altText}">
+                  <p>${resource.metaDescription}</p>
+                </div>
+              </a>
+            </li>`;
+  }
+
+  return `<li class="card ${size}" data-slug="${resource.slug}">
           <a href="/${resource.type}/${resource.slug}/">
             <img src="${urlFor(image).width(srcset[0])}"
               srcset="${srcSetContent}"

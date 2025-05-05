@@ -30,28 +30,28 @@
 	/* Base Color */
 	/* Every other color is based these values. Modifying these will change every color */
 	--lightness: 50%;
-	--chroma: 0.075;
-	--hue: 100;
+	--chroma: 0.1;
+	--hue: 230;
 	--color-base: oklch(var(--lightness) var(--chroma) var(--hue));
 }
 /*  Light / Dark mode matchesthe user's system preference. There is purposefully no control here to change between modes - we'll just match the system. */
 :root {
 	/* Light color theme is default when the user prefers light mode or has no preference. */
-	--bg-strong: oklch(from var(--color-base) 100% 0.0125 var(--hue));
-	--bg-default: oklch(from var(--color-base) 90% c var(--hue));
-	--bg-muted: oklch(from var(--color-base) 80% c var(--hue));
-	--bg-selection: oklch(from var(--color-base) 75% c var(--hue));
-	--text-strong: oklch(from var(--color-base) 5% c var(--hue));
-	--text-default: oklch(from var(--color-base) 25% c var(--hue));
-	--text-muted: oklch(from var(--color-base) 45% c var(--hue));
+	--bg-strong: oklch(from var(--color-base) 100% calc(var(--chroma) * 0.5) var(--hue));
+	--bg-default: oklch(from var(--color-base) 96% c var(--hue));
+	--bg-muted: oklch(from var(--color-base) 75% calc(var(--chroma) * 0.75) var(--hue));
+	--bg-selection: oklch(from var(--color-base) 75% calc(var(--chroma) * 0.75) var(--hue));
+	--text-strong: oklch(from var(--color-base) 16% c var(--hue));
+	--text-default: oklch(from var(--color-base) 28% calc(var(--chroma) * 0.75) var(--hue));
+	--text-muted: oklch(from var(--color-base) 45% calc(var(--chroma) * 0.5)  var(--hue));
 	--text-interactive: oklch(from var(--color-base) 5% c var(--hue));
-	--border-strong: oklch(from var(--color-base) 40% 0.0125 var(--hue));
-	--border-default: oklch(from var(--color-base) 60% c var(--hue));
-	--border-muted: oklch(from var(--color-base) 80% c var(--hue));
+	--border-strong: var(--text-strong);
+	--border-default: oklch(from var(--color-base) 75% calc(var(--chroma) * 0.6) var(--hue));
+	--border-muted: oklch(from var(--color-base) 90% calc(var(--chroma) * 0.9) var(--hue));
 	/* Light Elevation */
-	--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
-	--shadow-md: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
-	--shadow-lg: 0px 16px 24px -16px rgba(0, 0, 0, 0.2);
+	--shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 @media (prefers-color-scheme: dark) {
 	:root {
@@ -64,9 +64,9 @@
 		--text-default: oklch(from var(--color-base) 95% c var(--hue));
 		--text-muted: oklch(from var(--color-base) 70% c var(--hue));
 		--text-interactive: oklch(from var(--color-base) 95% c var(--hue));
-		--border-strong: oklch(from var(--color-base) 60% c var(--hue));
-		--border-default: oklch(from var(--color-base) 40% c var(--hue));
-		--border-muted: oklch(from var(--color-base) 20% c var(--hue));
+		--border-strong: oklch(from var(--color-base) 85% c var(--hue));
+		--border-default: oklch(from var(--color-base) 65% c var(--hue));
+		--border-muted: oklch(from var(--color-base) 50% c var(--hue));
 		/* Dark Elevation */
 		--shadow-sm: 0px 8px 12px -16px rgba(0, 0, 0, 0.5);
 		--shadow-md: 0px 12px 16px -18px rgba(0, 0, 0, 0.2);
@@ -96,6 +96,41 @@ body {
 main {
 	padding-left: var(--spacing-lg);
 	padding-right: var(--spacing-lg);
+}
+
+article {
+	font-size: var(--font-lg);
+}
+
+
+.container {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+
+	article& {
+		max-width: var(--spacing-width-md);
+	}
+
+	article& > * + * {
+		/* Spaces subsequent children apart */
+		margin-block-start: var(--spacing-xl);
+	}
+}
+
+.flow > * + * {
+	/* Spaces subsequent children apart */
+	margin-block-start: var(--spacing-md);
+}
+
+.flow-tight > * + * {
+	/* Spaces subsequent children apart */
+	margin-block-start: var(--spacing-sm);
+}
+
+.flow-loose > * + * {
+	/* Spaces subsequent children apart */
+	margin-block-start: var(--spacing-lg);
 }
 
 /* Main Navigation */
@@ -148,15 +183,6 @@ nav,
 	color: var(--text-strong);
 	border-bottom: 2px solid var(--border-strong);
 }
-
-.nav-item.--first {
-	margin-right: auto;
-}
-
-.nav-item.--last {
-	margin-left: auto;
-}
-
 .nav-item-content {
 	display: inline-block;
 	padding: var(--spacing-sm) 0;
@@ -194,37 +220,6 @@ nav,
 	display:none;
 }
 
-
-.container {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-
-	article& {
-		max-width: var(--spacing-width-md);
-	}
-
-	article& > * + * {
-		/* Spaces subsequent children apart */
-		margin-block-start: var(--spacing-md);
-	}
-}
-
-.flow > * + * {
-	/* Spaces subsequent children apart */
-	margin-block-start: var(--spacing-md);
-}
-
-.flow-tight > * + * {
-	/* Spaces subsequent children apart */
-	margin-block-start: var(--spacing-sm);
-}
-
-.flow-loose > * + * {
-	/* Spaces subsequent children apart */
-	margin-block-start: var(--spacing-lg);
-}
-
 .section-nav {
 	/* display: flex;
 	flex-direction: row;
@@ -259,7 +254,7 @@ h1 {
 	font-size: var(--font-xl);
 	color: var(--text-strong);
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.02em);
-	font-weight: 600;
+	font-weight: 500;
 	margin:0;
 	margin-top: var(--spacing-sm);
 }
@@ -267,20 +262,23 @@ h1 {
 h2 {
 	font-size: var(--font-lg);
 	color: var(--text-strong);
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.05em);
 	margin-top: var(--spacing-lg);
 	margin-bottom: var(--spacing-sm);
 
 	hr + & {
-		margin-top: var(--spacing-sm);
+		margin-top: var(--spacing-xs);
 	}
 }
 
 h3 {
 	font-size: var(--font-md);
-	color: var(--text-default);
-	font-weight: 600;
+	font-weight: 500;
+
+	hr + & {
+		margin-top: var(--spacing-xs);
+	}
 }
 
 h4,
@@ -288,17 +286,16 @@ h5,
 h6 {
 	font-size: var(--font-sm);
 	color: var(--text-muted);
-	font-weight: 600;
+	font-weight: 500;
 }
 
-p, li {
+p {
 	color: var(--text-default);
 	margin: 0;
-	line-height:1.4;
-	font-size: var(--font-lg);
+	line-height:1.3;
 	letter-spacing: -0.015em;
 	font-weight: inherit;
-	hyphens: auto;
+	hyphens: manual;
 	hanging-punctuation: first last;
 	list-style-position: outside;
 	font-feature-settings: 'pnum' on, 'onum' on;
@@ -308,24 +305,23 @@ p+p:not(.label) {
 	margin-top: var(--spacing-sm);
 }
 
-p a {
-	display: inline-block;
+.prose p+p:not(.label) {
+	text-indent: var(--spacing-lg);
+	margin-top: 0;
 }
 
 /* Links */
 
 a {
-	color: var(--text-strong);
+	color: inherit;
 	text-decoration: underline;
 	text-decoration-color: var(--border-default);
 	text-underline-offset: 0.1em;
-	text-decoration-thickness: 1px;
-	transition: color, opacity, text-decoration, text-decoration-color 67ms ease-in-out;
+	text-decoration-thickness: 0.05em;
 }
 
 a:visited {
-	color: var(--text-default);
-	text-decoration-color: var(--border-default);
+	text-decoration-color: inherit;
 	opacity: 1;
 }
 
@@ -333,6 +329,7 @@ a:hover {
 	color: var(--text-strong);
 	text-decoration-color: var(--border-strong);
 	opacity: 1;
+	text-decoration-thickness: 0.075em;
 }
 
 strong,
@@ -371,11 +368,10 @@ img {
 	width: 100%;
 	max-width: 100%;
 	display: flex;
-	background: var(--bg-muted);
+	/* background: var(--bg-muted); */
 }
 
 blockquote {
-	font-size: var(--font-lg);
 	color: var(--text-strong);
 	border-left: 1px solid var(--border-default);
 	padding-left: var(--spacing-md);
@@ -412,13 +408,13 @@ aside,
 
 .theme-control {
 	position: fixed;
-	bottom: 20px;
-	right: 20px;
+	bottom: 0;
+	right: 0;
 	background: var(--bg-default);
 	padding: var(--spacing-md);
-	border: 1px solid var(--border-default);
-	border-radius: 8px;
-	box-shadow: var(--shadow-md);
+	/* border: 1px solid var(--border-muted); */
+	/* border-radius: 2px; */
+	/* box-shadow: var(--shadow-md); */
 	z-index: 1000;
 	display: flex;
 	flex-direction: column;
@@ -434,6 +430,10 @@ aside,
 .theme-control label {
 	display: block;
 	color: var(--text-default);
+	font-family: var(--font-sans);
+	font-size: var(--font-xs);
+	font-weight: 500;
+	font-variant-numeric: oldstyle-nums;
 }
 
 .theme-control input[type="range"] {
@@ -473,35 +473,126 @@ aside,
 	color: var(--text-muted);
 }
 
-/* Lists */
-ul, ol {
-	list-style-type: none;
-}
-
-.content ol {
-	list-style-type: decimal;
-}
-
-.prose li {
-	font-weight:425;
-	color: var(--text-strong);
-}
+/* All Lists */
 
 .content ul, 
 .content ol {
-	margin-top: var(--spacing-sm);
+	margin-top: var(--spacing-md);
 	margin-bottom: var(--spacing-lg);
 }
 
-.content ul li::before {
-	content: "\21A3";
-	position: absolute;
-	left: calc(-1 * var(--spacing-md));
-	color: var(--text-muted);
+.content li:not(:last-child) {
+	margin-bottom: var(--spacing-md);
 }
 
-.content li:not(:last-child) {
-	margin-bottom: var(--spacing-sm);
+/* Unordered Lists */
+ul {
+	list-style-type: disc;
+	position: relative;
+}
+
+.content ul li {
+	line-height:1.3;
+	list-style-type: none;
+	position: relative;
+	padding-left: var(--spacing-lg);
+}
+
+.content ul li::before {
+	content: "\2015";
+	position: absolute;
+	left: 0;
+	color: var(--text-default);
+}
+
+/* Ordered Lists */
+
+ol {
+	list-style-type: decimal;
+	position: relative;
+}
+
+.content ol li {
+	line-height:1.3;
+	list-style-type: none;
+	position: relative;
+	padding-left: var(--spacing-lg);
+	counter-increment: list-counter;
+}
+
+.content ol li::before {
+	content: counter(list-counter) ".";
+	position: absolute;
+	left: 0;
+	font-feature-settings: "tnum";
+	font-variant-numeric: tabular-nums;
+}
+
+
+.content ul li.resource-ext {
+padding-left:0;
+
+	&:before {
+		content:"";
+		position: absolute;
+		left: 0;
+		width: var(--spacing-md);
+		height: var(--spacing-md);
+		/* background-image: url('/r/img/icon/Document.svg'); */
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-size: contain;
+		fill: var(--text-muted);
+	}
+
+
+	.image {
+		display:none;
+	}
+
+	img {
+		width:1.3em;
+		height:1.3em;
+		aspect-ratio: 1/1;
+		object-fit: contain;
+		border-radius: 2px;
+	}
+
+	a {
+		text-decoration: none;
+		display:flex;
+		flex-direction: row;
+		gap: var(--spacing-xs);
+	}
+
+	.title {
+		text-decoration: underline;
+		text-decoration-color: var(--border-default);
+		text-decoration-thickness: 0.05em;
+		font-feature-settings: "tnum";
+		font-variant-numeric: tabular-nums;
+	}
+
+	&:hover .title {
+		text-decoration-color: var(--border-strong);
+		text-decoration-thickness: 0.075em;
+	}
+	
+
+	.byline {
+		text-decoration: none;
+	}
+}
+
+
+#metadata ol {
+	margin:0;
+}
+
+#metadata ol li {
+	padding-left: var(--spacing-md);
+	font-size: var(--font-sm);
+	margin:0;
 }
 
 /* Buttons */
@@ -576,23 +667,23 @@ ul, ol {
 
 .--text-sm {
 	font-size: var(--font-sm);
-	line-height: 125%;
+	line-height: 1.3;
 }
 
 .--text-md {
 	font-size: var(--font-md);
-	line-height: 125%;
+	line-height: 1.3;
 }
 
 .--text-lg {
 	font-size: var(--font-lg);
-	line-height: 125%;
+	line-height: 1.3;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.06em);
 }
 
 .--text-xl {
 	font-size: var(--font-xl);
-	line-height: 125%;
+	line-height: 1.3;
 	letter-spacing: clamp(0em, 1vw + 1rem, -0.03em);
 }
 
@@ -621,15 +712,15 @@ ul, ol {
 }
 
 .--leading-tight {
-	line-height: 1.25;
+	line-height: 1.15;
 }
 
 .--leading-default {
-	line-height: 1.45;
+	line-height: 1.3;
 }
 
 .--leading-loose {
-	line-height: 1.65;
+	line-height: 1.5;
 }
 
 /* Background Color */
@@ -651,9 +742,7 @@ ul, ol {
 hr,
 .rule {
 	border:none;
-	border-top: 1px double var(--border-muted);
-	/* For retina screens */
-	transform: scaleY(0.5);
+	border-top: 1px double var(--border-default);
 }
 
 .--border-muted {
@@ -669,7 +758,7 @@ hr,
 }
 
 hr.--border-strong {
-	border-top: 2px solid var(--border-strong);
+	border-top: 3px solid var(--border-strong);
 	transform: scaleY(1);
 }
 
@@ -868,3 +957,25 @@ hr.--border-strong {
 	padding-bottom: var(--spacing-2xl);
 	padding-top: var(--spacing-2xl);
 }
+
+/* Margin resets */
+/* While we avoid margin utltily classes otherwise, clearing the margin is useful for custom-fitting typography */
+
+.--mt-0 {
+	margin-top: 0 !important;
+}
+
+.--mb-0 {
+	margin-bottom: 0 !important;
+}
+
+.chip-line {
+  transition: x1 0.3s cubic-bezier(0, 0.55, 0.45, 1), y1 0.3s cubic-bezier(0, 0.55, 0.45, 1);
+}
+
+.dragging .chip-line {
+  transition: none;
+}
+
+
+

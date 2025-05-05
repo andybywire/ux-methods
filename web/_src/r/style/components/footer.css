@@ -1,23 +1,12 @@
-footer {
-	border-top: 1px solid var(--border-muted);
-	padding-top: var(--spacing-sm);
-	padding-bottom: var(--spacing-2xl);
-	margin-top: var(--spacing-2xl);
-}
-
-footer p {
-	font-size: var(--font-sm);
-	color: var(--text-muted);	
-}
 
 footer {
   max-width: var(--spacing-width-md);
   margin-right: auto;
   margin-left: auto;
-	border-top: 1px solid var(--border-muted);
-	padding-top: var(--spacing-sm);
 	padding-bottom: var(--spacing-2xl);
 	margin-top: var(--spacing-2xl);
+  border-top: 1px solid var(--border-muted);
+  padding-top: var(--spacing-sm);
 }
 
 footer p {

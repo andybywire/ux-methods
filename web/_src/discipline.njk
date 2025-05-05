@@ -28,7 +28,7 @@ permalink: /discipline/{{ resource.slug }}/index.html
 </section>
 <section>
   <h2>{{ resource.title | safe }} Methods</h2>
-  <ul class="grid">
+  <ul class="cards">
     {% for method in resource.methods %}
       {% resourceCard method, "full-card"%}
     {% endfor %}

@@ -41,8 +41,14 @@ export default (resource) => {
           ? author
           : 'External Link' // fallback for missing author/publisher
 
-  return `<li class="card compact-card resource">
+  return `<li class="resource-ext">
             <a href="${resourceUrl}">
+            <img src="/r/img/icon/Document.svg"
+                width="21"
+                height="26"
+                alt="Document icon"
+                class="icon"
+              >
               <img src="${image}"
                 srcset="${srcSetContent}"
                 sizes="${sizes}"
@@ -50,11 +56,12 @@ export default (resource) => {
                 max-height="${srcset[0]}"
                 loading="lazy"
                 alt="${altText}"
+                class="image"
               >
-              <div>
-                <h3>${title}</h3>
-                <p>
-                  <span class="byline">${byline}</span>
+              <div class="content">
+                <p class="title">${title}</p>
+                <p class="--mt-0">
+                  <span class="--font-emphasis --text-muted --text-md">${byline}</span>
                   <span class="icon"></span>
                 </p>
               </div>

@@ -43,7 +43,7 @@ permalink: /method/{{ resource.slug }}/index.html
         <p>
           <span>{{ resource.metaDescription }}</span>
         </p>
-        <p class="caption">
+        <p class="caption --text-md">
           <span>Updated {{ resource.dateStamps.revisedAt | default(resource.dateStamps.createdAt) }}</span>
         </p>
       </div>
@@ -68,66 +68,88 @@ permalink: /method/{{ resource.slug }}/index.html
           <li><a href="#metadata">References</a></li>
         </ul>
       </div> #}
-      <div>
+      <div class="prose">
         {{ resource.overview | safe }}
       </div>
     </div>
   </section>
 {% if resource.prepareMethods | length > 0 %}
   <section id="preparation">
-    <div class="grid-title">
+    <div class="title">
       <hr />
       <h2>Preparation</h2>
     </div>
-    <div class="grid-content">
+    <div class="flow">
       <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
-      <ul class="grid">
+      <ul class="chips">
         {% for method in resource
           .prepareMethods
           .slice(0, 6) %}
-          {% resourceCard method %}
+          {% resourceCard method, "chip" %}
         {% endfor %}
       </ul>
     </div>
   </section>
 {% endif %}
+  <section id="network-graph">
+    <div class="title">
+      <hr />
+      <h2>Graph</h2>
+    </div>
+    <div class="graph no-transition">
+      <svg class="network-connections" width="100%" height="100%"></svg>
+      <ul class="chips">
+        {% for method in resource
+          .prepareMethods
+          .slice(0, 6) %}
+          {% resourceCard method, "chip" %}
+        {% endfor %}
+        <li class="chip this" data-slug="{{ resource.slug }}">
+          <a href="{{ resource.uri }}">
+            <h3>{{ resource.title }}</h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <section id="steps">
     <div class="grid">
-      <div class="grid-title">
+      <div class="title">
         <hr class="--border-strong" />
         <h2>Steps</h2>
       </div>
       <div class="content">
-        <span class="--text-lg">
+        <span>
         {{ resource.steps | safe }}
         </span>
       </div>
     </div>
   </section>
   <section id="outcomes">
-      <div class="grid-title">
+      <div class="title">
         <hr />
         <h2>Outcomes</h2>
       </div>
-      <div class="grid-content">
+      <div class="content">
         <p>{{ resource.title }} typically produces insight and solutions focused on these areas:</p>
         <ul>
         {% for outcome in resource.outcomes %}
           <li>
-            <h3>{{ outcome.prefLabel }}</h3>
-            <p>{{ outcome.definition }}</p>
+            <p>{{ outcome.prefLabel }}</p>
+            <p class="--font-emphasis --mt-0">{{ outcome.definition }}</p>
           </li>
         {% endfor %}
       </ul>
   </section>
 {% if resource.resources | length > 0 %}
   <section id="resources">
-    <div class="grid-title">
+    <div class="title">
       <hr />
       <h2>Resources</h2>
     </div>
-    <div class="grid-content">
-      <ul class="">
+    <div class="content">
+      <ul>
         {% for resource in resource
           .resources
           .slice(0, 6) %}
@@ -139,12 +161,12 @@ permalink: /method/{{ resource.slug }}/index.html
 {% endif %}
 {% if resource.continueMethods | length > 0 %}
   <section id="next-steps">
-    <div class="grid-title">
+    <div class="title">
       <hr />
       <h2>Next Steps</h2>
     </div>
     <div class="grid-content">
-      <ul class="">
+      <ul class="cards">
         {% for method in resource
           .continueMethods
           .slice(0, 6) %}
@@ -156,10 +178,10 @@ permalink: /method/{{ resource.slug }}/index.html
 {% endif %}
   <section id="metadata">
     <div class="grid-title">
-      <hr />
-      <h2>References</h2>
+      <hr class="--border-muted"/>
+      <h3>References</h3>
     </div>
-    <div class="grid-content">
+    <div class="content">
       {% if resource.stepSources %}
         <ol>
         {% for citation in resource.stepSources %}
@@ -170,6 +192,6 @@ permalink: /method/{{ resource.slug }}/index.html
         </ol>
       {% endif %}
     </div>
-    <p class="caption datestamp">{{resource.title}} Method details last edited on {{ resource.dateStamps.revisedAt | default(resource.dateStamps.createdAt) }}</p>
+    <p class="caption datestamp">{{resource.title}} method details last edited on {{ resource.dateStamps.revisedAt | default(resource.dateStamps.createdAt) }}</p>
   </section>
 </article>

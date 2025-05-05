@@ -1,32 +1,16 @@
 <div class="theme-control">
     <div class="theme-control-group">
     <label for="color-toggle">Color Mode</label>
-    <button id="color-toggle" class="button --sm" aria-pressed="true">On</button>
+    <button id="color-toggle" class="button --sm" aria-pressed="false">Off</button>
   </div>
   <div class="theme-control-group" id="hue-control">
-    <label for="hue-slider">Hue: <span id="hue-value">100</span>°</label>
-    <input type="range" id="hue-slider" min="0" max="360" value="100" step="1">
+    <label for="hue-slider">Hue: <span id="hue-value">var(--hue)</span>°</label>
+    <input type="range" id="hue-slider" min="0" max="360" value="150" step="1">
   </div>
-
+  <div class="theme-control-group" id="chroma-control">
+    <label for="chroma-slider">Chroma: <span id="chroma-value">10</span>%</label>
+    <input type="range" id="chroma-slider" min="0" max="0.25" value="0.1" step="0.01">
+  </div>
 </div>
 
-<script>
-  const hueSlider = document.getElementById('hue-slider');
-  const hueValue = document.getElementById('hue-value');
-  const colorToggle = document.getElementById('color-toggle');
-  const hueControl = document.getElementById('hue-control');
-  
-  hueSlider.addEventListener('input', (e) => {
-    const value = e.target.value;
-    document.documentElement.style.setProperty('--hue', value);
-    hueValue.textContent = value;
-  });
-
-  colorToggle.addEventListener('click', (e) => {
-    const isPressed = e.target.getAttribute('aria-pressed') === 'true';
-    e.target.setAttribute('aria-pressed', !isPressed);
-    e.target.textContent = isPressed ? 'Off' : 'On';
-    document.documentElement.style.setProperty('--chroma', isPressed ? '0' : '0.075');
-    hueControl.style.display = isPressed ? 'none' : 'flex';
-  });
-</script> 
+<script src="/r/js/theme-control.js"></script> 

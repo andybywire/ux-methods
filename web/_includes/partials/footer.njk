@@ -1,15 +1,15 @@
 <footer>
-  <section>
+  <section class="flow">
     <div class="overview">
-      <h1>{{ metadata.title }}</h1>
+      {# <h3>{{ metadata.title }}</h3> #}
       {{ metadata.overview | safe }}
     </div>
     <div class="social">
-      <h1>Share This Project</h1>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.uxmethods.org/" target="_blank" rel="noopener">
+      <h3 class="--text-muted --pb-sm">Share This Project</h3>
+      <a class="--text-muted" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.uxmethods.org/" target="_blank" rel="noopener">
         {% include 'icons/linkedIn.svg' %}
       </a>
-      <a href="https://bsky.app/intent/compose?url=https://www.uxmethods.org/&text=UX%20Methods%20is%20a%20community%20powered,%20linked%20data%20driven%20knowledge%20graph%20for%20learning%20about%20the%20techniques%20of%20user%20experience%20design." target="_blank" rel="noopener">
+      <a class="--text-muted" href="https://bsky.app/intent/compose?url=https://www.uxmethods.org/&text=UX%20Methods%20is%20a%20community%20powered,%20linked%20data%20driven%20knowledge%20graph%20for%20learning%20about%20the%20techniques%20of%20user%20experience%20design." target="_blank" rel="noopener">
         {% include 'icons/bluesky.svg' %}
       </a>
       {# Mastadon is a bit more involved — add this later #}
@@ -18,14 +18,16 @@
       </a> #}
     </div>
     <div class="colophon">
-      <h1>Colophon</h1>
+      <h3 class="--text-muted">Colophon</h3>
       <p>{{ metadata.colophon | safe }}</p>
     </div>
-    <div class="credit">
+    <div class="credit flow-tight">
       {% for credit in metadata.credits %}
         {{ credit | safe }}
       {% endfor %}
-      {% include 'icons/creativeCommons.svg' %}
+      <div>
+        {% include 'icons/creativeCommons.svg' %}
+      </div>
     </div>
   </section>
 </footer>

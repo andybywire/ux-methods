@@ -1,9 +1,9 @@
 /* Card grid and cards  */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 3fr));
-  grid-gap: var(--spacing-md);
-  padding: 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg) var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
   a {
     color: inherit;
     text-decoration: none;
@@ -13,56 +13,192 @@
 /* Shared styles across cards */
 li.card {
   list-style: none;
-  max-width: 40%;
-  &:hover {
-    box-shadow: var(--shadow-md);
-    background-color: var(--bg-strong);
+  a {
+    text-decoration: none;
+    transition: color 150ms ease-in-out;
+  }
+  p {
+    font-size: var(--font-md);
+    color: var(--text-muted);
   }
   img {
     object-fit: cover;
+    aspect-ratio: 6/4;;
+    filter: contrast(1) grayscale(0.05);
+    transition: all 150ms ease-in-out;
+    border-radius: 2px;
   }
+  a:hover img {
+    filter: contrast(1.1) grayscale(0);
+    transform: scale(1.015) translateY(-1%);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.label {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-default);
+  border-color: var(--border-muted);
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .card a {
   text-decoration: none;
 }
 
+/* Chip card styles */
 
-.index .resource-cards li {
-
+.graph {
+  position: relative;
+  border: 1px solid var(--border-muted);
+  border-radius: 4px;
+  aspect-ratio: 1/1;
 }
 
-li.full-card {
+svg.network-connections {
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+
+  line {
+    stroke: var(--border-muted);
+    stroke-width: 1px;
+  }
+}
+
+.graph.dragging {
+  cursor: grabbing;
+}
+
+/* Chip Chips */
+
+ul.chips {
+  list-style-type: none;
+  padding: var(--spacing-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.chip {
+  display: inline-block;
+  padding:0;
+}
+
+.chip.this {
+  margin-top: 2rem;
+}
+
+.chip.this a {
+  background: var(--color-primary);
+  color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+.chip.highlight,
+.chip.dragging {
+  z-index: 100;
+}
+
+.chip a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--bg-default);
+  border-color: var(--border-muted);
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.chip a:hover {
+  transform: scale(1) translateY(0);
+  background: var(--bg-strong);
+  color: var(--text-strong);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border-default);
+}
+
+.no-transition .chip,
+.no-transition .chip a,
+.chip.dragging a,
+.chip.dragging {
+  transition: none !important;
+}
+
+
+.chip.dragging a,
+.chip.dragging a:hover {
+  transform: scale(1) translateY(0);
+  background: var(--bg-strong);
+  color: var(--text-strong);
+  cursor: grabbing;
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+}
+
+
+/* Chip Tooltip */
+
+.chip .tooltip {
+  background: var(--bg-strong);
+  top: 0;
+  left: calc(100% + var(--spacing-sm));
+  width: 250px;
+  box-shadow: var(--shadow-lg);
+  border-radius: 4px;
+  padding: var(--spacing-sm);
   display: flex;
   flex-direction: column;
-  img {
-    height: 225px;
-    width: 100%;
-  }
-  div {
-    padding: var(--spacing-sm);
-  }
-  a {
-    overflow: hidden;
-  }
+  gap: var(--spacing-xs);
+  font-size: var(--font-md);
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s, visibility 0s linear 0.3s;
+  visibility: hidden;
+}
+
+.chip.highlight .tooltip {
+  opacity: 1;
+  transition: opacity 0.2s;
+  visibility: visible;
+  transition-delay: 0.5s;
+}
+
+.chip.dragging .tooltip {
+  display: none;
 }
 
 li.compact-card {
   a {
     display: flex;
-    height: 100%;
-    flex-direction: row;
-    max-width: var(--card-max);
+    flex-direction: column;
+    gap: var(--spacing-xs);
   }
-  img {
+  p {
     display:none;
   }
-  div {
-    padding: 0.5rem;
-    width: 70%;
-    p {
-  display:none;
-      }
-    }
+  img {
+    display: none;
   }
+}
+
+li.full-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
