@@ -94,10 +94,24 @@ permalink: /method/{{ resource.slug }}/index.html
   <section id="network-graph">
     <div class="title">
       <hr />
-      <h2>Graph</h2>
+      <h2>Preparation</h2>
     </div>
-    <div class="graph no-transition">
-      <svg class="network-connections" width="100%" height="100%"></svg>
+    <div class="flow --pb-lg">
+      <p>{{ resource.title }} is often more effective when it is informed by these complementary methods.</p>
+    </div>
+    <div class="graph graph-prepare no-transition">
+      <svg class="network-connections" width="100%" height="100%">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4"
+            orient="auto" markerUnits="strokeWidth">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor"/>
+          </marker>
+          <filter id="handdrawn">
+            <feTurbulence id="turb" baseFrequency="0.2" numOctaves="2" seed="3" />
+            <feDisplacementMap in2="turb" in="SourceGraphic" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+      </svg>
       <ul class="chips">
         {% for method in resource
           .prepareMethods
@@ -165,13 +179,26 @@ permalink: /method/{{ resource.slug }}/index.html
       <hr />
       <h2>Next Steps</h2>
     </div>
-    <div class="grid-content">
-      <ul class="cards">
+    <div class="graph graph-next no-transition">
+      <svg class="network-connections" width="100%" height="100%">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4"
+            orient="auto" markerUnits="strokeWidth">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor"/>
+          </marker>
+        </defs>
+      </svg>
+      <ul class="chips">
         {% for method in resource
           .continueMethods
           .slice(0, 6) %}
-          {% resourceCard method, "full-card" %}
+          {% resourceCard method, "chip" %}
         {% endfor %}
+        <li class="chip this" data-slug="{{ resource.slug }}">
+          <a href="{{ resource.uri }}">
+            <h3>{{ resource.title }}</h3>
+          </a>
+        </li>
       </ul>
     </div>
   </section>

@@ -84,6 +84,12 @@
 
 /* Containers */
 
+html {
+	height: 100%;
+	overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 body {
 	background: var(--bg-default);
 	color: var(--text-default);
@@ -169,7 +175,7 @@ nav,
 }
 
 .nav-item.--active {
-	/* border-bottom: 1px solid var(--border-default); */
+	border-bottom: 1px solid var(--border-default);
 }
 
 /* Nav active item at rest */
@@ -221,9 +227,9 @@ nav,
 }
 
 .section-nav {
-	/* display: flex;
+	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap; */
+	flex-wrap: wrap;
 }
 
 .section-nav > * {
@@ -440,6 +446,7 @@ aside,
 	width: 100%;
 	margin: var(--spacing-xs) 0;
 	-webkit-appearance: none;
+	appearance: none;
 	background: var(--bg-muted);
 	height: 4px;
 	border-radius: 2px;
@@ -447,6 +454,7 @@ aside,
 
 .theme-control input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
+	appearance: none;
 	width: 16px;
 	height: 16px;
 	background: var(--text-strong);

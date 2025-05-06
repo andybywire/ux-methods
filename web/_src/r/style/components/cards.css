@@ -71,9 +71,10 @@ svg.network-connections {
   bottom: 0;
   pointer-events: none;
 
-  line {
+  path {
+    fill: none;
     stroke: var(--border-muted);
-    stroke-width: 1px;
+    stroke-width: 0.075em;
   }
 }
 
@@ -86,9 +87,9 @@ svg.network-connections {
 ul.chips {
   list-style-type: none;
   padding: var(--spacing-sm);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  position: relative;
+  height: calc(100% - (var(--spacing-sm) * 2));
+ width:calc(100% - (var(--spacing-sm) * 2))
 }
 
 .chip {
@@ -97,13 +98,14 @@ ul.chips {
 }
 
 .chip.this {
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+  background: var(--bg-default);
 }
 
 .chip.this a {
-  background: var(--color-primary);
-  color: var(--color-background);
-  border-color: var(--color-primary);
+  background: var(--bg-default);
+  color: var(--text-strong);
+  border:0;
 }
 
 .chip.highlight,

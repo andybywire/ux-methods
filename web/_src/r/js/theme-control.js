@@ -42,4 +42,18 @@ colorToggle.addEventListener('click', (e) => {
   document.documentElement.style.setProperty('--chroma', isPressed ? '0' : '0.1');
   hueControl.style.display = isPressed ? 'none' : 'flex';
   chromaControl.style.display = isPressed ? 'none' : 'flex';
-}); 
+});
+
+function ticked() {
+	// ... existing code ...
+
+	// Only show debug arrows if the checkbox is checked
+	var debugEnabled = document.getElementById("toggle-debug-arrows")?.checked;
+	debugLayer.selectAll("line").remove();
+
+	if (debugEnabled) {
+		nodes.forEach(function(node) {
+			// ... all your debug arrow drawing code ...
+		});
+	}
+} 
