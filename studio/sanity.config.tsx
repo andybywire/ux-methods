@@ -8,6 +8,8 @@ import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
+import {RobotIcon} from '@sanity/icons'
+import {RiBubbleChartFill} from 'react-icons/ri'
 
 // import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
 
@@ -42,6 +44,7 @@ export default defineConfig([
   {
     name: 'production',
     title: 'UX Methods',
+    icon: RiBubbleChartFill,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
@@ -78,6 +81,7 @@ export default defineConfig([
   {
     name: 'ai-settings',
     title: 'UX Methods | AI Settings',
+    icon: RobotIcon,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
