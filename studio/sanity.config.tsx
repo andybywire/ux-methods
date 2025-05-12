@@ -40,7 +40,7 @@ const WebPreview = ({document}: any) => {
 
 export default defineConfig([
   {
-    name: 'default',
+    name: 'production',
     title: 'UX Methods',
 
     projectId: '4g5tw1k0',
