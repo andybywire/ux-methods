@@ -25,12 +25,11 @@ function transformKgData(kgData) {
 
 // Get shared output from KG
 async function getSharedOutput() {
-  const kgData = await fetch('http://kg.uxmethods.org/repositories/uxm', {
+  const kgData = await fetch('http://fuseki.uxmethods.org/ds/sparql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/sparql-query',
       Accept: 'application/sparql-results+json',
-      Authorization: 'Basic ' + btoa(process.env.KG_AUTH),
     },
     body: `
        PREFIX : <https://uxmethods.org/>
