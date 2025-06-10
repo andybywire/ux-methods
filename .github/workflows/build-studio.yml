@@ -33,6 +33,10 @@ jobs:
         run: npx sanity manifest extract --output studio/dist/static
         working-directory: studio
 
+      - name: Deploy Schema
+        run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_SCHEMA_DEPLOY_AUTH }} npx sanity schema deploy
+        working-directory: studio
+
       - name: Set Up SSH
         run: |
           mkdir -p ~/.ssh/

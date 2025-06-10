@@ -7,10 +7,14 @@ import {visionTool} from '@sanity/vision'
 import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
-import { assist } from '@sanity/assist'
+import {assist} from '@sanity/assist'
+import {RobotIcon} from '@sanity/icons'
+import {RiBubbleChartFill} from 'react-icons/ri'
 
 // import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
 
+const hiddenAiDocTypes = (listItem: any) =>
+  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context'].includes(listItem.getId())
 const hiddenDocTypes = (listItem: any) =>
   !['siteSettings', 'skosConcept', 'skosConceptScheme'].includes(listItem.getId())
 
@@ -36,38 +40,79 @@ const WebPreview = ({document}: any) => {
   )
 }
 
-export default defineConfig({
-  name: 'default',
-  title: 'UX Methods',
+export default defineConfig([
+  {
+    name: 'production',
+    title: 'UX Methods',
+    icon: RiBubbleChartFill,
 
-  projectId: '4g5tw1k0',
-  dataset: 'production',
+    projectId: '4g5tw1k0',
+    dataset: 'production',
+    basePath: '/production',
 
-  plugins: [
-    structureTool({
-      structure: (S) => {
-        return S.list()
-          .title('UX Methods')
-          .items([
-            ...S.documentTypeListItems().filter(hiddenDocTypes),
-            S.divider(),
-            S.listItem()
-              .title('Settings')
-              .icon(RiSettings4Line)
-              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
-          ])
-      },
-      defaultDocumentNode,
-    }),
-    visionTool(),
-    taxonomyManager({
-      baseUri: 'https://uxmethods.org/',
-    }),
-    embeddingsIndexDashboard(),
-    assist(),
-  ],
+    plugins: [
+      structureTool({
+        structure: (S) => {
+          return S.list()
+            .title('UX Methods')
+            .items([
+              ...S.documentTypeListItems().filter(hiddenAiDocTypes),
+              S.divider(),
+              S.listItem()
+                .title('Settings')
+                .icon(RiSettings4Line)
+                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+            ])
+        },
+        defaultDocumentNode,
+      }),
+      visionTool(),
+      taxonomyManager({
+        baseUri: 'https://uxmethods.org/',
+      }),
+      embeddingsIndexDashboard(),
+      assist(),
+    ],
 
-  schema: {
-    types: schemaTypes,
+    schema: {
+      types: schemaTypes,
+    },
   },
-})
+  {
+    name: 'ai-settings',
+    title: 'UX Methods | AI Settings',
+    icon: RobotIcon,
+
+    projectId: '4g5tw1k0',
+    dataset: 'production',
+    basePath: '/ai-settings',
+
+    plugins: [
+      structureTool({
+        structure: (S) => {
+          return S.list()
+            .title('UX Methods')
+            .items([
+              ...S.documentTypeListItems().filter(hiddenDocTypes),
+              S.divider(),
+              S.listItem()
+                .title('Settings')
+                .icon(RiSettings4Line)
+                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+            ])
+        },
+        defaultDocumentNode,
+      }),
+      visionTool(),
+      taxonomyManager({
+        baseUri: 'https://uxmethods.org/',
+      }),
+      embeddingsIndexDashboard(),
+      assist(),
+    ],
+
+    schema: {
+      types: schemaTypes,
+    },
+  },
+])
