@@ -4,7 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {RiSettings4Line} from 'react-icons/ri'
 import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
+import {taxonomyManager} from './.yalc/sanity-plugin-taxonomy-manager' // for local development
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'

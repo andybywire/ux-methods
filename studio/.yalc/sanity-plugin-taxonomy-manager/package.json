@@ -1,0 +1,79 @@
+{
+  "name": "sanity-plugin-taxonomy-manager",
+  "version": "3.3.3",
+  "description": "Create and manage SKOS compliant taxonomies, thesauri, and classification schemes in Sanity Studio.",
+  "keywords": [
+    "sanity",
+    "sanity-plugin",
+    "SKOS",
+    "taxonomy",
+    "thesaurus"
+  ],
+  "homepage": "https://github.com/andybywire/sanity-plugin-taxonomy-manager#readme",
+  "bugs": {
+    "url": "https://github.com/andybywire/sanity-plugin-taxonomy-manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andybywire/sanity-plugin-taxonomy-manager.git"
+  },
+  "license": "MIT",
+  "author": "Andy Fitzgerald",
+  "sideEffects": false,
+  "browserslist": "extends @sanity/browserslist-config",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./lib/index.esm.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/index.esm.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "sanity.json",
+    "src",
+    "v2-incompatible.js"
+  ],
+  "scripts": {
+    "prebuild": "npm run clean && plugin-kit verify-package --silent && pkg-utils",
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
+    "clean": "rimraf lib",
+    "link-watch": "plugin-kit link-watch",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run build",
+    "watch": "pkg-utils watch --strict",
+    "format": "prettier --write --cache --ignore-unknown ."
+  },
+  "dependencies": {
+    "@sanity/color": "^3.0.0",
+    "@sanity/icons": "^3.4.0",
+    "@sanity/incompatible-plugin": "^1.0.4",
+    "@sanity/ui": "^2.8.9",
+    "@sanity/util": "^3.34.0",
+    "react-fast-compare": "^3.2.2",
+    "react-icons": "^4.3.1",
+    "rxjs": "^7.8.1"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "sanity": "^3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "sanityExchangeUrl": "https://www.sanity.io/plugins/taxonomy-manager",
+  "sanityPlugin": {
+    "verifyPackage": {
+      "dependencies": false,
+      "studioConfig": false,
+      "eslintImports": false,
+      "tsc": false
+    }
+  },
+  "yalcSig": "85f1b83e55bf732f672cc8b4721e25e8"
+}
