@@ -1,5 +1,7 @@
 import {defineType, defineField} from 'sanity'
 import {RiArticleLine} from 'react-icons/ri'
+import {ArrayHierarchyInput, ReferenceHierarchyInput} from 'sanity-plugin-taxonomy-manager'
+import {branchFilter, schemeFilter} from 'sanity-plugin-taxonomy-manager'
 
 /**
  * Article Type
@@ -16,6 +18,76 @@ export default defineType({
       name: 'title',
       type: 'string',
       title: 'Title',
+    }),
+    defineField({
+      name: 'singleTermFromSchemeNoTop',
+      type: 'reference',
+      to: [{type: 'skosConcept'}],
+      options: {
+        filter: schemeFilter({schemeId: 'ae5dea'}),
+        disableNew: true,
+      },
+      components: {field: ReferenceHierarchyInput},
+    }),
+    defineField({
+      name: 'singleTermFromScheme',
+      type: 'reference',
+      to: [{type: 'skosConcept'}],
+      options: {
+        filter: schemeFilter({schemeId: '1293cc'}),
+        disableNew: true,
+      },
+      components: {field: ReferenceHierarchyInput},
+    }),
+    defineField({
+      name: 'singleTermFromBranchNoTop',
+      type: 'reference',
+      to: [{type: 'skosConcept'}],
+      options: {
+        filter: branchFilter({schemeId: 'ae5dea', branchId: '3d4b17'}),
+        disableNew: true,
+      },
+      components: {field: ReferenceHierarchyInput},
+    }),
+    defineField({
+      name: 'singleTermFromBranch',
+      type: 'reference',
+      to: [{type: 'skosConcept'}],
+      options: {
+        filter: branchFilter({schemeId: '1293cc', branchId: 'fb5d42'}),
+        disableNew: true,
+      },
+      components: {field: ReferenceHierarchyInput},
+    }),
+    defineField({
+      name: 'arrayFromScheme',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: {type: 'skosConcept'},
+          options: {
+            filter: schemeFilter({schemeId: '1293cc'}),
+            disableNew: true,
+          },
+        },
+      ],
+      components: {field: ArrayHierarchyInput},
+    }),
+    defineField({
+      name: 'arrayFromBranch',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: {type: 'skosConcept'},
+          options: {
+            filter: branchFilter({schemeId: '1293cc', branchId: 'fb5d42'}),
+            disableNew: true,
+          },
+        },
+      ],
+      components: {field: ArrayHierarchyInput},
     }),
     defineField({
       name: 'slug',
