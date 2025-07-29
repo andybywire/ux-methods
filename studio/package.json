@@ -14,8 +14,8 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/assist": "^4.0.1",
-    "@sanity/embeddings-index-ui": "^2.0.1",
+    "@sanity/assist": "^4.4.7",
+    "@sanity/embeddings-index-ui": "^2.1.1",
     "@sanity/vision": "^4.1.1",
     "@types/react-dom": "^19.0.4",
     "react": "^18.3.1",
@@ -27,9 +27,9 @@
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^5.0.1",
-    "@types/react": "^18.3.18",
-    "eslint": "^9.9.0",
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^18.3.23",
+    "eslint": "^9.32.0",
     "prettier": "^3.0.2",
     "typescript": "^5.1.6"
   },
