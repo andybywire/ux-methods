@@ -46,7 +46,7 @@ export default defineConfig([
   {
     name: 'production',
     title: 'UX Methods',
-    icon: RiBubbleChartFill as React.ComponentType,
+    icon: RiBubbleChartFill,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
@@ -92,7 +92,7 @@ export default defineConfig([
   {
     name: 'ai-settings',
     title: 'UX Methods | AI Settings',
-    icon: RobotIcon as React.ComponentType,
+    icon: RobotIcon,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
