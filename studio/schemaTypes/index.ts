@@ -3,6 +3,7 @@ import discipline from './documents/discipline'
 import method from './documents/method'
 import resource from './documents/resource'
 import siteSettings from './documents/siteSettings'
+import taxonomyTest from './documents/taxonomyTest'
 import bodyImage from './objects/bodyImage'
 import bodyPortableText from './objects/bodyPortableText'
 import credit from './objects/credit'
@@ -21,6 +22,7 @@ export const schemaTypes = [
   method,
   resource,
   siteSettings,
+  taxonomyTest,
   bodyImage,
   bodyPortableText,
   credit,
