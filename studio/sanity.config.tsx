@@ -10,11 +10,14 @@ import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
+import {BulkDelete} from 'sanity-plugin-bulk-delete'
 
 // import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
 
 const hiddenAiDocTypes = (listItem: any) =>
-  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context'].includes(listItem.getId())
+  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context'].includes(
+    listItem.getId(),
+  )
 const hiddenDocTypes = (listItem: any) =>
   !['siteSettings', 'skosConcept', 'skosConceptScheme'].includes(listItem.getId())
 
@@ -44,7 +47,7 @@ export default defineConfig([
   {
     name: 'production',
     title: 'UX Methods',
-    icon: RiBubbleChartFill,
+    icon: RiBubbleChartFill as React.ComponentType,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
@@ -70,6 +73,10 @@ export default defineConfig([
       taxonomyManager({
         baseUri: 'https://uxmethods.org/',
       }),
+      BulkDelete({
+        schemaTypes: ['skosConcept', 'skosConceptScheme'], // Pass your schema types here
+        // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
+      }),
       embeddingsIndexDashboard(),
       assist(),
     ],
@@ -81,7 +88,7 @@ export default defineConfig([
   {
     name: 'ai-settings',
     title: 'UX Methods | AI Settings',
-    icon: RobotIcon,
+    icon: RobotIcon as React.ComponentType,
 
     projectId: '4g5tw1k0',
     dataset: 'production',
