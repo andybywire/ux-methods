@@ -1,0 +1,1 @@
+export {BulkDelete} from './plugin'

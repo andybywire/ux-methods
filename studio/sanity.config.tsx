@@ -10,9 +10,7 @@ import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
-import {BulkDelete} from 'sanity-plugin-bulk-delete'
-
-// import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
+import {BulkDelete} from '../plugins/sanity-plugin-bulk-delete/dist/index'
 
 const hiddenAiDocTypes = (listItem: any) =>
   !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context'].includes(
@@ -74,7 +72,7 @@ export default defineConfig([
         baseUri: 'https://uxmethods.org/',
       }),
       BulkDelete({
-        schemaTypes: ['skosConcept', 'skosConceptScheme'], // Pass your schema types here
+        schemaTypes: schemaTypes, // Pass your schema types here
         // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
       }),
       embeddingsIndexDashboard(),

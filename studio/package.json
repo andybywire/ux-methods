@@ -23,7 +23,6 @@
     "react-icons": "^5.4.0",
     "react-is": "^19.0.0",
     "sanity": "^4.1.1",
-    "sanity-plugin-bulk-delete": "^1.1.1",
     "sanity-plugin-taxonomy-manager": "file:.yalc/sanity-plugin-taxonomy-manager",
     "styled-components": "^6.1.18"
   },
