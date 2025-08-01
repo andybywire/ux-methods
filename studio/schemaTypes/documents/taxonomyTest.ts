@@ -5,8 +5,8 @@ import {branchFilter, schemeFilter} from 'sanity-plugin-taxonomy-manager'
 
 const schemeIdWithTop = '1293cc'
 const branchIdWithTop = 'fb5d42'
-const schemeIdNoTop = 'ae5dea'
-const branchIdNoTop = '3d4b17'
+const schemeIdNoTop = 'aec22151-f3ad-4866-9ce1-cad7d98ab340'
+const branchIdNoTop = 'N_WLDj'
 
 /**
  * Taxonomy Input Tests
