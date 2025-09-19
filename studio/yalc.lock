@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "sanity-plugin-taxonomy-manager": {
-      "signature": "57c90871f5b1c843b67455269e3768ea",
+      "signature": "fe5e758d35974269432bb46c150d369c",
       "replaced": "^3.3.3"
     },
     "sanity-plugin-bulk-delete": {
