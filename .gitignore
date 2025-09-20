@@ -8,3 +8,9 @@ _local
 # Local development directories
 /_kg-integration/
 /_kg-integration/**
+
+
+# Sanity Functions
+functions/**/.env*
+functions/**/.build/
+functions/**/node_modules/
