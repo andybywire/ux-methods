@@ -6,7 +6,7 @@ import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
 import {schemaTypes} from './schemaTypes'
-import {embeddingsIndexDashboard} from '@sanity/embeddings-index-ui'
+import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
@@ -71,6 +71,7 @@ export default defineConfig([
         baseUri: 'https://uxmethods.org/',
       }),
       embeddingsIndexDashboard(),
+      embeddingsIndexReferenceInput(),
       assist(),
     ],
 

@@ -46,6 +46,14 @@ export default defineType({
           to: [{type: 'skosConcept'}],
           options: {
             filter: schemeFilter({schemeId: 'Mfji21'}),
+            aiAssist:{
+              embeddingsIndex: 'io-taxonomy',
+            },
+            embeddingsIndex: {
+              indexName: 'io-taxonomy',
+              maxResults: 10,
+              searchMode: 'embeddings'
+            }
           },
         },
       ],
