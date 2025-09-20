@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {RiGitCommitLine, RiBubbleChartFill} from 'react-icons/ri'
+import {schemeFilter, ArrayHierarchyInput} from 'sanity-plugin-taxonomy-manager'
 // import MetaDescription from '../../components/MetaDescription'
 
 /**
@@ -32,6 +33,31 @@ export default defineType({
         source: 'title',
         slugify: (input) => input.replace(/\s+/g, ''),
       },
+    }),
+    defineField({
+      name: 'topic',
+      title: 'Topics',
+      description:
+        'Topics discussed in this method.',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'skosConcept'}],
+          options: {
+            filter: schemeFilter({schemeId: 'Mfji21'}),
+            aiAssist:{
+              embeddingsIndex: 'io-taxonomy',
+            },
+            embeddingsIndex: {
+              indexName: 'io-taxonomy',
+              maxResults: 10,
+              searchMode: 'embeddings'
+            }
+          },
+        },
+      ],
+      components: { field: ArrayHierarchyInput },
     }),
     defineField({
       name: 'uri',
