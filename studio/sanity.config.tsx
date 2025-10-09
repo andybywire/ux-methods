@@ -5,12 +5,12 @@ import {RiSettings4Line} from 'react-icons/ri'
 import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import { taxonomyManager  } from 'sanity-plugin-taxonomy-manager' // will load from .yalc if available, from node_modules if not
+import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
-import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {NodeTree} from './static/NodeTree'
 
 const hiddenAiDocTypes = (listItem: any) =>
@@ -79,10 +79,6 @@ export default defineConfig([
       }),
       embeddingsIndexDashboard(),
       embeddingsIndexReferenceInput(),
-      BulkDelete({
-        schemaTypes: schemaTypes, // Pass your schema types here
-        // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
-      }),
       assist(),
     ],
 
@@ -120,6 +116,45 @@ export default defineConfig([
         baseUri: 'https://uxmethods.org/',
       }),
       embeddingsIndexDashboard(),
+      assist(),
+    ],
+
+    schema: {
+      types: schemaTypes,
+    },
+  },
+  {
+    name: 'taxo-test',
+    title: 'Taxonomy Manager Testing',
+    icon: NodeTree,
+
+    projectId: '4g5tw1k0',
+    dataset: 'taxonomy-testing',
+    basePath: '/taxonomy-testing',
+
+    plugins: [
+      structureTool({
+        structure: (S) => {
+          // return S.documentTypeList('taxonomyTest')
+          return S.list()
+            .title('Taxonomy Testing')
+            .items([
+              S.listItem()
+                .title('TaxonomyInputs')
+                .child(S.documentTypeList('taxonomyTest'))
+            ])
+        },
+        defaultDocumentNode,
+      }),
+      visionTool(),
+      taxonomyManager({
+        baseUri: 'https://uxmethods.org/',
+      }),
+      embeddingsIndexDashboard(),
+      BulkDelete({
+        schemaTypes: schemaTypes, // Pass your schema types here
+        // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
+      }),
       assist(),
     ],
 
