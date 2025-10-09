@@ -6,5 +6,8 @@ export default defineCliConfig({
     dataset: 'production'
   },
   studioHost: 'uxmethods',
-  autoUpdates: true,
+  deployment: {
+    autoUpdates: true,
+    appId: 'vgf4e6erwye9hl1wxg4ju9be'
+  }
 })
