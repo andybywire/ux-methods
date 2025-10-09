@@ -1,10 +1,10 @@
 name: Studio
 
 on:
-  push:
-    paths: 
-      - 'studio/**'
-  workflow_dispatch:
+  # push:
+  #   paths: 
+  #     - 'studio/**'
+  # workflow_dispatch:
   repository_dispatch: 
 
 jobs:
