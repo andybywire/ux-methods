@@ -4,19 +4,21 @@ import {structureTool} from 'sanity/structure'
 import {RiSettings4Line} from 'react-icons/ri'
 import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
+import {taxonomyManager} from './.yalc/sanity-plugin-taxonomy-manager' // for local development
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
-
-// import {disciplineTemplate} from '../web/_src/discipline_js.11ty.js'
+import {BulkDelete} from '../plugins/sanity-plugin-bulk-delete/dist/index'
+import {NodeTree} from './static/NodeTree'
 
 const hiddenAiDocTypes = (listItem: any) =>
-  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context'].includes(listItem.getId())
+  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context', 'taxonomyTest'].includes(
+    listItem.getId(),
+  )
 const hiddenDocTypes = (listItem: any) =>
-  !['siteSettings', 'skosConcept', 'skosConceptScheme'].includes(listItem.getId())
+  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'taxonomyTest'].includes(listItem.getId())
 
 export function defaultDocumentNode(S: StructureBuilder, {schemaType}: {schemaType: string}) {
   // Conditionally return a different configuration based on the schema type
@@ -59,9 +61,14 @@ export default defineConfig([
               ...S.documentTypeListItems().filter(hiddenAiDocTypes),
               S.divider(),
               S.listItem()
-                .title('Settings')
-                .icon(RiSettings4Line)
-                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+              .title('Settings')
+              .icon(RiSettings4Line)
+              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+              S.divider().title('Testing & Development'),
+              S.listItem()
+                .title('Taxonomy Inputs')
+                .icon(NodeTree)
+                .child(S.document().schemaType('taxonomyTest').documentId('taxonomyTest')),
             ])
         },
         defaultDocumentNode,
@@ -71,7 +78,10 @@ export default defineConfig([
         baseUri: 'https://uxmethods.org/',
       }),
       embeddingsIndexDashboard(),
-      embeddingsIndexReferenceInput(),
+      BulkDelete({
+        schemaTypes: schemaTypes, // Pass your schema types here
+        // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
+      }),
       assist(),
     ],
 
