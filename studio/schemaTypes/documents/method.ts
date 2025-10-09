@@ -35,7 +35,7 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'topic',
+      name: 'topics',
       title: 'Topics',
       description:
         'Topics discussed in this method.',
