@@ -8,3 +8,4 @@ _local
 # Local development directories
 /_kg-integration/
 /_kg-integration/**
+yalc.lock
