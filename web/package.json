@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy": "^3.1.2",
     "@portabletext/to-html": "^2.0.14",
     "@sanity/client": "^6.27.2",
     "@sanity/image-url": "^1.1.0",
