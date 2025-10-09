@@ -78,6 +78,7 @@ export default defineConfig([
         baseUri: 'https://uxmethods.org/',
       }),
       embeddingsIndexDashboard(),
+      embeddingsIndexReferenceInput(),
       BulkDelete({
         schemaTypes: schemaTypes, // Pass your schema types here
         // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
