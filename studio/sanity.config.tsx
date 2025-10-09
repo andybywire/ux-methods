@@ -10,7 +10,7 @@ import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/e
 import {assist} from '@sanity/assist'
 import {RobotIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
-import {BulkDelete} from '../plugins/sanity-plugin-bulk-delete/dist/index'
+import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {NodeTree} from './static/NodeTree'
 
 const hiddenAiDocTypes = (listItem: any) =>
