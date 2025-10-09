@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "sanity-plugin-bulk-delete": {
-      "signature": "ee79976a81596eff852edda702c1672f",
-      "pure": true
-    }
-  }
-}

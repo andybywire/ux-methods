@@ -1,1 +1,0 @@
-export { BulkDelete } from './plugin';
