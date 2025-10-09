@@ -10,7 +10,14 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "sanity-plugin-taxonomy-manager": [
+        "./.yalc/sanity-plugin-taxonomy-manager",
+        "./node_modules/sanity-plugin-taxonomy-manager"
+      ]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
