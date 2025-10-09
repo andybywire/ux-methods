@@ -9,16 +9,14 @@ import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
 import {assist} from '@sanity/assist'
-import {RobotIcon} from '@sanity/icons'
+import {RobotIcon, TokenIcon, TagsIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
 import {NodeTree} from './static/NodeTree'
 
-const hiddenAiDocTypes = (listItem: any) =>
+const hiddenDocTypes = (listItem: any) =>
   !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context', 'taxonomyTest'].includes(
     listItem.getId(),
   )
-const hiddenDocTypes = (listItem: any) =>
-  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'taxonomyTest'].includes(listItem.getId())
 
 export function defaultDocumentNode(S: StructureBuilder, {schemaType}: {schemaType: string}) {
   // Conditionally return a different configuration based on the schema type
@@ -58,17 +56,12 @@ export default defineConfig([
           return S.list()
             .title('UX Methods')
             .items([
-              ...S.documentTypeListItems().filter(hiddenAiDocTypes),
+              ...S.documentTypeListItems().filter(hiddenDocTypes),
               S.divider(),
               S.listItem()
               .title('Settings')
               .icon(RiSettings4Line)
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
-              S.divider().title('Testing & Development'),
-              S.listItem()
-                .title('Taxonomy Inputs')
-                .icon(NodeTree)
-                .child(S.document().schemaType('taxonomyTest').documentId('taxonomyTest')),
             ])
         },
         defaultDocumentNode,
@@ -101,12 +94,10 @@ export default defineConfig([
           return S.list()
             .title('UX Methods')
             .items([
-              ...S.documentTypeListItems().filter(hiddenDocTypes),
-              S.divider(),
               S.listItem()
-                .title('Settings')
-                .icon(RiSettings4Line)
-                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+                .title('AI Context')
+                .icon(TokenIcon)
+                .child(S.documentTypeList('assist.instruction.context'))
             ])
         },
         defaultDocumentNode,
@@ -141,6 +132,7 @@ export default defineConfig([
             .items([
               S.listItem()
                 .title('TaxonomyInputs')
+                .icon(TagsIcon)
                 .child(S.documentTypeList('taxonomyTest'))
             ])
         },
