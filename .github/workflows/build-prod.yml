@@ -61,7 +61,7 @@ jobs:
 
       - name: Build 11ty
         id: build
-        run: pnpm exec @11ty/eleventy
+        run: pnpm exec eleventy
         working-directory: web
         env:
           NODE_ENV: production
