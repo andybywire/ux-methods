@@ -1,9 +1,16 @@
 import {defineType, defineField} from 'sanity'
+import {RiArticleLine} from 'react-icons/ri'
 
+/**
+ * Newsletter Type
+ * Newsletters communicate periodic updates concerning trends in 
+ * the UX profession and relate those trends to UX Methods resources
+ */
 export default defineType({
-  name: 'post',
+  name: 'newsletter',
   type: 'document',
-  title: 'Post',
+  title: 'Newsletters',
+  icon: RiArticleLine,
   fields: [
     defineField({
       name: 'title',
@@ -12,15 +19,14 @@ export default defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Post Content',
+      title: 'Body',
       type: 'text',
-      rows: 3,
     }),
     defineField({
       name: 'resources',
       title: 'Related Resources',
       description:
-        'External resources related to topics discussed in this post.',
+        'External resources related to topics discussed in this newsletter.',
       type: 'array',
       of: [
         {

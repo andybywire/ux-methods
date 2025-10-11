@@ -1,4 +1,3 @@
-import article from './documents/article'
 import discipline from './documents/discipline'
 import method from './documents/method'
 import resource from './documents/resource'
@@ -15,10 +14,10 @@ import referencedDiscipline from './objects/referencedDiscipline'
 import socialMedia from './objects/socialMedia'
 import source from './objects/source'
 import sources from './objects/sources'
-import post from './documents/post'
+import documentation from './documents/documentation'
+import newsletter from './documents/newsletter'
 
 export const schemaTypes = [
-  article,
   discipline,
   method,
   resource,
@@ -35,5 +34,6 @@ export const schemaTypes = [
   socialMedia,
   source,
   sources,
-  post
+  newsletter,
+  documentation
 ]

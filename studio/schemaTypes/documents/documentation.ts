@@ -1,18 +1,16 @@
 import {defineType, defineField} from 'sanity'
-import {RiArticleLine} from 'react-icons/ri'
-import {ArrayHierarchyInput, ReferenceHierarchyInput} from 'sanity-plugin-taxonomy-manager'
-import {branchFilter, schemeFilter} from 'sanity-plugin-taxonomy-manager'
+import {BlockContentIcon} from '@sanity/icons'
 
 /**
- * Article Type
- * On UX Methods, articles are a generic type that capture information
+ * Documentation Type
+ * On UX Methods, documentation is a generic type that capture information
  * about the UX Methods site, its purpose, and its intended use.
  */
 export default defineType({
-  name: 'article',
+  name: 'documentation',
   type: 'document',
-  icon: RiArticleLine,
-  title: 'Articles',
+  icon: BlockContentIcon,
+  title: 'Documentation',
   fields: [
     defineField({
       name: 'title',
