@@ -16,8 +16,8 @@ The User Experience Practices Knowledge Graph
 </p>
 <p align="center">
 	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-prod.yml/badge.svg"/>
-	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-staging.yml/badge.svg"/>
-	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-studio.yml/badge.svg"/>
+	<!-- <img src="https://github.com/andybywire/ux-methods/actions/workflows/build-staging.yml/badge.svg"/>
+	<img src="https://github.com/andybywire/ux-methods/actions/workflows/build-studio.yml/badge.svg"/> -->
 </p>
 <br />
 
