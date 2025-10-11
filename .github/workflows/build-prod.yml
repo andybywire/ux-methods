@@ -53,7 +53,6 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9               # pick a version and stick to it across CI/dev
-          run_install: false       # we'll run install ourselves
 
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
