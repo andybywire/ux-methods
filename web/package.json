@@ -3,11 +3,14 @@
   "version": "2.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "rm -rf _site && npx @11ty/eleventy --watch --serve --port=8888",
+    "dev": "rm -rf _site && pnpm exec eleventy --watch --serve --port=8888",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "type": "module",
   "keywords": [],
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "ISC",
   "description": "",
   "dependencies": {

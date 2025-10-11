@@ -19,22 +19,22 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23'
+          node-version: '22'
 
       - name: Install Project Dependencies
-        run: npm ci --legacy-peer-deps
+        run: pnpm install --frozen-lockfile
         working-directory: studio
 
       - name: Build Studio
-        run: npx sanity build --no-auto-updates
+        run: pnpm exec sanity build --no-auto-updates
         working-directory: studio
 
       - name: Extract Studio Manifest
-        run: npx sanity manifest extract --output studio/dist/static
+        run: pnpm exec sanity manifest extract --output studio/dist/static
         working-directory: studio
 
       - name: Deploy Schema
-        run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_SCHEMA_DEPLOY_AUTH }} npx sanity schema deploy
+        run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_SCHEMA_DEPLOY_AUTH }} pnpm exec sanity schema deploy
         working-directory: studio
 
       - name: Set Up SSH

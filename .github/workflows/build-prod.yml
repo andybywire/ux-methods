@@ -46,15 +46,15 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "23"
+          node-version: "22"
 
       - name: Install Project Dependencies
-        run: npm ci --legacy-peer-deps
+        run: pnpm install --frozen-lockfile
         working-directory: web
 
       - name: Build 11ty
         id: build
-        run: npx @11ty/eleventy
+        run: pnpm exec @11ty/eleventy
         working-directory: web
         env:
           NODE_ENV: production
