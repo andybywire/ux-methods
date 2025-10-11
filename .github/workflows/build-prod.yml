@@ -44,9 +44,16 @@ jobs:
       #     files: '{ "file": "rdfData.ttl" }'
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: "pnpm"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9               # pick a version and stick to it across CI/dev
+          run_install: false       # we'll run install ourselves
 
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
