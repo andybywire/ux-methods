@@ -1,9 +1,0 @@
-{
-  "parts": [
-    {
-      "name": "part:@sanity/dashboard/widget/gh-actions",
-      "implements": "part:@sanity/dashboard/widget",
-      "path": "index.js"
-    }
-  ]
-}

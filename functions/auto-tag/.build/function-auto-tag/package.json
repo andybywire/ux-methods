@@ -1,9 +1,0 @@
-{
-  "name": "auto-tag",
-  "type": "module",
-  "main": "index.js",
-  "dependencies": {
-    "@sanity/client": "^7.11.2",
-    "@sanity/functions": "^1.0.3"
-  }
-}

@@ -15,6 +15,7 @@ import referencedDiscipline from './objects/referencedDiscipline'
 import socialMedia from './objects/socialMedia'
 import source from './objects/source'
 import sources from './objects/sources'
+import post from './documents/post'
 
 export const schemaTypes = [
   article,
@@ -34,4 +35,5 @@ export const schemaTypes = [
   socialMedia,
   source,
   sources,
+  post
 ]

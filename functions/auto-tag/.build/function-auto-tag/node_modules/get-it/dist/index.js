@@ -1,1 +1,0 @@
-import{c as e}from"./_chunks-es/createRequester.js";import{h as s}from"./_chunks-es/node-request.js";import{a as r}from"./_chunks-es/node-request.js";const o=(r=[],o=s)=>e(r,o),t="node";export{r as adapter,t as environment,o as getIt};//# sourceMappingURL=index.js.map

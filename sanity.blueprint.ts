@@ -3,19 +3,18 @@ import {defineBlueprint, defineDocumentFunction} from '@sanity/blueprints'
 export default defineBlueprint({
   resources: [
     defineDocumentFunction({
-      type: 'sanity.function.document',
-      name: 'auto-tag',
-      src: './functions/auto-tag',
+      type: "sanity.function.document",
+      name: "find-resources",
+      src: "./functions/find-resources",
       memory: 2,
       timeout: 30,
       event: {
-        on: ['publish'],
-        filter: "_type == 'method' && !defined(topic)",
-        projection: '{_id}',
+        on: ["publish"],
+        filter: "_type == 'post'",
+        projection: '{_id, "sourceText": body}',
       },
     }),
   ],
 })
 
-
-// npx sanity functions test auto-tag --document-id a36eed7b-e3c2-4caa-8b0e-9ba7cc2cdcc8 --dataset production --with-user-token
+// npx sanity functions test find-resources --document-id drafts.6c716074-395c-46ee-a5f6-eaaa7b20f45f --dataset production --with-user-token

@@ -1,8 +1,0 @@
-# Dependency directories
-/dist
-/node_modules
-
-# Secrets
-.env.development
-.env.production
-.env
