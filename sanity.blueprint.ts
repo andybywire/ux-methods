@@ -10,11 +10,12 @@ export default defineBlueprint({
       timeout: 30,
       event: {
         on: ["publish"],
-        filter: "_type == 'post'",
+        filter: "_type == 'newsletter'",
         projection: '{_id, "sourceText": body}',
       },
     }),
   ],
 })
 
-// npx sanity functions test find-resources --document-id drafts.6c716074-395c-46ee-a5f6-eaaa7b20f45f --dataset production --with-user-token
+// npx sanity functions test find-resources --document-id drafts.230a29af-6344-48ff-80a8-89dd75a70aea --dataset production --with-user-token
+// 230a29af-6344-48ff-80a8-89dd75a70aea
