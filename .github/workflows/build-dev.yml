@@ -1,9 +1,9 @@
 name: Dev
 
 on:
-  push:
-    paths:
-      - "web/**"
+  # push:
+  #   paths:
+  #     - "web/**"
   workflow_dispatch:
 
 jobs:
