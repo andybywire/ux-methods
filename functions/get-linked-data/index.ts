@@ -1,6 +1,18 @@
 import {createClient} from "@sanity/client";
 import {documentEventHandler} from "@sanity/functions";
 
+const metascraper = (await import("metascraper")).default;
+const author = (await import("metascraper-author")).default;
+const date = (await import("metascraper-date")).default;
+const description = (await import("metascraper-description")).default;
+const image = (await import("metascraper-image")).default;
+const publisher = (await import("metascraper-publisher")).default;
+const title = (await import("metascraper-title")).default;
+
+// NN/g
+// npx sanity functions test get-linked-data --document-id drafts.f06c071c-8e46-42ae-8158-69d9bc71036c --dataset production --with-user-token
+
+// Substack
 // npx sanity functions test get-linked-data --document-id drafts.2f8697e9-a071-41a6-adf9-f1f188640c84 --dataset production --with-user-token
 
 export const handler = documentEventHandler(async ({context, event}) => {
@@ -14,8 +26,17 @@ export const handler = documentEventHandler(async ({context, event}) => {
 
   console.log("Document Title is: ", data.title);
   console.log("Is local: ", local);
-  
+
   const dataset = "production"; // your dataset
+
+  const getData = metascraper([
+    author(),
+    date(),
+    description(),
+    image(),
+    publisher(),
+    title(),
+  ]);
 
   // Set ldIsUpdating to `true` to prevent subsequent calls
   // 🚨 Disable for testing, since `noWrite` doesn't work
@@ -30,46 +51,24 @@ export const handler = documentEventHandler(async ({context, event}) => {
   //   noWrite: true,
   // });
 
+  // 1) fetch HTML (set a UA to improve success on some sites)
+  const res = await fetch(data.url, {
+    redirect: "follow",
+    headers: {
+      "user-agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+      accept: "text/html,application/xhtml+xml",
+    },
+  });
+  if (!res.ok) {
+    console.error(`Fetch failed: ${res.status} ${res.statusText}`);
+    return;
+  }
+  const html = await res.text();
 
+  // 2) extract metadata
+  const urlLinkedData = await getData({html, url: data.url});
 
+  console.log(urlLinkedData);
 
-
-  
-  // try {
-  //   // Query the embeddings index
-  //   const result = await client.request({
-  //     url: `/embeddings-index/query/${dataset}/${indexName}`,
-  //     method: "POST",
-  //     body: {
-  //       query: `Based on the following text segment, suggest three relevant topic tags that succinctly and clearly describe the text: ${data.sourceText}.`,
-  //       maxResults: 3,
-  //     },
-  //   });
-  //   // Convert embeddings results to tags refs
-  //   const tags = result.map(
-  //     ({value}: {value: {documentId: string; type: string}}) => ({
-  //       _ref: value.documentId,
-  //       _type: "reference",
-  //     })
-  //   );
-  //   // Patch using schema-aware agent action
-  //   await client.agent.action.patch({
-  //     noWrite: local ? true : false, // if local is true, don't write to the document, just return the result for logging
-  //     schemaId: "_.schemas.production",
-  //     documentId: data._id,
-  //     target: {
-  //       path: ["resources"],
-  //       operation: "set",
-  //       value: tags,
-  //     },
-  //   });
-  //   console.log(
-  //     local
-  //       ? "Referenced tags (LOCAL TEST MODE - Content Lake not updated):"
-  //       : "Referenced tags:",
-  //     result
-  //   );
-  // } catch (error) {
-  //   console.error("Error occurred during tag retrieval: ", error);
-  // }
 });
