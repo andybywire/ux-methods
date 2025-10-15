@@ -1,4 +1,4 @@
-import {defineBlueprint, defineDocumentFunction} from '@sanity/blueprints'
+import {defineBlueprint, defineDocumentFunction} from "@sanity/blueprints";
 
 export default defineBlueprint({
   resources: [
@@ -14,5 +14,20 @@ export default defineBlueprint({
         projection: '{_id, "sourceText": body}',
       },
     }),
+    defineDocumentFunction({
+      type: "sanity.function.document",
+      name: "get-linked-data",
+      src: "./functions/get-linked-data",
+      memory: 2,
+      timeout: 30,
+      event: {
+        on: ["update"],
+        includeDrafts: true,
+        includeAllVersions: true,
+        filter:
+          "_type == 'resource' && resourceUrlLd.ldLastUpdated != resourceUrlLd.ldLastRequested && resourceUrlLd.ldIsUpdating != true",
+        projection: "{_id, title}",
+      },
+    }),
   ],
-})
+});

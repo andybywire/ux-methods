@@ -11,7 +11,7 @@ import {RiLinksLine, RiArticleLine} from 'react-icons/ri'
  * TODO: Account for Linked Data input component (and web service)
  */
 
-const debug = !true // For component development; remove once
+const debug = true // For component development; remove once
 
 // Move this to a separate exported component
 function GetLinkedData(props: ObjectInputProps) {
