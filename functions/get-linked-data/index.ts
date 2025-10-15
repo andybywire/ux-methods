@@ -24,11 +24,6 @@ export const handler = documentEventHandler(async ({context, event}) => {
   const {data} = event;
   const {local} = context; // local is true when running locally
 
-  console.log("Document Title is: ", data.title);
-  console.log("Is local: ", local);
-
-  const dataset = "production"; // your dataset
-
   const getData = metascraper([
     author(),
     date(),
@@ -38,20 +33,19 @@ export const handler = documentEventHandler(async ({context, event}) => {
     title(),
   ]);
 
-  // Set ldIsUpdating to `true` to prevent subsequent calls
-  // 🚨 Disable for testing, since `noWrite` doesn't work
-  // await client.agent.action.patch({
-  //   schemaId: "_.schemas.production",
-  //   documentId: data._id,
-  //   target: {
-  //     path: ["resourceUrlLd", "ldIsUpdating"],
-  //     operation: "set",
-  //     value: true,
-  //   },
-  //   noWrite: true,
-  // });
+  // 1. Set ldIsUpdating to `true` to prevent repeat calls
+  await client.agent.action.patch({
+    schemaId: "_.schemas.production",
+    documentId: data._id,
+    target: {
+      path: ["resourceUrlLd", "ldIsUpdating"],
+      operation: "set",
+      value: true,
+    },
+    noWrite: true,
+  });
 
-  // 1) fetch HTML (set a UA to improve success on some sites)
+  // 2. fetch HTML (set a UA to improve success on some sites)
   const res = await fetch(data.url, {
     redirect: "follow",
     headers: {
@@ -66,9 +60,50 @@ export const handler = documentEventHandler(async ({context, event}) => {
   }
   const html = await res.text();
 
-  // 2) extract metadata
+  // 3. extract metadata
   const urlLinkedData = await getData({html, url: data.url});
 
-  console.log(urlLinkedData);
-
+  // 6. Patch image, if present
+  
+  
+  // 5. Patch using schema-aware agent action
+  //    Set ldLastUpdated & `isUpdating` to false
+  await client.agent.action.patch({
+    noWrite: local ? true : false, // if local is true, don't write to the document, just return the result for logging
+    schemaId: "_.schemas.production",
+    documentId: data._id,
+    target: [
+      {
+        path: ["title"],
+        operation: "set",
+        value: urlLinkedData?.title ?? '',
+      },
+      {
+        path: ["author"],
+        operation: "set",
+        value: urlLinkedData?.author ?? '',
+      },
+      {
+        path: ["publisher", "pubName"],
+        operation: "set",
+        value: urlLinkedData?.publisher ?? '',
+      },
+      {
+        path: ["resourceUrlLd", "ldLastUpdated"],
+        operation: "set",
+        value: data.ldRequested,
+      },
+      {
+        path: ["resourceUrlLd", "ldIsUpdating"],
+        operation: "set",
+        value: false,
+      },
+    ],
+  });
+  console.log(
+    local
+      ? "Linked Data (LOCAL TEST MODE - Content Lake not updated):"
+      : "Linked Data:",
+    urlLinkedData
+  );
 });

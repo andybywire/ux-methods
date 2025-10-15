@@ -26,7 +26,8 @@ export default defineBlueprint({
         includeAllVersions: true,
         filter:
           "_type == 'resource' && resourceUrlLd.ldLastUpdated != resourceUrlLd.ldLastRequested && resourceUrlLd.ldIsUpdating != true",
-        projection: "{_id, title, 'url':resourceUrlLd.resourceUrl}",
+        projection:
+          "{_id, title, 'url':resourceUrlLd.resourceUrl, 'ldRequested': resourceUrlLd.ldLastRequested}",
       },
     }),
   ],
