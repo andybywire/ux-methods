@@ -4,9 +4,6 @@ export default defineType({
   name: 'resourceUrlLd',
   title: 'URL and Linked Data',
   type: 'object',
-  // components: {
-  //   input: GetLinkedData,
-  // },
   fields: [
     defineField({
       name: 'resourceUrl',
