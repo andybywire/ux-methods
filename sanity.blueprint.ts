@@ -25,7 +25,7 @@ export default defineBlueprint({
         includeDrafts: true,
         includeAllVersions: true,
         filter:
-          "_type == 'resource' && resourceUrlLd.ldLastUpdated != resourceUrlLd.ldLastRequested && resourceUrlLd.ldIsUpdating != true",
+          "_type == 'resource' && resourceUrlLd.ldLastUpdated != resourceUrlLd.ldLastRequested && resourceUrlLd.ldIsUpdating != true", // change this to delta::changedAny(ldLastRequested) — should simplify the filter
         projection:
           "{_id, title, 'url':resourceUrlLd.resourceUrl, 'ldRequested': resourceUrlLd.ldLastRequested}",
       },

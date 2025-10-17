@@ -11,7 +11,7 @@ import {RiLinksLine, RiArticleLine} from 'react-icons/ri'
  * TODO: Account for Linked Data input component (and web service)
  */
 
-const debug = true // For component development; remove once
+const debug = !true // For component development; remove once
 
 // Move this to a separate exported component
 function GetLinkedData(props: ObjectInputProps) {
@@ -21,6 +21,7 @@ function GetLinkedData(props: ObjectInputProps) {
   const isUpdating = useFormValue([...path, 'ldIsUpdating']) as boolean | undefined
   const lastUpdatedISO = useFormValue([...path, 'ldLastUpdated']) as string | undefined
   const fieldUrl = useFormValue([...path, 'resourceUrl']) as string | undefined
+  const updateIssue = useFormValue([...path, 'ldUpdateIssue']) as string | undefined
 
   const lastUpdatedDate = lastUpdatedISO ? new Date(lastUpdatedISO) : undefined
 
@@ -63,6 +64,10 @@ function GetLinkedData(props: ObjectInputProps) {
                 Fetching linked data
               </Text>
             </>
+          ) : updateIssue ? (
+            <Text size={1} weight="medium" muted>
+              {updateIssue}
+            </Text>
           ) : (
             lastUpdatedDate && (
               <Text size={1} weight="medium" muted>
@@ -90,7 +95,7 @@ export default defineType({
     defineField({
       // hoist this
       name: 'resourceUrlLd',
-      title: 'Resource URL and linked data status',
+      title: 'URL and Linked Data',
       type: 'object',
       components: {
         input: GetLinkedData,
@@ -119,6 +124,11 @@ export default defineType({
           description:
             'A Boolean that indicates that a LD update request has been sent to the LD function and is not yet resolved',
           type: 'boolean',
+          hidden: debug ? false : true,
+        }),
+        defineField({
+          name: 'ldUpdateIssue',
+          type: 'string',
           hidden: debug ? false : true,
         }),
       ],
