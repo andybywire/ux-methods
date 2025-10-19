@@ -1,7 +1,6 @@
 import {set, ObjectInputProps, useFormValue} from 'sanity'
 import {Button, Box, Text, Spinner, Card, Flex} from '@sanity/ui'
 
-// Move this to a separate exported component
 export default function GetLinkedData(props: ObjectInputProps) {
   const {path, onChange} = props
 
@@ -18,7 +17,6 @@ export default function GetLinkedData(props: ObjectInputProps) {
     onChange([set(date, ['ldLastRequested'])])
   }
 
-  // Move to a utility function
   function isValidUrl(url: string) {
     try {
       new URL(url)
