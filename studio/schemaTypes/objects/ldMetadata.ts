@@ -2,7 +2,13 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'ldMetadata',
+  title: 'Linked Data Metadata',
   type: 'object',
+  description: 'Linked data metadata fields are used to manage linked data fetching and error messaging. These fields need to be available on the document in order of the Sanity function to use them, but you should not need to adjust them manually.',
+  options: {
+    collapsible: true,
+    collapsed: true,
+  },
   fields: [
     defineField({
       name: 'ldIsUpdating',

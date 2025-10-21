@@ -17,11 +17,6 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'ldMetadata',
-      type: 'ldMetadata',
-      hidden: true,
-    }),
-    defineField({
       name: 'title',
       type: 'string',
       title: 'Title',
@@ -60,6 +55,11 @@ export default defineType({
       title: 'Method(s) Described',
       description: 'What UX Methods does this resource provide information about?',
       of: [{type: 'describedMethod'}],
+    }),
+    defineField({
+      name: 'ldMetadata',
+      title: 'Linked Data Metadata',
+      type: 'ldMetadata',
     }),
   ],
   preview: {

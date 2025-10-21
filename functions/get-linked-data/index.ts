@@ -26,27 +26,6 @@ type PatchTarget =
 
 type PatchTargets = PatchTarget | PatchTarget[];
 
-// Helpers
-const has = (v: unknown) =>
-  v !== null && v !== undefined && !(typeof v === "string" && v.trim() === "");
-
-const targets: PatchTargets = [];
-
-const setIf = (path: string[], value: unknown) => {
-  if (has(value)) targets.push({path, operation: "set", value});
-};
-
-const patchAgent = (client: ReturnType<typeof createClient>) => {
-  return async (documentId: string, target: PatchTargets, local: Boolean = false) => {
-    await client.agent.action.patch({
-      schemaId: "_.schemas.production",
-      documentId,
-      target,
-      noWrite: local ? true : false
-    });
-  };
-};
-
 // Handler
 export const handler = documentEventHandler(async ({context, event}) => {
   const client = createClient({
@@ -54,10 +33,36 @@ export const handler = documentEventHandler(async ({context, event}) => {
     apiVersion: "vX",
     useCdn: false,
   });
-  const patch = patchAgent(client);
 
+  const targets: PatchTargets = [];
   const {data} = event;
   const {local} = context; // local is true when running locally
+
+  const has = (v: unknown) =>
+    v !== null &&
+    v !== undefined &&
+    !(typeof v === "string" && v.trim() === "");
+
+  const setIf = (path: string[], value: unknown) => {
+    if (has(value)) targets.push({path, operation: "set", value});
+  };
+
+  const patchAgent = (client: ReturnType<typeof createClient>) => {
+    return async (
+      documentId: string,
+      target: PatchTargets,
+      local: Boolean = false
+    ) => {
+      await client.agent.action.patch({
+        schemaId: "_.schemas.production",
+        documentId,
+        target,
+        noWrite: local ? true : false,
+      });
+    };
+  };
+
+  const patch = patchAgent(client);
 
   const getData = metascraper([
     author(),
@@ -105,26 +110,36 @@ export const handler = documentEventHandler(async ({context, event}) => {
     );
 
     // 2. Fetch HTML (set a UA to improve success on some sites)
-    const res = await fetch(data.url, {
-      redirect: "follow",
-      headers: {
-        "user-agent":
-          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-        accept: "text/html,application/xhtml+xml",
-      },
-    });
-    if (!res.ok) {
-      await fail(`Failed to fetch URL (${res.status} ${res.statusText}).`);
+    let html;
+    try {
+      const res = await fetch(data.url, {
+        redirect: "follow",
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          accept: "text/html,application/xhtml+xml",
+        },
+      });
+      if (!res.ok) {
+        await fail(`Failed to fetch URL (${res.status} ${res.statusText}).`);
+        return;
+      }
+      html = await res.text();
+    } catch (e) {
+      await fail(
+        "This site couldn't be reached. Please check the URL."
+      );
       return;
     }
-    const html = await res.text();
 
     // 3. Extract metadata
-    let ld: LinkedData;
+    let ld: LinkedData = {};
     try {
       ld = (await getData({html, url: data.url})) as LinkedData;
     } catch (e) {
-      await fail("There was an issue extracting linked data from the page. Please check the URL.");
+      await fail(
+        "There was an issue extracting linked data from the page. Please check the URL."
+      );
       return;
     }
 
@@ -155,7 +170,7 @@ export const handler = documentEventHandler(async ({context, event}) => {
     setIf(["title"], ld.title);
     setIf(["author"], ld.author);
     setIf(["metaDescription"], ld.description);
-    setIf(["pubDate"], ld.date ? ld.date.split('T')[0] : undefined);
+    setIf(["pubDate"], ld.date ? ld.date.split("T")[0] : undefined);
     setIf(["publisher", "pubName"], ld.publisher);
 
     // a) Only set resourceImage if we actually uploaded one
@@ -181,8 +196,7 @@ export const handler = documentEventHandler(async ({context, event}) => {
       {
         path: ["ldMetadata", "ldLastUpdated"],
         operation: "set",
-        value: data.ldRequested,
-        // value: new Date().toISOString(), // replace if using delta::changedAny()
+        value: new Date().toISOString(),
       },
       {
         path: ["ldMetadata", "ldIsUpdating"],

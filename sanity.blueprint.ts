@@ -25,10 +25,18 @@ export default defineBlueprint({
         includeDrafts: true,
         includeAllVersions: true,
         filter:
-          "_type == 'resource' && ldMetadata.ldLastUpdated != ldMetadata.ldLastRequested && ldMetadata.ldIsUpdating != true", 
-          // delta::changedAny(ldLastRequested) may simplify this
+          `_type == 'resource' 
+          && (
+            delta::changedAny(ldMetadata.ldLastRequested) 
+            || (
+              !defined(before().ldMetadata.ldLastRequested) 
+              && defined(after().ldMetadata.ldLastRequested)
+            )
+          )
+          && ldMetadata.ldIsUpdating != true
+          `,
         projection:
-          "{_id, title, 'url':resourceUrl, 'ldRequested': ldMetadata.ldLastRequested}",
+          "{_id, title, 'url':resourceUrl}",
       },
     }),
   ],
