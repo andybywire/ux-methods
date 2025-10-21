@@ -1,44 +1,51 @@
-import {set, ObjectInputProps, useFormValue} from 'sanity'
-import {Button, Box, Text, Spinner, Card, Flex} from '@sanity/ui'
+import {UrlInputProps, useFormValue, useClient} from 'sanity'
+import {Button, Box, Text, Spinner, Card, Flex, useToast} from '@sanity/ui'
 
-export default function GetLinkedData(props: ObjectInputProps) {
-  const {path, onChange} = props
+type Props = UrlInputProps & {
+  metaPath?: string[] // the path of the `ldMetadata` object
+}
 
-  // `path` resolves the absolute path for the object input component
-  const isUpdating = useFormValue([...path, 'ldIsUpdating']) as boolean | undefined
-  const lastUpdatedISO = useFormValue([...path, 'ldLastUpdated']) as string | undefined
-  const fieldUrl = useFormValue([...path, 'resourceUrl']) as string | undefined
-  const updateIssue = useFormValue([...path, 'ldUpdateIssue']) as string | undefined
+export default function GetLinkedData(props: Props) {
+  const {renderDefault, value, metaPath = ['ldMetadata']} = props
+
+  const client = useClient({apiVersion: 'v2025-10-20'})
+  const toast = useToast()
+  const docId = useFormValue(['_id']) as string | undefined
+  const isUpdating = useFormValue([...metaPath, 'ldIsUpdating']) as boolean | undefined
+  const lastUpdatedISO = useFormValue([...metaPath, 'ldLastUpdated']) as string | undefined
+  const updateIssue = useFormValue([...metaPath, 'ldUpdateIssue']) as string | undefined
 
   const lastUpdatedDate = lastUpdatedISO ? new Date(lastUpdatedISO) : undefined
 
-  const handleChange = () => {
-    const date = new Date().toISOString()
-    onChange([set(date, ['ldLastRequested'])])
-  }
-
-  function isValidUrl(url: string) {
-    try {
-      new URL(url)
-      return true
-    } catch {
-      return false
-    }
+  const handleClick = async () => {
+    if (!docId) return
+    toast.push({
+      status: 'success',
+      title: 'Linked Data fetch initiated.'
+    })
+    const now = new Date().toISOString()
+    await client
+      .patch(docId)
+      .setIfMissing({[metaPath[0]]: {}})
+      .set({
+        [`${metaPath.join('.')}.ldLastRequested`]: now,
+      })
+      .commit({returnDocuments: false})
   }
 
   return (
     <Box>
-      {props.renderDefault(props)}
+      {renderDefault(props)}
       <Card paddingTop={[3]}>
         <Button
           fontSize={[2]}
           padding={[3]}
           text="Get linked data"
           mode="ghost"
-          disabled={!fieldUrl || !isValidUrl(fieldUrl)}
+          disabled={!value || !isValidUrl(value)}
           tone="default"
           width="fill"
-          onClick={handleChange}
+          onClick={handleClick}
         />
       </Card>
       <Card paddingTop={3}>
@@ -65,4 +72,13 @@ export default function GetLinkedData(props: ObjectInputProps) {
       </Card>
     </Box>
   )
+}
+
+function isValidUrl(url: string) {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
 }

@@ -9,12 +9,17 @@ export default defineType({
   title: 'Resources',
   fields: [
     defineField({
-      name: 'resourceUrlLd',
-      title: 'URL and Linked Data',
-      type: 'resourceUrlLd',
+      name: 'resourceUrl',
+      type: 'url',
+      title: 'Resource URL',
       components: {
         input: GetLinkedData,
       },
+    }),
+    defineField({
+      name: 'ldMetadata',
+      type: 'ldMetadata',
+      hidden: true,
     }),
     defineField({
       name: 'title',
@@ -55,14 +60,6 @@ export default defineType({
       title: 'Method(s) Described',
       description: 'What UX Methods does this resource provide information about?',
       of: [{type: 'describedMethod'}],
-    }),
-    defineField({
-      name: 'resourceUrl',
-      type: 'url',
-      title: 'Resource URL',
-      deprecated: {
-        reason: 'Will be replaced with `resourceUrlLd` URL value'
-      }
     }),
   ],
   preview: {

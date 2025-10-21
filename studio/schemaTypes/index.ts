@@ -17,6 +17,7 @@ import sources from './objects/sources'
 import resourceUrlLd from './objects/resourceUrlLd'
 import documentation from './documents/documentation'
 import newsletter from './documents/newsletter'
+import ldMetadata from './objects/ldMetadata'
 
 export const schemaTypes = [
   discipline,
@@ -37,5 +38,6 @@ export const schemaTypes = [
   sources,
   resourceUrlLd,
   newsletter,
-  documentation
+  documentation,
+  ldMetadata
 ]

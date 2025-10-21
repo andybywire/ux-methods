@@ -27,22 +27,22 @@ type PatchTarget =
 type PatchTargets = PatchTarget | PatchTarget[];
 
 // Helpers
-const targets: PatchTargets = [];
-
 const has = (v: unknown) =>
   v !== null && v !== undefined && !(typeof v === "string" && v.trim() === "");
+
+const targets: PatchTargets = [];
 
 const setIf = (path: string[], value: unknown) => {
   if (has(value)) targets.push({path, operation: "set", value});
 };
 
 const patchAgent = (client: ReturnType<typeof createClient>) => {
-  return async (documentId: string, target: PatchTargets, noWrite: boolean) => {
+  return async (documentId: string, target: PatchTargets, local: Boolean = false) => {
     await client.agent.action.patch({
       schemaId: "_.schemas.production",
       documentId,
       target,
-      noWrite,
+      noWrite: local ? true : false
     });
   };
 };
@@ -58,7 +58,6 @@ export const handler = documentEventHandler(async ({context, event}) => {
 
   const {data} = event;
   const {local} = context; // local is true when running locally
-  let targets: PatchTargets = [];
 
   const getData = metascraper([
     author(),
@@ -68,10 +67,6 @@ export const handler = documentEventHandler(async ({context, event}) => {
     publisher(),
     title(),
   ]);
-
-  const setIf = (path: string[], value: unknown) => {
-    if (has(value)) targets.push({path, operation: "set", value});
-  };
 
   // Log failures to console
   const log = (...args: unknown[]) => console.log("[get-linked-data]", ...args);
@@ -83,17 +78,17 @@ export const handler = documentEventHandler(async ({context, event}) => {
       data._id,
       [
         {
-          path: ["resourceUrlLd", "ldIsUpdating"],
+          path: ["ldMetadata", "ldIsUpdating"],
           operation: "set",
           value: false,
         },
         {
-          path: ["resourceUrlLd", "ldUpdateIssue"],
+          path: ["ldMetadata", "ldUpdateIssue"],
           operation: "set",
           value: message,
         },
       ],
-      local ? true : false
+      local
     );
   };
 
@@ -105,8 +100,8 @@ export const handler = documentEventHandler(async ({context, event}) => {
     // 1. Set ldIsUpdating to `true` to prevent repeat calls
     await patch(
       data._id,
-      {path: ["resourceUrlLd", "ldIsUpdating"], operation: "set", value: true},
-      local ? true : false
+      {path: ["ldMetadata", "ldIsUpdating"], operation: "set", value: true},
+      local
     );
 
     // 2. Fetch HTML (set a UA to improve success on some sites)
@@ -177,27 +172,27 @@ export const handler = documentEventHandler(async ({context, event}) => {
 
     // b) Unset any previously logged issues
     targets.push({
-      path: ["resourceUrlLd", "ldUpdateIssue"],
+      path: ["ldMetadata", "ldUpdateIssue"],
       operation: "unset",
     });
 
     // c) Always update bookkeeping flags
     targets.push(
       {
-        path: ["resourceUrlLd", "ldLastUpdated"],
+        path: ["ldMetadata", "ldLastUpdated"],
         operation: "set",
         value: data.ldRequested,
         // value: new Date().toISOString(), // replace if using delta::changedAny()
       },
       {
-        path: ["resourceUrlLd", "ldIsUpdating"],
+        path: ["ldMetadata", "ldIsUpdating"],
         operation: "set",
         value: false,
       }
     );
 
     // 6) apply the schema-aware patch
-    await patch(data._id, targets, local ? true : false);
+    await patch(data._id, targets, local);
     console.log(
       local
         ? "Linked Data (LOCAL TEST MODE - Content Lake not updated):"
@@ -210,24 +205,14 @@ export const handler = documentEventHandler(async ({context, event}) => {
       await patch(
         data._id,
         {
-          path: ["resourceUrlLd", "ldIsUpdating"],
+          path: ["ldMetadata", "ldIsUpdating"],
           operation: "set",
           value: false,
         },
-        false
+        local
       );
     } finally {
       console.error("[get-linked-data] fatal error:", err);
     }
   }
 });
-
-// Test Commands
-// NN/g
-// npx sanity functions test get-linked-data --document-id drafts.f06c071c-8e46-42ae-8158-69d9bc71036c --dataset production --with-user-token
-
-// Substack
-// npx sanity functions test get-linked-data --document-id drafts.2f8697e9-a071-41a6-adf9-f1f188640c84 --dataset production --with-user-token
-
-// example.com
-// npx sanity functions test get-linked-data --document-id drafts.26c17169-fa22-4345-b0b1-6e89ad16224a --dataset production --with-user-token
