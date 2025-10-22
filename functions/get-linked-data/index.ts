@@ -24,7 +24,20 @@ type PatchTarget =
   | {path: string[]; operation: "set"; value: any}
   | {path: string[]; operation: "unset"};
 
-type PatchTargets = PatchTarget | PatchTarget[];
+// Patch helper
+const patchAgent = (
+  client: ReturnType<typeof createClient>,
+  noWrite: boolean = false
+) => {
+  return async (documentId: string, target: PatchTarget | PatchTarget[]) => {
+    await client.agent.action.patch({
+      schemaId: "_.schemas.production",
+      documentId,
+      target,
+      noWrite,
+    });
+  };
+};
 
 // Handler
 export const handler = documentEventHandler(async ({context, event}) => {
@@ -34,9 +47,12 @@ export const handler = documentEventHandler(async ({context, event}) => {
     useCdn: false,
   });
 
-  const targets: PatchTargets = [];
   const {data} = event;
   const {local} = context; // local is true when running locally
+  const patch = patchAgent(client, local);
+
+  // Targets are cleared out for each invocation
+  const targets: PatchTarget[] = [];
 
   const has = (v: unknown) =>
     v !== null &&
@@ -46,23 +62,6 @@ export const handler = documentEventHandler(async ({context, event}) => {
   const setIf = (path: string[], value: unknown) => {
     if (has(value)) targets.push({path, operation: "set", value});
   };
-
-  const patchAgent = (client: ReturnType<typeof createClient>) => {
-    return async (
-      documentId: string,
-      target: PatchTargets,
-      local: Boolean = false
-    ) => {
-      await client.agent.action.patch({
-        schemaId: "_.schemas.production",
-        documentId,
-        target,
-        noWrite: local ? true : false,
-      });
-    };
-  };
-
-  const patch = patchAgent(client);
 
   const getData = metascraper([
     author(),
@@ -79,22 +78,18 @@ export const handler = documentEventHandler(async ({context, event}) => {
   // Log failures to dataset & reset updating flag
   const fail = async (message: string) => {
     log("fail:", message);
-    await patch(
-      data._id,
-      [
-        {
-          path: ["ldMetadata", "ldIsUpdating"],
-          operation: "set",
-          value: false,
-        },
-        {
-          path: ["ldMetadata", "ldUpdateIssue"],
-          operation: "set",
-          value: message,
-        },
-      ],
-      local
-    );
+    await patch(data._id, [
+      {
+        path: ["ldMetadata", "ldIsUpdating"],
+        operation: "set",
+        value: false,
+      },
+      {
+        path: ["ldMetadata", "ldUpdateIssue"],
+        operation: "set",
+        value: message,
+      },
+    ]);
   };
 
   try {
@@ -103,14 +98,14 @@ export const handler = documentEventHandler(async ({context, event}) => {
       return;
     }
     // 1. Set ldIsUpdating to `true` to prevent repeat calls
-    await patch(
-      data._id,
-      {path: ["ldMetadata", "ldIsUpdating"], operation: "set", value: true},
-      local
-    );
+    await patch(data._id, {
+      path: ["ldMetadata", "ldIsUpdating"],
+      operation: "set",
+      value: true,
+    });
 
     // 2. Fetch HTML (set a UA to improve success on some sites)
-    let html;
+    let html: string;
     try {
       const res = await fetch(data.url, {
         redirect: "follow",
@@ -126,9 +121,7 @@ export const handler = documentEventHandler(async ({context, event}) => {
       }
       html = await res.text();
     } catch (e) {
-      await fail(
-        "This site couldn't be reached. Please check the URL."
-      );
+      await fail("This site couldn't be reached. Please check the URL.");
       return;
     }
 
@@ -206,7 +199,7 @@ export const handler = documentEventHandler(async ({context, event}) => {
     );
 
     // 6) apply the schema-aware patch
-    await patch(data._id, targets, local);
+    await patch(data._id, targets);
     console.log(
       local
         ? "Linked Data (LOCAL TEST MODE - Content Lake not updated):"
@@ -216,15 +209,11 @@ export const handler = documentEventHandler(async ({context, event}) => {
   } catch (err) {
     // Final safety net: make sure to clear the updating flag
     try {
-      await patch(
-        data._id,
-        {
-          path: ["ldMetadata", "ldIsUpdating"],
-          operation: "set",
-          value: false,
-        },
-        local
-      );
+      await patch(data._id, {
+        path: ["ldMetadata", "ldIsUpdating"],
+        operation: "set",
+        value: false,
+      });
     } finally {
       console.error("[get-linked-data] fatal error:", err);
     }
