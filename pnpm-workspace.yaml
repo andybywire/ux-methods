@@ -1,3 +1,5 @@
 packages:
-  - 'studio'
-  - 'web'
+  - studio
+  - web
+ignoredBuiltDependencies:
+  - esbuild
