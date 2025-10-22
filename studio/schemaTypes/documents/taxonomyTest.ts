@@ -3,10 +3,10 @@ import {NodeTree} from '../../static/NodeTree'
 import {ArrayHierarchyInput, ReferenceHierarchyInput} from 'sanity-plugin-taxonomy-manager'
 import {branchFilter, schemeFilter} from 'sanity-plugin-taxonomy-manager'
 
-const schemeIdWithTop = '1293cc'
-const branchIdWithTop = 'fb5d42'
-const schemeIdNoTop = 'aec22151-f3ad-4866-9ce1-cad7d98ab340'
-const branchIdNoTop = 'N_WLDj'
+const schemeIdWithTop = 'GYeFxj'
+const branchIdWithTop = 'GYeFxj'
+const schemeIdNoTop = 'GYeFxj'
+const branchIdNoTop = 'GYeFxj'
 
 /**
  * Taxonomy Input Tests
