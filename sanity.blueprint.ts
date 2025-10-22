@@ -21,7 +21,7 @@ export default defineBlueprint({
       memory: 2,
       timeout: 30,
       event: {
-        on: ["update"],
+        on: ["update", "create"],
         includeDrafts: true,
         includeAllVersions: true,
         filter:
@@ -31,6 +31,10 @@ export default defineBlueprint({
             || (
               !defined(before().ldMetadata.ldLastRequested) 
               && defined(after().ldMetadata.ldLastRequested)
+            )
+            || (
+              delta::operation() == 'create'
+              && defined(resourceUrl)
             )
           )
           && ldMetadata.ldIsUpdating != true
