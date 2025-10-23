@@ -7,8 +7,7 @@ Manually gathering metadata (title, description, author, publisher, image) from 
 
 ## Solution
 
-The Get Linked Data Function automatically retrieves and stores metadata for URLs using the Metascraper library.
-When a document’s URL is updated or requested, this function:
+The Get Linked Data Function automatically retrieves and stores metadata for URLs using the [Metascraper](https://metascraper.js.org/#/) library. When a document’s URL is updated or requested, this function:
 - Fetches the HTML of the linked page
 - Extracts metadata (title, author, description, publisher, image)
 - Uploads and references the page’s image in your Sanity dataset
@@ -22,20 +21,18 @@ This enables consistent, high-quality metadata capture with minimal manual work.
 - Improves data consistency across resources
 - Adds visual context by auto-uploading referenced images
 - Integrates cleanly into Sanity’s event-driven Functions system
-- Reusable across multiple document types&mdash;anywhere you have a url and a metadata object
+- Reusable across multiple document types &mdash; anywhere you have a url and a metadata object
 
 ## Schema Setup
 
-This function works with any of the official Sanity “clean” templates. You can also add it to existing content models that include a URL field. Optionally, you can adjust the paths (resourceUrl, ldMetadata, etc.) in your blueprint, function, and input component to match your preferred naming conventions.
+This function works with any of the official Sanity “clean” templates. You can also add it to existing content models that include a URL field. Optionally, you can adjust the paths (`resourceUrl`, `ldMetadata`, etc.) in your blueprint, function, and input component to match your preferred naming conventions.
 
 ### Schema Setup
 
-1. The document schema you use should include a URL field and a metadata object, for example:
+1. The document schema you use must include a URL field and a metadata object, for example:
 
     ``` ts
     import GetLinkedData from './linkedDataInput'
-
-    ...
 
     defineField({
       name: 'resourceUrl',
@@ -170,7 +167,7 @@ This function works with any of the official Sanity “clean” templates. You c
 
 2. **Add the function**
    
-   Add the function `index.ts` file in a new folder in your functions directory called `/get-lnked-data`. Do not add it to your studio directory
+   Add the function as an `index.ts` file in a new folder in your functions directory called `get-lnked-data/`. Your `functions/` directory is located at the project root, not in your `studio/` directory: 
 
     ```
     /
@@ -180,7 +177,7 @@ This function works with any of the official Sanity “clean” templates. You c
     └─ studio/
     ```
 
-3. **Add configuration to your blueprint**
+3. **Add the configuration to your blueprint**
 
     ```ts
     defineDocumentFunction({
@@ -214,7 +211,7 @@ This function works with any of the official Sanity “clean” templates. You c
     }),
     ```
 
-    Your blueprint should also be located at the project root directory.
+    Your blueprint should also be located at the project root directory:
 
     ```text
     /
@@ -227,11 +224,13 @@ This function works with any of the official Sanity “clean” templates. You c
 
 4. **Install dependencies**
 
-      In addition to Sanity Client and Functions, this function uses the Metascraper library to retrieve linked data. 
+      In addition to `@sanity/client` and `@sanity/functions`, this function uses the [Metascraper](https://metascraper.js.org/#/) library to retrieve linked data: 
 
     ```json
     {
       "dependencies": {
+        "@sanity/client": "^7.11.2",
+        "@sanity/functions": "^1.0.3",
         "metascraper": "^5.49.4",
         "metascraper-author": "^5.49.2",
         "metascraper-date": "^5.49.2",
@@ -243,9 +242,7 @@ This function works with any of the official Sanity “clean” templates. You c
     }
     ```
 
-    You can add these dependencies at the project root or at the function level. Refer to the [Sanity Functions dependencies documentation](https://www.sanity.io/docs/compute-and-ai/function-dependencies#cd8c4d577f9f) for more details.
- 
-    Install dependencies with :
+    You can add these dependencies at the project root or at the function level. Refer to the [Sanity Functions dependencies documentation](https://www.sanity.io/docs/compute-and-ai/function-dependencies#cd8c4d577f9f) for more details. Install dependencies with:
 
     ```bash
     npm install
@@ -253,7 +250,7 @@ This function works with any of the official Sanity “clean” templates. You c
 
 ## Testing the function locally
 
-You can test the auto-tag function locally using the Sanity CLI before deploying it to production.
+You can test the get-linked-data function locally using the Sanity CLI before deploying it to production.
 
 ### Simple Testing Command
 
@@ -263,20 +260,20 @@ Test the function with an existing document ID from your dataset:
 npx sanity functions test get-linked-data --document-id <your-document-id> --dataset production --with-user-token
 ```
 
--	Replace <your-document-id> with a real document ID from your dataset.
+- Replace <insert-document-id> with an actual document ID from your dataset and production with your dataset name.
 -	Use --with-user-token to test writes locally.
 -	Test against valid and invalid URLs to verify error handling.
 
 ### Interactive Development Mode
 
-For interactive local testing:
+For interactive local testing, run:
 
 ```bash
 npx sanity functions dev
 ```
 
 ### Testing Tips
-- Use real document IDs - Document functions require IDs that exist in your dataset
+- Use real document IDs &mdash; Document functions require IDs that exist in your dataset
 - Use Node.js v22.x locally to match production runtime
 - Test edge cases like malformed URLs or URLs that return a 404
 - Check function logs in CLI output for debugging
@@ -285,7 +282,7 @@ npx sanity functions dev
 - A Sanity project with Functions enabled
 - A schema with:
 	-	A `url` field
-	-	A `ldMetadata` object with `status` and `timestamp` fields
+	-	An `ldMetadata` object with `status` and `timestamp` fields
 	-	Linked data fields (`title`, `author`, `publisher`, `metaDescription`, etc.)
 - This function _does not_ use Sanity's AI capabilities
 - Node.js v22.x for local development
@@ -293,22 +290,22 @@ npx sanity functions dev
 ## Usage Example
 
 When a content editor pastes or updates a URL in a resource document:
-1. The linked data input component sets ldMetadata.ldLastRequested to the current time.
+1. The linked data input component sets `ldMetadata.ldLastRequested` to the current time.
 2. The function detects this change and triggers automatically.
 3. The function:
   -	Fetches and parses the linked page
   -	Uploads the page’s main image (if available)
-  -	Writes title, author, publisher, and description fields
-  -	Updates bookkeeping fields (ldLastUpdated, ldIsUpdating, ldUpdateIssue)
-4.The resource document updates with rich metadata and an image—all automatically.
+  -	Writes `title`, `author`, `publisher`, and `description` fields
+  -	Updates bookkeeping fields (`ldLastUpdated`, `ldIsUpdating`, `ldUpdateIssue`)
+4. The resource document updates with rich metadata and an image&mdash;all automatically.
 
-**Result:** consistent, complete metadata for all external resources with one click.
+**Result:** Consistent, complete metadata for external resources with one click (or less).
 
 ## Customization
 
 You can adapt this function to other use cases:
--	Add new metascraper rules to capture logos, keywords, or OpenGraph data.
--	Modify target paths (e.g., write to seo.title or metadata.publisher).
+-	Add new metascraper rules to capture logos, keywords, or other OpenGraph data.
+-	Modify target paths (e.g., write to `seo.title` or `metadata.publisher`).
 -	Change triggers in the blueprint (on: ['create', 'update'], filters, etc.).
 -	Integrate with other functions (e.g., [taxonomy-term-auto-tag](https://www.sanity.io/recipes/taxonomy-term-auto-tag-db35888b) based on short descriptions).
 
