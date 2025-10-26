@@ -4,7 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {RiSettings4Line} from 'react-icons/ri'
 import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import { taxonomyManager  } from 'sanity-plugin-taxonomy-manager' // will load from .yalc if available, from node_modules if not
+import { taxonomyManager  } from 'sanity-plugin-taxonomy-manager'
 import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
