@@ -1,5 +1,6 @@
 packages:
   - studio
   - web
+  - astro
 ignoredBuiltDependencies:
   - esbuild
