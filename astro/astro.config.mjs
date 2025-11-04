@@ -19,4 +19,9 @@ export default defineConfig({
     ,
     react(),
   ],
+  vite: {
+		optimizeDeps: {
+			include: [] 
+		},
+	},
 });
