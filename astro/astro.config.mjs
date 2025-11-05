@@ -7,9 +7,9 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [
     sanity({
-      projectId: '4g5tw1k0',
-      dataset: 'production',
-      useCdn: false, 
+      projectId: "4g5tw1k0",
+      dataset: "production",
+      useCdn: false,
       apiVersion: "2025-11-01",
       // studioBasePath: "/studio", // If you want to access the Studio on a route
       // stega: {
@@ -20,8 +20,8 @@ export default defineConfig({
   ],
   // output: 'server', // this should be the only line I need to change for the `preview` subdomain
   vite: {
-		optimizeDeps: {
-			include: [] 
-		},
-	},
+    optimizeDeps: {
+      include: [],
+    },
+  },
 });

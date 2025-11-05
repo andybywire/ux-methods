@@ -1,11 +1,11 @@
 ---
-import type { SanityDocument } from "@sanity/client";
-import { loadQuery } from "../../sanity/lib/load-query";
-import PortableText from "../../components/PortableText.astro";
-import Layout from '../../layouts/Layout.astro';
+import type {SanityDocument} from '@sanity/client'
+import {loadQuery} from '../../sanity/lib/load-query'
+import PortableText from '../../components/PortableText.astro'
+import Layout from '../../layouts/Layout.astro'
 
 export async function getStaticPaths() {
-  const {data: methods } = await loadQuery<SanityDocument[]>({
+  const {data: methods} = await loadQuery<SanityDocument[]>({
     query: `*[_type == "method"]`,
   })
 
@@ -13,21 +13,22 @@ export async function getStaticPaths() {
     return {
       params: {
         slug: slug.current,
-      }
+      },
     }
   })
 }
 
-const { params } = Astro;
+const {params} = Astro
 
-const { data: method } = await loadQuery<{ title: string; overview: any[] }>({
+const {data: method} = await loadQuery<{title: string; overview: any[]; steps: any[]}>({
   query: `*[_type == "method" && slug.current == $slug][0]`,
   params,
-});
-
-
+})
 ---
+
 <Layout>
-<h1>A post about {method.title}</h1>
-<PortableText portableText={method.overview} />
+  <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
+  <h1>A post about {method.title}</h1>
+  <PortableText portableText={method.overview} />
+  <PortableText portableText={method.steps} />
 </Layout>

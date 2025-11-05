@@ -1,10 +1,10 @@
 ---
-import { urlForImage } from "../sanity/lib/url-for-image";
+import {urlForImage} from '../sanity/lib/url-for-image'
 
-const { asset, alt } = Astro.props.node;
+const {asset, alt} = Astro.props.node
 
-const url = urlForImage(asset).url();
-const webpUrl = urlForImage(asset).format("webp").url();
+const url = urlForImage(asset).url()
+const webpUrl = urlForImage(asset).format('webp').url()
 ---
 
 <picture>
