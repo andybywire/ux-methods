@@ -1,11 +1,18 @@
-# Sanity Clean Content Studio
+# UX Methods Sanity Studio
 
-Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
+## Typegen
 
-Now you can do the following things:
+Generates TypeScript definitions from Sanity Studio schemas and GROQ queries and writes them to `../astro/src/sanity/sanity.types.ts`
+- Generate new type definitions whenever the schema changes or when new GROQ queries are created:
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+```bash
+npx sanity schema extract && npx sanity typegen generate
+```
 
-Studio Change.
+For future additions, consider:
+- Adding a `sanity-typegen.json` to `astro/` to generate types from there (when queries change)
+- [Adding scripts to `package.json`](https://www.buildwithmatija.com/blog/how-to-generate-typescript-types-for-your-sanity-v3-schema#adding-a-script-to-packagejson)
+
+[Sanity Documentation](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen)
+
+[Explainer + example of adding scripts to `package.json`](https://www.buildwithmatija.com/blog/how-to-generate-typescript-types-for-your-sanity-v3-schema#adding-a-script-to-packagejson)
