@@ -18,10 +18,16 @@
     "@types/react-dom": "^19.2.2",
     "astro": "^5.15.3",
     "astro-portabletext": "^0.11.3",
+    "groq": "^3.99.0",
+    "lodash": "^4.17.21",
     "react": "^19.2.0",
+    "react-compiler-runtime": "^1.0.0",
     "react-dom": "^19.2.0",
     "react-is": "^19.2.0",
     "sanity": "^4.13.0",
     "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

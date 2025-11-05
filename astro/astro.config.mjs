@@ -19,9 +19,4 @@ export default defineConfig({
     react(),
   ],
   // output: 'server', // this should be the only line I need to change for the `preview` subdomain
-  vite: {
-    optimizeDeps: {
-      include: [],
-    },
-  },
 });
