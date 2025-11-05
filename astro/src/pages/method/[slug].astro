@@ -1,22 +1,33 @@
 ---
 import type { SanityDocument } from "@sanity/client";
 import { loadQuery } from "../../sanity/lib/load-query";
+import PortableText from "../../components/PortableText.astro";
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const {data: methods } = await loadQuery<SanityDocument[]>({
     query: `*[_type == "method"]`,
   })
 
-
-return methods.map(({slug}) => {
-  return {
-    params: {
-      slug: slug.current,
+  return methods.map(({slug}) => {
+    return {
+      params: {
+        slug: slug.current,
+      }
     }
-  }
-})
+  })
 }
 
-const { slug } = Astro.params;
+const { params } = Astro;
+
+const { data: method } = await loadQuery<{ title: string; overview: any[] }>({
+  query: `*[_type == "method" && slug.current == $slug][0]`,
+  params,
+});
+
+
 ---
-<h1>A post about {slug}</h1>
+<Layout>
+<h1>A post about {method.title}</h1>
+<PortableText portableText={method.overview} />
+</Layout>
