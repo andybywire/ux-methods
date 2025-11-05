@@ -16,7 +16,6 @@ export default defineConfig({
       //   studioUrl: "/studio",
       // },
     }),
-    ,
     react(),
   ],
   vite: {
