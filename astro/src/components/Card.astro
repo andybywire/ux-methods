@@ -1,0 +1,9 @@
+---
+const {resource} = Astro.props
+---
+
+<div>
+  <h3>{resource.title}</h3>
+  <p>{resource.metaDescription}</p>
+  <pre><slot /></pre>
+</div>
