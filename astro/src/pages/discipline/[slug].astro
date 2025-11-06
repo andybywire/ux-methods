@@ -1,0 +1,68 @@
+---
+import type {SanityDocument} from '@sanity/client'
+import {loadQuery} from '@sanity/lib/load-query'
+import PortableText from '@components/PortableText.astro'
+import Layout from '@layouts/Layout.astro'
+import {defineQuery} from 'groq'
+import groq from 'groq'
+import type {DisciplinesQueryResult} from '@sanity/sanity.types'
+
+export async function getStaticPaths() {
+  const {data: disciplines} = await loadQuery<SanityDocument[]>({
+    query: `*[_type == "discipline"]`,
+  })
+
+  return disciplines.map(({slug}) => {
+    return {
+      params: {
+        slug: slug.current,
+      },
+    }
+  })
+}
+
+const {params} = Astro
+
+const disciplinesQuery = defineQuery(
+  groq`
+    *[_type == "discipline" && slug.current == $slug][0] {
+      title,
+      "type": "discipline",
+      "slug": slug.current,
+      "uri": uri.current,
+      "createdAt": dateStamp.createdAt,
+      "revisedAt": dateStamp.revisedAt,
+      metaDescription,
+      heroImage,
+      overview,
+      "methods": *[
+          _type == "method" 
+          && ^._id in disciplinesReference[]._ref
+      ]{
+        title, 
+        "slug": slug.current,
+        heroImage,
+        "type": "method",
+        metaDescription,
+      }
+    }
+  `
+)
+
+const {data: discipline} = await loadQuery<DisciplinesQueryResult>({
+  query: disciplinesQuery,
+  params,
+})
+---
+
+<Layout>
+  <!-- <pre>{JSON.stringify(discipline, null, 2)}</pre> -->
+  <h1>{discipline?.title}</h1>
+  <PortableText portableText={discipline?.overview} />
+  {
+    discipline?.methods &&
+      discipline?.methods.map((method) => {
+        return <p>{method.title}</p>
+      })
+  }
+</Layout>

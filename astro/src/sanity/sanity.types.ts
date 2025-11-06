@@ -706,6 +706,54 @@ export type AllSanitySchemaTypes =
   | Slug
   | SanityAssetSourceData
 export declare const internalGroqTypeReferenceTo: unique symbol
+// Source: ../astro/src/pages/discipline/[slug].astro
+// Variable: disciplinesQuery
+// Query: *[_type == "discipline" && slug.current == $slug][0] {      title,      "type": "discipline",      "slug": slug.current,      "uri": uri.current,      "createdAt": dateStamp.createdAt,      "revisedAt": dateStamp.revisedAt,      metaDescription,      heroImage,      overview,      "methods": *[          _type == "method"           && ^._id in disciplinesReference[]._ref      ]{        title,         "slug": slug.current,        heroImage,        "type": "method",        metaDescription,      }    }
+export type DisciplinesQueryResult = {
+  title: string | null
+  type: 'discipline'
+  slug: string | null
+  uri: string | null
+  createdAt: null
+  revisedAt: null
+  metaDescription: string | null
+  heroImage: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    caption?: string
+    alt?: string
+    _type: 'heroImage'
+  } | null
+  overview: BodyPortableText | null
+  methods: Array<{
+    title: string | null
+    slug: string | null
+    heroImage: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      caption?: string
+      alt?: string
+      _type: 'heroImage'
+    } | null
+    type: 'method'
+    metaDescription: string | null
+  }>
+} | null
+
 // Source: ../astro/src/pages/method/[slug].astro
 // Variable: methodsQuery
 // Query: *[_type == "method" && slug.current == $slug][0]
@@ -778,6 +826,7 @@ export type MethodsQueryResult = {
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
+    '\n    *[_type == "discipline" && slug.current == $slug][0] {\n      title,\n      "type": "discipline",\n      "slug": slug.current,\n      "uri": uri.current,\n      "createdAt": dateStamp.createdAt,\n      "revisedAt": dateStamp.revisedAt,\n      metaDescription,\n      heroImage,\n      overview,\n      "methods": *[\n          _type == "method" \n          && ^._id in disciplinesReference[]._ref\n      ]{\n        title, \n        "slug": slug.current,\n        heroImage,\n        "type": "method",\n        metaDescription,\n      }\n    }\n  ': DisciplinesQueryResult
     '*[_type == "method" && slug.current == $slug][0]': MethodsQueryResult
   }
 }
