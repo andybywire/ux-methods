@@ -3,8 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "predev": "pnpm run gen:types",
     "dev": "astro dev",
-    "gen:types": "npx sanity typegen generate",
+    "gen:types": "sanity typegen generate",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
