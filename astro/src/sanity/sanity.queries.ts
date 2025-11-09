@@ -2,7 +2,7 @@ import {defineQuery} from 'groq'
 
 export const DISCIPLINES_QUERY = defineQuery(`
   *[_type == "discipline" && slug.current == $slug][0] {
-    title,
+    "title": coalesce(title,""),
     "type": "discipline",
     "slug": slug.current,
     "uri": uri.current,
@@ -26,7 +26,7 @@ export const DISCIPLINES_QUERY = defineQuery(`
 
 export const METHODS_QUERY = defineQuery(`
   *[_type == "method" && slug.current == $slug][0] {
-    title,
+    "title": coalesce(title, ''),
     "type": "method",
     "slug": slug.current,
     "uri": uri.current,

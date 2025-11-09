@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.5",
     "@astrojs/react": "^4.4.1",
     "@portabletext/types": "^3.0.0",
     "@sanity/astro": "^3.2.10",
@@ -27,7 +28,8 @@
     "react-dom": "^19.2.0",
     "react-is": "^19.2.0",
     "sanity": "^4.13.0",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "vite-plugin-watch-and-run": "^1.7.5",

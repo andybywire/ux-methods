@@ -27,11 +27,16 @@ const {data: method} = await loadQuery<METHODS_QUERYResult>({
   query: METHODS_QUERY,
   params,
 })
+
+if (!method) {
+  Astro.response.status = 404
+  throw new Error('Not found')
+}
 ---
 
 <Layout>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
-  <h1>A post about {method?.title}</h1>
-  <PortableText portableText={method?.overview} />
-  <PortableText portableText={method?.steps} />
+  <h1>A post about {method.title}</h1>
+  <PortableText portableText={method.overview} />
+  <PortableText portableText={method.steps} />
 </Layout>
