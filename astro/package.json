@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "gen:types": "npx sanity typegen generate",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -28,6 +29,7 @@
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
+    "vite-plugin-watch-and-run": "^1.7.5",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
