@@ -3,6 +3,7 @@ dist/
 
 # generated types
 .astro/
+sanity.types.ts
 
 # dependencies
 node_modules/
