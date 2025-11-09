@@ -128,14 +128,19 @@ export default defineType({
           type: 'reference',
           to: [{type: 'skosConcept'}],
           options: {
-            filter: '_type == $type && (scheme->title == $scheme)',
-            filterParams: {
-              type: 'skosConcept',
-              scheme: 'Outcomes',
+            filter: schemeFilter({schemeId: 'Mfji21'}),
+            aiAssist:{
+              embeddingsIndex: 'io-taxonomy',
             },
+            embeddingsIndex: {
+              indexName: 'io-taxonomy',
+              maxResults: 10,
+              searchMode: 'embeddings'
+            }
           },
         },
       ],
+      components: { field: ArrayHierarchyInput },
     }),
     defineField({
       name: 'output',
@@ -147,14 +152,19 @@ export default defineType({
           type: 'reference',
           to: [{type: 'skosConcept'}],
           options: {
-            filter: '_type == $type && (scheme->title == $scheme)',
-            filterParams: {
-              type: 'skosConcept',
-              scheme: 'Outcomes',
+            filter: schemeFilter({schemeId: 'Mfji21'}),
+            aiAssist:{
+              embeddingsIndex: 'io-taxonomy',
             },
+            embeddingsIndex: {
+              indexName: 'io-taxonomy',
+              maxResults: 10,
+              searchMode: 'embeddings'
+            }
           },
         },
       ],
+      components: { field: ArrayHierarchyInput },
     }),
   ],
   preview: {

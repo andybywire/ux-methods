@@ -1,7 +1,7 @@
 ---
 const {resource} = Astro.props
 ---
-
+<pre>{JSON.stringify(Astro.props, null, 2)}</pre>
 <div>
   <h3>{resource.title}</h3>
   <p>{resource.metaDescription}</p>

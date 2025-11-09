@@ -3,8 +3,8 @@ import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
-import { defineQuery } from 'groq'
-import type {MethodsQueryResult } from '@sanity/sanity.types'
+import { METHODS_QUERY } from '@sanity/sanity.queries'
+import type { METHODS_QUERYResult } from 'sanity.types'
 
 
 export async function getStaticPaths() {
@@ -23,10 +23,8 @@ export async function getStaticPaths() {
 
 const {params} = Astro
 
-const methodsQuery = defineQuery(`*[_type == "method" && slug.current == $slug][0]`)
-
-const {data: method} = await loadQuery<MethodsQueryResult>({
-  query: methodsQuery,
+const {data: method} = await loadQuery<METHODS_QUERYResult>({
+  query: METHODS_QUERY,
   params,
 })
 ---

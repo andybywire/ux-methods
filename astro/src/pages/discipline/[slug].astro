@@ -3,10 +3,9 @@ import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
-import {defineQuery} from 'groq'
-import groq from 'groq'
-import type {DisciplinesQueryResult} from '@sanity/sanity.types'
+import type {DISCIPLINES_QUERYResult} from 'sanity.types'
 import Card from '@components/Card.astro'
+import {DISCIPLINES_QUERY} from '@sanity/sanity.queries'
 
 export async function getStaticPaths() {
   const {data: disciplines} = await loadQuery<SanityDocument[]>({
@@ -24,34 +23,8 @@ export async function getStaticPaths() {
 
 const {params} = Astro
 
-const disciplinesQuery = defineQuery(
-  groq`
-    *[_type == "discipline" && slug.current == $slug][0] {
-      title,
-      "type": "discipline",
-      "slug": slug.current,
-      "uri": uri.current,
-      "createdAt": dateStamp.createdAt,
-      "revisedAt": dateStamp.revisedAt,
-      metaDescription,
-      heroImage,
-      overview,
-      "methods": *[
-          _type == "method" 
-          && ^._id in disciplinesReference[]._ref
-      ]{
-        title, 
-        "slug": slug.current,
-        heroImage,
-        "type": "method",
-        metaDescription,
-      }
-    }
-  `
-)
-
-const {data: discipline} = await loadQuery<DisciplinesQueryResult>({
-  query: disciplinesQuery,
+const {data: discipline} = await loadQuery<DISCIPLINES_QUERYResult>({
+  query: DISCIPLINES_QUERY,
   params,
 })
 ---
