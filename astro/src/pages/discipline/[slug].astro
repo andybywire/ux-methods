@@ -33,14 +33,14 @@ if (!discipline) {
   throw new Error('Not found')
 }
 ---
-
-<Layout>
-  <!-- <pre>{JSON.stringify(discipline, null, 2)}</pre> -->
+<Layout meta={discipline.title}>
+  <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
   <h1>{discipline.title}</h1>
   <p>Meta: {discipline.metaDescription}</p>
   <p>Meta: {discipline.createdAt}</p>
   <PortableText portableText={discipline.overview} />
-  {discipline.methods && 
+  {
+    discipline.methods &&
       discipline.methods.map((resource) => {
         return <Card resource={resource}>{resource.title}</Card>
       })

@@ -1,5 +1,26 @@
 import {defineQuery} from 'groq'
 
+export const HOME_PAGE_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+      title,
+      tagline,
+      description,
+      overview,
+      colophon,
+      "credits": credits[]{
+        creditBody
+      },
+      "methodPreviews": *[_type == "method"]{
+        title,
+        "slug": slug.current,
+        "uri": uri.current,
+        "type": 'method',
+        heroImage,
+        metaDescription,
+      } 
+    }
+  `)
+
 export const DISCIPLINES_QUERY = defineQuery(`
   *[_type == "discipline" && slug.current == $slug][0] {
     "title": coalesce(title,""),
