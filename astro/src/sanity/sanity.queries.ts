@@ -68,6 +68,10 @@ export const DISCIPLINES_QUERY = defineQuery(`
       heroImage,
       "type": "method",
       metaDescription,
+    },
+    "metadata": {
+      "layout": ${SITE_LAYOUT_PROJECTION},
+      "footer": ${SITE_FOOTER_PROJECTION}
     }
   }
 `)
@@ -101,6 +105,10 @@ export const METHODS_QUERY = defineQuery(`
       resourceUrl,
       resourceImage,
       "publisher": publisher.pubName
+    },
+    "metadata": {
+      "layout": ${SITE_LAYOUT_PROJECTION},
+      "footer": ${SITE_FOOTER_PROJECTION}
     }
   }
 `)

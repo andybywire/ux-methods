@@ -1,4 +1,4 @@
-import {defineConfig} from 'astro/config'
+import {defineConfig, fontProviders} from 'astro/config'
 import sanity from '@sanity/astro'
 import react from '@astrojs/react'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -11,14 +11,34 @@ export default defineConfig({
       dataset: 'production',
       useCdn: false,
       apiVersion: '2025-11-01',
-      // studioBasePath: "/studio", // If you want to access the Studio on a route
+      // to access the Studio on a route:
+      // studioBasePath: "/studio", 
       // stega: {
       //   studioUrl: "/studio",
       // },
     }),
     react(),
   ],
-  // output: 'server', // this should be the only line I need to change for the `preview` subdomain
+  // this should be the only to change for the `preview` subdomain:
+  // output: 'server', 
+  experimental: {
+    fonts: [
+      {
+        name: 'Nunito Sans',
+        provider: fontProviders.fontsource(),
+        cssVariable: '--header',
+        fallbacks: ["Arial", "sans-serif"],
+        weights: [100,200,300,400,500,600,700,800],
+        styles: ["normal", "italic"]
+      },
+      {
+        name: 'Hind',
+        provider: fontProviders.fontsource(),
+        cssVariable: '--body',
+        fallbacks: ["Arial", "sans-serif"]
+      },
+    ],
+  },
   vite: {
     plugins: [
       tsconfigPaths(),
