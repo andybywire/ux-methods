@@ -1,0 +1,66 @@
+body {
+  font-family: var(--body);
+  font-size: 18px;
+}
+main {
+  /* padding-top: 60px;  */
+  @media (min-width: 800px) {
+    padding-top: 50px;
+  }
+}
+/* article,
+section.resource-cards,
+section.search,
+section.admin-metadata,
+footer > section {
+  margin: 0 auto;
+  max-width: var(--max-width);
+} */
+h1,
+h2,
+h3,
+h4,
+h4 {
+  font-family: var(--header);
+  font-weight: bold;
+  margin: 0;
+  a {
+    text-decoration: none;
+  }
+}
+h3 {
+  font-size: 1.1rem;
+}
+p {
+  line-height: 1.5;
+}
+a,
+a:visited {
+  color: var(--text);
+  transition: color 0.25s ease-out;
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--primary-text-link);
+  transition: color 0.25s ease-out;
+}
+/* figure {
+  width: 100%;
+  margin: 0;
+  figcaption {
+    color: var(--gray-text);
+    padding-top: 0.5rem;
+  }
+}
+.show-on-focus {
+  position: absolute;
+  &:focus,
+  &:active {
+    position: static;
+    display: block;
+    padding: 1rem 1rem 0;
+    background-color: var(--card-background);
+    color: var(--primary-dark-bg);
+    font-weight: bold;
+  }
+} */

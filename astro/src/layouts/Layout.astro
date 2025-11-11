@@ -1,5 +1,8 @@
 ---
-import '../styles/normalize.css'
+import '@styles/normalize.css'
+import '@styles/variables.css'
+import '@styles/global.css'
+import { Font } from 'astro:assets';
 import Footer from '@components/Footer.astro'
 import type {SITE_METADATA_QUERYResult} from 'sanity.types'
 
@@ -11,7 +14,7 @@ interface Props {
 
 const {
   data,
-  data: {layout}
+  data: {layout},
 } = Astro.props
 ---
 
@@ -23,6 +26,8 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{layout && layout.title + ' | '} UX Methods | Astro</title>
+    <Font cssVariable='--header' preload />
+    <Font cssVariable='--body' preload />
   </head>
   <body>
     <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
@@ -31,12 +36,3 @@ const {
   </body>
   {data.footer && <Footer data={data} />}
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
