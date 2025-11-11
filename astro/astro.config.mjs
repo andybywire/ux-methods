@@ -21,6 +21,9 @@ export default defineConfig({
   ],
   // this should be the only to change for the `preview` subdomain:
   // output: 'server', 
+  // The fonts API trips up hot-reloading w/ Vite
+  //   until it's stabilized, expect to re-run `pnpm dev` after 
+  //   editing config. 
   experimental: {
     fonts: [
       {

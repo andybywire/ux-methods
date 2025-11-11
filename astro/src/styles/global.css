@@ -1,6 +1,7 @@
 body {
   font-family: var(--body);
   font-size: 18px;
+  -webkit-font-smoothing: antialiased;
 }
 main {
   /* padding-top: 60px;  */
@@ -8,14 +9,14 @@ main {
     padding-top: 50px;
   }
 }
-/* article,
+article,
 section.resource-cards,
 section.search,
 section.admin-metadata,
 footer > section {
   margin: 0 auto;
   max-width: var(--max-width);
-} */
+}
 h1,
 h2,
 h3,
