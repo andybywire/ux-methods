@@ -1,25 +1,52 @@
 import {defineQuery} from 'groq'
 
+// Site Metadata Fragments
+const SITE_FOOTER_PROJECTION = `
+  {
+    "title": coalesce(title,""),
+    "overview": coalesce(overview, []),
+    "colophon": coalesce(colophon, [])
+  }
+`
+const SITE_LAYOUT_PROJECTION = `
+  {
+    "title": coalesce(title,""),
+  }
+`
+// Site Metadata Fragment Type
+// This query isn't used directly, but it is used to type
+// metadata fragments used in page-specific queries
+export const SITE_METADATA_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+    "layout": ${SITE_LAYOUT_PROJECTION},
+    "footer": ${SITE_FOOTER_PROJECTION}
+  }
+`)
+
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
+    title,
+    tagline,
+    description,
+    overview,
+    colophon,
+    "credits": credits[]{
+      creditBody
+    },
+    "methodPreviews": *[_type == "method"]{
       title,
-      tagline,
-      description,
-      overview,
-      colophon,
-      "credits": credits[]{
-        creditBody
-      },
-      "methodPreviews": *[_type == "method"]{
-        title,
-        "slug": slug.current,
-        "uri": uri.current,
-        "type": 'method',
-        heroImage,
-        metaDescription,
-      } 
+      "slug": slug.current,
+      "uri": uri.current,
+      "type": 'method',
+      heroImage,
+      metaDescription,
+    },
+    "metadata": {
+      "layout": ${SITE_LAYOUT_PROJECTION},
+      "footer": ${SITE_FOOTER_PROJECTION}
     }
-  `)
+  }
+`)
 
 export const DISCIPLINES_QUERY = defineQuery(`
   *[_type == "discipline" && slug.current == $slug][0] {

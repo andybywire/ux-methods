@@ -1,9 +1,18 @@
 ---
 import '../styles/normalize.css'
-// import BaseHead from '../components/BaseHead.astro';
-// import Footer from '../components/Footer.astro';
-const {meta} = Astro.props
+import Footer from '@components/Footer.astro'
+import type {SITE_METADATA_QUERYResult} from 'sanity.types'
 
+type SiteMetadata = NonNullable<SITE_METADATA_QUERYResult>
+
+interface Props {
+  data: SiteMetadata
+}
+
+const {
+  data,
+  data: {layout}
+} = Astro.props
 ---
 
 <!doctype html>
@@ -13,13 +22,14 @@ const {meta} = Astro.props
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{meta && meta + ' | '} UX Methods | Astro</title>
+    <title>{layout && layout.title + ' | '} UX Methods | Astro</title>
   </head>
   <body>
-    <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
+    <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
     <a href="/">Back to Index</a>
     <slot />
   </body>
+  {data.footer && <Footer data={data} />}
 </html>
 
 <style>

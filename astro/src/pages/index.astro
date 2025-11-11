@@ -1,25 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import { HOME_PAGE_QUERY } from '@sanity/sanity.queries'
 import type { HOME_PAGE_QUERYResult } from 'sanity.types'
 
-const {data: home} = await loadQuery<HOME_PAGE_QUERYResult>({
+const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
   query: HOME_PAGE_QUERY
 })
 
-if (!home) {
+if (!page) {
   Astro.response.status = 404
   throw new Error('Not found')
 }
 ---
-<Layout>
+<Layout data={page.metadata}>
   <section class="headline">
-    <h1>{home.title}</h1>
+    <h1>{page.title}</h1>
     <p class="display">Astro Update 2025</p>
-    <p class="display">{home.tagline}</p>
-    {home.methodPreviews.map((method) => {
+    <p class="display">{page.tagline}</p>
+    {page.methodPreviews.slice(0,5).map((method) => {
       return <>
       <p>{method.title}</p>
       <a href={"method/" + method.slug}>{method.slug}</a>
