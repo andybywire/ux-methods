@@ -34,7 +34,7 @@ if (!method) {
 }
 ---
 
-<Layout>
+<Layout data={method.metadata}>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
   <h1>A post about {method.title}</h1>
   <PortableText portableText={method.overview} />

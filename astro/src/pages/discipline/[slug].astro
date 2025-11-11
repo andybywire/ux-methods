@@ -33,7 +33,7 @@ if (!discipline) {
   throw new Error('Not found')
 }
 ---
-<Layout meta={discipline.title}>
+<Layout data={discipline.metadata}>
   <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
   <h1>{discipline.title}</h1>
   <p>Meta: {discipline.metaDescription}</p>
