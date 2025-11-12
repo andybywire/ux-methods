@@ -1,11 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import '@styles/home.css'
+import Layout from '@layouts/Layout.astro'
+import Card from '@components/Card.astro'
 import {loadQuery} from '@sanity/lib/load-query'
-import { HOME_PAGE_QUERY } from '@sanity/sanity.queries'
-import type { HOME_PAGE_QUERYResult } from 'sanity.types'
+import {HOME_PAGE_QUERY} from '@sanity/sanity.queries'
+import type {HOME_PAGE_QUERYResult} from 'sanity.types'
 
 const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
-  query: HOME_PAGE_QUERY
+  query: HOME_PAGE_QUERY,
 })
 
 if (!page) {
@@ -13,17 +15,25 @@ if (!page) {
   throw new Error('Not found')
 }
 ---
+
 <Layout data={page.metadata}>
   <section class="headline">
-    <h1>{page.title}</h1>
-    <p class="display">Astro Update 2025</p>
-    <p class="display">{page.tagline}</p>
-    {page.methodPreviews.slice(0,5).map((method) => {
-      return <>
-      <p>{method.title}</p>
-      <a href={"method/" + method.slug}>{method.slug}</a>
-      </>
-    }) }
+    <h1>{page.tagline}</h1>
+    <p class="display">{page.description}</p>
+  </section>
 
+  <section class="resource-cards">
+    <header>
+      <h2>Top UX Methods</h2>
+      <a href="/all-methods" class="header-link">All Methods A-Z</a>
+    </header>
+
+    <!-- <p>{method.title}</p>
+      <a href={'method/' + method.slug}>{method.slug}</a> -->
+
+    <!-- create a grid component, with # of cards option -->
+    <ul class="grid">
+      {page.methodPreviews.slice(0, 6).map((method) => <Card method={method} />)}
+    </ul>
   </section>
 </Layout>

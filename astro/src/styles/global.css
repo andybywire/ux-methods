@@ -65,3 +65,21 @@ a:hover {
     font-weight: bold;
   }
 } */
+
+/* Card grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 3fr));
+  grid-gap: 2rem;
+  padding: 0;
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+}
+.dark {
+  @media (min-width: 600px) {
+    grid-row-gap: 3rem;
+    grid-column-gap: 3.5rem;
+  }
+}

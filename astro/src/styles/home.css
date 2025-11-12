@@ -1,0 +1,118 @@
+main {
+  background-color: var(--dark-background);
+  color: var(--light-text);
+  padding-bottom: 6rem;
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 600px) {
+    padding-bottom: 10rem;
+  }
+  .headline {
+    padding-top: 2rem;
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      padding: 1rem 0 3rem;
+      @media (min-width: 600px) {
+        padding: 2rem 0;
+        font-size: 2.75rem;
+        font-weight: 600;
+      }
+    }
+    .display {
+      display: none;
+      margin: 0 auto;
+      width: 45rem;
+      font-size: 1.25rem;
+      text-align: center;
+      padding-bottom: 3rem;
+      @media (min-width: 800px) {
+        display: block;
+      }
+    }
+  }
+  .resource-cards {
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+    }
+    h2 {
+      margin-top: 6rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      @media (min-width: 600px) {
+        margin-top: 8rem;
+        display: inline-block;
+      }
+      @media (min-width: 600px) {
+        /* width: 70%; */
+      }
+    }
+    .header-link {
+      display: none;
+    }
+    /* .full-card {
+      display: none;
+    } */
+    @media (min-width: 600px) {
+      /* .compact-card {
+        display: none;
+      }
+      .full-card {
+        display: block;
+      } */
+      .header-link {
+        display: block;
+        /* width: 30%;
+        text-align: right; */
+      }
+    }
+    /* .list-link {
+      display: block;
+      text-align: right;
+    } */
+  }
+  a {
+    color: var(--light-text);
+  }
+}
+.resource-cards {
+  padding: 1rem 1rem 3rem;
+}
+.admin-metadata {
+  font-size: 90%;
+  margin-bottom: 0;
+  @media (min-width: 1180px) {
+    padding: 1rem 0 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    border-top: 1px solid var(--light-gray-text);
+    padding-top: 0.5rem;
+    @media (min-width: 600px) {
+      width: 50%;
+    }
+    @media (min-width: 1000px) {
+      width: 33%;
+    }
+  }
+  p {
+    padding-top: 1rem;
+    font-style: italic;
+  }
+  li.source-citation {
+    @media (min-width: 800px) {
+      margin-bottom: 0;
+    }
+  }
+  svg {
+    position: relative;
+    top: 2px;
+    padding-left: 0.25rem;
+  }
+}
