@@ -1,18 +1,40 @@
 ---
+import {urlForImage} from '@sanity/lib/url-for-image'
+
 const {method} = Astro.props
+
+const {asset, alt} = method.heroImage
+
+const url = urlForImage(asset).url()
+
+let size = ''
+
+const srcset =
+  size == 'compact-card' // if size is compact-card, use smaller image sizes
+    ? [125, 250] // compact card image sizes (max-width: 125px)
+    : [375, 750] // full card image sizes (max-width: 375px)
+const sizes =
+  size == 'compact-card'
+    ? '125px' // compact card image max width
+    : '375px' // full card max width
+const srcSetContent = srcset
+  .map((size) => {
+    const url = urlForImage(asset).width(size).height(size).auto('format').url()
+    return `${url} ${size}w`
+  })
+  .join(',')
 ---
 
 <li class="card ${size}">
-  <a href={'method/' + method.slug}
-    >{method.slug}>
+  <a href={'method/' + method.slug}>
     <img
-      src="${urlFor(image).width(srcset[0])}"
-      srcset="${srcSetContent}"
-      sizes="${sizes}"
-      max-width="${srcset[0]}"
-      max-height="${srcset[0]}"
-      loading="lazy"
-      alt="${image.altText}"
+    src={url}
+    srcset={srcSetContent}
+    sizes={sizes}
+    max-width={srcset[0]}
+    max-height={srcset[0]}
+    loading="lazy"
+    alt={alt}
     />
     <div>
       <h3>{method.title}</h3>
