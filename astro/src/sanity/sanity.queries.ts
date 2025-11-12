@@ -41,6 +41,14 @@ export const HOME_PAGE_QUERY = defineQuery(`
       heroImage,
       metaDescription,
     },
+    "disciplinePreviews": *[_type == "discipline"]{
+      title,
+      "slug": slug.current,
+      "uri": uri.current,
+      "type": 'discipline',
+      heroImage,
+      metaDescription,
+    },
     "metadata": {
       "layout": ${SITE_LAYOUT_PROJECTION},
       "footer": ${SITE_FOOTER_PROJECTION}

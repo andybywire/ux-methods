@@ -1,13 +1,13 @@
 ---
 import {urlForImage} from '@sanity/lib/url-for-image'
 
-const {method} = Astro.props
+const {content, color = "light"} = Astro.props
 
-const {asset, alt} = method.heroImage
+const {asset, alt} = content.heroImage
 
 const url = urlForImage(asset).url()
 
-let size = ''
+let size = 'full-card'
 
 const srcset =
   size == 'compact-card' // if size is compact-card, use smaller image sizes
@@ -25,8 +25,8 @@ const srcSetContent = srcset
   .join(',')
 ---
 
-<li class="card ${size}">
-  <a href={'method/' + method.slug}>
+<li class=`card ${size} ${color}`>
+  <a href={`${content.type}/${content.slug}`}>
     <img
     src={url}
     srcset={srcSetContent}
@@ -37,8 +37,8 @@ const srcSetContent = srcset
     alt={alt}
     />
     <div>
-      <h3>{method.title}</h3>
-      <p>{method.metaDescription}</p>
+      <h3>{content.title}</h3>
+      <p>{content.metaDescription}</p>
     </div>
   </a>
 </li>
@@ -65,7 +65,7 @@ const srcSetContent = srcset
       color: var(--gray-text);
     }
   }
-  .index .resource-cards li {
+  li.card.dark {
     background-color: var(--card-background);
     box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
     transition: 0.1s ease-in;
@@ -101,7 +101,7 @@ const srcSetContent = srcset
       p {
         margin: 0.25rem 0;
         font-size: 90%;
-        line-height: 1.25;
+        line-height: 1.5;
       }
     }
     a {
@@ -109,7 +109,7 @@ const srcSetContent = srcset
     }
   }
 
-  .index .resource-cards li {
+  li {
     div {
       padding: 0.25rem 0.75rem 0.75rem;
       p {
@@ -142,11 +142,11 @@ const srcSetContent = srcset
       }
     }
   }
-  .index .resource-cards li {
+  /* .index .resource-cards li {
     div {
       padding-left: 0.75rem;
     }
-  }
+  } */
   .resource {
     h3 {
       font-size: 1rem;

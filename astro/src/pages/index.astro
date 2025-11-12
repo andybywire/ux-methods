@@ -10,6 +10,8 @@ const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
   query: HOME_PAGE_QUERY,
 })
 
+const color = "dark"
+
 if (!page) {
   Astro.response.status = 404
   throw new Error('Not found')
@@ -27,13 +29,17 @@ if (!page) {
       <h2>Top UX Methods</h2>
       <a href="/all-methods" class="header-link">All Methods A-Z</a>
     </header>
-
-    <!-- <p>{method.title}</p>
-      <a href={'method/' + method.slug}>{method.slug}</a> -->
-
-    <!-- create a grid component, with # of cards option -->
     <ul class="grid">
-      {page.methodPreviews.slice(0, 6).map((method) => <Card method={method} />)}
+      {page.methodPreviews.slice(0, 6).map((content) => <Card content={content} color={color}/>)}
+    </ul>
+  </section>
+  
+  <section class="resource-cards">
+    <header>
+      <h2>UX Disciplines</h2>
+    </header>
+    <ul class="grid">
+      {page.disciplinePreviews.slice(0, 6).map((content) => <Card content={content} color={color}/>)}
     </ul>
   </section>
 </Layout>

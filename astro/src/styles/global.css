@@ -1,7 +1,7 @@
 body {
   font-family: var(--body);
   font-size: 18px;
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased; */
 }
 main {
   /* padding-top: 60px;  */
