@@ -3,8 +3,9 @@ import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
-import type {DISCIPLINES_QUERYResult} from 'sanity.types'
+import type {DISCIPLINES_QUERYResult, HeroImage} from 'sanity.types'
 import Card from '@components/Card.astro'
+import Hero from '@components/Hero.astro'
 import {DISCIPLINES_QUERY} from '@sanity/sanity.queries'
 
 export async function getStaticPaths() {
@@ -28,21 +29,110 @@ const {data: discipline} = await loadQuery<DISCIPLINES_QUERYResult>({
   params,
 })
 
+const heroImage = discipline?.heroImage as HeroImage
+
 if (!discipline) {
   Astro.response.status = 404
   throw new Error('Not found')
 }
 ---
+
 <Layout data={discipline.metadata}>
   <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
-  <h1>{discipline.title}</h1>
-  <p>Meta: {discipline.metaDescription}</p>
-  <p>Meta: {discipline.createdAt}</p>
-  <PortableText portableText={discipline.overview} />
-  {
-    discipline.methods &&
-      discipline.methods.map((resource) => {
-        return <Card resource={resource}>{resource.title}</Card>
-      })
-  }
+  <article class="discipline">
+    <section class="overview">
+      <Hero image={heroImage} size={50} aspect={0.5625} discipline />
+      <div class="discipline-summary">
+        <div class="header">
+          <h1>
+            <span>{discipline.title}</span>
+            <span>Discipline</span>
+          </h1>
+        </div>
+        <div class="description">
+          <PortableText portableText={discipline.overview} />
+        </div>
+      </div>
+    </section>
+    <section class="resource-cards">
+      <header>
+        <h2>{discipline.title} Methods</h2>
+      </header>
+      <ul class="grid">
+        {discipline.methods.map((content) => <Card content={content} />)}
+      </ul>
+    </section>
+  </article>
 </Layout>
+
+<style>
+  .citation {
+    font-size: 70%;
+    vertical-align: top;
+    padding-left: 0.25rem;
+  }
+  article.discipline {
+    padding: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+    @media (min-width: 800px) {
+      margin-bottom: 4rem;
+      align-items: stretch;
+    }
+    &.overview {
+      @media (min-width: 800px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  .header {
+    @media (min-width: 800px) {
+      order: 1;
+      width: 100%;
+    }
+    h1 {
+      font-size: 40px;
+      line-height: 48px;
+      display: flex;
+      flex-direction: column-reverse;
+      span:nth-child(2) {
+        font-family: var(--header);
+        color: var(--card-background);
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 1;
+        padding-bottom: 0.5rem;
+      }
+      &.no-eyebrow {
+        padding-top: 1.3rem;
+      }
+    }
+  }
+  .description {
+    @media (min-width: 800px) {
+      order: 2;
+      width: 70%;
+      p,
+      ol,
+      ul {
+        padding-right: 2rem;
+      }
+    }
+  }
+  .discipline-summary {
+    @media (min-width: 800px) {
+      order: 2;
+      width: 45%;
+      padding-left: 5%;
+      div {
+        width: 100%;
+        p {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+</style>

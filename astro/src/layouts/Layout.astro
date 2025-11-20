@@ -30,9 +30,9 @@ const {
     <Font cssVariable="--body" preload />
   </head>
   <body>
+    <a href="/">Back to Index</a>
     <main id="main-content">
       <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
-      <a href="/">Back to Index</a>
       <slot />
     </main>
     {data.footer && <Footer data={data} />}

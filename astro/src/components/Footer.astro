@@ -16,8 +16,8 @@ const {data: {footer}} = Astro.props
   <!-- <pre>{JSON.stringify(footer, null, 2)}</pre> -->
   <section>
     <div class="overview">
-      <h1>{footer.title}</h1>
-      <PortableText portableText={footer.overview} />
+      <h1>{footer?.title}</h1>
+      <PortableText portableText={footer?.overview} />
     </div>
     <div class="social">
       <h1>Share This Project</h1>
@@ -40,7 +40,7 @@ const {data: {footer}} = Astro.props
     </div>
     <div class="colophon">
       <h1>Colophon</h1>
-      <PortableText portableText={footer.colophon} />
+      <PortableText portableText={footer?.colophon} />
     </div>
     <div class="credit">
       <!-- {% for credit in metadata.credits %}

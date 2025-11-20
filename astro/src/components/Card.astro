@@ -1,9 +1,13 @@
 ---
 import {urlForImage} from '@sanity/lib/url-for-image'
 
-const {content, color = "light"} = Astro.props
-
-const {asset, alt} = content.heroImage
+const {
+  content,
+  content: {
+    heroImage: {asset, alt},
+  },
+  color = 'light',
+} = Astro.props
 
 const url = urlForImage(asset).url()
 
@@ -26,15 +30,15 @@ const srcSetContent = srcset
 ---
 
 <li class=`card ${size} ${color}`>
-  <a href={`${content.type}/${content.slug}`}>
+  <a href={`/${content.type}/${content.slug}`}>
     <img
-    src={url}
-    srcset={srcSetContent}
-    sizes={sizes}
-    max-width={srcset[0]}
-    max-height={srcset[0]}
-    loading="lazy"
-    alt={alt}
+      src={url}
+      srcset={srcSetContent}
+      sizes={sizes}
+      max-width={srcset[0]}
+      max-height={srcset[0]}
+      loading="lazy"
+      alt={alt}
     />
     <div>
       <h3>{content.title}</h3>

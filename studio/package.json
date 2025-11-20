@@ -28,9 +28,9 @@
     "react-dom": "^19.2.0",
     "react-icons": "^5.4.0",
     "react-is": "^19.2.0",
-    "sanity": "^4.11.0",
+    "sanity": "^4.15.0",
     "sanity-plugin-bulk-delete": "^1.1.1",
-    "sanity-plugin-taxonomy-manager": "^4.1.0",
+    "sanity-plugin-taxonomy-manager": "^4.2.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {

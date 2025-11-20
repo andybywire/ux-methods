@@ -4,6 +4,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],

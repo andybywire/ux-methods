@@ -1,14 +1,16 @@
 import {defineQuery} from 'groq'
 
 // Site Metadata Fragments
-const SITE_FOOTER_PROJECTION = `
+const SITE_FOOTER_QUERY = `
+  *[_id == "siteSettings"][0]  
   {
     "title": coalesce(title,""),
     "overview": coalesce(overview, []),
     "colophon": coalesce(colophon, [])
   }
 `
-const SITE_LAYOUT_PROJECTION = `
+const SITE_LAYOUT_QUERY = `
+  *[_id == "siteSettings"][0]
   {
     "title": coalesce(title,""),
   }
@@ -17,9 +19,9 @@ const SITE_LAYOUT_PROJECTION = `
 // This query isn't used directly, but it is used to type
 // metadata fragments used in page-specific queries
 export const SITE_METADATA_QUERY = defineQuery(`
-  *[_id == "siteSettings"][0]{
-    "layout": ${SITE_LAYOUT_PROJECTION},
-    "footer": ${SITE_FOOTER_PROJECTION}
+  {
+    "layout": ${SITE_LAYOUT_QUERY},
+    "footer": ${SITE_FOOTER_QUERY}
   }
 `)
 
@@ -50,8 +52,8 @@ export const HOME_PAGE_QUERY = defineQuery(`
       metaDescription,
     },
     "metadata": {
-      "layout": ${SITE_LAYOUT_PROJECTION},
-      "footer": ${SITE_FOOTER_PROJECTION}
+      "layout": ${SITE_LAYOUT_QUERY},
+      "footer": ${SITE_FOOTER_QUERY}
     }
   }
 `)
@@ -65,7 +67,7 @@ export const DISCIPLINES_QUERY = defineQuery(`
     "createdAt": dateStamp.createdAt,
     "revisedAt": dateStamp.revisedAt,
     metaDescription,
-    heroImage,
+    "heroImage": coalesce(heroImage, {}),
     overview,
     "methods": *[
         _type == "method" 
@@ -78,8 +80,8 @@ export const DISCIPLINES_QUERY = defineQuery(`
       metaDescription,
     },
     "metadata": {
-      "layout": ${SITE_LAYOUT_PROJECTION},
-      "footer": ${SITE_FOOTER_PROJECTION}
+      "layout": ${SITE_LAYOUT_QUERY},
+      "footer": ${SITE_FOOTER_QUERY}
     }
   }
 `)
@@ -93,12 +95,12 @@ export const METHODS_QUERY = defineQuery(`
     "createdAt": dateStamp.createdAt,
     "revisedAt": dateStamp.revisedAt,
     metaDescription,
-    "heroImage": {
+    "heroImage": coalesce({
       "credit": heroImage.asset->creditLine,
       "source": heroImage.asset->source.url,
       "url": heroImage.asset->url,
-      ...heroImage
-      },
+      ...heroImage,
+      }, {}),
     overview,
     steps,
     stepSources,
@@ -115,8 +117,8 @@ export const METHODS_QUERY = defineQuery(`
       "publisher": publisher.pubName
     },
     "metadata": {
-      "layout": ${SITE_LAYOUT_PROJECTION},
-      "footer": ${SITE_FOOTER_PROJECTION}
+      "layout": ${SITE_LAYOUT_QUERY},
+      "footer": ${SITE_FOOTER_QUERY}
     }
   }
 `)

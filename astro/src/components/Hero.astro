@@ -1,0 +1,122 @@
+---
+import {urlForImage} from '@sanity/lib/url-for-image'
+import type { HeroImage } from 'sanity.types'
+
+/**
+ * Responsive Hero Image Shortcode
+ * Generates a responsive hero image with multiple srcset options
+ * for different screen sizes. This allows for optimized loading
+ * of images based on the user's device and screen size.
+ */
+type HeroImageWithMeta = HeroImage & {
+  url?: string
+  source?: string
+  credit?: string
+}
+interface Props {
+  image?: HeroImageWithMeta | null
+  size?: number
+  aspect?: number
+  discipline?: boolean
+}
+
+const {
+  image,
+  size = 30,
+  aspect = 0.75,
+  discipline = false,
+} = Astro.props
+
+const img: Partial<HeroImageWithMeta> = image ?? {}
+
+const { asset, source, credit, alt } = img
+
+const srcset = [150, 300, 375, 425, 600, 750, 768, 850, 1200]
+const sizes = `(min-width: 800px) ${size}vw`
+const srcSetContent = asset
+  ? srcset
+      .map((size) => {
+        const url = urlForImage(asset)
+          .width(size)
+          .height(Math.floor(size * aspect))
+          .auto('format')
+          .url()
+        return `${url} ${size}w`
+      })
+      .join(',')
+  : ''
+---
+
+<div class:list={['hero', {discipline}]}>
+  {
+    asset && (
+      <img
+        src={urlForImage(asset).width(srcset[0]).url()}
+        srcset={srcSetContent}
+        sizes={sizes}
+        max-width={srcset[srcset.length - 1]}
+        max-height={Math.floor(srcset[srcset.length - 1] * aspect)}
+        alt={alt}
+      />
+    )
+  }
+  {
+    source && credit && (
+      <p>
+        Photo by{' '}
+        <a href={source.toString()} tabindex="-1">
+          {credit.replace(' by ', ' via ')}
+        </a>
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .hero {
+    margin: -1rem -1rem 1rem;
+    img {
+      height: 225px;
+      width: 100%;
+      background-color: var(--light-text);
+      object-fit: cover;
+    }
+    p,
+    a {
+      color: var(--gray-text);
+    }
+    p {
+      text-align: right;
+      font-size: 75%;
+      margin: -0.25rem 1rem 0.25rem;
+    }
+    @media (min-width: 800px) {
+      margin: 1rem 0 0;
+      order: 3;
+      width: 30%;
+      img {
+        border-radius: 5px;
+      }
+      p {
+        margin-right: 0;
+      }
+    }
+  }
+  .discipline {
+    @media (min-width: 800px) {
+      order: 1;
+      width: 50%;
+      margin-top: 0;
+      height: auto;
+      img {
+        height: 100%;
+      }
+    }
+    @media (min-width: 1000px) {
+      height: 100%;
+      img {
+        height: auto;
+      }
+    }
+  }
+</style>

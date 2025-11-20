@@ -19,7 +19,7 @@
     "@sanity/image-url": "^1.2.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "astro": "^5.15.3",
+    "astro": "^5.15.9",
     "astro-portabletext": "^0.11.3",
     "groq": "^3.99.0",
     "lodash": "^4.17.21",

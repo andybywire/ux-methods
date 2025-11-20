@@ -3,9 +3,9 @@ import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
-import { METHODS_QUERY } from '@sanity/sanity.queries'
-import type { METHODS_QUERYResult } from 'sanity.types'
-
+import Hero from '@components/Hero.astro'
+import {METHODS_QUERY} from '@sanity/sanity.queries'
+import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
 
 export async function getStaticPaths() {
   const {data: methods} = await loadQuery<SanityDocument[]>({
@@ -28,15 +28,101 @@ const {data: method} = await loadQuery<METHODS_QUERYResult>({
   params,
 })
 
+const heroImage = method?.heroImage as HeroImage
+
 if (!method) {
   Astro.response.status = 404
-  throw new Error('Not found')
+  throw new Error('Not found - template rendering error')
 }
 ---
 
 <Layout data={method.metadata}>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
-  <h1>A post about {method.title}</h1>
-  <PortableText portableText={method.overview} />
-  <PortableText portableText={method.steps} />
+  <article class="method">
+    <section class="overview">
+      <Hero image={heroImage} />
+      <div class="header">
+        <h1>
+          <span>{method.title}</span>
+          <span>Method</span>
+        </h1>
+      </div>
+      <div class="description">
+        <PortableText portableText={method.overview} />
+      </div>
+    </section>
+    <PortableText portableText={method.steps} />
+  </article>
 </Layout>
+
+<style>
+  .citation {
+    font-size: 70%;
+    vertical-align: top;
+    padding-left: 0.25rem;
+  }
+  article.discipline {
+    padding: 1rem;
+  }
+  section {
+    margin-bottom: 2rem;
+    @media (min-width: 800px) {
+      margin-bottom: 4rem;
+      align-items: stretch;
+    }
+    &.overview {
+      @media (min-width: 800px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  .header {
+    @media (min-width: 800px) {
+      order: 1;
+      width: 100%;
+    }
+    h1 {
+      font-size: 40px;
+      line-height: 48px;
+      display: flex;
+      flex-direction: column-reverse;
+      span:nth-child(2) {
+        font-family: var(--header);
+        color: var(--card-background);
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 1;
+        padding-bottom: 0.5rem;
+      }
+      &.no-eyebrow {
+        padding-top: 1.3rem;
+      }
+    }
+  }
+  .description {
+    @media (min-width: 800px) {
+      order: 2;
+      width: 70%;
+      p,
+      ol,
+      ul {
+        padding-right: 2rem;
+      }
+    }
+  }
+  .discipline-summary {
+    @media (min-width: 800px) {
+      order: 2;
+      width: 45%;
+      padding-left: 5%;
+      div {
+        width: 100%;
+        p {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+</style>
