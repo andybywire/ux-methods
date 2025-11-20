@@ -1,4 +1,5 @@
 ---
+import '@styles/topic-page.css'
 import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
@@ -66,62 +67,6 @@ if (!discipline) {
 </Layout>
 
 <style>
-  .citation {
-    font-size: 70%;
-    vertical-align: top;
-    padding-left: 0.25rem;
-  }
-  article.discipline {
-    padding: 1rem;
-  }
-  section {
-    margin-bottom: 2rem;
-    @media (min-width: 800px) {
-      margin-bottom: 4rem;
-      align-items: stretch;
-    }
-    &.overview {
-      @media (min-width: 800px) {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    }
-  }
-  .header {
-    @media (min-width: 800px) {
-      order: 1;
-      width: 100%;
-    }
-    h1 {
-      font-size: 40px;
-      line-height: 48px;
-      display: flex;
-      flex-direction: column-reverse;
-      span:nth-child(2) {
-        font-family: var(--header);
-        color: var(--card-background);
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 13px;
-        line-height: 1;
-        padding-bottom: 0.5rem;
-      }
-      &.no-eyebrow {
-        padding-top: 1.3rem;
-      }
-    }
-  }
-  .description {
-    @media (min-width: 800px) {
-      order: 2;
-      width: 70%;
-      p,
-      ol,
-      ul {
-        padding-right: 2rem;
-      }
-    }
-  }
   .discipline-summary {
     @media (min-width: 800px) {
       order: 2;

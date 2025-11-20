@@ -1,0 +1,49 @@
+/* shared styles for Discipline and Method pages */
+article {
+  padding: 1rem;
+}
+section {
+  margin-bottom: 2rem;
+  @media (min-width: 800px) {
+    margin-bottom: 4rem;
+    align-items: stretch;
+  }
+  &.overview {
+    h1 {
+      font-size: 40px;
+      line-height: 48px;
+      display: flex;
+      flex-direction: column-reverse;
+      span:nth-child(2) {
+        font-family: var(--header);
+        color: var(--card-background);
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 1;
+        padding-bottom: 0.5rem;
+      }
+      &.no-eyebrow {
+        padding-top: 1.3rem;
+      }
+    }
+    @media (min-width: 800px) {
+      display: flex;
+      flex-wrap: wrap;
+      .header {
+        width: 100%;
+      }
+    }
+    .description {
+      @media (min-width: 800px) {
+        order: 2;
+        width: 70%;
+        p,
+        ol,
+        ul {
+          padding-right: 2rem;
+        }
+      }
+    }
+  }
+}

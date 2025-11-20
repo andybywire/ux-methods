@@ -1,4 +1,5 @@
 ---
+import '@styles/topic-page.css'
 import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
@@ -51,76 +52,71 @@ if (!method) {
         <PortableText portableText={method.overview} />
       </div>
     </section>
-    <PortableText portableText={method.steps} />
+    <section class="details">
+      <div class="steps">
+        <h2>Steps</h2>
+        <PortableText portableText={method.steps} />
+      </div>
+      <div class="outcomes">
+        <h2>Outcomes</h2>
+        <p>{method.title} typically produces insight and solutions focused on these areas:</p>
+        <ul>
+          {
+            method.outcomes &&
+              method.outcomes.map((outcome) => (
+                <li>
+                  <h3>{outcome.prefLabel}</h3>
+                  <p>{outcome.definition}</p>
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    </section>
   </article>
 </Layout>
 
 <style>
+  /* 👇Citations appear to have gone missing — investigate */
   .citation {
     font-size: 70%;
     vertical-align: top;
     padding-left: 0.25rem;
   }
-  article.discipline {
-    padding: 1rem;
-  }
-  section {
-    margin-bottom: 2rem;
-    @media (min-width: 800px) {
-      margin-bottom: 4rem;
-      align-items: stretch;
-    }
-    &.overview {
-      @media (min-width: 800px) {
-        display: flex;
-        flex-wrap: wrap;
+  .details {
+    .steps {
+      ol {
+        padding-left: 1.5rem;
+      }
+      li {
+        margin-bottom: 0.75rem;
+        line-height: 1.5;
       }
     }
-  }
-  .header {
-    @media (min-width: 800px) {
-      order: 1;
-      width: 100%;
-    }
-    h1 {
-      font-size: 40px;
-      line-height: 48px;
-      display: flex;
-      flex-direction: column-reverse;
-      span:nth-child(2) {
-        font-family: var(--header);
-        color: var(--card-background);
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 13px;
-        line-height: 1;
-        padding-bottom: 0.5rem;
-      }
-      &.no-eyebrow {
-        padding-top: 1.3rem;
-      }
-    }
-  }
-  .description {
-    @media (min-width: 800px) {
-      order: 2;
-      width: 70%;
-      p,
-      ol,
+    .outcomes {
       ul {
-        padding-right: 2rem;
+        list-style: none;
+        padding-inline-start: 1.3rem;
+        p {
+          margin-top: 0;
+        }
       }
     }
-  }
-  .discipline-summary {
     @media (min-width: 800px) {
-      order: 2;
-      width: 45%;
-      padding-left: 5%;
-      div {
-        width: 100%;
+      display: flex;
+      .steps {
+        width: 70%;
+        ol {
+          padding-right: 6rem;
+        }
         p {
-          padding-right: 0;
+          padding-right: 3rem;
+        }
+      }
+      .outcomes {
+        width: 30%;
+        ul {
+          padding-inline-start: 0;
         }
       }
     }

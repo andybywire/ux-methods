@@ -3,6 +3,8 @@ import '@styles/footer.css'
 import PortableText from '@components/PortableText.astro'
 import type {SITE_METADATA_QUERYResult} from 'sanity.types'
 
+// consider structuring Footer as an object in the Schema,
+// which will create a type I can import directly
 type FooterMetadata = Pick<NonNullable<SITE_METADATA_QUERYResult>, 'footer'>
 
 interface Props {
