@@ -2,16 +2,19 @@
 import {urlForImage} from '@sanity/lib/url-for-image'
 
 const {
-  content,
   content: {
+    type,
+    slug,
+    title,
+    metaDescription,
+    heroImage,
     heroImage: {asset, alt},
   },
   color = 'light',
+  size = 'full-card'
 } = Astro.props
 
 const url = urlForImage(asset).url()
-
-let size = 'full-card'
 
 const srcset =
   size == 'compact-card' // if size is compact-card, use smaller image sizes
@@ -23,14 +26,14 @@ const sizes =
     : '375px' // full card max width
 const srcSetContent = srcset
   .map((size) => {
-    const url = urlForImage(asset).width(size).height(size).auto('format').url()
+    const url = urlForImage(heroImage).width(size).height(size).auto('format').url()
     return `${url} ${size}w`
   })
   .join(',')
 ---
 
 <li class=`card ${size} ${color}`>
-  <a href={`/${content.type}/${content.slug}`}>
+  <a href={`/${type}/${slug}`}>
     <img
       src={url}
       srcset={srcSetContent}
@@ -41,8 +44,8 @@ const srcSetContent = srcset
       alt={alt}
     />
     <div>
-      <h3>{content.title}</h3>
-      <p>{content.metaDescription}</p>
+      <h3>{title}</h3>
+      <p>{metaDescription}</p>
     </div>
   </a>
 </li>
