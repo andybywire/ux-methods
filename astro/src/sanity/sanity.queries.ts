@@ -116,6 +116,14 @@ export const METHODS_QUERY = defineQuery(`
       resourceImage,
       "publisher": publisher.pubName
     },
+    "methodPreviews": *[_type == "method"]{
+      title,
+      "slug": slug.current,
+      "uri": uri.current,
+      "type": "method",
+      heroImage,
+      metaDescription,
+    },
     "metadata": {
       "layout": ${SITE_LAYOUT_QUERY},
       "footer": ${SITE_FOOTER_QUERY}

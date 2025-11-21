@@ -5,9 +5,13 @@ import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
 import Hero from '@components/Hero.astro'
+import Card from '@components/Card.astro'
 import {METHODS_QUERY} from '@sanity/sanity.queries'
 import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
 
+const {params} = Astro
+
+// Queue up one page for each Method
 export async function getStaticPaths() {
   const {data: methods} = await loadQuery<SanityDocument[]>({
     query: `*[_type == "method"]`,
@@ -22,12 +26,87 @@ export async function getStaticPaths() {
   })
 }
 
-const {params} = Astro
+// Get shared output from KG
+async function getSharedOutput() {
+  const kgData = await fetch('https://fuseki.uxmethods.org/ds/query', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/sparql-query',
+      Accept: 'application/sparql-results+json',
+      // Authorization: 'Basic ' + btoa(process.env.KG_AUTH),
+      // 🚨 Replace after testing
+      Authorization: 'Basic ' + btoa('andyfitz:uxm25'),
+    },
+    // Narrow this to the present method? Or at least limit return.
+    body: `
+    PREFIX : <https://uxmethods.org/>
+    PREFIX uxmo: <https://uxmethods.org/ontology/>
+    
+    SELECT ?origin ?destination (COUNT(?output) AS ?sharedOutputCount)
+    (GROUP_CONCAT(DISTINCT ?output; SEPARATOR=",") AS ?sharedOutput)
+    WHERE {
+      ?origin uxmo:hasOutput ?output.
+      ?destination uxmo:hasInput ?output.
+      }
+      GROUP BY ?origin ?destination
+      ORDER BY DESC(?sharedOutputCount)
+      `,
+  })
 
-const {data: method} = await loadQuery<METHODS_QUERYResult>({
-  query: METHODS_QUERY,
-  params,
-})
+  if (!kgData.ok) {
+    throw new Error(`Failed to fetch from KG: HTTP error! status: ${kgData.status}`)
+  }
+
+  const data = await kgData.json()
+  return transformKgData(data)
+}
+
+// Transform SPARQL results for mapping
+function transformKgData(kgData: any) {
+  return kgData.results.bindings.map((binding: any) => ({
+    origin: binding.origin.value,
+    destination: binding.destination.value,
+    sharedOutputCount: parseInt(binding.sharedOutputCount.value),
+    sharedOutput: binding.sharedOutput.value.split(','),
+  }))
+}
+
+// Fetch method and KG data concurrently
+const [{data: method}, kgData] = await Promise.all([
+  loadQuery<METHODS_QUERYResult>({
+    query: METHODS_QUERY,
+    params,
+  }),
+  getSharedOutput(),
+])
+
+const methodPreviews = method?.methodPreviews
+
+// Map method previews to KG data
+function mapMethods(method: any, methodPreviews: any, kgData: any): any {
+  // const preparedMethods = methods.map((method) => {
+  // Filter and assign methods preview list to previous methods
+  // TODO: verify that mapping is weighted to prioritize strongest connections
+  console.log('Methodl URI', method.uri)
+  console.log('Methodl Preview', methodPreviews.slice(0, 2))
+  const previousMethods = methodPreviews.filter((methodPreview: any) => {
+    return kgData.some((relationship: any) => {
+      return relationship.destination === method.uri && relationship.origin === methodPreview.uri
+    })
+  })
+  // Filter and assign methods preview list to next methods
+  const continueMethods = methodPreviews.filter((methodPreview: any) => {
+    return kgData.some((relationship: any) => {
+      return relationship.origin === method.uri && relationship.destination === methodPreview.uri
+    })
+  })
+  return [previousMethods, continueMethods]
+}
+
+const [previousMethods, continueMethods] = mapMethods(method, methodPreviews, kgData)
+
+console.log('Previous', previousMethods)
+console.log('Continue', continueMethods)
 
 const heroImage = method?.heroImage as HeroImage
 
@@ -37,8 +116,11 @@ if (!method) {
 }
 ---
 
-<Layout data={method.metadata}>
+<Layout data={method.metadata} pageTitle={method.title}>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
+  <!-- <pre>{JSON.stringify(kgData.slice(0,3), null, 2)}</pre> -->
+  <!-- <pre>{JSON.stringify(previousMethods, null, 2)}</pre> -->
+  <!-- <pre>{JSON.stringify(continueMethods, null, 2)}</pre> -->
   <article class="method">
     <section class="overview">
       <Hero image={heroImage} />
@@ -52,6 +134,22 @@ if (!method) {
         <PortableText portableText={method.overview} />
       </div>
     </section>
+    {
+      previousMethods && (
+        <section>
+          <h2>Preparation</h2>
+          <p>
+            {method.title} is often more effective when it is informed by these complementary
+            methods.
+          </p>
+          <ul class="grid">
+            {previousMethods.slice(0,6).map((resource: any) => (
+              <Card content={resource} size={"compact-card"}/>
+            ))}
+          </ul>
+        </section>
+      )
+    }
     <section class="details">
       <div class="steps">
         <h2>Steps</h2>
@@ -73,6 +171,18 @@ if (!method) {
         </ul>
       </div>
     </section>
+    {
+      continueMethods && (
+        <section>
+          <h2>Next Steps</h2>
+          <ul class="grid">
+            {continueMethods.slice(0,6).map((resource: any) => (
+              <Card content={resource} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
   </article>
 </Layout>
 
