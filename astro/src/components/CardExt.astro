@@ -1,0 +1,91 @@
+---
+import {urlForImage} from '@sanity/lib/url-for-image'
+import '@styles/card.css'
+
+const {
+  content: {title, author, resourceUrl, resourceImage, publisher},
+} = Astro.props
+
+const url = resourceImage?.asset
+  ? urlForImage(resourceImage.asset).url()
+  : '/icons/heroPlaceholder.svg'
+const srcset = [125, 250] // compact card image sizes (max-width: 125px)
+const sizes = '125px'
+const srcSetContent = srcset
+  .map((size) => {
+    const url = resourceImage
+      ? urlForImage(resourceImage).width(size).height(size).auto('format').url()
+      : '/icons/heroPlaceholder.svg'
+    return `${url} ${size}w`
+  })
+  .join(',')
+
+const alt = resourceImage?.altText ? resourceImage.altText : 'Placeholder image'
+
+const byline =
+  author && publisher
+    ? `${author} | ${publisher}`
+    : publisher
+      ? publisher
+      : author
+        ? author
+        : 'External Link' // fallback for missing author/publisher
+---
+
+<li class="card compact-card resource">
+  <a href={resourceUrl}>
+    <img
+      src={url}
+      srcset={srcSetContent}
+      sizes={sizes}
+      max-width={srcset[0]}
+      max-height={srcset[0]}
+      loading="lazy"
+      alt={alt}
+    />
+    <div>
+      <h3>{title}</h3>
+      <p>
+        <span class="byline">{byline}</span>
+        <span class="icon"></span>
+      </p>
+    </div>
+  </a>
+</li>
+
+<style>
+  /* This probably won't work here — resituate if needed */
+  .index .resource-cards li {
+    div {
+      padding-left: 0.75rem;
+    }
+  }
+  .resource {
+    h3 {
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      p {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      .byline {
+        flex: 1 2;
+      }
+      .icon {
+        background-color: var(--gray-text);
+        -webkit-mask-image: url('/icons/external.svg');
+        mask-image: url('/icons/external.svg');
+        mask-repeat: no-repeat;
+        height: 1.25rem;
+        width: 1.25rem;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+</style>

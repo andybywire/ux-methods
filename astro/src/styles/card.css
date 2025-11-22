@@ -1,0 +1,75 @@
+/* Shared styles for Card components */
+li.card {
+  list-style: none;
+  max-width: var(--card-max);
+  background-color: var(--background);
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.25s ease-in;
+  border: 0;
+  &:hover {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.25s ease-in;
+  }
+  img {
+    object-fit: cover;
+    filter: brightness(0.95);
+  }
+  div p {
+    color: var(--gray-text);
+  }
+}
+li.card.dark {
+  background-color: var(--card-background);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.1s ease-in;
+  border: 0;
+  img {
+    filter: none;
+  }
+  h3 {
+    color: var(--light-text);
+  }
+  &:hover {
+    box-shadow:
+      0 0 1px 2px rgba(43, 182, 252, 1),
+      1px 2px 8px rgba(0, 0, 0, 0.75);
+    transition: 0.1s ease-in;
+  }
+  div p {
+    color: var(--light-text);
+    font-weight: 300;
+  }
+}
+li {
+  div {
+    padding: 0.25rem 0.75rem 0.75rem;
+    p {
+      line-height: 1.5;
+    }
+  }
+}
+li.compact-card {
+  min-height: 6rem;
+  a {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    max-width: var(--card-max);
+  }
+  img {
+    width: 30%;
+    border-radius: 5px 0 0 5px;
+  }
+  div {
+    padding: 0.5rem;
+    width: 70%;
+    p {
+      line-height: 1.33;
+      margin: 0.1rem 0 0 0;
+      @media (min-width: 800px) {
+        font-size: 90%;
+      }
+    }
+  }
+}

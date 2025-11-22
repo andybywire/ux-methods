@@ -39,7 +39,7 @@ if (!page) {
       <h2>UX Disciplines</h2>
     </header>
     <ul class="grid">
-      {page.disciplinePreviews.slice(0, 6).map((content) => <Card content={content} color={color}/>)}
+      {page.disciplinePreviews.slice(0, 6).map((content) => <Card content={content} color={color} size={"compact-card"}/>)}
     </ul>
   </section>
 </Layout>

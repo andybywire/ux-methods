@@ -6,6 +6,7 @@ import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
 import Hero from '@components/Hero.astro'
 import Card from '@components/Card.astro'
+import CardExt from '@components/CardExt.astro'
 import {METHODS_QUERY} from '@sanity/sanity.queries'
 import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
 
@@ -87,8 +88,8 @@ function mapMethods(method: any, methodPreviews: any, kgData: any): any {
   // const preparedMethods = methods.map((method) => {
   // Filter and assign methods preview list to previous methods
   // TODO: verify that mapping is weighted to prioritize strongest connections
-  console.log('Methodl URI', method.uri)
-  console.log('Methodl Preview', methodPreviews.slice(0, 2))
+  // console.log('Methodl URI', method.uri)
+  // console.log('Methodl Preview', methodPreviews.slice(0, 2))
   const previousMethods = methodPreviews.filter((methodPreview: any) => {
     return kgData.some((relationship: any) => {
       return relationship.destination === method.uri && relationship.origin === methodPreview.uri
@@ -105,8 +106,8 @@ function mapMethods(method: any, methodPreviews: any, kgData: any): any {
 
 const [previousMethods, continueMethods] = mapMethods(method, methodPreviews, kgData)
 
-console.log('Previous', previousMethods)
-console.log('Continue', continueMethods)
+// console.log('Previous', previousMethods)
+// console.log('Continue', continueMethods)
 
 const heroImage = method?.heroImage as HeroImage
 
@@ -171,6 +172,18 @@ if (!method) {
         </ul>
       </div>
     </section>
+    {
+      method.resources && (
+        <section>
+          <h2>Resources</h2>
+          <ul class="grid">
+            {method.resources.slice(0,6).map((resource: any) => (
+              <CardExt content={resource} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
     {
       continueMethods && (
         <section>

@@ -9,7 +9,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@sanity/*": ["src/sanity/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@assets/*": ["src/assets/*"]
     }
   }
 }
