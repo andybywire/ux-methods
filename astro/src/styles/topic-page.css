@@ -8,6 +8,10 @@ section {
     margin-bottom: 4rem;
     align-items: stretch;
   }
+  li {
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
   &.overview {
     h1 {
       font-size: 40px;

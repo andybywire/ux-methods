@@ -119,9 +119,6 @@ if (!method) {
 
 <Layout data={method.metadata} pageTitle={method.title}>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
-  <!-- <pre>{JSON.stringify(kgData.slice(0,3), null, 2)}</pre> -->
-  <!-- <pre>{JSON.stringify(previousMethods, null, 2)}</pre> -->
-  <!-- <pre>{JSON.stringify(continueMethods, null, 2)}</pre> -->
   <article class="method">
     <section class="overview">
       <Hero image={heroImage} />
@@ -136,7 +133,7 @@ if (!method) {
       </div>
     </section>
     {
-      previousMethods && (
+      previousMethods.length > 0 && (
         <section>
           <h2>Preparation</h2>
           <p>
@@ -173,7 +170,7 @@ if (!method) {
       </div>
     </section>
     {
-      method.resources && (
+      method.resources.length > 0 && (
         <section>
           <h2>Resources</h2>
           <ul class="grid">
@@ -185,7 +182,7 @@ if (!method) {
       )
     }
     {
-      continueMethods && (
+      continueMethods.length > 0 && (
         <section>
           <h2>Next Steps</h2>
           <ul class="grid">
