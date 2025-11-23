@@ -5,7 +5,6 @@ import Card from '@components/Card.astro'
 import {loadQuery} from '@sanity/lib/load-query'
 import {HOME_PAGE_QUERY} from '@sanity/sanity.queries'
 import type {HOME_PAGE_QUERYResult} from 'sanity.types'
-import type {PortableTextBlock} from 'sanity'
 
 const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
   query: HOME_PAGE_QUERY,
