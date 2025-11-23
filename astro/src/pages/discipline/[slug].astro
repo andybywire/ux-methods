@@ -8,6 +8,7 @@ import type {DISCIPLINES_QUERYResult, HeroImage} from 'sanity.types'
 import Card from '@components/Card.astro'
 import Hero from '@components/Hero.astro'
 import {DISCIPLINES_QUERY} from '@sanity/sanity.queries'
+import type {PortableTextBlock} from 'sanity'
 
 export async function getStaticPaths() {
   const {data: disciplines} = await loadQuery<SanityDocument[]>({
@@ -38,7 +39,7 @@ if (!discipline) {
 }
 ---
 
-<Layout data={discipline.metadata} pageTitle={discipline.title}>
+<Layout data={discipline.footer} pageTitle={discipline.title}>
   <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
   <article class="discipline">
     <section class="overview">

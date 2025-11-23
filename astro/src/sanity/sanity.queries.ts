@@ -1,29 +1,17 @@
 import {defineQuery} from 'groq'
 
-// Site Metadata Fragments
-const SITE_FOOTER_QUERY = `
-  *[_id == "siteSettings"][0]  
+// Projection Fragments
+const FOOTER_PROJECTION = `
   {
-    "title": coalesce(title,""),
     "overview": coalesce(overview, []),
     "colophon": coalesce(colophon, [])
   }
 `
-const SITE_LAYOUT_QUERY = `
-  *[_id == "siteSettings"][0]
-  {
-    "title": coalesce(title,""),
-  }
+// Query Fragments
+const SITE_FOOTER_QUERY = `
+  *[_id == "siteSettings"][0]  
+  ${FOOTER_PROJECTION}
 `
-// Site Metadata Fragment Type
-// This query isn't used directly, but it is used to type
-// metadata fragments used in page-specific queries
-export const SITE_METADATA_QUERY = defineQuery(`
-  {
-    "layout": ${SITE_LAYOUT_QUERY},
-    "footer": ${SITE_FOOTER_QUERY}
-  }
-`)
 
 export const HOME_PAGE_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
@@ -51,10 +39,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
       heroImage,
       metaDescription,
     },
-    "metadata": {
-      "layout": ${SITE_LAYOUT_QUERY},
-      "footer": ${SITE_FOOTER_QUERY}
-    }
+    "footer": ${FOOTER_PROJECTION},
   }
 `)
 
@@ -79,10 +64,7 @@ export const DISCIPLINES_QUERY = defineQuery(`
       "type": "method",
       metaDescription,
     },
-    "metadata": {
-      "layout": ${SITE_LAYOUT_QUERY},
-      "footer": ${SITE_FOOTER_QUERY}
-    }
+    "footer": ${SITE_FOOTER_QUERY},
   }
 `)
 
@@ -124,9 +106,6 @@ export const METHODS_QUERY = defineQuery(`
       heroImage,
       metaDescription,
     },
-    "metadata": {
-      "layout": ${SITE_LAYOUT_QUERY},
-      "footer": ${SITE_FOOTER_QUERY}
-    }
+    "footer": ${SITE_FOOTER_QUERY},
   }
 `)

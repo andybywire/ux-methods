@@ -1,25 +1,26 @@
 ---
 import '@styles/footer.css'
 import PortableText from '@components/PortableText.astro'
-import type {SITE_METADATA_QUERYResult} from 'sanity.types'
-
-// consider structuring Footer as an object in the Schema,
-// which will create a type I can import directly
-type FooterMetadata = Pick<NonNullable<SITE_METADATA_QUERYResult>, 'footer'>
+import type {PortableTextBlock} from 'sanity'
 
 interface Props {
-  data: FooterMetadata
+  data: {
+    overview?: PortableTextBlock[]
+    colophon?: PortableTextBlock[]
+  }
 }
 
-const {data: {footer}} = Astro.props
+const {
+  data: {overview, colophon},
+} = Astro.props
 ---
 
 <footer>
   <!-- <pre>{JSON.stringify(footer, null, 2)}</pre> -->
   <section>
     <div class="overview">
-      <h1>{footer?.title}</h1>
-      <PortableText portableText={footer?.overview} />
+      <h1>UX Methods</h1>
+      <PortableText portableText={overview} />
     </div>
     <div class="social">
       <h1>Share This Project</h1>
@@ -42,7 +43,7 @@ const {data: {footer}} = Astro.props
     </div>
     <div class="colophon">
       <h1>Colophon</h1>
-      <PortableText portableText={footer?.colophon} />
+      <PortableText portableText={colophon} />
     </div>
     <div class="credit">
       <!-- {% for credit in metadata.credits %}

@@ -4,20 +4,20 @@ import '@styles/variables.css'
 import '@styles/global.css'
 import {Font} from 'astro:assets'
 import Footer from '@components/Footer.astro'
-import type {SITE_METADATA_QUERYResult} from 'sanity.types'
+// import type {SITE_METADATA_QUERYResult} from 'sanity.types'
+import type {PortableTextBlock} from 'sanity'
 
-type SiteMetadata = NonNullable<SITE_METADATA_QUERYResult>
+// type SiteMetadata = NonNullable<SITE_METADATA_QUERYResult>
 
 interface Props {
-  data: SiteMetadata
+  data?: {
+    overview?: PortableTextBlock[]
+    colophon?: PortableTextBlock[]
+  } | null
   pageTitle?: string
 }
 
-const {
-  data,
-  data: {layout},
-  pageTitle,
-} = Astro.props
+const {data, pageTitle} = Astro.props
 ---
 
 <!doctype html>
@@ -27,7 +27,7 @@ const {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle && pageTitle + ' | '} {layout?.title} | Astro</title>
+    <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
     <Font cssVariable="--header" preload />
     <Font cssVariable="--body" preload />
     <!-- Create a slot here for JSON-LD -->
@@ -38,6 +38,6 @@ const {
       <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
       <slot />
     </main>
-    {data.footer && <Footer data={data} />}
+    {data && <Footer data={data} />}
   </body>
 </html>
