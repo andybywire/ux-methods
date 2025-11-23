@@ -1,11 +1,11 @@
 ---
 import '@styles/topic-page.css'
-import type {SanityDocument} from '@sanity/client'
 import {loadQuery} from '@sanity/lib/load-query'
 import Layout from '@layouts/Layout.astro'
 import Hero from '@components/Hero.astro'
 import PortableText from '@components/PortableText.astro'
 import {DOCUMENTATION_QUERY} from '@sanity/sanity.queries'
+import type {SanityDocument} from '@sanity/client'
 import type {DOCUMENTATION_QUERYResult, HeroImage} from 'sanity.types'
 
 export async function getStaticPaths() {
@@ -35,24 +35,64 @@ if (!documentation) {
 }
 
 const {title, body, footer} = documentation
-
 const hero = documentation?.heroImage as HeroImage
-
 ---
 
 <Layout data={footer} pageTitle={title}>
-<article class="article">
-  <div class="hero">
-    <Hero image={hero} size={50} aspect={0.5625} discipline />
-  
-  </div>
+  <article class="article">    
+    <Hero image={hero} size={50} aspect={0.5625} />
+    
+    <div class="header">
+      <h1>{title}</h1>
+    </div>
 
-  <div class="header">
-    <h1>{title}</h1>
-  </div>
-
-  <div class="body">
-    <PortableText portableText={body} />
-  </div>
-</article>
+    <div class="body">
+      <PortableText portableText={body} />
+    </div>
+  </article>
 </Layout>
+
+<style>
+  .article {
+    padding: 1rem;
+    @media (min-width: 800px) {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .header {
+      @media (min-width: 800px) {
+        order: 1;
+        width: 100%;
+        padding-top: 1.3rem;
+      }
+      h1 {
+        font-size: 40px;
+        line-height: 48px;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+    .body {
+      @media (min-width: 800px) {
+        order: 2;
+        width: 70%;
+        /* ensure that all portable text blocks have right padding in multi-column view. */
+        h2,
+        p,
+        ol,
+        ul {
+          padding-right: 4rem;
+        }
+      }
+      ul,
+      ol {
+        padding-left: 1.5rem;
+        line-height: initial;
+        li {
+          padding-bottom: 1rem;
+        }
+      }
+    }
+  }
+</style>
