@@ -1,5 +1,13 @@
 # UX Methods Sanity Studio
 
+## Extract schema to Sanity directory
+`npx sanity schema extract --workspace production --path ./schema.json`
+
+- run in the Studio directory
+- this is used for automatic type generation in Astro
+- future to do: set up so every time the schema changes, this re-runs
+
+
 ## Typegen
 
 Generates TypeScript definitions from Sanity Studio schemas and GROQ queries and writes them to `../astro/src/sanity/sanity.types.ts`
