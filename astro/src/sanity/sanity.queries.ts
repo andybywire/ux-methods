@@ -68,6 +68,20 @@ export const DISCIPLINES_QUERY = defineQuery(`
   }
 `)
 
+export const ALL_METHODS_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+    "footer": ${FOOTER_PROJECTION},
+    "methods": *[_type == "method"] {
+      "title": coalesce(title, ''),
+      "type": "method",
+      "slug": slug.current,
+      metaDescription,
+      "heroImage": coalesce(heroImage, {}),
+      "footer": ${SITE_FOOTER_QUERY},
+    }
+  }
+`)
+
 export const METHODS_QUERY = defineQuery(`
   *[_type == "method" && slug.current == $slug][0] {
     "title": coalesce(title, ''),

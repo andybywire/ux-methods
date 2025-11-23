@@ -41,14 +41,14 @@ li.card.dark {
     font-weight: 300;
   }
 }
-li {
+/* li {
   div {
     padding: 0.25rem 0.75rem 0.75rem;
     p {
       line-height: 1.5;
     }
   }
-}
+} */
 li.compact-card {
   min-height: 6rem;
   a {

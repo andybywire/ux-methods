@@ -1,0 +1,36 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Card from '@components/Card.astro'
+import {loadQuery} from '@sanity/lib/load-query'
+import {ALL_METHODS_QUERY} from '@sanity/sanity.queries'
+import type {ALL_METHODS_QUERYResult} from 'sanity.types'
+
+const {data: page} = await loadQuery<ALL_METHODS_QUERYResult>({
+  query: ALL_METHODS_QUERY,
+})
+
+if (!page) {
+  Astro.response.status = 404
+  throw new Error('Not found')
+}
+
+const {footer, methods} = page
+---
+
+<Layout data={footer}>
+  <section class="resource-cards">
+    <h1>UX Methods A-Z</h1>
+    <ul class="grid">
+      {
+        methods.length > 0 &&
+          methods.map((method) => <Card content={method} size={'compact-card'} />)
+      }
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .resource-cards {
+    padding: 1rem 1rem 3rem;
+  }
+</style>
