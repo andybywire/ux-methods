@@ -1,0 +1,58 @@
+---
+import '@styles/topic-page.css'
+import type {SanityDocument} from '@sanity/client'
+import {loadQuery} from '@sanity/lib/load-query'
+import Layout from '@layouts/Layout.astro'
+import Hero from '@components/Hero.astro'
+import PortableText from '@components/PortableText.astro'
+import {DOCUMENTATION_QUERY} from '@sanity/sanity.queries'
+import type {DOCUMENTATION_QUERYResult, HeroImage} from 'sanity.types'
+
+export async function getStaticPaths() {
+  const {data: documentation} = await loadQuery<SanityDocument[]>({
+    query: `*[_type == "documentation"]`,
+  })
+
+  return documentation.map(({slug}) => {
+    return {
+      params: {
+        slug: slug.current,
+      },
+    }
+  })
+}
+
+const {params} = Astro
+
+const {data: documentation} = await loadQuery<DOCUMENTATION_QUERYResult>({
+  query: DOCUMENTATION_QUERY,
+  params,
+})
+
+if (!documentation) {
+  Astro.response.status = 404
+  throw new Error('Not found')
+}
+
+const {title, body, footer} = documentation
+
+const hero = documentation?.heroImage as HeroImage
+
+---
+
+<Layout data={footer} pageTitle={title}>
+<article class="article">
+  <div class="hero">
+    <Hero image={hero} size={50} aspect={0.5625} discipline />
+  
+  </div>
+
+  <div class="header">
+    <h1>{title}</h1>
+  </div>
+
+  <div class="body">
+    <PortableText portableText={body} />
+  </div>
+</article>
+</Layout>

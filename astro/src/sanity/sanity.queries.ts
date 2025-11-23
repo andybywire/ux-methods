@@ -109,3 +109,14 @@ export const METHODS_QUERY = defineQuery(`
     "footer": ${SITE_FOOTER_QUERY},
   }
 `)
+
+export const DOCUMENTATION_QUERY = defineQuery(`
+   *[_type == "documentation" && slug.current == $slug][0] {
+      "title": coalesce(title, ''),
+      "slug": slug.current,
+      metaDescription,
+      heroImage,
+      body,
+      "footer": ${SITE_FOOTER_QUERY},
+    }
+  `)

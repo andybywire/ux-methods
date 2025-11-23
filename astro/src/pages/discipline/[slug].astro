@@ -8,7 +8,6 @@ import type {DISCIPLINES_QUERYResult, HeroImage} from 'sanity.types'
 import Card from '@components/Card.astro'
 import Hero from '@components/Hero.astro'
 import {DISCIPLINES_QUERY} from '@sanity/sanity.queries'
-import type {PortableTextBlock} from 'sanity'
 
 export async function getStaticPaths() {
   const {data: disciplines} = await loadQuery<SanityDocument[]>({
