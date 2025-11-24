@@ -1,0 +1,36 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Card from '@components/Card.astro'
+import {loadQuery} from '@sanity/lib/load-query'
+import {ALL_DISCIPLINES_QUERY} from '@sanity/sanity.queries'
+import type {ALL_DISCIPLINES_QUERYResult} from 'sanity.types'
+
+const {data: page} = await loadQuery<ALL_DISCIPLINES_QUERYResult>({
+  query: ALL_DISCIPLINES_QUERY,
+})
+
+if (!page) {
+  Astro.response.status = 404
+  throw new Error('Not found')
+}
+
+const {footer, disciplines} = page
+---
+
+<Layout data={footer} pageTitle='UX Disciplines'>
+  <section class="resource-cards">
+    <h1>UX Disciplines</h1>
+    <ul class="grid">
+      {
+        disciplines.length > 0 &&
+          disciplines.map((discipline) => <Card content={discipline} />)
+      }
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .resource-cards {
+    padding: 1rem 1rem 3rem;
+  }
+</style>

@@ -43,6 +43,20 @@ export const HOME_PAGE_QUERY = defineQuery(`
   }
 `)
 
+export const ALL_DISCIPLINES_QUERY = defineQuery(`
+  *[_id == "siteSettings"][0]{
+    "footer": ${FOOTER_PROJECTION},
+    "disciplines": *[_type == "discipline"]|order(title) {
+      "title": coalesce(title, ''),
+      "type": "discipline",
+      "slug": slug.current,
+      metaDescription,
+      "heroImage": coalesce(heroImage, {}),
+      "footer": ${SITE_FOOTER_QUERY},
+    }
+  }
+`)
+
 export const DISCIPLINES_QUERY = defineQuery(`
   *[_type == "discipline" && slug.current == $slug][0] {
     "title": coalesce(title,""),
@@ -71,7 +85,7 @@ export const DISCIPLINES_QUERY = defineQuery(`
 export const ALL_METHODS_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
     "footer": ${FOOTER_PROJECTION},
-    "methods": *[_type == "method"] {
+    "methods": *[_type == "method"]|order(title) {
       "title": coalesce(title, ''),
       "type": "method",
       "slug": slug.current,
