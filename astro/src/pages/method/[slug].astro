@@ -10,6 +10,8 @@ import CardExt from '@components/CardExt.astro'
 import {METHODS_QUERY} from '@sanity/sanity.queries'
 import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
 
+const KG_AUTH = import.meta.env.KG_AUTH;
+
 const {params} = Astro
 
 // Queue up one page for each Method
@@ -34,9 +36,8 @@ async function getSharedOutput() {
     headers: {
       'Content-Type': 'application/sparql-query',
       Accept: 'application/sparql-results+json',
-      // Authorization: 'Basic ' + btoa(process.env.KG_AUTH),
-      // 🚨 Replace after testing
-      Authorization: 'Basic ' + btoa('andyfitz:uxm25'),
+      // 🚨 Change after testing — it's been committed to the repo
+      Authorization: 'Basic ' + btoa(KG_AUTH),
     },
     // Narrow this to the present method? Or at least limit return.
     body: `
