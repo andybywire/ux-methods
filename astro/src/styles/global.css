@@ -1,10 +1,10 @@
 body {
   font-family: var(--body);
   font-size: 18px;
-  -webkit-font-smoothing: antialiased;
+  /* May need to darken font to ensure contrast w/ smoothing */
+  /* -webkit-font-smoothing: antialiased; */
 }
 main {
-  /* padding-top: 60px;  */
   @media (min-width: 800px) {
     padding-top: 50px;
   }
@@ -45,26 +45,10 @@ a:hover {
   color: var(--primary-text-link);
   transition: color 0.25s ease-out;
 }
-/* figure {
-  width: 100%;
-  margin: 0;
-  figcaption {
-    color: var(--gray-text);
-    padding-top: 0.5rem;
-  }
+
+.resource-cards {
+  padding: 1rem 1rem 3rem;
 }
-.show-on-focus {
-  position: absolute;
-  &:focus,
-  &:active {
-    position: static;
-    display: block;
-    padding: 1rem 1rem 0;
-    background-color: var(--card-background);
-    color: var(--primary-dark-bg);
-    font-weight: bold;
-  }
-} */
 
 /* Card grid */
 .grid {
@@ -75,11 +59,5 @@ a:hover {
   a {
     color: var(--text);
     text-decoration: none;
-  }
-}
-.dark {
-  @media (min-width: 600px) {
-    grid-row-gap: 3rem;
-    grid-column-gap: 3.5rem;
   }
 }

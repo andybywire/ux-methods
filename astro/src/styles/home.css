@@ -1,6 +1,7 @@
 main {
   background-color: var(--dark-background);
   color: var(--light-text);
+  -webkit-font-smoothing: antialiased;
   padding-bottom: 6rem;
   section {
     padding-left: 1rem;
@@ -34,6 +35,7 @@ main {
     }
   }
   .resource-cards {
+    padding: 1rem 1rem 3rem;
     header {
       display: flex;
       flex-direction: row;
@@ -49,40 +51,19 @@ main {
         margin-top: 8rem;
         display: inline-block;
       }
-      @media (min-width: 600px) {
-        /* width: 70%; */
-      }
     }
     .header-link {
       display: none;
     }
-    /* .full-card {
-      display: none;
-    } */
     @media (min-width: 600px) {
-      /* .compact-card {
-        display: none;
-      }
-      .full-card {
-        display: block;
-      } */
       .header-link {
         display: block;
-        /* width: 30%;
-        text-align: right; */
       }
     }
-    /* .list-link {
-      display: block;
-      text-align: right;
-    } */
   }
   a {
     color: var(--light-text);
   }
-}
-.resource-cards {
-  padding: 1rem 1rem 3rem;
 }
 .admin-metadata {
   font-size: 90%;
