@@ -9,9 +9,10 @@ import Card from '@components/Card.astro'
 import CardExt from '@components/CardExt.astro'
 import {METHODS_QUERY} from '@sanity/sanity.queries'
 import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
-import type { FooterData } from '@components/Footer.astro'
+import type {FooterData} from '@components/Footer.astro'
+import {urlForImage} from '@sanity/lib/url-for-image'
 
-const KG_AUTH = import.meta.env.KG_AUTH;
+const KG_AUTH = import.meta.env.KG_AUTH
 
 const {params} = Astro
 
@@ -89,9 +90,7 @@ const methodPreviews = method?.methodPreviews
 function mapMethods(method: any, methodPreviews: any, kgData: any): any {
   // const preparedMethods = methods.map((method) => {
   // Filter and assign methods preview list to previous methods
-  // TODO: verify that mapping is weighted to prioritize strongest connections
-  // console.log('Methodl URI', method.uri)
-  // console.log('Methodl Preview', methodPreviews.slice(0, 2))
+  // ☑️ TODO: verify that mapping is weighted to prioritize strongest connections
   const previousMethods = methodPreviews.filter((methodPreview: any) => {
     return kgData.some((relationship: any) => {
       return relationship.destination === method.uri && relationship.origin === methodPreview.uri
@@ -107,11 +106,13 @@ function mapMethods(method: any, methodPreviews: any, kgData: any): any {
 }
 
 const [previousMethods, continueMethods] = mapMethods(method, methodPreviews, kgData)
-
-// console.log('Previous', previousMethods)
-// console.log('Continue', continueMethods)
-
 const heroImage = method?.heroImage as HeroImage
+
+// Optional JSON-LD keys:
+// const optionalLd = {
+//   "keyOne": "value one",
+//   "KeyTwo": "value two",
+// }
 
 if (!method) {
   Astro.response.status = 404
@@ -127,6 +128,27 @@ const footerData: FooterData | null = method.footer
 ---
 
 <Layout data={footerData} pageTitle={method.title}>
+  <script
+    slot="json-ld"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      // ☑️ TO DO: convert this to https://schema.org/HowTo
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      "url": method.uri,
+      "headline": method.title,
+      "description": method.metaDescription,
+      "datePublished": method.dateStamps?.createdAt,
+      "dateModified": method.dateStamps?.revisedAt || method.dateStamps?.createdAt,
+      "image": {
+        "@type": "ImageObject",
+        "inLanguage": "en-US",
+        "url": urlForImage(heroImage).url()
+      }
+      // ...optionalLd
+    })}
+  />
+
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
   <article class="method">
     <section class="overview">
@@ -150,8 +172,8 @@ const footerData: FooterData | null = method.footer
             methods.
           </p>
           <ul class="grid">
-            {previousMethods.slice(0,6).map((resource: any) => (
-              <Card content={resource} size={"compact-card"}/>
+            {previousMethods.slice(0, 6).map((resource: any) => (
+              <Card content={resource} size={'compact-card'} />
             ))}
           </ul>
         </section>
@@ -183,7 +205,7 @@ const footerData: FooterData | null = method.footer
         <section>
           <h2>Resources</h2>
           <ul class="grid">
-            {method.resources.slice(0,6).map((resource: any) => (
+            {method.resources.slice(0, 6).map((resource: any) => (
               <CardExt content={resource} />
             ))}
           </ul>
@@ -195,7 +217,7 @@ const footerData: FooterData | null = method.footer
         <section>
           <h2>Next Steps</h2>
           <ul class="grid">
-            {continueMethods.slice(0,6).map((resource: any) => (
+            {continueMethods.slice(0, 6).map((resource: any) => (
               <Card content={resource} />
             ))}
           </ul>

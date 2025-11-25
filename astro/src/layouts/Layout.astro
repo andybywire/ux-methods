@@ -24,7 +24,9 @@ if (!data) {
 
 <!doctype html>
 <html lang="en">
-  <Head pageTitle={pageTitle}/>
+  <Head pageTitle={pageTitle}>
+    <slot name="json-ld" slot="json-ld"/>
+  </Head>
   <body>
     <Header />
     <main id="main-content">

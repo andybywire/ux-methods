@@ -10,8 +10,8 @@ const {pageTitle} = Astro.props
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
   <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
+  <slot name="json-ld" />
+  <script src="../scripts/header.js"></script>
   <Font cssVariable="--header" preload />
   <Font cssVariable="--body" preload />
-  <script src="../scripts/header.js"></script>
-  <!-- Create a slot here for JSON-LD -->
 </head>
