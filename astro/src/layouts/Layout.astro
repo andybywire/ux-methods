@@ -3,6 +3,7 @@ import '@styles/normalize.css'
 import '@styles/variables.css'
 import '@styles/global.css'
 import {Font} from 'astro:assets'
+import Head from '@components/Head.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import type { FooterData } from '@components/Footer.astro'
@@ -23,17 +24,7 @@ if (!data) {
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
-    <Font cssVariable="--header" preload />
-    <Font cssVariable="--body" preload />
-    <script src="../scripts/header.js"></script>
-    <!-- Create a slot here for JSON-LD -->
-  </head>
+  <Head pageTitle={pageTitle}/>
   <body>
     <Header />
     <main id="main-content">
