@@ -4,7 +4,8 @@ import {defineQuery} from 'groq'
 const FOOTER_PROJECTION = `
   {
     "overview": coalesce(overview, []),
-    "colophon": coalesce(colophon, [])
+    "colophon": coalesce(colophon, []),
+    "credits": coalesce(credits[].creditBody, [])
   }
 `
 // Query Fragments

@@ -9,6 +9,7 @@ import Card from '@components/Card.astro'
 import CardExt from '@components/CardExt.astro'
 import {METHODS_QUERY} from '@sanity/sanity.queries'
 import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
+import type { FooterData } from '@components/Footer.astro'
 
 const KG_AUTH = import.meta.env.KG_AUTH;
 
@@ -116,9 +117,16 @@ if (!method) {
   Astro.response.status = 404
   throw new Error('Not found - template rendering error')
 }
+const footerData: FooterData | null = method.footer
+  ? {
+      overview: (method.footer.overview ?? []) as FooterData['overview'],
+      colophon: (method.footer.colophon ?? []) as FooterData['colophon'],
+      credits: (method.footer.credits ?? []) as FooterData['credits'],
+    }
+  : null
 ---
 
-<Layout data={method.footer} pageTitle={method.title}>
+<Layout data={footerData} pageTitle={method.title}>
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
   <article class="method">
     <section class="overview">

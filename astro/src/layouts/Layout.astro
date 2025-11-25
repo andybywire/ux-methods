@@ -5,17 +5,20 @@ import '@styles/global.css'
 import {Font} from 'astro:assets'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
-import type {PortableTextBlock} from 'sanity'
+import type { FooterData } from '@components/Footer.astro'
 
 interface Props {
-  data?: {
-    overview?: PortableTextBlock[]
-    colophon?: PortableTextBlock[]
-  } | null
+  data?: FooterData | null
   pageTitle?: string
 }
 
 const {data, pageTitle} = Astro.props
+
+if (!data) {
+  Astro.response.status = 404
+  throw new Error('Not found')
+}
+
 ---
 
 <!doctype html>
@@ -37,6 +40,6 @@ const {data, pageTitle} = Astro.props
       <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
       <slot />
     </main>
-    {data && <Footer data={data} />}
+    {<Footer data={data} />}
   </body>
 </html>

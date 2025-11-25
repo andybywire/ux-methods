@@ -5,6 +5,7 @@ import {loadQuery} from '@sanity/lib/load-query'
 import PortableText from '@components/PortableText.astro'
 import Layout from '@layouts/Layout.astro'
 import type {DISCIPLINES_QUERYResult, HeroImage} from 'sanity.types'
+import type { FooterData } from '@components/Footer.astro'
 import Card from '@components/Card.astro'
 import Hero from '@components/Hero.astro'
 import {DISCIPLINES_QUERY} from '@sanity/sanity.queries'
@@ -36,9 +37,16 @@ if (!discipline) {
   Astro.response.status = 404
   throw new Error('Not found')
 }
+const footerData: FooterData | null = discipline.footer
+  ? {
+      overview: (discipline.footer.overview ?? []) as FooterData['overview'],
+      colophon: (discipline.footer.colophon ?? []) as FooterData['colophon'],
+      credits: (discipline.footer.credits ?? []) as FooterData['credits'],
+    }
+  : null
 ---
 
-<Layout data={discipline.footer} pageTitle={discipline.title}>
+<Layout data={footerData} pageTitle={discipline.title}>
   <!-- <pre>{JSON.stringify(Astro, null, 2)}</pre> -->
   <article class="discipline">
     <section class="overview">

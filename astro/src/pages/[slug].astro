@@ -7,6 +7,8 @@ import PortableText from '@components/PortableText.astro'
 import {DOCUMENTATION_QUERY} from '@sanity/sanity.queries'
 import type {SanityDocument} from '@sanity/client'
 import type {DOCUMENTATION_QUERYResult, HeroImage} from 'sanity.types'
+import type { FooterData } from '@components/Footer.astro'
+
 
 export async function getStaticPaths() {
   const {data: documentation} = await loadQuery<SanityDocument[]>({
@@ -34,11 +36,18 @@ if (!documentation) {
   throw new Error('Not found')
 }
 
-const {title, body, footer} = documentation
+const {title, body} = documentation
 const hero = documentation?.heroImage as HeroImage
+const footerData: FooterData | null = documentation.footer
+  ? {
+      overview: (documentation.footer.overview ?? []) as FooterData['overview'],
+      colophon: (documentation.footer.colophon ?? []) as FooterData['colophon'],
+      credits: (documentation.footer.credits ?? []) as FooterData['credits'],
+    }
+  : null
 ---
 
-<Layout data={footer} pageTitle={title}>
+<Layout data={footerData} pageTitle={title}>
   <article class="article">    
     <Hero image={hero} size={50} aspect={0.5625} />
     

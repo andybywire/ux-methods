@@ -1,17 +1,24 @@
 ---
 import '@styles/footer.css'
 import PortableText from '@components/PortableText.astro'
-import type {PortableTextBlock} from 'sanity'
+import type { PortableTextBlock } from 'sanity'
+// import type { FooterData } from '../types/footer'
+import Bluesky from '@assets/icons/bluesky.svg'
+import LinkedIn from '@assets/icons/LinkedIn.svg'
+import CreativeCommons from '@assets/icons/creativeCommons.svg'
+
+export type FooterData = {
+  overview: PortableTextBlock[]
+  colophon: PortableTextBlock[]
+  credits?: PortableTextBlock[][]
+}
 
 interface Props {
-  data: {
-    overview?: PortableTextBlock[]
-    colophon?: PortableTextBlock[]
-  }
+  data: FooterData
 }
 
 const {
-  data: {overview, colophon},
+  data: {overview, colophon, credits},
 } = Astro.props
 ---
 
@@ -28,28 +35,22 @@ const {
         href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.uxmethods.org/"
         target="_blank"
         rel="noopener">
-        <!-- {% include 'icons/linkedIn.svg' %} -->
+        <LinkedIn />
       </a>
       <a
         href="https://bsky.app/intent/compose?url=https://www.uxmethods.org/&text=UX%20Methods%20is%20a%20community%20powered,%20linked%20data%20driven%20knowledge%20graph%20for%20learning%20about%20the%20techniques%20of%20user%20experience%20design."
         target="_blank"
         rel="noopener">
-        <!-- {% include 'icons/bluesky.svg' %} -->
+        <Bluesky />
       </a>
-      <!-- {# Mastadon is a bit more involved — add this later #}
-      {# <a href="#" target="_blank" rel="noopener">
-        // {% include 'icons/mastadon.svg' %}
-      </a> #} -->
     </div>
     <div class="colophon">
       <h1>Colophon</h1>
       <PortableText portableText={colophon} />
     </div>
     <div class="credit">
-      <!-- {% for credit in metadata.credits %}
-        { credit | safe }
-      {% endfor %}
-      {% include 'icons/creativeCommons.svg' %} -->
+      {credits?.map((credit) => <PortableText portableText={credit} />)}
+      <CreativeCommons />
     </div>
   </section>
 </footer>

@@ -5,6 +5,7 @@ import Card from '@components/Card.astro'
 import {loadQuery} from '@sanity/lib/load-query'
 import {HOME_PAGE_QUERY} from '@sanity/sanity.queries'
 import type {HOME_PAGE_QUERYResult} from 'sanity.types'
+import type { FooterData } from '@components/Footer.astro'
 
 const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
   query: HOME_PAGE_QUERY,
@@ -16,9 +17,16 @@ if (!page) {
   Astro.response.status = 404
   throw new Error('Not found')
 }
+const footerData: FooterData | null = page.footer
+  ? {
+      overview: (page.footer.overview ?? []) as FooterData['overview'],
+      colophon: (page.footer.colophon ?? []) as FooterData['colophon'],
+      credits: (page.footer.credits ?? []) as FooterData['credits'],
+    }
+  : null
 ---
 
-<Layout data={page.footer}>
+<Layout data={footerData}>
   <section class="headline">
     <h1>{page.tagline}</h1>
     <p class="display">{page.description}</p>
