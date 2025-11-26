@@ -27,7 +27,7 @@ const footerData: FooterData | null = page.footer
 ---
 
 <Layout data={footerData} pageTitle="UX Disciplines">
-  <section class="resource-cards">
+  <section>
     <h1>UX Disciplines</h1>
     <ul class="grid">
       {disciplines.length > 0 && disciplines.map((discipline) => <Card content={discipline} />)}
