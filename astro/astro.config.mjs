@@ -1,10 +1,17 @@
 import {defineConfig, fontProviders} from 'astro/config'
+import node from '@astrojs/node';
 import sanity from '@sanity/astro'
 import react from '@astrojs/react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import {watchAndRun} from 'vite-plugin-watch-and-run'
 
 export default defineConfig({
+  output: 'server', 
+  adapter: node({ mode: 'standalone'}),
+  server: {
+    port:8080,
+    host: '127.0.0.1',
+  },
   integrations: [
     sanity({
       projectId: '4g5tw1k0',
@@ -19,11 +26,6 @@ export default defineConfig({
     }),
     react(),
   ],
-  // this should be the only to change for the `preview` subdomain:
-  // output: 'server', 
-  // The fonts API trips up hot-reloading w/ Vite
-  //   until it's stabilized, expect to re-run `pnpm dev` after 
-  //   editing config. 
   experimental: {
     fonts: [
       {
