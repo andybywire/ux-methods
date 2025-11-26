@@ -32,6 +32,25 @@ const footerData: FooterData | null = page.footer
     <p class="display">{page.description}</p>
   </section>
 
+  <section id="site-search" class="search" aria-label="Site search">
+    <form autocomplete="off">
+      <input type="search"             
+            id="search-box"
+            name="search"
+            aria-expanded="false"
+            aria-controls="search-results"
+            aria-describedby="search-description"/>
+      <label for="search-box">Search for a method by name, goal, or outcome.</label>
+      <span id="search-description" class="visually-hidden">
+        As you type, search results will appear below
+      </span>
+    </form>
+    <div id="search-result-list">
+      <h2 id="results-count"></h2>
+      <ul id="result-details" role="listbox" aria-label="Search results"></ul>
+    </div>
+  </section>
+
   <section class="resource-cards">
     <header>
       <h2>Top UX Methods</h2>
