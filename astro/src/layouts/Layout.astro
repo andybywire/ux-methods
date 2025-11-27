@@ -34,7 +34,7 @@ const visualEditingEnabled =
     <main id="main-content">
       <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
       <slot />
-      <VisualEditing enabled={visualEditingEnabled} />
+      <VisualEditing enabled={visualEditingEnabled} zIndex={1000}/>
     </main>
     {<Footer data={data} />}
   </body>
