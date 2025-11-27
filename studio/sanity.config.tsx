@@ -69,7 +69,7 @@ export default defineConfig([
         defaultDocumentNode,
       }),
       presentationTool({
-        previewUrl: 'https:preview.uxmethods.org',
+        previewUrl: 'https://preview.uxmethods.org',
       }),
       visionTool(),
       taxonomyManager({
