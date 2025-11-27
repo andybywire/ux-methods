@@ -18,11 +18,9 @@ export default defineConfig({
       dataset: 'production',
       useCdn: false,
       apiVersion: '2025-11-01',
-      // to access the Studio on a route:
-      // studioBasePath: "/studio", 
-      // stega: {
-      //   studioUrl: "/studio",
-      // },
+      stega: {
+        studioUrl: "https://uxmethods.sanity.studio/",
+      },
     }),
     react(),
   ],

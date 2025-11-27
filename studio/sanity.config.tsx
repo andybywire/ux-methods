@@ -12,6 +12,8 @@ import {assist} from '@sanity/assist'
 import {RobotIcon, TokenIcon, TagsIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
 import {NodeTree} from './static/NodeTree'
+import { presentationTool } from "sanity/presentation";
+
 
 const hiddenDocTypes = (listItem: any) =>
   !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context', 'taxonomyTest'].includes(
@@ -65,6 +67,9 @@ export default defineConfig([
             ])
         },
         defaultDocumentNode,
+      }),
+      presentationTool({
+        previewUrl: 'https:preview.uxmethods.org',
       }),
       visionTool(),
       taxonomyManager({

@@ -2,7 +2,7 @@
 import '@styles/normalize.css'
 import '@styles/variables.css'
 import '@styles/global.css'
-import {Font} from 'astro:assets'
+import { VisualEditing } from "@sanity/astro/visual-editing";
 import Head from '@components/Head.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
@@ -20,6 +20,8 @@ if (!data) {
   throw new Error('Not found')
 }
 
+const visualEditingEnabled =
+  import.meta.env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED == "true";
 ---
 
 <!doctype html>
@@ -32,6 +34,7 @@ if (!data) {
     <main id="main-content">
       <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
       <slot />
+      <VisualEditing enabled={visualEditingEnabled} />
     </main>
     {<Footer data={data} />}
   </body>
