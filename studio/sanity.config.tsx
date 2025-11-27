@@ -4,7 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {RiSettings4Line} from 'react-icons/ri'
 import type {StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import { taxonomyManager  } from 'sanity-plugin-taxonomy-manager'
+import {taxonomyManager} from 'sanity-plugin-taxonomy-manager'
 import {BulkDelete} from 'sanity-plugin-bulk-delete'
 import {schemaTypes} from './schemaTypes'
 import {embeddingsIndexDashboard, embeddingsIndexReferenceInput} from '@sanity/embeddings-index-ui'
@@ -12,13 +12,17 @@ import {assist} from '@sanity/assist'
 import {RobotIcon, TokenIcon, TagsIcon} from '@sanity/icons'
 import {RiBubbleChartFill} from 'react-icons/ri'
 import {NodeTree} from './static/NodeTree'
-import { presentationTool } from "sanity/presentation";
-
+import {presentationTool} from 'sanity/presentation'
+import {resolve} from './resolve'
 
 const hiddenDocTypes = (listItem: any) =>
-  !['siteSettings', 'skosConcept', 'skosConceptScheme', 'assist.instruction.context', 'taxonomyTest'].includes(
-    listItem.getId(),
-  )
+  ![
+    'siteSettings',
+    'skosConcept',
+    'skosConceptScheme',
+    'assist.instruction.context',
+    'taxonomyTest',
+  ].includes(listItem.getId())
 
 export function defaultDocumentNode(S: StructureBuilder, {schemaType}: {schemaType: string}) {
   // Conditionally return a different configuration based on the schema type
@@ -61,15 +65,21 @@ export default defineConfig([
               ...S.documentTypeListItems().filter(hiddenDocTypes),
               S.divider(),
               S.listItem()
-              .title('Settings')
-              .icon(RiSettings4Line)
-              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+                .title('Settings')
+                .icon(RiSettings4Line)
+                .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
             ])
         },
         defaultDocumentNode,
       }),
       presentationTool({
-        previewUrl: 'https://preview.uxmethods.org',
+        previewUrl: {
+          // initial URL when the Presentation pane opens
+          initial: 'https://preview.uxmethods.org',
+        },
+        // For modern Presentation, this is how you allow your preview origin(s)
+        allowOrigins: ['https://preview.uxmethods.org'],
+        resolve,
       }),
       visionTool(),
       taxonomyManager({
@@ -102,7 +112,7 @@ export default defineConfig([
               S.listItem()
                 .title('AI Context')
                 .icon(TokenIcon)
-                .child(S.documentTypeList('assist.instruction.context'))
+                .child(S.documentTypeList('assist.instruction.context')),
             ])
         },
         defaultDocumentNode,
@@ -138,7 +148,7 @@ export default defineConfig([
               S.listItem()
                 .title('TaxonomyInputs')
                 .icon(TagsIcon)
-                .child(S.documentTypeList('taxonomyTest'))
+                .child(S.documentTypeList('taxonomyTest')),
             ])
         },
         defaultDocumentNode,
