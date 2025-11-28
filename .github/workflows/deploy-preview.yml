@@ -73,7 +73,7 @@ jobs:
           key: ${{ secrets.PREVIEW_SSH_KEY }}
           port: 22
           source: "astro-preview-dist.tar.gz"
-          target: "/tmp/astro-preview-dist.tar.gz"
+          target: "/tmp"
 
       - name: Extract and restart on droplet
         uses: appleboy/ssh-action@v1.2.0
@@ -89,9 +89,11 @@ jobs:
 
             # Ensure astro directory exists
             mkdir -p astro
+            
+            echo ">>> Cleaning old dist..."
+            rm -rf astro/dist
 
             echo ">>> Extracting new dist bundle..."
-            rm -rf astro/dist
             tar xzf /tmp/astro-preview-dist.tar.gz -C astro
 
             echo ">>> Restarting PM2 app..."
