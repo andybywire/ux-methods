@@ -29,24 +29,31 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20           # match droplet's Node (20.19.6)
           cache: pnpm
 
-      - name: Install dependencies
+      - name: Install dependencies (monorepo)
         run: pnpm install
 
       - name: Build Astro (preview)
         env:
-          # We want visual editing baked in for preview
           PUBLIC_SANITY_VISUAL_EDITING_ENABLED: "true"
+          SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
+          KG_AUTH: ${{ secrets.KG_AUTH }}
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
           pnpm --filter astro... run build
 
-      - name: Package dist + package.json for deploy
-        # from repo root; include dist and astro's package.json
+      - name: Prepare runtime node_modules for Astro
         run: |
-          tar czf astro-preview-artifact.tar.gz -C astro dist package.json
+          cd astro
+          # prune to production deps; this runs on the big GitHub runner, not your droplet
+          pnpm install --prod
+
+      - name: Package dist + node_modules for deploy
+        run: |
+          # From repo root; tar from inside astro/
+          tar czf astro-preview-artifact.tar.gz -C astro dist node_modules package.json pnpm-lock.yaml
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -95,15 +102,11 @@ jobs:
             # Make sure astro dir exists
             mkdir -p astro
       
-            echo ">>> Cleaning old dist..."
-            rm -rf astro/dist
+            echo ">>> Cleaning old dist and node_modules..."
+            rm -rf astro/dist astro/node_modules
       
-            echo ">>> Extracting new dist + package.json..."
+            echo ">>> Extracting new dist + node_modules + package.json..."
             tar xzf /tmp/astro-preview-artifact.tar.gz -C astro
-      
-            echo ">>> Installing/updating runtime deps..."
-            cd astro
-            pnpm install --prod
       
             echo ">>> Restarting PM2 app..."
             pm2 restart uxm-preview
