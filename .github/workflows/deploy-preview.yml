@@ -97,6 +97,7 @@ jobs:
             tar xzf /tmp/astro-preview-dist.tar.gz -C astro
 
             echo ">>> Restarting PM2 app..."
-            pm2 restart uxm-preview
+            /home/uxm/.nvm/versions/node/v20.19.6/bin/pm2 restart uxm-preview
+            
 
             echo ">>> Deployment complete."
