@@ -48,7 +48,7 @@ jobs:
         run: |
           cd astro
           # prune to production deps; this runs on the big GitHub runner, not your droplet
-          pnpm install --prod
+          pnpm install
 
       - name: Package dist + node_modules for deploy
         run: |
