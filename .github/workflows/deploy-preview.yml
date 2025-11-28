@@ -1,0 +1,100 @@
+name: Deploy Astro Preview
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "astro/**"
+      - "sanity.types.ts"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/deploy-preview.yml"
+
+jobs:
+  build:
+    name: Build Astro preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Astro (preview)
+        env:
+          # We want visual editing baked in for preview
+          PUBLIC_SANITY_VISUAL_EDITING_ENABLED: "true"
+        run: |
+          export NODE_OPTIONS="--max-old-space-size=2048"
+          pnpm --filter astro... run build
+
+      - name: Package dist for deploy
+        run: |
+          tar czf astro-preview-dist.tar.gz -C astro dist
+        # This creates astro-preview-dist.tar.gz at repo root
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-preview-dist
+          path: astro-preview-dist.tar.gz
+
+  deploy:
+    name: Deploy to preview.uxmethods.org
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: astro-preview-dist
+
+      - name: Copy dist bundle to droplet
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PREVIEW_HOST }}
+          username: ${{ secrets.PREVIEW_USER }}
+          key: ${{ secrets.PREVIEW_SSH_KEY }}
+          port: 22
+          source: "astro-preview-dist.tar.gz"
+          target: "/tmp/astro-preview-dist.tar.gz"
+
+      - name: Extract and restart on droplet
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PREVIEW_HOST }}
+          username: ${{ secrets.PREVIEW_USER }}
+          key: ${{ secrets.PREVIEW_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+
+            cd /var/www/uxm-preview
+
+            # Ensure astro directory exists
+            mkdir -p astro
+
+            echo ">>> Extracting new dist bundle..."
+            rm -rf astro/dist
+            tar xzf /tmp/astro-preview-dist.tar.gz -C astro
+
+            echo ">>> Restarting PM2 app..."
+            pm2 restart uxm-preview
+
+            echo ">>> Deployment complete."
