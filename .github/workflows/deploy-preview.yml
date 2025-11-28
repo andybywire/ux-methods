@@ -7,7 +7,6 @@ on:
     paths:
       - "astro/**"
       - "sanity.types.ts"
-      - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - ".github/workflows/deploy-preview.yml"
@@ -29,8 +28,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20           # match droplet's Node (20.19.6)
+          node-version: 20
           cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            pnpm-workspace.yaml
 
       - name: Install dependencies (monorepo)
         run: pnpm install
@@ -38,22 +40,17 @@ jobs:
       - name: Build Astro (preview)
         env:
           PUBLIC_SANITY_VISUAL_EDITING_ENABLED: "true"
-          SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
-          KG_AUTH: ${{ secrets.KG_AUTH }}
+          # If you need these at BUILD time, uncomment and set secrets:
+          # SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
+          # KG_AUTH: ${{ secrets.KG_AUTH }}
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
           pnpm --filter astro... run build
 
-      - name: Prepare runtime node_modules for Astro
+      - name: Package dist + package.json for deploy
         run: |
           cd astro
-          # prune to production deps; this runs on the big GitHub runner, not your droplet
-          pnpm install
-
-      - name: Package dist + node_modules for deploy
-        run: |
-          # From repo root; tar from inside astro/
-          tar czf astro-preview-artifact.tar.gz -C astro dist node_modules package.json
+          tar czf ../astro-preview-artifact.tar.gz dist package.json
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -72,7 +69,7 @@ jobs:
         with:
           name: astro-preview-artifact
 
-      - name: Copy dist bundle to droplet
+      - name: Copy bundle to droplet
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.PREVIEW_HOST }}
@@ -91,24 +88,26 @@ jobs:
           port: 22
           script: |
             set -e
-      
-            # Ensure nvm and pm2 are available
+
+            # Load nvm / pm2
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             nvm use 20 >/dev/null 2>&1 || true
-      
+
             cd /var/www/uxm-preview
-      
-            # Make sure astro dir exists
             mkdir -p astro
-      
-            echo ">>> Cleaning old dist and node_modules..."
-            rm -rf astro/dist astro/node_modules
-      
-            echo ">>> Extracting new dist + node_modules + package.json..."
+
+            echo ">>> Cleaning old dist, package.json, and node_modules..."
+            rm -rf astro/dist astro/package.json astro/node_modules
+
+            echo ">>> Extracting new dist + package.json..."
             tar xzf /tmp/astro-preview-artifact.tar.gz -C astro
-      
+
+            echo ">>> Installing astro deps with pnpm (production only)..."
+            cd astro
+            NODE_OPTIONS="--max-old-space-size=512" pnpm install --prod
+
             echo ">>> Restarting PM2 app..."
             pm2 restart uxm-preview
-      
+
             echo ">>> Deployment complete."
