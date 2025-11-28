@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {RiSettings4Line} from 'react-icons/ri'
@@ -27,24 +27,26 @@ const hiddenDocTypes = (listItem: any) =>
 export function defaultDocumentNode(S: StructureBuilder, {schemaType}: {schemaType: string}) {
   // Conditionally return a different configuration based on the schema type
   if (schemaType === 'discipline') {
-    return S.document().views([S.view.form(), S.view.component(WebPreview).title('Preview')])
+    return S.document().views([S.view.form(), 
+      // S.view.component(WebPreview).title('Preview')
+    ])
   }
 }
 
 // Simple example of web preview
-const WebPreview = ({document}: any) => {
-  const {displayed: discipline} = document
-  // return disciplineTemplate(discipline) // once I sort out how to transform the export
-  return (
-    <main>
-      <h1>{discipline.title}</h1>
-      <p>{discipline.metaDescription}</p>
-      <p>
-        <a href="/">back to index</a>
-      </p>
-    </main>
-  )
-}
+// const WebPreview = ({document}: any) => {
+//   const {displayed: discipline} = document
+//   // return disciplineTemplate(discipline) // once I sort out how to transform the export
+//   return (
+//     <main>
+//       <h1>{discipline.title}</h1>
+//       <p>{discipline.metaDescription}</p>
+//       <p>
+//         <a href="/">back to index</a>
+//       </p>
+//     </main>
+//   )
+// }
 
 export default defineConfig([
   {

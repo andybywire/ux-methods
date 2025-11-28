@@ -1,4 +1,6 @@
+import path from 'path'
 import {defineCliConfig} from 'sanity/cli'
+import {watchAndRun} from 'vite-plugin-watch-and-run'
 
 export default defineCliConfig({
   api: {
@@ -16,5 +18,16 @@ export default defineCliConfig({
     "schema": "schema.json",
     "generates": "../astro/src/sanity/sanity.types.ts",
     "overloadClientMethods": true
+  },
+  vite: {
+    plugins: [
+      watchAndRun([
+        {
+          name: 'schema-extract',
+          watch: path.resolve('schemaTypes/**/*.(ts|tsx)'),
+          run: 'pnpm run schema:extract',
+        },
+      ]),
+    ],
   }
 })

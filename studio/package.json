@@ -8,6 +8,7 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
+    "schema:extract": "sanity schema extract --workspace production",
     "deploy-graphql": "sanity graphql deploy"
   },
   "keywords": [
@@ -38,7 +39,8 @@
     "@types/react": "^19.2.2",
     "eslint": "^9.32.0",
     "prettier": "^3.0.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vite-plugin-watch-and-run": "^1.7.5"
   },
   "prettier": {
     "semi": false,
