@@ -53,7 +53,7 @@ jobs:
       - name: Package dist + node_modules for deploy
         run: |
           # From repo root; tar from inside astro/
-          tar czf astro-preview-artifact.tar.gz -C astro dist node_modules package.json pnpm-lock.yaml
+          tar czf astro-preview-artifact.tar.gz -C astro dist node_modules package.json
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
