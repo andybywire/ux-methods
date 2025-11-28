@@ -76,8 +76,14 @@ export default defineConfig([
         previewUrl: {
           // initial URL when the Presentation pane opens
           initial: 'https://preview.uxmethods.org',
+          // previewMode: {
+          //   enable: new URL(
+          //     `/resource/preview`,
+          //     isDev ? LOCAL_URL : SITE_URL,
+          //   ).toString(),
+          // },
         },
-        // For modern Presentation, this is how you allow your preview origin(s)
+        // Disallow non-uxmethods addresses
         allowOrigins: ['https://preview.uxmethods.org'],
         resolve,
       }),
