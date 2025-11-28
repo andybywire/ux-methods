@@ -43,16 +43,16 @@ jobs:
           export NODE_OPTIONS="--max-old-space-size=2048"
           pnpm --filter astro... run build
 
-      - name: Package dist for deploy
+      - name: Package dist + package.json for deploy
+        # from repo root; include dist and astro's package.json
         run: |
-          tar czf astro-preview-dist.tar.gz -C astro dist
-        # This creates astro-preview-dist.tar.gz at repo root
+          tar czf astro-preview-artifact.tar.gz -C astro dist package.json
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: astro-preview-dist
-          path: astro-preview-dist.tar.gz
+          name: astro-preview-artifact
+          path: astro-preview-artifact.tar.gz
 
   deploy:
     name: Deploy to preview.uxmethods.org
@@ -63,7 +63,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: astro-preview-dist
+          name: astro-preview-artifact
 
       - name: Copy dist bundle to droplet
         uses: appleboy/scp-action@v0.1.7
@@ -72,7 +72,7 @@ jobs:
           username: ${{ secrets.PREVIEW_USER }}
           key: ${{ secrets.PREVIEW_SSH_KEY }}
           port: 22
-          source: "astro-preview-dist.tar.gz"
+          source: "astro-preview-artifact.tar.gz"
           target: "/tmp"
 
       - name: Extract and restart on droplet
@@ -84,23 +84,28 @@ jobs:
           port: 22
           script: |
             set -e
-
-            # Ensure nvm and pm2 are on PATH
+      
+            # Ensure nvm and pm2 are available
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
+            nvm use 20 >/dev/null 2>&1 || true
+      
             cd /var/www/uxm-preview
-
-            # Ensure astro directory exists
+      
+            # Make sure astro dir exists
             mkdir -p astro
-            
+      
             echo ">>> Cleaning old dist..."
             rm -rf astro/dist
-
-            echo ">>> Extracting new dist bundle..."
-            tar xzf /tmp/astro-preview-dist.tar.gz -C astro
-
+      
+            echo ">>> Extracting new dist + package.json..."
+            tar xzf /tmp/astro-preview-artifact.tar.gz -C astro
+      
+            echo ">>> Installing/updating runtime deps..."
+            cd astro
+            pnpm install --prod
+      
             echo ">>> Restarting PM2 app..."
             pm2 restart uxm-preview
-
+      
             echo ">>> Deployment complete."
