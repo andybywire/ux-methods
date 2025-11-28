@@ -9,5 +9,12 @@ export default defineCliConfig({
   deployment: {
     autoUpdates: true,
     appId: 'vgf4e6erwye9hl1wxg4ju9be'
+  },
+  // @ts-expect-error
+  typegen: {
+    "path": "../astro/src/**/*.{ts,tsx,js,jsx,astro}",
+    "schema": "schema.json",
+    "generates": "../astro/src/sanity/sanity.types.ts",
+    "overloadClientMethods": true
   }
 })
