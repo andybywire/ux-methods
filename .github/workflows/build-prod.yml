@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Branch
         uses: actions/checkout@v4
 
-      # Data extractin and transformation. Reintegrate later. 
+      # Data extraction and transformation. Reintegrate later. 
       # - name: Extract & Transform
       #   uses: ./actions/method-transform
       #   id: extract-transform
