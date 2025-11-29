@@ -12,8 +12,6 @@ const img = heroImage ?? {}
 
 const {asset, alt} = img
 
-const url = urlForImage(asset).url()
-
 const srcset =
   size == 'compact-card' // if size is compact-card, use smaller image sizes
     ? [125, 250] // compact card image sizes (max-width: 125px)
@@ -37,7 +35,7 @@ const srcSetContent = asset
     {
       asset && (
         <img
-          src={url}
+          src={urlForImage(asset).width(srcset[0]).url()}
           srcset={srcSetContent}
           sizes={sizes}
           max-width={srcset[0]}
