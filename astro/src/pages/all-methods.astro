@@ -4,7 +4,7 @@ import Card from '@components/Card.astro'
 import {loadQuery} from '@sanity/lib/load-query'
 import {ALL_METHODS_QUERY} from '@sanity/sanity.queries'
 import type {ALL_METHODS_QUERYResult} from 'sanity.types'
-import type { FooterData } from '@components/Footer.astro'
+import type {FooterData} from '@components/Footer.astro'
 
 const {data: page} = await loadQuery<ALL_METHODS_QUERYResult>({
   query: ALL_METHODS_QUERY,
@@ -15,7 +15,8 @@ if (!page) {
   throw new Error('Not found')
 }
 
-const {methods} = page
+// Safely normalize methods
+const methods = Array.isArray(page.methods) ? page.methods.filter(Boolean) : []
 
 const footerData: FooterData | null = page.footer
   ? {
@@ -26,7 +27,7 @@ const footerData: FooterData | null = page.footer
   : null
 ---
 
-<Layout data={footerData} pageTitle='UX Methods A-Z'>
+<Layout data={footerData} pageTitle="UX Methods A-Z">
   <section class="resource-cards">
     <h1>UX Methods A-Z</h1>
     <ul class="grid">

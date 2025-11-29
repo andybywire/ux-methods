@@ -3,17 +3,14 @@ import {urlForImage} from '@sanity/lib/url-for-image'
 import '@styles/card.css'
 
 const {
-  content: {
-    title,
-    type,
-    slug,
-    metaDescription,
-    heroImage,
-    heroImage: {asset, alt},
-  },
+  content: {title = '', type = 'method', slug = '', metaDescription = '', heroImage},
   color = 'light',
   size = 'full-card',
 } = Astro.props
+
+const img = heroImage ?? {}
+
+const {asset, alt} = img
 
 const url = urlForImage(asset).url()
 
@@ -25,25 +22,31 @@ const sizes =
   size == 'compact-card'
     ? '125px' // compact card image max width
     : '375px' // full card max width
-const srcSetContent = srcset
-  .map((size) => {
-    const url = urlForImage(heroImage).width(size).height(size).auto('format').url()
-    return `${url} ${size}w`
-  })
-  .join(',')
+const srcSetContent = asset
+  ? srcset
+      .map((size) => {
+        const url = urlForImage(heroImage).width(size).height(size).auto('format').url()
+        return `${url} ${size}w`
+      })
+      .join(',')
+  : ''
 ---
 
 <li class=`card ${size} ${color}`>
   <a href={`/${type}/${slug}`}>
-    <img
-      src={url}
-      srcset={srcSetContent}
-      sizes={sizes}
-      max-width={srcset[0]}
-      max-height={srcset[0]}
-      loading="lazy"
-      alt={alt}
-    />
+    {
+      asset && (
+        <img
+          src={url}
+          srcset={srcSetContent}
+          sizes={sizes}
+          max-width={srcset[0]}
+          max-height={srcset[0]}
+          loading="lazy"
+          alt={alt}
+        />
+      )
+    }
     <div>
       <h3>{title}</h3>
       <p>{metaDescription}</p>
