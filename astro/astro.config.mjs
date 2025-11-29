@@ -19,7 +19,7 @@ export default defineConfig({
       useCdn: false,
       apiVersion: '2025-11-01',
       stega: {
-        studioUrl: "https://uxmethods.sanity.studio/",
+        studioUrl: "https://uxmethods.sanity.studio/production",
         // studioUrl: "http://localhost:3333/production",
 
       },
