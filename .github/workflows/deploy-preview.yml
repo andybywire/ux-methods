@@ -5,11 +5,11 @@ on:
     branches:
       - main
     paths:
-      - "astro/**"
-      - "sanity.types.ts"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - ".github/workflows/deploy-preview.yml"
+      - 'astro/**'
+      - 'sanity.types.ts'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/deploy-preview.yml'
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Astro (preview)
         env:
-          PUBLIC_SANITY_VISUAL_EDITING_ENABLED: "true"
+          PUBLIC_SANITY_VISUAL_EDITING_ENABLED: 'true'
           # If you need these at BUILD time, uncomment and set secrets:
           # SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
           # KG_AUTH: ${{ secrets.KG_AUTH }}
@@ -63,6 +63,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
+    env:
+      PREVIEW_SANITY_API_READ_TOKEN: ${{ secrets.PREVIEW_SANITY_API_READ_TOKEN }}
+      PREVIEW_VISUAL_EDITING_ENABLED: ${{ secrets.PREVIEW_VISUAL_EDITING_ENABLED }}
+      PREVIEW_ROBOTS_NOINDEX: ${{ secrets.PREVIEW_ROBOTS_NOINDEX }}
+      KG_AUTH: ${{ secrets.KG_AUTH }}
+
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -76,8 +82,8 @@ jobs:
           username: ${{ secrets.PREVIEW_USER }}
           key: ${{ secrets.PREVIEW_SSH_KEY }}
           port: 22
-          source: "astro-preview-artifact.tar.gz"
-          target: "/tmp"
+          source: 'astro-preview-artifact.tar.gz'
+          target: '/tmp'
 
       - name: Extract and restart on droplet
         uses: appleboy/ssh-action@v1.2.0
@@ -86,6 +92,7 @@ jobs:
           username: ${{ secrets.PREVIEW_USER }}
           key: ${{ secrets.PREVIEW_SSH_KEY }}
           port: 22
+          envs: PREVIEW_SANITY_API_READ_TOKEN,KG_AUTH,PREVIEW_VISUAL_EDITING_ENABLED,PREVIEW_ROBOTS_NOINDEX
           script: |
             set -e
 
@@ -107,7 +114,13 @@ jobs:
             cd astro
             NODE_OPTIONS="--max-old-space-size=512" pnpm install --prod
 
+            echo ">>> Updating PM2 env from GitHub secrets..."
+            export SANITY_API_READ_TOKEN="$PREVIEW_SANITY_API_READ_TOKEN"
+            export KG_AUTH="$KG_AUTH"
+            export PUBLIC_SANITY_VISUAL_EDITING_ENABLED="$PREVIEW_VISUAL_EDITING_ENABLED"
+            export PUBLIC_ROBOTS_NOINDEX="$PREVIEW_ROBOTS_NOINDEX"
+
             echo ">>> Restarting PM2 app..."
-            pm2 restart uxm-preview
+            pm2 restart uxm-preview --update-env
 
             echo ">>> Deployment complete."
