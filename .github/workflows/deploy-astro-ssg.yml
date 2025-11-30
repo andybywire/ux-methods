@@ -92,15 +92,12 @@ jobs:
             set -e
 
             echo ">>> Preparing SSG directory..."
-            sudo mkdir -p /var/www/uxm
+            mkdir -p /var/www/uxm
 
             echo ">>> Cleaning old SSG contents..."
-            sudo rm -rf /var/www/uxm/*
+            rm -rf /var/www/uxm/*
 
             echo ">>> Extracting new SSG build..."
-            sudo tar xzf /tmp/astro-ssg-dist.tar.gz -C /var/www/uxm
-
-            echo ">>> Setting ownership for nginx..."
-            sudo chown -R uxm:uxm /var/www/uxm
+            tar xzf /tmp/astro-ssg-dist.tar.gz -C /var/www/uxm
 
             echo ">>> SSG deployment completed."
