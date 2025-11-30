@@ -1,0 +1,106 @@
+name: Deploy Astro SSG
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "astro/**"
+      - "sanity.types.ts"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/deploy-astro-ssg.yml"
+
+jobs:
+  build:
+    name: Build Astro SSG
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            pnpm-workspace.yaml
+
+      - name: Install dependencies (monorepo)
+        run: pnpm install
+
+      - name: Build Astro static site
+        env:
+          ASTRO_OUTPUT: "static"
+          ASTRO_SITE_MODE: "production"
+          PUBLIC_SANITY_VISUAL_EDITING_ENABLED: "false"
+          PUBLIC_ROBOTS_NOINDEX: "false"
+          PUBLIC_SITE_ENV: "production"
+          KG_AUTH: ${{ secrets.KG_AUTH }}
+        run: |
+          export NODE_OPTIONS="--max-old-space-size=2048"
+          pnpm --filter astro... run build:ssg
+
+      - name: Package SSG dist for deploy
+        run: |
+          # Package the contents of astro/dist
+          tar czf astro-ssg-dist.tar.gz -C astro/dist .
+
+      - name: Upload SSG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-ssg-dist
+          path: astro-ssg-dist.tar.gz
+
+  deploy:
+    name: Deploy SSG to astro.uxmethods.org
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download SSG artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: astro-ssg-dist
+
+      - name: Copy SSG bundle to droplet
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PREVIEW_HOST }}    # same droplet as preview
+          username: ${{ secrets.PREVIEW_USER }}
+          key: ${{ secrets.PREVIEW_SSH_KEY }}
+          port: 22
+          source: "astro-ssg-dist.tar.gz"
+          target: "/tmp"
+
+      - name: Extract SSG site on droplet
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PREVIEW_HOST }}
+          username: ${{ secrets.PREVIEW_USER }}
+          key: ${{ secrets.PREVIEW_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+
+            echo ">>> Preparing SSG directory..."
+            sudo mkdir -p /var/www/uxm
+
+            echo ">>> Cleaning old SSG contents..."
+            sudo rm -rf /var/www/uxm/*
+
+            echo ">>> Extracting new SSG build..."
+            sudo tar xzf /tmp/astro-ssg-dist.tar.gz -C /var/www/uxm
+
+            echo ">>> Setting ownership for nginx..."
+            sudo chown -R uxm:uxm /var/www/uxm
+
+            echo ">>> SSG deployment completed."
