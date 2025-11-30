@@ -39,13 +39,14 @@ jobs:
 
       - name: Build Astro (preview)
         env:
+          ASTRO_OUTPUT: "server"
+          ASTRO_SITE_MODE: "preview"
           PUBLIC_SANITY_VISUAL_EDITING_ENABLED: 'true'
-          # If you need these at BUILD time, uncomment and set secrets:
-          # SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
-          # KG_AUTH: ${{ secrets.KG_AUTH }}
+          PUBLIC_ROBOTS_NOINDEX: "true"
+          KG_AUTH: ${{ secrets.KG_AUTH }} # needed here for Astro's import.meta.env behavior
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
-          pnpm --filter astro... run build
+          pnpm --filter astro... run build:preview
 
       - name: Package dist + package.json for deploy
         run: |
@@ -65,9 +66,7 @@ jobs:
 
     env:
       PREVIEW_SANITY_API_READ_TOKEN: ${{ secrets.PREVIEW_SANITY_API_READ_TOKEN }}
-      PREVIEW_VISUAL_EDITING_ENABLED: ${{ secrets.PREVIEW_VISUAL_EDITING_ENABLED }}
-      PREVIEW_ROBOTS_NOINDEX: ${{ secrets.PREVIEW_ROBOTS_NOINDEX }}
-      KG_AUTH: ${{ secrets.KG_AUTH }}
+      KG_AUTH: ${{ secrets.KG_AUTH }} # not strictly needed in this step, but could be used in the future
 
     steps:
       - name: Download build artifact
@@ -117,8 +116,6 @@ jobs:
             echo ">>> Updating PM2 env from GitHub secrets..."
             export SANITY_API_READ_TOKEN="$PREVIEW_SANITY_API_READ_TOKEN"
             export KG_AUTH="$KG_AUTH"
-            export PUBLIC_SANITY_VISUAL_EDITING_ENABLED="$PREVIEW_VISUAL_EDITING_ENABLED"
-            export PUBLIC_ROBOTS_NOINDEX="$PREVIEW_ROBOTS_NOINDEX"
 
             echo ">>> Restarting PM2 app..."
             pm2 restart uxm-preview --update-env

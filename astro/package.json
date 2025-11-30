@@ -6,11 +6,12 @@
     "predev": "pnpm run gen:types",
     "dev": "pnpm run dev:published",
     "preview": "pnpm run dev:preview",
-    "build": "pnpm run build:ssg",
-
+    
     "dev:published": "ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro dev",
     "dev:preview": "ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro dev",
-
+    
+    "build": "pnpm run build:ssg",
+    
     "build:preview": "ASTRO_OUTPUT=server ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro build",
     "build:ssg": "ASTRO_OUTPUT=static ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro build",
 
