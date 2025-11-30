@@ -39,10 +39,10 @@ jobs:
 
       - name: Build Astro (preview)
         env:
-          ASTRO_OUTPUT: "server"
-          ASTRO_SITE_MODE: "preview"
+          ASTRO_OUTPUT: 'server'
+          ASTRO_SITE_MODE: 'preview'
           PUBLIC_SANITY_VISUAL_EDITING_ENABLED: 'true'
-          PUBLIC_ROBOTS_NOINDEX: "true"
+          PUBLIC_ROBOTS_NOINDEX: 'true'
           KG_AUTH: ${{ secrets.KG_AUTH }} # needed here for Astro's import.meta.env behavior
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
