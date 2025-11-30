@@ -2,6 +2,9 @@
 import {Font} from 'astro:assets'
 
 const {pageTitle} = Astro.props
+
+// Read noindex flag from PUBLIC_ env (Astro will inline this at build time)
+const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === 'true'
 ---
 
 <head>
@@ -10,6 +13,9 @@ const {pageTitle} = Astro.props
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
   <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
+  {robotsNoindex && (
+    <meta name="robots" content="noindex,nofollow" />
+  )}
   <slot name="json-ld" />
   <script src="../scripts/header.js"></script>
   <script src="../scripts/searchScript.js"></script>
