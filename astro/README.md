@@ -38,9 +38,9 @@ Frozen snapshot of the 2024 public site; no ongoing CI; has its own subdomain.
 - PUBLIC_SITE_ENV="local-published"
 
 ```bash
-# TO DO: Set up in package.json scripts
+pnpm --filter astro... dev
+# or
 cd astro
-cp .env.published.local .env
 pnpm dev
 ```
 
@@ -51,10 +51,19 @@ pnpm dev
 - PUBLIC_SITE_ENV="local-preview"
 
 ```bash
-# TO DO: Set up in package.json scripts
+pnpm --filter astro... preview
+# or
 cd astro
-cp .env.drafts.local .env
-pnpm dev
+pnpm preview
+```
+
+### Astro Preview
+At access Astro’s preview for local static serving
+```bash
+pnpm --filter astro... dev:preview:local
+# or
+cd astro
+pnpm dev:preview:local
 ```
 
 

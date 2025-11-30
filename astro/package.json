@@ -4,11 +4,19 @@
   "version": "0.0.1",
   "scripts": {
     "predev": "pnpm run gen:types",
-    "dev": "astro dev",
+    "dev": "pnpm run dev:published",
+    "preview": "pnpm run dev:preview",
+    "build": "pnpm run build:ssg",
+
+    "dev:published": "ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro dev",
+    "dev:preview": "ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro dev",
+
+    "build:preview": "ASTRO_OUTPUT=server ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro build",
+    "build:ssg": "ASTRO_OUTPUT=static ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro build",
+
     "gen:types": "sanity typegen generate",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "dev:preview:local": "ASTRO_SITE_MODE=preview ... astro dev"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",
