@@ -1,7 +1,7 @@
 ---
 import {Font} from 'astro:assets'
 
-const {pageTitle} = Astro.props
+const {props: {pageTitle}, url: {pathname}} = Astro
 
 // Read noindex flag from PUBLIC_ env (Astro will inline this at build time)
 const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === 'true'
@@ -13,13 +13,12 @@ const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === 'true'
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
   <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
-  {robotsNoindex && (
-    <meta name="robots" content="noindex,nofollow" />
-  )}
+  {robotsNoindex && <meta name="robots" content="noindex,nofollow" />}
   <slot name="json-ld" />
   <script src="../scripts/header.js"></script>
-  <script src="../scripts/searchScript.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
+  {pathname == '/' && 
+  (<script src="../scripts/searchScript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0" />)}
   <Font cssVariable="--header" preload />
   <Font cssVariable="--body" preload />
 </head>
