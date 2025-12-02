@@ -11,9 +11,10 @@ import type { FooterData } from '@components/Footer.astro'
 interface Props {
   data?: FooterData | null
   pageTitle?: string
+  includeSearch?: boolean
 }
 
-const {data, pageTitle} = Astro.props
+const {data, pageTitle, includeSearch = false} = Astro.props
 
 if (!data) {
   Astro.response.status = 404
@@ -26,8 +27,9 @@ const visualEditingEnabled =
 
 <!doctype html>
 <html lang="en">
-  <Head pageTitle={pageTitle}>
+  <Head pageTitle={pageTitle} includeSearch={includeSearch}>
     <slot name="json-ld" slot="json-ld"/>
+    <slot name="search-scripts" slot="search-scripts"/>
   </Head>
   <body>
     <Header />

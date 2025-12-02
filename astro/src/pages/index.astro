@@ -2,6 +2,7 @@
 import '@styles/home.css'
 import Layout from '@layouts/Layout.astro'
 import Card from '@components/Card.astro'
+import SearchScripts from '@components/SearchScripts.astro'
 import {loadQuery} from '@sanity/lib/load-query'
 import {HOME_PAGE_QUERY} from '@sanity/sanity.queries'
 import type {HOME_PAGE_QUERYResult} from 'sanity.types'
@@ -26,7 +27,8 @@ const footerData: FooterData | null = page.footer
   : null
 ---
 
-<Layout data={footerData}>
+<Layout data={footerData} includeSearch>
+  <SearchScripts slot="search-scripts" />
   <section class="headline">
     <h1>{page.tagline}</h1>
     <p class="display">{page.description}</p>
