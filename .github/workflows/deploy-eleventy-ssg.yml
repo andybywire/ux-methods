@@ -41,23 +41,20 @@ jobs:
           KG_AUTH: ${{ secrets.KG_AUTH }}
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
-          pnpm --filter eleventy... exec eleventy
-
+          cd eleventy
+          pnpm exec eleventy
+         
       - name: Inspect 11ty build output
         run: |
-          echo ">>> Listing repo root"
-          ls
           echo ">>> Listing eleventy directory"
-          ls eleventy || echo "no eleventy dir?"
+          ls eleventy
           echo ">>> Listing eleventy/_site"
-          ls eleventy/_site || echo "no eleventy/_site"
-          echo ">>> Listing root _site"
-          ls _site || echo "no root-level _site"
+          ls eleventy/_site || echo "no eleventy/_site found"
 
       - name: Package SSG dist for deploy
         run: |
           # Package the contents of eleventy/_site
-          tar czf eleventy-ssg-dist.tar.gz -C _site .
+          tar czf eleventy-ssg-dist.tar.gz -C eleventy/_site .
 
       - name: Upload SSG artifact
         uses: actions/upload-artifact@v4
