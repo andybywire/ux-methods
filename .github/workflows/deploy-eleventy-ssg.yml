@@ -86,12 +86,12 @@ jobs:
             set -e
 
             echo ">>> Preparing SSG directory..."
-            mkdir -p /var/www/2024
+            mkdir -p /var/www/2024/html
 
             echo ">>> Cleaning old SSG contents..."
-            rm -rf /var/www/2024/*
+            rm -rf /var/www/2024/html/*
 
             echo ">>> Extracting new SSG build..."
-            tar xzf /tmp/eleventy-ssg-dist.tar.gz -C /var/www/
+            tar xzf /tmp/eleventy-ssg-dist.tar.gz -C /var/www/2024/html
 
             echo ">>> SSG deployment completed."
