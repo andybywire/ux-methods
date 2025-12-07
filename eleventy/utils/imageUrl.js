@@ -1,6 +1,6 @@
 
 import imageUrl from '@sanity/image-url'
-import { client } from '../utils/sanityClient.js';
+import { client } from './sanityClient.js';
 
 /**
  * Image URL Builder

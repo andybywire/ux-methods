@@ -1,6 +1,6 @@
 packages:
   - studio
-  - web
+  - eleventy
   - astro
 ignoredBuiltDependencies:
   - esbuild
