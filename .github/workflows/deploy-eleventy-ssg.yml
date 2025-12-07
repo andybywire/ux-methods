@@ -33,7 +33,7 @@ jobs:
             pnpm-workspace.yaml
 
       - name: Install dependencies (monorepo)
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build 11ty static site
         env:
