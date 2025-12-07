@@ -1,6 +1,13 @@
 name: Deploy Astro SSG
 
 on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - method
+      - discipline
+      - resource
+      - article
   push:
     branches:
       - main
