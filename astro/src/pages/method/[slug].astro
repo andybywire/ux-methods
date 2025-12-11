@@ -247,83 +247,83 @@ const footerData: FooterData | null = method.footer
 </Layout>
 
 <style>
-  /* 👇Citations appear to have gone missing — investigate */
-  .citation {
-    font-size: 70%;
-    vertical-align: top;
-    padding-left: 0.25rem;
-  }
-  .references {
-    font-size: 90%;
-    margin-bottom: 0;
-    @media (min-width: 1180px) {
-      padding: 1rem 0 2rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-      border-top: 1px solid var(--light-gray-text);
-      padding-top: 0.5rem;
-      @media (min-width: 600px) {
-        width: 50%;
-      }
-      @media (min-width: 1000px) {
-        width: 33%;
-      }
-    }
-    p {
-      padding-top: 1rem;
-      font-style: italic;
-    }
+  .method {
     ol {
       padding-left: 1.5rem;
     }
-    li.source-citation {
-      margin-bottom: 0.75rem;
-      line-height: 1.5;
-      @media (min-width: 800px) {
-        margin-bottom: 0;
-      }
-    }
-    svg {
-      position: relative;
-      top: 2px;
+    /* 👇Citations appear to have gone missing — investigate */
+    .citation {
+      font-size: 70%;
+      vertical-align: top;
       padding-left: 0.25rem;
     }
-  }
-  .details {
-    .steps {
-      ol {
-        padding-left: 1.5rem;
+    .references {
+      font-size: 90%;
+      margin-bottom: 0;
+      @media (min-width: 1180px) {
+        padding: 1rem 0 2rem;
       }
-      li {
+      h2 {
+        font-size: 1.5rem;
+        border-top: 1px solid var(--light-gray-text);
+        padding-top: 0.5rem;
+        @media (min-width: 600px) {
+          width: 50%;
+        }
+        @media (min-width: 1000px) {
+          width: 33%;
+        }
+      }
+      p {
+        padding-top: 1rem;
+        font-style: italic;
+      }
+
+      li.source-citation {
         margin-bottom: 0.75rem;
         line-height: 1.5;
-      }
-    }
-    .outcomes {
-      ul {
-        list-style: none;
-        padding-inline-start: 1.3rem;
-        p {
-          margin-top: 0;
+        @media (min-width: 800px) {
+          margin-bottom: 0;
         }
       }
+      svg {
+        position: relative;
+        top: 2px;
+        padding-left: 0.25rem;
+      }
     }
-    @media (min-width: 800px) {
-      display: flex;
+    .details {
       .steps {
-        width: 70%;
-        ol {
-          padding-right: 6rem;
-        }
-        p {
-          padding-right: 3rem;
+        li {
+          margin-bottom: 0.75rem;
+          line-height: 1.5;
         }
       }
       .outcomes {
-        width: 30%;
         ul {
-          padding-inline-start: 0;
+          list-style: none;
+          padding-inline-start: 1.3rem;
+          p {
+            margin-top: 0;
+          }
+        }
+      }
+      @media (min-width: 800px) {
+        display: flex;
+        .steps {
+          width: 70%;
+          ol {
+            padding-right: 6rem;
+          }
+          p {
+            padding-right: 3rem;
+          }
+        }
+        .outcomes {
+          width: 30%;
+          ul {
+            padding-inline-start: 0;
+          }
         }
       }
     }
