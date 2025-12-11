@@ -10,7 +10,7 @@ const {
 
 const img = heroImage ?? {}
 
-const {asset, alt} = img
+const {asset, alt=''} = img
 
 const srcset =
   size == 'compact-card' // if size is compact-card, use smaller image sizes
