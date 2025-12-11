@@ -131,22 +131,26 @@ const footerData: FooterData | null = method.footer
   <script
     slot="json-ld"
     type="application/ld+json"
-    set:html={JSON.stringify({
-      // ☑️ TO DO: convert this to https://schema.org/HowTo
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      "url": method.uri,
-      "headline": method.title,
-      "description": method.metaDescription,
-      "datePublished": method.dateStamps?.createdAt,
-      "dateModified": method.dateStamps?.revisedAt || method.dateStamps?.createdAt,
-      "image": {
-        "@type": "ImageObject",
-        "inLanguage": "en-US",
-        "url": urlForImage(heroImage).url()
-      }
-      // ...optionalLd
-    }, null, 2)}
+    set:html={JSON.stringify(
+      {
+        // ☑️ TO DO: convert this to https://schema.org/HowTo
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        url: method.uri,
+        headline: method.title,
+        description: method.metaDescription,
+        datePublished: method.dateStamps?.createdAt,
+        dateModified: method.dateStamps?.revisedAt || method.dateStamps?.createdAt,
+        image: {
+          '@type': 'ImageObject',
+          inLanguage: 'en-US',
+          url: urlForImage(heroImage).url(),
+        },
+        // ...optionalLd
+      },
+      null,
+      2
+    )}
   />
 
   <!-- <pre>{JSON.stringify(params, null, 2)}</pre> -->
@@ -224,6 +228,21 @@ const footerData: FooterData | null = method.footer
         </section>
       )
     }
+    <section class="references">
+      {
+        method?.stepSources && method.stepSources.length > 0 && (
+            <h2>References</h2>
+            <ol>
+              {method.stepSources.map((source: any) => (
+                <li class="source-citation">
+                  <a href={source.source}>{source.name}</a>
+                </li>
+              ))}
+            </ol>
+          )
+        }
+        <p class="datestamp">{method.title} Method details last edited on { method?.dateStamps?.createdAt }</p>
+      </section>
   </article>
 </Layout>
 
@@ -233,6 +252,43 @@ const footerData: FooterData | null = method.footer
     font-size: 70%;
     vertical-align: top;
     padding-left: 0.25rem;
+  }
+  .references {
+    font-size: 90%;
+    margin-bottom: 0;
+    @media (min-width: 1180px) {
+      padding: 1rem 0 2rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      border-top: 1px solid var(--light-gray-text);
+      padding-top: 0.5rem;
+      @media (min-width: 600px) {
+        width: 50%;
+      }
+      @media (min-width: 1000px) {
+        width: 33%;
+      }
+    }
+    p {
+      padding-top: 1rem;
+      font-style: italic;
+    }
+    ol {
+      padding-left: 1.5rem;
+    }
+    li.source-citation {
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+      @media (min-width: 800px) {
+        margin-bottom: 0;
+      }
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      padding-left: 0.25rem;
+    }
   }
   .details {
     .steps {
