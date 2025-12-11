@@ -20,7 +20,7 @@ const srcSetContent = srcset
   })
   .join(',')
 
-const alt = resourceImage?.altText ? resourceImage.altText : 'Placeholder image'
+const alt = resourceImage?.altText ?? ''
 
 const byline =
   author && publisher

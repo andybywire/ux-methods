@@ -29,7 +29,7 @@ const {
 
 const img: Partial<HeroImageWithMeta> = image ?? {}
 
-const { asset, source, credit, alt } = img
+const { asset, source, credit, alt='' } = img
 
 const srcset = [150, 300, 375, 425, 600, 750, 768, 850, 1200]
 const sizes = `(min-width: 800px) ${size}vw`
