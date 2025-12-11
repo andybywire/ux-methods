@@ -1,45 +1,45 @@
 ---
-import '@styles/topic-page.css'
-import type {SanityDocument} from '@sanity/client'
-import {loadQuery} from '@sanity/lib/load-query'
-import PortableText from '@components/PortableText.astro'
-import Layout from '@layouts/Layout.astro'
-import Hero from '@components/Hero.astro'
-import Card from '@components/Card.astro'
-import CardExt from '@components/CardExt.astro'
-import {METHODS_QUERY} from '@sanity/sanity.queries'
-import type {HeroImage, METHODS_QUERYResult} from 'sanity.types'
-import type {FooterData} from '@components/Footer.astro'
-import {urlForImage} from '@sanity/lib/url-for-image'
+import "@styles/topic-page.css";
+import type { SanityDocument } from "@sanity/client";
+import { loadQuery } from "@sanity/lib/load-query";
+import PortableText from "@components/PortableText.astro";
+import Layout from "@layouts/Layout.astro";
+import Hero from "@components/Hero.astro";
+import Card from "@components/Card.astro";
+import CardExt from "@components/CardExt.astro";
+import { METHODS_QUERY } from "@sanity/sanity.queries";
+import type { HeroImage, METHODS_QUERYResult } from "sanity.types";
+import type { FooterData } from "@components/Footer.astro";
+import { urlForImage } from "@sanity/lib/url-for-image";
 
-const KG_AUTH = import.meta.env.KG_AUTH
+const KG_AUTH = import.meta.env.KG_AUTH;
 
-const {params} = Astro
+const { params } = Astro;
 
 // Queue up one page for each Method
 export async function getStaticPaths() {
-  const {data: methods} = await loadQuery<SanityDocument[]>({
+  const { data: methods } = await loadQuery<SanityDocument[]>({
     query: `*[_type == "method"]`,
-  })
+  });
 
-  return methods.map(({slug}) => {
+  return methods.map(({ slug }) => {
     return {
       params: {
         slug: slug.current,
       },
-    }
-  })
+    };
+  });
 }
 
 // Get shared output from KG
 async function getSharedOutput() {
-  const kgData = await fetch('https://fuseki.uxmethods.org/ds/query', {
-    method: 'POST',
+  const kgData = await fetch("https://fuseki.uxmethods.org/ds/query", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/sparql-query',
-      Accept: 'application/sparql-results+json',
+      "Content-Type": "application/sparql-query",
+      Accept: "application/sparql-results+json",
       // 🚨 Change after testing — it's been committed to the repo
-      Authorization: 'Basic ' + btoa(KG_AUTH),
+      Authorization: "Basic " + btoa(KG_AUTH),
     },
     // Narrow this to the present method? Or at least limit return.
     body: `
@@ -55,14 +55,16 @@ async function getSharedOutput() {
       GROUP BY ?origin ?destination
       ORDER BY DESC(?sharedOutputCount)
       `,
-  })
+  });
 
   if (!kgData.ok) {
-    throw new Error(`Failed to fetch from KG: HTTP error! status: ${kgData.status}`)
+    throw new Error(
+      `Failed to fetch from KG: HTTP error! status: ${kgData.status}`,
+    );
   }
 
-  const data = await kgData.json()
-  return transformKgData(data)
+  const data = await kgData.json();
+  return transformKgData(data);
 }
 
 // Transform SPARQL results for mapping
@@ -71,20 +73,20 @@ function transformKgData(kgData: any) {
     origin: binding.origin.value,
     destination: binding.destination.value,
     sharedOutputCount: parseInt(binding.sharedOutputCount.value),
-    sharedOutput: binding.sharedOutput.value.split(','),
-  }))
+    sharedOutput: binding.sharedOutput.value.split(","),
+  }));
 }
 
 // Fetch method and KG data concurrently
-const [{data: method}, kgData] = await Promise.all([
+const [{ data: method }, kgData] = await Promise.all([
   loadQuery<METHODS_QUERYResult>({
     query: METHODS_QUERY,
     params,
   }),
   getSharedOutput(),
-])
+]);
 
-const methodPreviews = method?.methodPreviews
+const methodPreviews = method?.methodPreviews;
 
 // Map method previews to KG data
 function mapMethods(method: any, methodPreviews: any, kgData: any): any {
@@ -93,20 +95,30 @@ function mapMethods(method: any, methodPreviews: any, kgData: any): any {
   // ☑️ TODO: verify that mapping is weighted to prioritize strongest connections
   const previousMethods = methodPreviews.filter((methodPreview: any) => {
     return kgData.some((relationship: any) => {
-      return relationship.destination === method.uri && relationship.origin === methodPreview.uri
-    })
-  })
+      return (
+        relationship.destination === method.uri &&
+        relationship.origin === methodPreview.uri
+      );
+    });
+  });
   // Filter and assign methods preview list to next methods
   const continueMethods = methodPreviews.filter((methodPreview: any) => {
     return kgData.some((relationship: any) => {
-      return relationship.origin === method.uri && relationship.destination === methodPreview.uri
-    })
-  })
-  return [previousMethods, continueMethods]
+      return (
+        relationship.origin === method.uri &&
+        relationship.destination === methodPreview.uri
+      );
+    });
+  });
+  return [previousMethods, continueMethods];
 }
 
-const [previousMethods, continueMethods] = mapMethods(method, methodPreviews, kgData)
-const heroImage = method?.heroImage as HeroImage
+const [previousMethods, continueMethods] = mapMethods(
+  method,
+  methodPreviews,
+  kgData,
+);
+const heroImage = method?.heroImage as HeroImage;
 
 // Optional JSON-LD keys:
 // const optionalLd = {
@@ -115,16 +127,16 @@ const heroImage = method?.heroImage as HeroImage
 // }
 
 if (!method) {
-  Astro.response.status = 404
-  throw new Error('Not found - template rendering error')
+  Astro.response.status = 404;
+  throw new Error("Not found - template rendering error");
 }
 const footerData: FooterData | null = method.footer
   ? {
-      overview: (method.footer.overview ?? []) as FooterData['overview'],
-      colophon: (method.footer.colophon ?? []) as FooterData['colophon'],
-      credits: (method.footer.credits ?? []) as FooterData['credits'],
+      overview: (method.footer.overview ?? []) as FooterData["overview"],
+      colophon: (method.footer.colophon ?? []) as FooterData["colophon"],
+      credits: (method.footer.credits ?? []) as FooterData["credits"],
     }
-  : null
+  : null;
 ---
 
 <Layout data={footerData} pageTitle={method.title}>
@@ -134,22 +146,23 @@ const footerData: FooterData | null = method.footer
     set:html={JSON.stringify(
       {
         // ☑️ TO DO: convert this to https://schema.org/HowTo
-        '@context': 'https://schema.org',
-        '@type': 'Article',
+        "@context": "https://schema.org",
+        "@type": "Article",
         url: method.uri,
         headline: method.title,
         description: method.metaDescription,
         datePublished: method.dateStamps?.createdAt,
-        dateModified: method.dateStamps?.revisedAt || method.dateStamps?.createdAt,
+        dateModified:
+          method.dateStamps?.revisedAt || method.dateStamps?.createdAt,
         image: {
-          '@type': 'ImageObject',
-          inLanguage: 'en-US',
+          "@type": "ImageObject",
+          inLanguage: "en-US",
           url: urlForImage(heroImage).url(),
         },
         // ...optionalLd
       },
       null,
-      2
+      2,
     )}
   />
 
@@ -172,12 +185,12 @@ const footerData: FooterData | null = method.footer
         <section>
           <h2>Preparation</h2>
           <p>
-            {method.title} is often more effective when it is informed by these complementary
-            methods.
+            {method.title} is often more effective when it is informed by these
+            complementary methods.
           </p>
           <ul class="grid">
             {previousMethods.slice(0, 6).map((resource: any) => (
-              <Card content={resource} size={'compact-card'} />
+              <Card content={resource} size={"compact-card"} />
             ))}
           </ul>
         </section>
@@ -190,7 +203,10 @@ const footerData: FooterData | null = method.footer
       </div>
       <div class="outcomes">
         <h2>Outcomes</h2>
-        <p>{method.title} typically produces insight and solutions focused on these areas:</p>
+        <p>
+          {method.title} typically produces insight and solutions focused on these
+          areas:
+        </p>
         <ul>
           {
             method.outcomes &&
@@ -231,6 +247,7 @@ const footerData: FooterData | null = method.footer
     <section class="references">
       {
         method?.stepSources && method.stepSources.length > 0 && (
+          <>
             <h2>References</h2>
             <ol>
               {method.stepSources.map((source: any) => (
@@ -239,10 +256,15 @@ const footerData: FooterData | null = method.footer
                 </li>
               ))}
             </ol>
-          )
+          </>
+        )
+      }
+      <p class="datestamp">
+        {method.title} Method details last edited on {
+          method?.dateStamps?.createdAt
         }
-        <p class="datestamp">{method.title} Method details last edited on { method?.dateStamps?.createdAt }</p>
-      </section>
+      </p>
+    </section>
   </article>
 </Layout>
 

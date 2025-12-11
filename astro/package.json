@@ -6,15 +6,11 @@
     "predev": "pnpm run gen:types",
     "dev": "pnpm run dev:published",
     "preview": "pnpm run dev:preview",
-    
     "dev:published": "ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro dev",
     "dev:preview": "ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro dev",
-    
     "build": "pnpm run build:ssg",
-    
     "build:preview": "ASTRO_OUTPUT=server ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro build",
     "build:ssg": "ASTRO_OUTPUT=static ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro build",
-
     "gen:types": "sanity typegen generate",
     "astro": "astro",
     "dev:preview:local": "ASTRO_SITE_MODE=preview ... astro dev"
@@ -42,6 +38,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "prettier": "^3.7.1",
+    "prettier-plugin-astro": "^0.14.1",
     "vite": "^7.2.4",
     "vite-plugin-watch-and-run": "^1.7.5",
     "vite-tsconfig-paths": "^5.1.4"

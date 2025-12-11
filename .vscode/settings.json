@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "appleboy",
+    "datestamp",
     "eleventy",
     "fjogeleit",
     "metascraper",
@@ -10,5 +11,9 @@
     "stega",
     "uxmethods",
     "uxmo"
-  ]
+  ],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
