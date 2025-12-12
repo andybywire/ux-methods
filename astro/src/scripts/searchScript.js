@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         resultDetails.innerHTML = '';
-        results.forEach(result => {
+        results.forEach((result, index) => {
           const li = document.createElement('li');
+          li.setAttribute('role', 'option');
+          li.id = `search-option-${index}`;
           li.innerHTML = `<h3>
                             <a href="/${result.item.type}/${result.item.slug}" tabindex="0">${result.item.title}</a>
                             <span>${result.item.type}</span>

@@ -41,8 +41,10 @@ const description = (page?.metaDescription as string) || "";
         type="search"
         id="search-box"
         name="search"
+        role="combobox"
+        aria-autocomplete="list"
         aria-expanded="false"
-        aria-controls="search-results"
+        aria-controls="result-details"
         aria-describedby="search-description"
       />
       <label for="search-box"
