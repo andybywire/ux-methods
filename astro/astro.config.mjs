@@ -44,14 +44,24 @@ export default defineConfig({
         provider: fontProviders.fontsource(),
         cssVariable: '--header',
         fallbacks: ["Arial", "sans-serif"],
-        weights: [100,200,300,400,500,600,700,800],
-        styles: ["normal", "italic"]
+        weights: [
+          400, // Global nav
+          600, // Home page headers (dark mode)
+          700, // Headers
+          800  // NavHome 
+        ], 
+        styles: ["normal"] // no italic in headers
       },
       {
         name: 'Hind',
         provider: fontProviders.fontsource(),
         cssVariable: '--body',
-        fallbacks: ["Arial", "sans-serif"]
+        fallbacks: ["Arial", "sans-serif"],
+        weights: [
+          300, // text (dark mode)
+          400, // tagline, text
+          // 600, // bold — currently not used
+        ],
       },
     ],
   },
