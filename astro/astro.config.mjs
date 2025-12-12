@@ -21,6 +21,7 @@ export default defineConfig({
     port:8080,
     host: '127.0.0.1',
   },
+  site: "https://uxmethods.org",
   integrations: [
     sanity({
       projectId: '4g5tw1k0',
