@@ -33,6 +33,9 @@ main {
         display: block;
       }
     }
+    a.link-404 {
+      color: var(--light-text);
+    }
   }
   .resource-cards {
     padding: 1rem 1rem 3rem;

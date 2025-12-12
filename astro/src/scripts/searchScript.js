@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         results.forEach(result => {
           const li = document.createElement('li');
           li.innerHTML = `<h3>
-                            <a href="${result.item.type}/${result.item.slug}" tabindex="0">${result.item.title}</a>
+                            <a href="/${result.item.type}/${result.item.slug}" tabindex="0">${result.item.title}</a>
                             <span>${result.item.type}</span>
                           </h3>
                           <span>${result.item.description}</span>`;

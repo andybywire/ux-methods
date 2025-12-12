@@ -1,0 +1,71 @@
+---
+import "@styles/home.css";
+import Layout from "@layouts/Layout.astro";
+import SearchScripts from "@components/SearchScripts.astro";
+import { loadQuery } from "@sanity/lib/load-query";
+import { HOME_PAGE_QUERY } from "@sanity/sanity.queries";
+import type { HOME_PAGE_QUERYResult } from "sanity.types";
+import type { FooterData } from "@components/Footer.astro";
+
+const { data: page } = await loadQuery<HOME_PAGE_QUERYResult>({
+  query: HOME_PAGE_QUERY,
+});
+
+if (!page) {
+  Astro.response.status = 404;
+  throw new Error("Not found");
+}
+const footerData: FooterData | null = page.footer
+  ? {
+      overview: (page.footer.overview ?? []) as FooterData["overview"],
+      colophon: (page.footer.colophon ?? []) as FooterData["colophon"],
+      credits: (page.footer.credits ?? []) as FooterData["credits"],
+    }
+  : null;
+const description = (page?.metaDescription as string) || "";
+---
+
+<Layout data={footerData} description={description} includeSearch>
+  <SearchScripts slot="search-scripts" />
+  <section class="headline">
+    <h1>404: Page Not Found</h1>
+    <p class="display">
+      Sorry about that. It looks like the resource you're looking for has moved
+      or does not exist. Perhaps you'd like to <a href="/">head back home</a>,
+      or give search a whirl.
+    </p>
+  </section>
+  <section id="site-search" class="search" aria-label="Site search">
+    <form autocomplete="off">
+      <input
+        type="search"
+        id="search-box"
+        name="search"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-describedby="search-description"
+      />
+      <label for="search-box"
+        >Search for a method by name, goal, or outcome.</label
+      >
+      <span id="search-description" class="visually-hidden">
+        As you type, search results will appear below
+      </span>
+    </form>
+    <div id="search-result-list">
+      <h2 id="results-count"></h2>
+      <ul id="result-details" role="listbox" aria-label="Search results"></ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .display {
+    a, a:visited {
+      color: var(--light-text);
+    }
+    a:hover {
+      color: var(--primary-dark-bg);
+    }
+  }
+</style>
