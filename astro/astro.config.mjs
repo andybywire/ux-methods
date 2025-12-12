@@ -67,7 +67,7 @@ export default defineConfig({
   },
   vite: {
     build: {
-      assetsInlineLimit: 4096,
+      assetsInlineLimit: 8192,
     },
     plugins: [
       tsconfigPaths(),
