@@ -1,7 +1,7 @@
 ---
 import {Font} from 'astro:assets'
 
-const {pageTitle, includeSearch} = Astro.props
+const {pageTitle} = Astro.props
 
 // Read noindex flag from PUBLIC_ env (Astro will inline this at build time)
 const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === 'true'
