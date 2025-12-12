@@ -24,9 +24,10 @@ const footerData: FooterData | null = page.footer
       credits: (page.footer.credits ?? []) as FooterData['credits'],
     }
   : null
+const description = page?.metaDescription as string || '';
 ---
 
-<Layout data={footerData} pageTitle="UX Disciplines">
+<Layout data={footerData} pageTitle="UX Disciplines" description={description}>
   <section class="resource-cards">
     <h1>UX Disciplines</h1>
     <ul class="grid">

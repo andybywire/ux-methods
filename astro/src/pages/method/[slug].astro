@@ -119,7 +119,7 @@ const [previousMethods, continueMethods] = mapMethods(
   kgData,
 );
 const heroImage = method?.heroImage as HeroImage;
-
+const description = method?.metaDescription as string || '';
 // Optional JSON-LD keys:
 // const optionalLd = {
 //   "keyOne": "value one",
@@ -139,7 +139,7 @@ const footerData: FooterData | null = method.footer
   : null;
 ---
 
-<Layout data={footerData} pageTitle={method.title}>
+<Layout data={footerData} pageTitle={method.title} description={description}>
   <script
     slot="json-ld"
     type="application/ld+json"

@@ -1,11 +1,18 @@
 ---
-import {Font} from 'astro:assets'
+import { Font } from "astro:assets";
 
-const {props: {pageTitle}, site, url} = Astro
+const {
+  props: { pageTitle, description },
+  site,
+  url,
+} = Astro;
 
 // Read noindex flag from PUBLIC_ env (Astro will inline this at build time)
-const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === 'true'
-const canonicalUrl = new URL(url.pathname, site)
+const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === "true";
+const canonicalUrl = new URL(url.pathname, site);
+const metaDescription =
+  description ??
+  "UX Methods is a community powered, linked data driven knowledge graph for learning about the techniques of user experience design.";
 ---
 
 <head>
@@ -13,12 +20,13 @@ const canonicalUrl = new URL(url.pathname, site)
   <meta name="viewport" content="width=device-width" />
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
-  <title>{pageTitle && pageTitle + ' | '} UX Methods | Astro</title>
+  <title>{pageTitle && pageTitle + " | "} UX Methods | Astro</title>
   {robotsNoindex && <meta name="robots" content="noindex,nofollow" />}
-  <link rel="canonical" href={canonicalUrl}/>
+  <link rel="canonical" href={canonicalUrl} />
+  <meta name="description" content={metaDescription} />
   <slot name="json-ld" />
   <slot name="search-scripts" />
-  <script src="../scripts/header.js" ></script>
+  <script src="../scripts/header.js"></script>
   <Font cssVariable="--header" preload />
   <Font cssVariable="--body" preload />
 </head>

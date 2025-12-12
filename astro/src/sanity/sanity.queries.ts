@@ -19,6 +19,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
     title,
     tagline,
     description,
+    "metaDescription": description,
     overview,
     colophon,
     "credits": credits[]{
@@ -47,6 +48,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
 export const ALL_DISCIPLINES_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
     "footer": ${FOOTER_PROJECTION},
+    "metaDescription": description,
     "disciplines": *[_type == "discipline"]|order(title) {
       "title": coalesce(title, ''),
       "type": "discipline",
@@ -86,6 +88,7 @@ export const DISCIPLINES_QUERY = defineQuery(`
 export const ALL_METHODS_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
     "footer": ${FOOTER_PROJECTION},
+    "metaDescription": description,
     "methods": *[_type == "method"]|order(title) {
       "title": coalesce(title, ''),
       "type": "method",

@@ -1,33 +1,34 @@
 ---
-import '@styles/home.css'
-import Layout from '@layouts/Layout.astro'
-import Card from '@components/Card.astro'
-import SearchScripts from '@components/SearchScripts.astro'
-import {loadQuery} from '@sanity/lib/load-query'
-import {HOME_PAGE_QUERY} from '@sanity/sanity.queries'
-import type {HOME_PAGE_QUERYResult} from 'sanity.types'
-import type { FooterData } from '@components/Footer.astro'
+import "@styles/home.css";
+import Layout from "@layouts/Layout.astro";
+import Card from "@components/Card.astro";
+import SearchScripts from "@components/SearchScripts.astro";
+import { loadQuery } from "@sanity/lib/load-query";
+import { HOME_PAGE_QUERY } from "@sanity/sanity.queries";
+import type { HOME_PAGE_QUERYResult } from "sanity.types";
+import type { FooterData } from "@components/Footer.astro";
 
-const {data: page} = await loadQuery<HOME_PAGE_QUERYResult>({
+const { data: page } = await loadQuery<HOME_PAGE_QUERYResult>({
   query: HOME_PAGE_QUERY,
-})
+});
 
-const color = "dark"
+const color = "dark";
 
 if (!page) {
-  Astro.response.status = 404
-  throw new Error('Not found')
+  Astro.response.status = 404;
+  throw new Error("Not found");
 }
 const footerData: FooterData | null = page.footer
   ? {
-      overview: (page.footer.overview ?? []) as FooterData['overview'],
-      colophon: (page.footer.colophon ?? []) as FooterData['colophon'],
-      credits: (page.footer.credits ?? []) as FooterData['credits'],
+      overview: (page.footer.overview ?? []) as FooterData["overview"],
+      colophon: (page.footer.colophon ?? []) as FooterData["colophon"],
+      credits: (page.footer.credits ?? []) as FooterData["credits"],
     }
-  : null
+  : null;
+const description = (page?.metaDescription as string) || "";
 ---
 
-<Layout data={footerData} includeSearch>
+<Layout data={footerData} description={description} includeSearch>
   <SearchScripts slot="search-scripts" />
   <section class="headline">
     <h1>{page.tagline}</h1>
@@ -36,13 +37,17 @@ const footerData: FooterData | null = page.footer
 
   <section id="site-search" class="search" aria-label="Site search">
     <form autocomplete="off">
-      <input type="search"             
-            id="search-box"
-            name="search"
-            aria-expanded="false"
-            aria-controls="search-results"
-            aria-describedby="search-description"/>
-      <label for="search-box">Search for a method by name, goal, or outcome.</label>
+      <input
+        type="search"
+        id="search-box"
+        name="search"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-describedby="search-description"
+      />
+      <label for="search-box"
+        >Search for a method by name, goal, or outcome.</label
+      >
       <span id="search-description" class="visually-hidden">
         As you type, search results will appear below
       </span>
@@ -59,13 +64,23 @@ const footerData: FooterData | null = page.footer
       <a href="/all-methods" class="header-link">All Methods A-Z</a>
     </header>
     <ul class="grid">
-      {page.methodPreviews.slice(0, 6).map((content) => <Card content={content} color={color}/>)}
+      {
+        page.methodPreviews
+          .slice(0, 6)
+          .map((content) => <Card content={content} color={color} />)
+      }
     </ul>
     <header>
       <h2>UX Disciplines</h2>
     </header>
     <ul class="grid">
-      {page.disciplinePreviews.slice(0, 6).map((content) => <Card content={content} color={color} size={"compact-card"}/>)}
+      {
+        page.disciplinePreviews
+          .slice(0, 6)
+          .map((content) => (
+            <Card content={content} color={color} size={"compact-card"} />
+          ))
+      }
     </ul>
   </section>
 </Layout>
