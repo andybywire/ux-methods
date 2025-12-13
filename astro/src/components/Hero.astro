@@ -57,6 +57,7 @@ const srcSetContent = asset
         max-width={srcset[srcset.length - 1]}
         max-height={Math.floor(srcset[srcset.length - 1] * aspect)}
         alt={alt}
+        fetchpriority="high"
       />
     )
   }
