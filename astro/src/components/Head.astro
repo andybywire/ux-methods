@@ -28,6 +28,19 @@ const metaDescription =
   <slot name="json-ld" />
   <slot name="search-scripts" />
   <script src="../scripts/header.js"></script>
+  <script>
+    if (navigator.serviceWorker) {
+      navigator
+        .serviceWorker
+        .register('/serviceworker.js')
+        .then(function (registration) {
+          console.log('Service worker registered with scope:', registration.scope);
+        })
+        .catch(function (error) {
+          console.log('Service worker registration error:', error);
+        });
+    }
+  </script>
   <Font cssVariable="--header" preload />
   <Font cssVariable="--body" preload />
 </head>
