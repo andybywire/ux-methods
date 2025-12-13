@@ -5,6 +5,8 @@ import react from '@astrojs/react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import {watchAndRun} from 'vite-plugin-watch-and-run'
 
+import sitemap from '@astrojs/sitemap';
+
 // --- Env-driven switches -----------------------------------
 const OUTPUT = process.env.ASTRO_OUTPUT === 'static' ? 'static' : 'server'
 // "preview" = drafts + stega; "production" = published-only
@@ -34,8 +36,9 @@ export default defineConfig({
             // studioUrl: 'http://localhost:3333/production',
           }
         : false,
-    }),
-    react(),
+    }), 
+    react(), 
+    sitemap()
   ],
   experimental: {
     fonts: [

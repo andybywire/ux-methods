@@ -6,17 +6,13 @@
     "predev": "pnpm run gen:types",
     "dev": "pnpm run dev:published",
     "preview": "pnpm run dev:preview",
-
     "dev:published": "ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro dev",
     "dev:preview": "ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro dev",
-    
     "build": "pnpm run build:ssg",
     "prebuild:ssg": "node scripts/stamp-sw.js",
     "build:ssg": "ASTRO_OUTPUT=static ASTRO_SITE_MODE=production PUBLIC_SANITY_VISUAL_EDITING_ENABLED=false astro build",
-
     "prebuild:preview": "node scripts/stamp-sw.js",
     "build:preview": "ASTRO_OUTPUT=server ASTRO_SITE_MODE=preview PUBLIC_SANITY_VISUAL_EDITING_ENABLED=true astro build",
-    
     "gen:types": "sanity typegen generate",
     "astro": "astro",
     "dev:preview:local": "ASTRO_SITE_MODE=preview ... astro dev"
@@ -25,6 +21,7 @@
     "@astrojs/check": "^0.9.5",
     "@astrojs/node": "^9.5.1",
     "@astrojs/react": "^4.4.1",
+    "@astrojs/sitemap": "^3.6.0",
     "@portabletext/types": "^3.0.0",
     "@sanity/astro": "^3.2.10",
     "@sanity/client": "^7.12.1",
