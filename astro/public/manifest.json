@@ -1,0 +1,17 @@
+{
+  "lang": "en",
+  "name": "UX Methods",
+  "short_name": "UX Methods",
+  "description": "UX Methods is a community powered, linked data driven knowledge graph for learning about the techniques of user experience design.",
+  "theme_color": "#182125",
+  "background_color": "#28B7FF",
+  "display": "standalone",
+  "start_url": "/index.html",
+  "icons": [
+    {
+      "src": "icons/pwa_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
