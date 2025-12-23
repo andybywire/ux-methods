@@ -9,6 +9,7 @@ const {
 
 // Read noindex flag from PUBLIC_ env (Astro will inline this at build time)
 const robotsNoindex = import.meta.env.PUBLIC_ROBOTS_NOINDEX === "true";
+const isDev = import.meta.env.DEV;
 const canonicalUrl = new URL(url.pathname, site);
 const metaDescription =
   description ??
@@ -29,7 +30,8 @@ const metaDescription =
   <slot name="json-ld" />
   <slot name="search-scripts" />
   <script src="../scripts/header.js"></script>
-  <script>
+  {!isDev && (
+  <script is:inline>
     if (navigator.serviceWorker) {
       navigator
         .serviceWorker
@@ -41,7 +43,7 @@ const metaDescription =
           console.log('Service worker registration error:', error);
         });
     }
-  </script>
+  </script>)}
   <Font cssVariable="--header" preload />
   <Font cssVariable="--body" preload />
 </head>
