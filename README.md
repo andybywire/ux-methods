@@ -7,11 +7,11 @@ The User Experience Practices Knowledge Graph
 
 <p align="center">
 	<strong>
-		<a href="#content-management">Fully Decoupled CMS</a>
+		<a href="#content-curation">Fully Decoupled CMS</a>
 		•
-		<a href="#progressive-web-app">Progressive Web App</a>
+		<a href="#web-application">Progressive Web App</a>
   		•
-		<a href="#knowledge-graph-integration-and-continuous-integration-workflows">Knowledge Graph & CI Workflows</a>
+		<a href="#">Knowledge Graph & CI Workflows</a>
 	</strong>
 </p>
 <p align="center">
