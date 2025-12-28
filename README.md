@@ -34,7 +34,7 @@ This repository is a monorepo of three interrelated components: content manageme
 UX Methods is built and maintained as a content-first resource. This means that content is structured to communicate meaning based on user and organization needs, not around the web requirements of particular "pages." UX Methods uses Sanity, a fully decoupled headless content operations platform, to produce, curate, and distribute content. 
 
 <h3 align="center">
-<img width="500" src="https://user-images.githubusercontent.com/3710835/146045406-6413d563-bf66-4b2c-b40a-f40b9e19b759.png" alt="Screenshot of UXMethods.org website on desktop and mobile">
+<img width="500" src="https://github.com/user-attachments/assets/6af7a57d-31ec-4ed8-8ef7-5da3c15ca51a" alt="Screenshot of UXMethods.org website on desktop and mobile">
 </h3>
 <br />
 
