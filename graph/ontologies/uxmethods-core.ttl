@@ -1,0 +1,275 @@
+@prefix : <https://uxmethods.org/ontologies/uxmethods-core#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix uxm: <https://uxmethods.org/ontologies/uxmethods-core#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://uxmethods.org/ontologies/uxmethods-core> .
+
+<https://uxmethods.org/ontologies/uxmethods-core> rdf:type owl:Ontology ;
+                                                   owl:versionIRI <https://uxmethods.org/ontologies/uxmethods-core/0.1.0> ;
+                                                   owl:imports <http://www.w3.org/ns/prov-o#> ;
+                                                   dct:created "2025-12-26"^^xsd:date ;
+                                                   dct:description "Core classes and properties for modeling UX Methods content, provenance, and research/planning structures."@en ;
+                                                   dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                                   dct:modified "2025-12-28" ;
+                                                   dct:publisher "Andy Fitzgerald Consulting, LLC"@en ;
+                                                   dct:title "UX Methods Core Ontology"@en ;
+                                                   rdfs:comment "Implementation note: curated terms/content can be separated into named graphs; this file defines only shared/core semantics."@en ;
+                                                   owl:versionInfo "0.1.0" ;
+                                                   uxm:DesignNote "Core pattern: Research processes are prov:Activity, resources/artifacts are prov:Entity, people/orgs/tools are prov:Agent. DCTERMS for editorial metadata."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dct:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dct:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dct:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+dct:modified rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+dct:publisher rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dct:title rdf:type owl:AnnotationProperty .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#DesignNote
+uxm:DesignNote rdf:type owl:AnnotationProperty ;
+               rdfs:label "design note"@en .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://uxmethods.org/ontologies/uxmethods-core#derivedInsight
+uxm:derivedInsight rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf prov:generated ;
+                   rdfs:domain prov:Activity ;
+                   rdfs:range uxm:Insight ;
+                   rdfs:comment "An activity or study derived an insight (usually from evidence)."@en ;
+                   rdfs:label "derived insight"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#hasConcept
+uxm:hasConcept rdf:type owl:ObjectProperty ;
+               rdfs:domain owl:Thing ;
+               rdfs:range uxm:Concept ;
+               rdfs:comment "Tags/associates resources or activities with controlled concepts (taxonomy terms live in separate graphs later)."@en ;
+               rdfs:label "has concept"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#hasResearchQuestion
+uxm:hasResearchQuestion rdf:type owl:ObjectProperty ;
+                        rdfs:domain prov:Activity ;
+                        rdfs:range uxm:ResearchQuestion ;
+                        rdfs:label "has research question"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#partOfStudy
+uxm:partOfStudy rdf:type owl:ObjectProperty ;
+                rdfs:domain prov:Activity ;
+                rdfs:range uxm:Study ;
+                rdfs:comment "Relates a session or activity to its containing study."@en ;
+                rdfs:label "part of study"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#producedArtifact
+uxm:producedArtifact rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf prov:generated ;
+                     rdfs:domain prov:Activity ;
+                     rdfs:range uxm:Artifact ;
+                     rdfs:comment "An activity produced an artifact (report, transcript, slide deck, etc.)."@en ;
+                     rdfs:label "produced artifact"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#supportingEvidence
+uxm:supportingEvidence rdf:type owl:ObjectProperty ;
+                       rdfs:domain prov:Entity ;
+                       rdfs:range prov:Entity ;
+                       rdfs:comment "Relates a finding/insight/recommendation to supporting entities (artifacts, datasets, findings)."@en ;
+                       rdfs:label "supporting evidence"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#usedArtifact
+uxm:usedArtifact rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf prov:used ;
+                 rdfs:domain prov:Activity ;
+                 rdfs:range uxm:Artifact ;
+                 rdfs:comment "An activity used an artifact (script, prototype, stimulus, etc.)."@en ;
+                 rdfs:label "used artifact"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#usesMethod
+uxm:usesMethod rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf prov:hadPlan ;
+               rdfs:domain prov:Activity ;
+               rdfs:range uxm:Method ;
+               rdfs:comment "Connects an activity/study/session to the method plan it uses."@en ;
+               rdfs:label "uses method"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://uxmethods.org/ontologies/uxmethods-core#canonicalSlug
+uxm:canonicalSlug rdf:type owl:DatatypeProperty ;
+                  rdfs:domain uxm:Resource ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Stable slug/identifier used by UX Methods site routing."@en ;
+                  rdfs:label "canonical slug"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#status
+uxm:status rdf:type owl:DatatypeProperty ;
+           rdfs:domain uxm:Resource ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Workflow/status string (e.g., draft, reviewed, deprecated). Consider later replacing with controlled concepts."@en ;
+           rdfs:label "status"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Agent
+uxm:Agent rdf:type owl:Class ;
+          rdfs:subClassOf prov:Agent ;
+          rdfs:comment "An actor in the system; use PROV for people, orgs, and software."@en ;
+          rdfs:label "Agent"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Artifact
+uxm:Artifact rdf:type owl:Class ;
+             rdfs:subClassOf prov:Entity ;
+             rdfs:comment "A produced or used artifact (e.g., script, prototype, recording, transcript, report)."@en ;
+             rdfs:label "Artifact"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Concept
+uxm:Concept rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity ;
+            rdfs:comment "A controlled concept used for tagging/classification (often backed by taxonomy terms)."@en ;
+            rdfs:label "Concept"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Dataset
+uxm:Dataset rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity ;
+            rdfs:comment "A structured collection of data used/produced by research (e.g., survey results, coded notes)."@en ;
+            rdfs:label "Dataset"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Finding
+uxm:Finding rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity ;
+            rdfs:comment "A specific observed result from research (may roll up into insights)."@en ;
+            rdfs:label "Finding"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Insight
+uxm:Insight rdf:type owl:Class ;
+            rdfs:subClassOf prov:Entity ;
+            rdfs:comment "A synthesized insight derived from research evidence."@en ;
+            rdfs:label "Insight"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Method
+uxm:Method rdf:type owl:Class ;
+           rdfs:subClassOf prov:Plan ,
+                           uxm:Resource ;
+           rdfs:comment "A UX research or design method (e.g., usability test, interview, card sort)."@en ;
+           rdfs:label "Method"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Organization
+uxm:Organization rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Organization ,
+                                 uxm:Agent ;
+                 rdfs:label "Organization"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Person
+uxm:Person rdf:type owl:Class ;
+           rdfs:subClassOf prov:Person ,
+                           uxm:Agent ;
+           rdfs:label "Person"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Recommendation
+uxm:Recommendation rdf:type owl:Class ;
+                   rdfs:subClassOf prov:Entity ;
+                   rdfs:comment "An action-oriented recommendation derived from findings/insights."@en ;
+                   rdfs:label "Recommendation"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#ResearchActivity
+uxm:ResearchActivity rdf:type owl:Class ;
+                     rdfs:subClassOf prov:Activity ;
+                     rdfs:comment "An executed or planned UX research activity (e.g., conduct interviews, run usability session)."@en ;
+                     rdfs:label "Research Activity"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#ResearchQuestion
+uxm:ResearchQuestion rdf:type owl:Class ;
+                     rdfs:subClassOf prov:Entity ;
+                     rdfs:comment "A question a study or activity aims to answer."@en ;
+                     rdfs:label "Research Question"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Resource
+uxm:Resource rdf:type owl:Class ;
+             rdfs:subClassOf prov:Entity ;
+             rdfs:comment "A publishable or referenceable UX Methods item (e.g., method page, guide, template, example)."@en ;
+             rdfs:label "Resource"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Session
+uxm:Session rdf:type owl:Class ;
+            rdfs:subClassOf prov:Activity ;
+            rdfs:comment "A single occurrence within a study (e.g., one interview, one moderated test session)."@en ;
+            rdfs:label "Session"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Study
+uxm:Study rdf:type owl:Class ;
+          rdfs:subClassOf prov:Activity ;
+          rdfs:comment "A bounded research effort that may contain multiple research activities and outputs."@en ;
+          rdfs:label "Study"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#Tool
+uxm:Tool rdf:type owl:Class ;
+         rdfs:subClassOf prov:SoftwareAgent ,
+                         uxm:Agent ;
+         rdfs:comment "A software agent used in research or publishing workflows (e.g., Figma, Maze, Dovetail)."@en ;
+         rdfs:label "Tool"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
