@@ -18,7 +18,7 @@ graph/
 		uxmethods-shapes.ttl  # optional, recommended soon
 		imports/              # pinned external ontology copies (optional)
 		catalog-v001.xml      # Protégé import mapping for offline/reproducible builds
-	test-data/
+  test-data/
 		mini-corpus.trig      # representative individuals for testing
 	queries/
 		infer-enables.construct.rq
@@ -38,7 +38,7 @@ graph/
 
 ### Base IRIs
 - Core ontology namespace:
-  - `https://uxmethods.org/ontologies/uxmethods-core#`
+  - `https://uxmethods.org/ontologies/uxmethods-core/`
 - Ontology version IRIs:
   - `https://uxmethods.org/ontologies/uxmethods-core/<version>`
 
@@ -101,3 +101,10 @@ Example TriG skeleton:
     a ux:Concept ;
     dct:title "Interface Usability"@en .
 }
+```
+
+### IO-Taxonomy Pipeline
+	•	Concept namespace (hash): https://uxmethods.org/taxonomies/io#<conceptId>
+	•	Scheme IRI (slash): https://uxmethods.org/taxonomies/io
+	•	Named graph IRI (slash): https://uxmethods.org/taxonomies/io
+	•	Fuseki base: https://fuseki.uxmethods.org/ds/
