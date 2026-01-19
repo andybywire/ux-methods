@@ -2,7 +2,7 @@
 // run w/ output to file:
 //  OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.mjs
 // run w/o writing to Fuseki: 
-//   DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.mjs
+//   DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.js
 
 import "dotenv/config";
 import { createClient } from "@sanity/client";
@@ -39,6 +39,7 @@ const SANITY_API_VERSION = process.env.SANITY_API_VERSION || "2025-06-10";
 
 const TAXONOMY_BASE_IRI = mustEnv("TAXONOMY_BASE_IRI"); // https://uxmethods.org/taxonomies/io#
 const LANG = process.env.LANG_TAG || "en";
+const IO_TAXONOMY_ONTOLOGY_LABEL = process.env.IO_TAXONOMY_ONTOLOGY_LABEL || "UX Methods – IO taxonomy (SKOS export)";
 
 const FUSEKI_GSP_ENDPOINT = mustEnv("FUSEKI_GSP_ENDPOINT"); // https://fuseki.uxmethods.org/ds/data
 const GRAPH_IRI = mustEnv("FUSEKI_GRAPH_IRI");             // https://uxmethods.org/taxonomies/io
@@ -143,12 +144,10 @@ async function buildTurtle() {
   const baseIri = schemeDoc.baseIri || TAXONOMY_BASE_IRI;
 
   const schemeIri = schemeIriFromBase(baseIri);
+
   if (schemeIri !== GRAPH_IRI) {
-    // Not fatal, but a helpful guardrail.
-    console.warn(
-      `Warning: schemeIri (${schemeIri}) != GRAPH_IRI (${GRAPH_IRI}). ` +
-      `This is ok, but you probably want them to match.`
-    );
+    throw new Error(`schemeIri (${schemeIri}) must equal FUSEKI_GRAPH_IRI (${GRAPH_IRI})`);
+    // could also just set GRAPH_IRI = schemeIri automatically
   }
 
   const writer = new Writer({
@@ -156,6 +155,8 @@ async function buildTurtle() {
       skos: "http://www.w3.org/2004/02/skos/core#",
       dcterms: "http://purl.org/dc/terms/",
       rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+      owl: "http://www.w3.org/2002/07/owl#",
     },
   });
 
@@ -181,12 +182,17 @@ async function buildTurtle() {
   };
 
   const RDF_TYPE = namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+  const RDFS_LABEL = namedNode("http://www.w3.org/2000/01/rdf-schema#label");
+  const OWL_ONTOLOGY = namedNode("http://www.w3.org/2002/07/owl#Ontology");
   const DCT = {
     description: namedNode("http://purl.org/dc/terms/description"),
     identifier: namedNode("http://purl.org/dc/terms/identifier"),
   };
 
   const scheme = namedNode(schemeIri);
+
+  writer.addQuad(quad(scheme, RDF_TYPE, OWL_ONTOLOGY));
+  writer.addQuad(quad(scheme, RDFS_LABEL, literal(IO_TAXONOMY_ONTOLOGY_LABEL, LANG)));
 
   // Scheme triples
   writer.addQuad(quad(scheme, RDF_TYPE, SKOS.ConceptScheme));

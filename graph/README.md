@@ -1,53 +1,58 @@
-# UX Methods Graph Data
+# UX Methods Graph
 
-This folder contains the knowledge graph assets for the UX Methods repository: ontologies, data, test fixtures, queries, and helper scripts.
+This folder contains the knowledge graph assets for UX Methods: the core ontology, exported instance data, SPARQL queries, and scripts for exporting/pushing RDF to Fuseki.
 
-The long-term goals of this work are to:
-- maintain quality and consistency of UX Methods content over time
-- generate semantically rich connections between resources that stay current as new resources and semantics are added
-- expose a queryable endpoint (SPARQL) for interrogating the graph directly
-- provide a foundation that can support graph-driven project planning tools (e.g., planners derived from methods, steps, artifacts, and dependencies)
+The near-term goals:
 
-## Folder structure
-Built and proposed files and structure.
+- prototype an integrated knowledge graph locally (Protégé + SPARQL)
+- keep ontology (TBox), taxonomy (SKOS), and content instance data (ABox) cleanly separated
+- load the same artifacts into Fuseki as named graphs
+
+Long-term goals include:
+
+- maintain UX Methods content quality/consistency over time
+- generate semantically rich connections between resources (methods, artifacts, steps, dependencies)
+- expose a queryable SPARQL endpoint
+- support graph-driven "plan builder" / "method stack generator" tooling
+
+## Directory structure
 
 ```
 graph/
-	ontologies/
-		uxmethods-core.ttl
-		uxmethods-shapes.ttl  # optional, recommended soon
-		imports/              # pinned external ontology copies (optional)
-		catalog-v001.xml      # Protégé import mapping for offline/reproducible builds
-  test-data/
-		mini-corpus.trig      # representative individuals for testing
-	queries/
-		infer-enables.construct.rq
-		qa-orphans.rq
-	scripts/
-		validate-rdf.sh
-		run-local-fuseki.sh
-		load-ontology-graph.sh
-	docs/
-	README.md
+  build/                       # GENERATED RDF outputs (do not edit by hand)
+  ontologies/
+    uxmethods-core.ttl         # curated ontology (TBox)
+    workspace.ttl              # local entrypoint ontology for testing and development (imports only)
+    catalog-v001.xml           # Protégé catalog: maps ontology IRIs -> local files
+  queries/                     # SPARQL queries for testing & validation
+  scripts/                     # tools for generating RDF and loading to Fuseki
+  .env                         # local config (ignored)
+  package.json
+  README.md
 ```
 
-## Conventions
-- Shared semantics go in `/ontologies/` (e.g., `uxmethods-core.ttl`)
-- Named-graph instance data goes in `/data/` as `.trig` (TriG supports multiple named graphs cleanly)
-- Small, deterministic fixtures go in `/testdata/` for repeatable tests
+**Source vs generated**
 
-### Base IRIs
-- Core ontology namespace:
-  - `https://uxmethods.org/ontologies/uxmethods-core/`
-- Ontology version IRIs:
-  - `https://uxmethods.org/ontologies/uxmethods-core/<version>`
+- Curated / versioned by hand: `ontologies/*`, `queries/*`, `scripts/*`
+- Generated / replaceable: `build/*`
 
-### URI patterns
-- Methods:
-  - `https://uxmethods.org/method/<slug>`
-- Taxonomy terms:
-  - `https://uxmethods.org/taxonomies/<scheme>/<cui>`
+Treat `build/*` as disposable outputs: regenerate them from Sanity whenever content changes.
 
+## IRIs and naming conventions
+
+### IO taxonomy (SKOS)
+
+- Concept Scheme IRI (slash): `https://uxmethods.org/taxonomies/io`
+- Named graph IRI (slash): `https://uxmethods.org/taxonomies/io`
+- Concept namespace (hash): `https://uxmethods.org/taxonomies/io#<conceptId>`
+
+### Methods
+
+- Method instance IRIs: `https://uxmethods.org/method/<slug>`
+
+### Methods export ontology IRI
+
+- Methods data ontology IRI: `https://uxmethods.org/graph/methods`
 
 ## Named graph strategy
 
@@ -57,54 +62,96 @@ Different “kinds” of knowledge in kept in separate **named graphs** so that 
 - load/unload entire domains of data cleanly
 - write queries that target only the graph(s) they need
 
-### Core named graphs (proposed)
+**Note:** IRIs identify resources globally; named graphs are storage context. A method can reference a SKOS concept by IRI even if its descriptive triples live in a different named graph.
 
-1. **Core ontology graph**
-   - Graph IRI: `https://uxmethods.org/ontologies/uxmethods-core`
-   - Contents: `/graph/ontologies/uxmethods-core.ttl` (and future ontologies)
+## Local Protégé workflow
 
-2. **Curated taxonomy graph**
-   - Graph IRI: `https://uxmethods.org/taxonomies/`
-   - Contents: controlled concept schemes + terms (imported from Sanity)
+The most reliable way to work locally is to open one entrypoint ontology and let imports + a catalog resolve everything.
 
-3. **Curated content metadata graph**
-   - Graph IRI: `https://uxmethods.org/content`
-   - Contents: editorial metadata + relationships between resources/methods
+`workspace.ttl` imports:
 
-4. **Operational provenance / event log graph (future)**
-   - Graph IRI: `https://uxmethods.org/graph/prov`
-   - Contents: PROV statements (imports, transformations, publishing events, QA checks)
+- uxmethods-core ontology
+- io-taxonomy export
+- methods-data export
 
-5. **Project planning graph (future)**
-   - Graph IRI: `https://uxmethods.org/projects`
-   - Contents: studies/sessions/artifacts/dependencies for planning tools
+Protégé + the SPARQL plugin then behave like a "merged model over the imports closure", which works for iteration and testing.
 
-> Note: named graphs are an implementation choice. Conceptually, the ontology applies across all graphs.
+### SPARQL behavior note
 
-### File format guidance
-- Prefer **TriG (`.trig`)** for datasets that contain multiple named graphs.
-- Use **Turtle (`.ttl`)** for single-graph files (especially ontologies).
+Protégé's SPARQL Query plugin typically queries a merged model (active ontology + imports closure), so you can write queries without `GRAPH {}` blocks locally. In Fuseki, you will usually need `GRAPH` unless you configure union default graph.
 
-Example TriG skeleton:
-```trig
-@prefix uxm: <https://uxmethods.org/ontologies/uxmethods-core#> .
-@prefix dct: <http://purl.org/dc/terms/> .
+## Scripts
 
-<https://uxmethods.org/content> {
-  <https://uxmethods.org/method/usability-testing>
-    a ux:Method ;
-    dct:title "Usability Testing"@en .
-}
+Your pnpm doesn't support `-C`, so use `pnpm --dir graph …` or `cd graph` first.
 
-<https://uxmethods.org/taxonomies> {
-  <https://uxmethods.org/taxonomies/Mfji21/XvB1B0>
-    a ux:Concept ;
-    dct:title "Interface Usability"@en .
-}
+### Export methods (local file)
+
+From repo root:
+
+```bash
+pnpm --dir graph exec node scripts/method-export.js
 ```
 
-### IO-Taxonomy Pipeline
-	•	Concept namespace (hash): https://uxmethods.org/taxonomies/io#<conceptId>
-	•	Scheme IRI (slash): https://uxmethods.org/taxonomies/io
-	•	Named graph IRI (slash): https://uxmethods.org/taxonomies/io
-	•	Fuseki base: https://fuseki.uxmethods.org/ds/
+**Output:**
+
+- `graph/build/methods-data.ttl`
+
+### Export taxonomy + push to Fuseki
+
+**Dry run (no PUT):**
+
+```bash
+DRY_RUN=1 pnpm --dir graph exec node scripts/push-io-taxonomy.js
+```
+
+**Write file + push to Fuseki:**
+
+```bash
+pnpm --dir graph exec node scripts/push-io-taxonomy.js
+```
+
+This does a Graph Store Protocol PUT to:
+
+- `.../ds/data?graph=https://uxmethods.org/taxonomies/io`
+
+with header:
+
+- `X-API-Token: <FUSEKI_API_TOKEN>`
+
+## Generated file requirements (Protégé-friendly)
+
+Generated TTL files include an ontology header so Protégé can import them by logical IRI (not `file:`):
+
+- `build/io-taxonomy.ttl` declares:
+  - `<https://uxmethods.org/taxonomies/io> a owl:Ontology .`
+- `build/methods-data.ttl` declares:
+  - `<https://uxmethods.org/graph/methods> a owl:Ontology .`
+
+This prevents Protégé's "Import using supplied physical URI (not recommended)" warning and enables clean catalog mappings.
+
+## Queries
+
+Queries live in `graph/queries/*.rq`. These are intended for:
+
+- quick iteration in Protégé (copy/paste into SPARQL Query tab)
+- later automation/regression tests against Fuseki
+
+**Example (method output enables another method input):**
+
+- `queries/method-output-enables-method-input*.rq`
+
+## Troubleshooting
+
+### Protégé import tries to fetch a web URL and fails
+
+- Add `ontologies/catalog-v001.xml` under Protégé's Ontology Catalogs
+- Ensure the imported files declare an `owl:Ontology` IRI (generated scripts now do this)
+
+### Fuseki write returns 403 Forbidden
+
+- nginx requires `X-API-Token`; confirm `FUSEKI_API_TOKEN` is set and the script sends the header
+- confirm you're writing to `/ds/data` (not `/ds/`)
+
+### Protégé still "sees" an import after you remove it
+
+Protégé may keep ontologies loaded in memory for the session. Restart/reload if you need a clean imports-closure test.

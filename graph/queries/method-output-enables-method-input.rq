@@ -1,0 +1,12 @@
+PREFIX uxm:   <https://uxmethods.org/ontologies/uxmethods-core#>
+
+# Finds method-to-method enablement links:
+# m1 produces an output that m2 uses as an input.
+
+SELECT ?m1 ?m2 ?shared
+WHERE {
+  ?m1 a uxm:Method ; uxm:producesOutput ?shared .
+  ?m2 a uxm:Method ; uxm:usesInput      ?shared .
+  FILTER(?m1 != ?m2)
+}
+ORDER BY ?shared ?m1 ?m2
