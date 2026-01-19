@@ -38,8 +38,6 @@ async function getSharedOutput() {
     headers: {
       "Content-Type": "application/sparql-query",
       Accept: "application/sparql-results+json",
-      // 🚨 Change after testing — it's been committed to the repo
-      Authorization: "Basic " + btoa(KG_AUTH),
     },
     // Narrow this to the present method? Or at least limit return.
     body: `

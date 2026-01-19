@@ -2,5 +2,6 @@ packages:
   - studio
   - eleventy
   - astro
+  - graph
 ignoredBuiltDependencies:
   - esbuild

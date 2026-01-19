@@ -1,0 +1,35 @@
+name: Push IO taxonomy to Fuseki
+
+on:
+  workflow_dispatch: {}
+  # schedule:
+  #  - cron: "0 6 * * *" # daily at 06:00 UTC; adjust as needed
+
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - run: npm ci
+
+      - run: node scripts/push-io-taxonomy.mjs
+        env:
+          SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
+          SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          SANITY_API_VERSION: "2025-06-10"
+
+          TAXONOMY_BASE_IRI: "https://uxmethods.org/taxonomies/io#"
+
+          FUSEKI_GSP_ENDPOINT: ${{ secrets.FUSEKI_GSP_ENDPOINT }}
+          FUSEKI_GRAPH_IRI: "https://uxmethods.org/taxonomies/io"
+          FUSEKI_USER: ${{ secrets.FUSEKI_USER }}
+          FUSEKI_PASSWORD: ${{ secrets.FUSEKI_PASSWORD }}
+
+          LANG_TAG: "en"

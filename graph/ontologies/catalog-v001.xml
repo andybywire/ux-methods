@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri name="https://uxmethods.org/graph/methods" uri="../build/methods-data.ttl"/>
+    <uri name="https://uxmethods.org/taxonomies/io" uri="../build/io-taxonomy.ttl"/>
+    <uri name="https://uxmethods.org/ontologies/uxmethods-core/0.1.0" uri="uxmethods-core.ttl"/>
+</catalog>

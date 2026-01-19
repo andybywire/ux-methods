@@ -1,0 +1,12 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Hand edit only for this file: It is a wrapper ontology for 
+# local development in Protégé. Do not edit generated files 
+# in Protégé; it can insert unintended declarations. 
+
+<https://uxmethods.org/local/workspace> a owl:Ontology ;
+  rdfs:label "Local Knowledge Graph Development Workspace" ;
+  owl:imports <https://uxmethods.org/ontologies/uxmethods-core/0.1.0> ;
+  owl:imports <https://uxmethods.org/taxonomies/io> ; # SKOS taxonomy — do not edit in Protégé
+  owl:imports <https://uxmethods.org/graph/methods> . # UX Methods data — do not edit in Protégé
