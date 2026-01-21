@@ -19,7 +19,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@sanity/assist": "^5.0.2",
+    "@sanity/assist": "^5.0.4",
     "@sanity/embeddings-index-ui": "^3.0.0",
     "@sanity/icons": "^3.7.4",
     "@sanity/id-utils": "^1.0.0",
