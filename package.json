@@ -20,19 +20,19 @@
   },
   "devDependencies": {
     "@sanity/blueprints": "^0.2.0",
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.10.11",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@sanity/client": "^7.11.2",
-    "@sanity/functions": "^1.0.3",
-    "metascraper": "^5.49.4",
-    "metascraper-author": "^5.49.2",
-    "metascraper-date": "^5.49.2",
-    "metascraper-description": "^5.49.2",
-    "metascraper-image": "^5.49.2",
-    "metascraper-publisher": "^5.49.2",
-    "metascraper-title": "^5.49.2"
+    "@sanity/client": "^7.14.1",
+    "@sanity/functions": "^1.2.0",
+    "metascraper": "^5.49.21",
+    "metascraper-author": "^5.49.21",
+    "metascraper-date": "^5.49.21",
+    "metascraper-description": "^5.49.21",
+    "metascraper-image": "^5.49.21",
+    "metascraper-publisher": "^5.49.21",
+    "metascraper-title": "^5.49.21"
   }
 }
