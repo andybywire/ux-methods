@@ -1,0 +1,60 @@
+PREFIX uxmo:   <https://uxmethods.org/ontologies/uxmethods-core#>
+PREFIX uxmd:   <https://uxmethods.org/method/>
+PREFIX uxmio:  <https://uxmethods.org/taxonomies/io#>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT
+  ?origin
+  ?direction
+  ?neighborMethod
+  ?neighborLabel
+  (COUNT(DISTINCT ?shared) AS ?weight)
+
+WHERE {
+VALUES ?origin { uxmd:DomainModeling uxmd:Wireframing }
+
+  {
+    # Upstream: neighbor produces what origin needs (origin inputs)
+    BIND("upstream" AS ?direction)
+
+    ?origin uxmo:usesInput ?shared .
+    ?neighborMethod a uxmo:Method ;
+                    uxmo:producesOutput ?shared ;
+                    rdfs:label ?neighborLabel .
+  }
+    UNION
+  {
+    # Downstream: neighbor needs what origin produces (origin outputs)
+    BIND("downstream" AS ?direction)
+
+    ?origin uxmo:producesOutput ?shared .
+    ?neighborMethod a uxmo:Method ;
+                    uxmo:usesInput ?shared ;
+                    rdfs:label ?neighborLabel .
+  }
+  FILTER(?neighborMethod != ?origin)
+}
+GROUP BY ?direction ?origin ?neighborMethod ?neighborLabel
+ORDER BY ?origin ?direction DESC(?weight) LCASE(STR(?neighborLabel))
+       
+  # ?inputMethod uxmo:producesOutput ?input;
+  #             rdfs:label ?inputLabel.
+  # OPTIONAL {
+  # ?input ?p ?inputMethodLabel.
+
+  # }
+
+
+
+  # ?origin uxmo:producesOutput ?output.
+
+
+  # ?destination uxmo:usesInput ?output.
+  # ?output skos:prefLabel ?outputLabel.
+  # FILTER(?origin != ?destination)
+
+# GROUP BY ?origin ?destination
+# ORDER BY DESC(?sharedIoCount)
+
+#  

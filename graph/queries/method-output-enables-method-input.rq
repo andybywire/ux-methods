@@ -1,12 +1,22 @@
-PREFIX uxm:   <https://uxmethods.org/ontologies/uxmethods-core#>
+PREFIX uxmo:   <https://uxmethods.org/ontologies/uxmethods-core#>
+# change this to just /ontologies/core#
+PREFIX uxmd:   <https://uxmethods.org/method/>
+# change this to /data/ ?
+PREFIX uxmio:  <https://uxmethods.org/taxonomies/io#>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
 
 # Finds method-to-method enablement links:
 # m1 produces an output that m2 uses as an input.
 
-SELECT ?m1 ?m2 ?shared
+SELECT ?m1Label ?m2Label ?sharedLabel
 WHERE {
-  ?m1 a uxm:Method ; uxm:producesOutput ?shared .
-  ?m2 a uxm:Method ; uxm:usesInput      ?shared .
+  ?m1 a uxmo:Method ; 
+      uxmo:producesOutput ?shared ;
+      rdfs:label ?m1Label .
+  ?m2 a uxmo:Method ; 
+      uxmo:usesInput      ?shared ;
+      rdfs:label ?m2Label .
+  ?shared skos:prefLabel ?sharedLabel .
   FILTER(?m1 != ?m2)
 }
-ORDER BY ?shared ?m1 ?m2
+ORDER BY ?m1Label ?m2Label ?sharedLabel

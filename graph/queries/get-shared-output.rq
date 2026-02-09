@@ -1,0 +1,39 @@
+PREFIX uxmo:   <https://uxmethods.org/ontologies/uxmethods-core#>
+PREFIX uxmd:   <https://uxmethods.org/method/>
+PREFIX uxmio:  <https://uxmethods.org/taxonomies/io#>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?origin ?inputMethod (COUNT(DISTINCT ?shared) AS ?weight)
+
+WHERE {
+  ?origin a uxmo:Method ;
+       rdfs:label "Wireframing"@en;
+       uxmo:usesInput ?shared.
+
+  ?inputMethod a uxmo:Method;
+       uxmo:producesOutput ?shared.
+}
+GROUP BY ?origin ?inputMethod
+ORDER BY DESC(?weight)
+       
+  # ?inputMethod uxmo:producesOutput ?input;
+  #             rdfs:label ?inputLabel.
+  # OPTIONAL {
+  # ?input ?p ?inputMethodLabel.
+
+  # }
+
+
+
+  # ?origin uxmo:producesOutput ?output.
+
+
+  # ?destination uxmo:usesInput ?output.
+  # ?output skos:prefLabel ?outputLabel.
+  # FILTER(?origin != ?destination)
+
+# GROUP BY ?origin ?destination
+# ORDER BY DESC(?sharedIoCount)
+
+#  

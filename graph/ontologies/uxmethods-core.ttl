@@ -7,7 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://uxmethods.org/ontologies/uxmethods-core> .
+@base <https://uxmethods.org/ontologies/uxmethods-core#> .
 
 <https://uxmethods.org/ontologies/uxmethods-core> rdf:type owl:Ontology ;
                                                    owl:versionIRI <https://uxmethods.org/ontologies/uxmethods-core/0.1.0> ;
@@ -84,11 +84,31 @@ uxm:hasConcept rdf:type owl:ObjectProperty ;
                rdfs:label "has concept"@en .
 
 
+###  https://uxmethods.org/ontologies/uxmethods-core#hasDownstreamMethod
+uxm:hasDownstreamMethod rdf:type owl:ObjectProperty ;
+                        rdfs:domain uxm:Method ;
+                        rdfs:range uxm:Method ;
+                        owl:propertyChainAxiom ( uxm:producesOutput
+                                                 [ owl:inverseOf uxm:usesInput
+                                                 ]
+                                               ) .
+
+
 ###  https://uxmethods.org/ontologies/uxmethods-core#hasResearchQuestion
 uxm:hasResearchQuestion rdf:type owl:ObjectProperty ;
                         rdfs:domain prov:Activity ;
                         rdfs:range uxm:ResearchQuestion ;
                         rdfs:label "has research question"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#hasUpstreamMethod
+uxm:hasUpstreamMethod rdf:type owl:ObjectProperty ;
+                      rdfs:domain uxm:Method ;
+                      rdfs:range uxm:Method ;
+                      owl:propertyChainAxiom ( uxm:usesInput
+                                               [ owl:inverseOf uxm:producesOutput
+                                               ]
+                                             ) .
 
 
 ###  https://uxmethods.org/ontologies/uxmethods-core#partOfStudy
@@ -108,6 +128,13 @@ uxm:producedArtifact rdf:type owl:ObjectProperty ;
                      rdfs:label "produced artifact"@en .
 
 
+###  https://uxmethods.org/ontologies/uxmethods-core#producesOutput
+uxm:producesOutput rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain uxm:Method ;
+                   rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> .
+
+
 ###  https://uxmethods.org/ontologies/uxmethods-core#supportingEvidence
 uxm:supportingEvidence rdf:type owl:ObjectProperty ;
                        rdfs:domain prov:Entity ;
@@ -123,6 +150,13 @@ uxm:usedArtifact rdf:type owl:ObjectProperty ;
                  rdfs:range uxm:Artifact ;
                  rdfs:comment "An activity used an artifact (script, prototype, stimulus, etc.)."@en ;
                  rdfs:label "used artifact"@en .
+
+
+###  https://uxmethods.org/ontologies/uxmethods-core#usesInput
+uxm:usesInput rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain uxm:Method ;
+              rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> .
 
 
 ###  https://uxmethods.org/ontologies/uxmethods-core#usesMethod
@@ -157,6 +191,10 @@ uxm:status rdf:type owl:DatatypeProperty ;
 #################################################################
 #    Classes
 #################################################################
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+<http://www.w3.org/2004/02/skos/core#Concept> rdf:type owl:Class .
+
 
 ###  https://uxmethods.org/ontologies/uxmethods-core#Agent
 uxm:Agent rdf:type owl:Class ;
