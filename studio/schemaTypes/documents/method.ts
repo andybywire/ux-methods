@@ -45,7 +45,7 @@ export default defineType({
           type: 'reference',
           to: [{type: 'skosConcept'}],
           options: {
-            filter: schemeFilter({schemeId: 'Mfji21'}),
+            filter: schemeFilter({schemeId: 'Mfji21', browseOnly: true}),
             aiAssist:{
               embeddingsIndex: 'io-taxonomy',
             },
