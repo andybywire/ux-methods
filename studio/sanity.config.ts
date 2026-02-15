@@ -27,7 +27,8 @@ const hiddenDocTypes = (listItem: any) =>
 export function defaultDocumentNode(S: StructureBuilder, {schemaType}: {schemaType: string}) {
   // Conditionally return a different configuration based on the schema type
   if (schemaType === 'discipline') {
-    return S.document().views([S.view.form(), 
+    return S.document().views([
+      S.view.form(),
       // S.view.component(WebPreview).title('Preview')
     ])
   }
@@ -92,6 +93,10 @@ export default defineConfig([
       visionTool(),
       taxonomyManager({
         baseUri: 'https://uxmethods.org/',
+        ident: {
+          pattern: '0123456789',
+          regenUi: true,
+        }
       }),
       embeddingsIndexDashboard(),
       embeddingsIndexReferenceInput(),
@@ -100,6 +105,14 @@ export default defineConfig([
 
     schema: {
       types: schemaTypes,
+    },
+    // I think I need these for Taxonomy Manager testing?
+    vite: {
+      resolve: {preserveSymlinks: true},
+      // Don’t pre-bundle your linked package (let Vite watch it like source)
+      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
+      // Make sure the dev server *doesn’t* treat it as external CJS
+      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
     },
   },
   {
@@ -136,6 +149,14 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
     },
+    // I think I need these for Taxonomy Manager testing?
+    vite: {
+      resolve: {preserveSymlinks: true},
+      // Don’t pre-bundle your linked package (let Vite watch it like source)
+      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
+      // Make sure the dev server *doesn’t* treat it as external CJS
+      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
+    },
   },
   {
     name: 'taxo-test',
@@ -164,8 +185,13 @@ export default defineConfig([
       visionTool(),
       taxonomyManager({
         baseUri: 'https://uxmethods.org/',
+        ident: {
+          pattern: '0123456789',
+          regenUi: true,
+        }
       }),
       embeddingsIndexDashboard(),
+      embeddingsIndexReferenceInput(),
       BulkDelete({
         schemaTypes: schemaTypes, // Pass your schema types here
         // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
@@ -175,6 +201,14 @@ export default defineConfig([
 
     schema: {
       types: schemaTypes,
+    },
+    // I think I need these for Taxonomy Manager testing?
+    vite: {
+      resolve: {preserveSymlinks: true},
+      // Don’t pre-bundle your linked package (let Vite watch it like source)
+      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
+      // Make sure the dev server *doesn’t* treat it as external CJS
+      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
     },
   },
 ])
