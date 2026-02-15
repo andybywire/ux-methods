@@ -1088,11 +1088,10 @@
         },
         "optional": true
       },
-      "singleTermFromSchemeNoTop": {
+      "metaDescription": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "skosConcept.reference"
+          "type": "string"
         },
         "optional": true
       },
@@ -1104,63 +1103,10 @@
         },
         "optional": true
       },
-      "singleTermFromBranchNoTop": {
+      "testField": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "skosConcept.reference"
-        },
-        "optional": true
-      },
-      "singleTermFromBranch": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "skosConcept.reference"
-        },
-        "optional": true
-      },
-      "arrayFromScheme": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "skosConcept.reference"
-            }
-          }
-        },
-        "optional": true
-      },
-      "arrayFromBranch": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_key": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "rest": {
-              "type": "inline",
-              "name": "skosConcept.reference"
-            }
-          }
+          "type": "string"
         },
         "optional": true
       }
