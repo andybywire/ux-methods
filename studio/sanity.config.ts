@@ -106,14 +106,6 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
     },
-    // I think I need these for Taxonomy Manager testing?
-    vite: {
-      resolve: {preserveSymlinks: true},
-      // Don’t pre-bundle your linked package (let Vite watch it like source)
-      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
-      // Make sure the dev server *doesn’t* treat it as external CJS
-      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
-    },
   },
   {
     name: 'ai-settings',
@@ -148,14 +140,6 @@ export default defineConfig([
 
     schema: {
       types: schemaTypes,
-    },
-    // I think I need these for Taxonomy Manager testing?
-    vite: {
-      resolve: {preserveSymlinks: true},
-      // Don’t pre-bundle your linked package (let Vite watch it like source)
-      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
-      // Make sure the dev server *doesn’t* treat it as external CJS
-      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
     },
   },
   {
@@ -201,14 +185,6 @@ export default defineConfig([
 
     schema: {
       types: schemaTypes,
-    },
-    // I think I need these for Taxonomy Manager testing?
-    vite: {
-      resolve: {preserveSymlinks: true},
-      // Don’t pre-bundle your linked package (let Vite watch it like source)
-      optimizeDeps: {exclude: ['sanity-plugin-taxonomy-manager']},
-      // Make sure the dev server *doesn’t* treat it as external CJS
-      ssr: {noExternal: ['sanity-plugin-taxonomy-manager']},
     },
   },
 ])
