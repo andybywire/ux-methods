@@ -1,6 +1,6 @@
-import {defineType, defineField} from 'sanity'
-import {RiGitCommitLine, RiBubbleChartFill} from 'react-icons/ri'
-import {schemeFilter, ArrayHierarchyInput} from 'sanity-plugin-taxonomy-manager'
+import { defineType, defineField, type ArrayFieldProps } from 'sanity';
+import { RiGitCommitLine, RiBubbleChartFill } from 'react-icons/ri';
+import { schemeFilter, ArrayHierarchyInput } from 'sanity-plugin-taxonomy-manager';
 // import MetaDescription from '../../components/MetaDescription'
 
 /**
@@ -43,21 +43,30 @@ export default defineType({
       of: [
         {
           type: 'reference',
-          to: [{type: 'skosConcept'}],
+          to: [{ type: 'skosConcept' }],
           options: {
-            filter: schemeFilter({schemeId: 'Mfji21', browseOnly: true}),
-            aiAssist:{
-              embeddingsIndex: 'io-taxonomy',
-            },
-            embeddingsIndex: {
-              indexName: 'io-taxonomy',
-              maxResults: 10,
-              searchMode: 'embeddings'
-            }
+            filter: schemeFilter({ schemeId: '693450', browseOnly: true}),
+            // aiAssist:{
+            //   embeddingsIndex: 'io-taxonomy',
+            // },
+            // embeddingsIndex: {
+            //   indexName: 'io-taxonomy',
+            //   maxResults: 10,
+            //   searchMode: 'embeddings'
+            // }
           },
         },
       ],
-      components: { field: ArrayHierarchyInput },
+      components: {
+        // field: ArrayHierarchyInput
+        field: (props: ArrayFieldProps) => <ArrayHierarchyInput
+          {...props}
+          embeddingsIndex={{
+            "indexName": "io-taxonomy",
+            "fieldReferences": ["title", "metaDescription"],
+            "maxResults": 4,
+          }} />
+      },
     }),
     defineField({
       name: 'uri',
@@ -93,7 +102,7 @@ export default defineType({
       type: 'array',
       title: 'Discipline(s)',
       description: 'List the disciplines in which this method is most commonly used.',
-      of: [{type: 'referencedDiscipline'}],
+      of: [{ type: 'referencedDiscipline' }],
     }),
     defineField({
       name: 'overview',
@@ -104,7 +113,7 @@ export default defineType({
       name: 'overviewSources',
       type: 'array',
       title: 'Overview Sources',
-      of: [{type: 'source'}],
+      of: [{ type: 'source' }],
     }),
     defineField({
       name: 'steps',
@@ -115,7 +124,7 @@ export default defineType({
       name: 'stepSources',
       type: 'array',
       title: 'Step Sources',
-      of: [{type: 'source'}],
+      of: [{ type: 'source' }],
     }),
     defineField({
       name: 'input',
@@ -126,10 +135,10 @@ export default defineType({
       of: [
         {
           type: 'reference',
-          to: [{type: 'skosConcept'}],
+          to: [{ type: 'skosConcept' }],
           options: {
-            filter: schemeFilter({schemeId: 'Mfji21'}),
-            aiAssist:{
+            filter: schemeFilter({ schemeId: '693450' }),
+            aiAssist: {
               embeddingsIndex: 'io-taxonomy',
             },
             embeddingsIndex: {
@@ -150,10 +159,10 @@ export default defineType({
       of: [
         {
           type: 'reference',
-          to: [{type: 'skosConcept'}],
+          to: [{ type: 'skosConcept' }],
           options: {
-            filter: schemeFilter({schemeId: 'Mfji21'}),
-            aiAssist:{
+            filter: schemeFilter({ schemeId: '693450' }),
+            aiAssist: {
               embeddingsIndex: 'io-taxonomy',
             },
             embeddingsIndex: {
@@ -177,14 +186,14 @@ export default defineType({
       discipline3: 'disciplinesReference.3.title',
     },
     prepare(selection) {
-      const {title, discipline0, discipline1, discipline2, discipline3, thumb} = selection
-      const disciplines = [discipline0, discipline1, discipline2, discipline3].filter(Boolean)
-      const subtitle = disciplines.length > 0 ? `${disciplines.join(', ')}` : ''
+      const { title, discipline0, discipline1, discipline2, discipline3, thumb } = selection;
+      const disciplines = [discipline0, discipline1, discipline2, discipline3].filter(Boolean);
+      const subtitle = disciplines.length > 0 ? `${disciplines.join(', ')}` : '';
       return {
         title: title,
         subtitle: subtitle,
         media: thumb ? thumb : RiGitCommitLine,
-      }
+      };
     },
   },
-})
+});
