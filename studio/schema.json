@@ -1109,6 +1109,74 @@
           "type": "string"
         },
         "optional": true
+      },
+      "singleTermFromSchemeNoTop": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "skosConcept.reference"
+        },
+        "optional": true
+      },
+      "singleTermFromBranchNoTop": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "skosConcept.reference"
+        },
+        "optional": true
+      },
+      "singleTermFromBranch": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "skosConcept.reference"
+        },
+        "optional": true
+      },
+      "arrayFromScheme": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "skosConcept.reference"
+            }
+          }
+        },
+        "optional": true
+      },
+      "arrayFromBranch": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "skosConcept.reference"
+            }
+          }
+        },
+        "optional": true
       }
     }
   },
