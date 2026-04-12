@@ -41,6 +41,17 @@ jobs:
           #   pnpm-lock.yaml
           #   pnpm-workspace.yaml
 
+      - name: Debug pnpm environment
+        run: |
+          echo "=== pnpm version ==="
+          pnpm --version
+          echo "=== node version ==="
+          node --version
+          echo "=== pnpm-workspace.yaml ==="
+          cat pnpm-workspace.yaml
+          echo "=== pnpm config ==="
+          pnpm config list
+
       - name: Install dependencies (monorepo)
         run: pnpm install
 
