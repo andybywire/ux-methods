@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import "@styles/topic-page.css";
 import { loadQuery } from "@sanity/lib/load-query";
 import Layout from "@layouts/Layout.astro";
@@ -6,12 +8,12 @@ import Hero from "@components/Hero.astro";
 import PortableText from "@components/PortableText.astro";
 import { DOCUMENTATION_QUERY } from "@sanity/sanity.queries";
 import type { SanityDocument } from "@sanity/client";
-import type { DOCUMENTATION_QUERYResult, HeroImage } from "sanity.types";
+import type { DOCUMENTATION_QUERY_RESULT, HeroImage } from "sanity.types";
 import type { FooterData } from "@components/Footer.astro";
 
 export async function getStaticPaths() {
   const { data: documentation } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "documentation"]`,
+    query: `*[_type == "documentation" && defined(slug.current)]`,
   });
 
   return documentation.map(({ slug }) => {
@@ -25,7 +27,7 @@ export async function getStaticPaths() {
 
 const { params } = Astro;
 
-const { data: documentation } = await loadQuery<DOCUMENTATION_QUERYResult>({
+const { data: documentation } = await loadQuery<DOCUMENTATION_QUERY_RESULT>({
   query: DOCUMENTATION_QUERY,
   params,
 });

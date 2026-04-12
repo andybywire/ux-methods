@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import "@styles/topic-page.css";
 import type { SanityDocument } from "@sanity/client";
 import { loadQuery } from "@sanity/lib/load-query";
@@ -8,7 +10,7 @@ import Hero from "@components/Hero.astro";
 import Card from "@components/Card.astro";
 import CardExt from "@components/CardExt.astro";
 import { METHODS_QUERY } from "@sanity/sanity.queries";
-import type { HeroImage, METHODS_QUERYResult } from "sanity.types";
+import type { HeroImage, METHODS_QUERY_RESULT } from "sanity.types";
 import type { FooterData } from "@components/Footer.astro";
 import { urlForImage } from "@sanity/lib/url-for-image";
 
@@ -19,7 +21,7 @@ const { params } = Astro;
 // Queue up one page for each Method
 export async function getStaticPaths() {
   const { data: methods } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "method"]`,
+    query: `*[_type == "method" && defined(slug.current)]`,
   });
 
   return methods.map(({ slug }) => {
@@ -77,7 +79,7 @@ function transformKgData(kgData: any) {
 
 // Fetch method and KG data concurrently
 const [{ data: method }, kgData] = await Promise.all([
-  loadQuery<METHODS_QUERYResult>({
+  loadQuery<METHODS_QUERY_RESULT>({
     query: METHODS_QUERY,
     params,
   }),
