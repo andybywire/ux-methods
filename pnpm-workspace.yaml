@@ -3,8 +3,9 @@ packages:
   - eleventy
   - astro
   - graph
-ignoredBuiltDependencies:
-  - '@swc/core'
+onlyBuiltDependencies:
   - esbuild
   - re2
   - sharp
+ignoredBuiltDependencies:
+  - '@swc/core'
