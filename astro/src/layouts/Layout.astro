@@ -13,6 +13,7 @@ interface Props {
   pageTitle?: string
   description?: string
   includeSearch?: boolean
+  children?: astroHTML.JSX.Children
 }
 
 const {data, pageTitle, description, includeSearch = false} = Astro.props
