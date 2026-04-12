@@ -36,10 +36,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: pnpm
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            pnpm-workspace.yaml
+          # cache: pnpm  # temporarily disabled to rule out stale cache
+          # cache-dependency-path: |
+          #   pnpm-lock.yaml
+          #   pnpm-workspace.yaml
 
       - name: Install dependencies (monorepo)
         run: pnpm install
