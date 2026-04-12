@@ -4,8 +4,4 @@ packages:
   - astro
   - graph
 onlyBuiltDependencies:
-  - esbuild
-  - re2
-  - sharp
-ignoredBuiltDependencies:
-  - '@swc/core'
+  - '*'
