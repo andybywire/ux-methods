@@ -45,6 +45,7 @@ jobs:
           PUBLIC_SANITY_VISUAL_EDITING_ENABLED: 'true'
           PUBLIC_ROBOTS_NOINDEX: 'true'
           KG_AUTH: ${{ secrets.KG_AUTH }} # needed here for Astro's import.meta.env behavior
+          SANITY_API_READ_TOKEN: ${{ secrets.PREVIEW_SANITY_API_READ_TOKEN }}
         run: |
           export NODE_OPTIONS="--max-old-space-size=2048"
           pnpm --filter astro... run build:preview
