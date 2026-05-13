@@ -1,4 +1,4 @@
-// run: node scripts/push-io-taxonomy.mjs
+// run: node scripts/push-io-taxonomy.js
 // run w/ output to file:
 //  OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.mjs
 // run w/o writing to Fuseki: 

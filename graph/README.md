@@ -2,6 +2,8 @@
 
 This folder contains the knowledge graph assets for UX Methods: the core ontology, exported instance data, SPARQL queries, and scripts for exporting/pushing RDF to Fuseki.
 
+> **This README covers local development.** For the production Fuseki deployment (Raspberry Pi, Docker, nginx, Cloudflare Tunnel, datasets, auth, cleanup backlog), see [INFRASTRUCTURE.md](INFRASTRUCTURE.md). For architectural decisions (URI policy, named-graph strategy, inference direction), see [../docs/decisions/](../docs/decisions/README.md).
+
 The near-term goals:
 
 - prototype an integrated knowledge graph locally (Protégé + SPARQL)
