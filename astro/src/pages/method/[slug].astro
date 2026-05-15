@@ -43,18 +43,20 @@ async function getSharedOutput() {
     },
     // Narrow this to the present method? Or at least limit return.
     body: `
-    PREFIX : <https://uxmethods.org/>
-    PREFIX uxmo: <https://uxmethods.org/ontology/>
-    
+    PREFIX uxm: <https://uxmethods.org/ontologies/uxmethods-core#>
+
     SELECT ?origin ?destination (COUNT(?output) AS ?sharedOutputCount)
     (GROUP_CONCAT(DISTINCT ?output; SEPARATOR=",") AS ?sharedOutput)
     WHERE {
-      ?origin uxmo:hasOutput ?output.
-      ?destination uxmo:hasInput ?output.
+      GRAPH <https://uxmethods.org/graph/methods> {
+        ?origin uxm:producesOutput ?output .
+        ?destination uxm:usesInput ?output .
+        FILTER(?origin != ?destination)
       }
-      GROUP BY ?origin ?destination
-      ORDER BY DESC(?sharedOutputCount)
-      `,
+    }
+    GROUP BY ?origin ?destination
+    ORDER BY DESC(?sharedOutputCount)
+    `,
   });
 
   if (!kgData.ok) {
@@ -93,6 +95,10 @@ function mapMethods(method: any, methodPreviews: any, kgData: any): any {
   // const preparedMethods = methods.map((method) => {
   // Filter and assign methods preview list to previous methods
   // ☑️ TODO: verify that mapping is weighted to prioritize strongest connections
+  // ☑️ TODO: when a method qualifies as both upstream and downstream (semantically
+  //    honest — they share concepts in both directions), decide how to display it.
+  //    Options: show only in the heavier-weighted list, mark as bidirectional, or
+  //    surface as a distinct "related" category. Today both lists include it unmarked.
   const previousMethods = methodPreviews.filter((methodPreview: any) => {
     return kgData.some((relationship: any) => {
       return (
