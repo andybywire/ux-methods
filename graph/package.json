@@ -4,8 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "push:io-taxonomy": "node scripts/push-io-taxonomy.js",
-    "dry:io-taxonomy": "DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.js"
+    "push:io-taxonomy": "node scripts/io-taxonomy-export.js",
+    "dry:io-taxonomy": "DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/io-taxonomy-export.js",
+    "push:methods": "node scripts/method-export.js",
+    "dry:methods": "DRY_RUN=1 OUT_FILE=build/methods-data.ttl node scripts/method-export.js"
   },
   "author": "Andy Fitzgerald",
   "license": "MIT",

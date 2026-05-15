@@ -1,11 +1,14 @@
 // run: node scripts/method-export.js
-// change this to uxmethods-data
-// prefix: uxmd
+// run w/ output to file:
+//   OUT_FILE=build/methods-data.ttl node scripts/method-export.js
+// run w/o writing to Fuseki:
+//   DRY_RUN=1 OUT_FILE=build/methods-data.ttl node scripts/method-export.js
 
 import "dotenv/config";
 import { createClient } from "@sanity/client";
 import { DataFactory, Writer } from "n3";
 import fs from "node:fs/promises";
+import { putNamedGraph } from "./lib/fuseki.js";
 
 const { namedNode, literal, quad } = DataFactory;
 
@@ -37,10 +40,16 @@ const TAXONOMY_BASE_IRI = mustEnv("TAXONOMY_BASE_IRI");     // https://uxmethods
 const UXM_TERMS_NS = mustEnv("UXM_TERMS_NS");               // e.g. https://uxmethods.org/ontology/uxm/
                                                             // or: https://uxmethods.org/ontologies/uxmethods-core
 const LANG = process.env.LANG_TAG || "en";
-const OUT_FILE = process.env.OUT_FILE || "build/methods-data.ttl";
+const OUT_FILE = process.env.OUT_FILE;
 
 const METHODS_ONTOLOGY_IRI = mustEnv("METHODS_ONTOLOGY_IRI");
-const UXM_CORE_ONTOLOGY_IRI = mustEnv("UXM_CORE_ONTOLOGY_IRI"); 
+const UXM_CORE_ONTOLOGY_IRI = mustEnv("UXM_CORE_ONTOLOGY_IRI");
+
+const FUSEKI_GSP_ENDPOINT = mustEnv("FUSEKI_GSP_ENDPOINT"); // https://fuseki.uxmethods.org/ds/data
+const METHODS_GRAPH_IRI = mustEnv("METHODS_GRAPH_IRI");     // https://uxmethods.org/graph/methods
+const FUSEKI_API_TOKEN = process.env.FUSEKI_API_TOKEN;
+
+const DRY_RUN = process.env.DRY_RUN === "1";
 
 const client = createClient({
   projectId: SANITY_PROJECT_ID,
@@ -155,9 +164,25 @@ async function main() {
     writer.end((err, res) => (err ? reject(err) : resolve(res)));
   });
 
-  await fs.mkdir("build", { recursive: true });
-  await fs.writeFile(OUT_FILE, turtle, "utf8");
-  console.log(`Wrote methods RDF to ${OUT_FILE} (${methods.length} methods)`);
+  if (OUT_FILE) {
+    await fs.mkdir("build", { recursive: true });
+    await fs.writeFile(OUT_FILE, turtle, "utf8");
+    console.log(`Wrote methods RDF to ${OUT_FILE} (${methods.length} methods)`);
+  }
+
+  if (DRY_RUN) {
+    console.log("DRY_RUN=1 — not pushing to Fuseki");
+    console.log(`Would PUT to: ${FUSEKI_GSP_ENDPOINT}?graph=${METHODS_GRAPH_IRI}`);
+    return;
+  }
+
+  await putNamedGraph({
+    endpoint: FUSEKI_GSP_ENDPOINT,
+    graphIri: METHODS_GRAPH_IRI,
+    turtle,
+    token: FUSEKI_API_TOKEN,
+  });
+  console.log(`Loaded ${methods.length} methods into named graph: ${METHODS_GRAPH_IRI}`);
 }
 
 await main();

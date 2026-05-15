@@ -18,7 +18,7 @@ jobs:
 
       - run: npm ci
 
-      - run: node scripts/push-io-taxonomy.mjs
+      - run: node scripts/io-taxonomy-export.js
         env:
           SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_DATASET: ${{ secrets.SANITY_DATASET }}

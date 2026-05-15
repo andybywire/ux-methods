@@ -59,7 +59,7 @@ The single most important architectural decision in this project: the graph is d
 - Inputs/outputs modeled as `skos:Concept` instances.
 - Concept scheme IRI: `https://uxmethods.org/taxonomies/io`
 - Concept IRIs: `https://uxmethods.org/taxonomies/io#<conceptId>`
-- Generator: `graph/scripts/push-io-taxonomy.js` — fetches scheme + concepts via GROQ, writes Turtle, optionally PUTs to Fuseki via Graph Store Protocol into the named graph above (using `X-API-Token` header).
+- Generator: `graph/scripts/io-taxonomy-export.js` — fetches scheme + concepts via GROQ, writes Turtle, optionally PUTs to Fuseki via Graph Store Protocol into the named graph above (using `X-API-Token` header).
 
 ### 3. Methods data (ABox) — generated from Sanity, replaceable
 

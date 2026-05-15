@@ -11,7 +11,7 @@ flowchart LR
   end
 
   subgraph Build["Build pipeline (local / CI)"]
-    Exporters["graph/scripts/<br/>push-io-taxonomy.js<br/>method-export.js"]
+    Exporters["graph/scripts/<br/>io-taxonomy-export.js<br/>method-export.js"]
   end
 
   subgraph Pi["Raspberry Pi (home)"]
@@ -93,7 +93,7 @@ Clients must send:
 X-API-Token: <token>
 ```
 
-The `graph/scripts/push-io-taxonomy.js` script reads `FUSEKI_API_TOKEN` from the local environment and sends the header.
+The `graph/scripts/io-taxonomy-export.js` script reads `FUSEKI_API_TOKEN` from the local environment and sends the header.
 
 > **Historical note — Basic Auth.** Early setup attempted standard HTTP Basic Auth, which silently failed because nginx was not configured with `auth_basic`. The current `X-API-Token` scheme replaced that approach. If you see write requests returning 403 and your client is sending `Authorization: Basic …`, that's the trap — switch to `X-API-Token`.
 
@@ -101,7 +101,7 @@ The `graph/scripts/push-io-taxonomy.js` script reads `FUSEKI_API_TOKEN` from the
 
 GSP — the SPARQL 1.1 Graph Store HTTP Protocol — is used to replace named graphs wholesale by HTTP PUT. The `FUSEKI_GSP_ENDPOINT` environment variable points at `/ds/data` on the live server.
 
-Live pattern used by `push-io-taxonomy.js`:
+Live pattern used by `io-taxonomy-export.js`:
 
 ```
 PUT https://fuseki.uxmethods.org/ds/data?graph=https://uxmethods.org/taxonomies/io

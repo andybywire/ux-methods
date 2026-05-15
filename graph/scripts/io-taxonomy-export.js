@@ -1,13 +1,14 @@
-// run: node scripts/push-io-taxonomy.js
+// run: node scripts/io-taxonomy-export.js
 // run w/ output to file:
-//  OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.mjs
-// run w/o writing to Fuseki: 
-//   DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/push-io-taxonomy.js
+//   OUT_FILE=build/io-taxonomy.ttl node scripts/io-taxonomy-export.js
+// run w/o writing to Fuseki:
+//   DRY_RUN=1 OUT_FILE=build/io-taxonomy.ttl node scripts/io-taxonomy-export.js
 
 import "dotenv/config";
 import { createClient } from "@sanity/client";
 import { DataFactory, Writer } from "n3";
 import fs from "node:fs/promises";
+import { putNamedGraph } from "./lib/fuseki.js";
 
 const { namedNode, literal, quad } = DataFactory;
 
@@ -292,30 +293,6 @@ async function buildTurtle() {
   return { turtle };
 }
 
-async function putToFuseki(turtle) {
-  const url = new URL(FUSEKI_GSP_ENDPOINT);
-  url.searchParams.set("graph", GRAPH_IRI);
-
-  const headers = { 
-    "Content-Type": "text/turtle" ,
-    ...(FUSEKI_API_TOKEN ? { "X-API-Token": FUSEKI_API_TOKEN } : {}),
-  };
-  // if (FUSEKI_USER && FUSEKI_PASSWORD) {
-  //   const token = Buffer.from(`${FUSEKI_USER}:${FUSEKI_PASSWORD}`).toString("base64");
-  //   headers["Authorization"] = `Basic ${token}`;
-  // }
-
-  const res = await fetch(url.toString(), { method: "PUT", headers, body: turtle });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    const hint =
-      res.status === 403
-        ? "\nHint: nginx is enforcing X-API-Token. Confirm FUSEKI_API_TOKEN is set and correct."
-        : "";
-    throw new Error(`Fuseki PUT failed: ${res.status} ${res.statusText}\n${text}${hint}`);
-  }
-}
-
 const { turtle } = await buildTurtle();
 
 if (OUT_FILE) {
@@ -330,5 +307,10 @@ if (DRY_RUN) {
   process.exit(0);
 }
 
-await putToFuseki(turtle);
+await putNamedGraph({
+  endpoint: FUSEKI_GSP_ENDPOINT,
+  graphIri: GRAPH_IRI,
+  turtle,
+  token: FUSEKI_API_TOKEN,
+});
 console.log(`Loaded IO taxonomy into named graph: ${GRAPH_IRI}`);

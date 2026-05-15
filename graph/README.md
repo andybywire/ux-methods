@@ -103,13 +103,13 @@ pnpm --dir graph exec node scripts/method-export.js
 **Dry run (no PUT):**
 
 ```bash
-DRY_RUN=1 pnpm --dir graph exec node scripts/push-io-taxonomy.js
+DRY_RUN=1 pnpm --dir graph exec node scripts/io-taxonomy-export.js
 ```
 
 **Write file + push to Fuseki:**
 
 ```bash
-pnpm --dir graph exec node scripts/push-io-taxonomy.js
+pnpm --dir graph exec node scripts/io-taxonomy-export.js
 ```
 
 This does a Graph Store Protocol PUT to:
