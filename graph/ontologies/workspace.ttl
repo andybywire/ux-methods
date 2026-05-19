@@ -7,6 +7,6 @@
 
 <https://uxmethods.org/local/workspace> a owl:Ontology ;
   rdfs:label "Local Knowledge Graph Development Workspace" ;
-  owl:imports <https://uxmethods.org/ontologies/uxmethods-core/0.1.0> ;
+  owl:imports <https://uxmethods.org/ontologies/uxmethods-core/0.2.0> ;
   owl:imports <https://uxmethods.org/taxonomies/io> ; # SKOS taxonomy — do not edit in Protégé
   owl:imports <https://uxmethods.org/graph/methods> . # UX Methods data — do not edit in Protégé

@@ -50,7 +50,7 @@ The single most important architectural decision in this project: the graph is d
 ### 1. Ontology (TBox) — curated, stable
 
 - File: `graph/ontologies/uxmethods-core.ttl`
-- Contains: classes, object properties, utility alignments (notably **PROV**).
+- Contains: classes (`Method`, `Resource`) and object properties (`usesInput`, `producesOutput`, `hasUpstreamMethod`/`hasDownstreamMethod` with OWL property chains) for the actively-used core. PROV-O alignment was removed in 0.2.0 and will be reintroduced when its axioms come into use.
 - Edited by hand. Versioned. This is the **stable semantic contract** that downstream tools depend on.
 
 ### 2. Taxonomy (SKOS) — generated from Sanity, replaceable
