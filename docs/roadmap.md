@@ -27,6 +27,7 @@ The format is intentionally light: a few themes per horizon, with a sentence or 
 - build resource submission functionality (Chrome plugin)
 - plan RSS, llms.txt, [agents.md](http://agents.md), previews, KG functionality
 - build method submission functionality
+- investigate [Wikipedia's approach to structuring documents and parsing facts and claims](https://www.linkedin.com/posts/martinseifert_wikipedia-activity-7463121818204307456-ey_a). Could be a good model for regular document libraries, too?
 
 ### Studio
 
