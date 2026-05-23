@@ -129,6 +129,8 @@ Longer-term, methods may be modeled as structured **plans** (steps, prerequisite
 
 ## Working principles for this repo
 
+Project-wide design principles (Gall's Law, Rule of Least Power, work with the grain of the tools, etc.) live in **[docs/design-principles.md](docs/design-principles.md)** and apply here too. The points below are the repo-specific subset.
+
 - **Lean into formal semantics.** This project exists to demonstrate KG approaches — prefer OWL/SPARQL/SHACL solutions over ad-hoc procedural workarounds when working on the graph layer.
 - **Stable IRIs and predicates.** Downstream tools (eventual plan builder / stack generator) depend on them. Don't rename casually.
 - **Generated vs curated.** Treat `graph/build/*` as disposable. Treat `graph/ontologies/*` as the contract.
@@ -136,6 +138,7 @@ Longer-term, methods may be modeled as structured **plans** (steps, prerequisite
 ## Where to find things
 
 - **[docs/vision.md](docs/vision.md)** — product vision, project vision, the surfaces UXM knowledge is delivered through, and the characteristics that should shape design and content decisions. Read this before proposing changes that touch direction or scope.
+- **[docs/design-principles.md](docs/design-principles.md)** — project-wide design principles: Gall's Law (simple before complex), purpose-driven modeling, prefer open standards, Rule of Least Power, work with the grain of the tools, decouple content structure from semantics. Consult before architectural choices, tooling decisions, or modeling work.
 - **[graph/README.md](graph/README.md)** — local development: IRI conventions, named-graph strategy, Protégé workflow, exporter script usage, troubleshooting.
 - **[graph/INFRASTRUCTURE.md](graph/INFRASTRUCTURE.md)** — production deployment: topology diagram, Fuseki datasets, endpoints, auth, GSP, and the operational cleanup backlog.
 - **[docs/decisions/](docs/decisions/README.md)** — architecture decision records (ADRs). Significant choices like the three-layer separation, URI policy, the `unionDefaultGraph` stance, and the open production-inference question live here with their rationale.
