@@ -70,4 +70,4 @@ The format is intentionally light: a few themes per horizon, with a sentence or 
 
 ---
 
-*Last updated: YYYY-MM-DD*
+*Last updated: 2026-05-23*
