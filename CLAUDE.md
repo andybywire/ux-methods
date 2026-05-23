@@ -14,6 +14,8 @@ The web has no shortage of techniques, tools, and tips on how to "do" UX. Very f
 - Highlighting the meaningful relationships between methods so practitioners can craft holistic, purpose-driven project plans
 - Collecting and contextualizing in-depth how-tos, case studies, and research from trustworthy sources on the web
 
+For the full product and project vision — including the **surfaces** through which UXM knowledge is delivered (website UI, MCP, ontology docs, Fuseki, etc.) and the **characteristics** that should shape design and content decisions — see [docs/vision.md](docs/vision.md).
+
 ## Project goal — knowledge graph maturation
 
 UX Methods today uses a light taxonomy to coordinate methods. The active goal is to build on that foundation so the content collection, external resources, and semantic models become a **proper knowledge graph** that delivers significant value above and beyond the sum of its parts.
@@ -133,6 +135,7 @@ Longer-term, methods may be modeled as structured **plans** (steps, prerequisite
 
 ## Where to find things
 
+- **[docs/vision.md](docs/vision.md)** — product vision, project vision, the surfaces UXM knowledge is delivered through, and the characteristics that should shape design and content decisions. Read this before proposing changes that touch direction or scope.
 - **[graph/README.md](graph/README.md)** — local development: IRI conventions, named-graph strategy, Protégé workflow, exporter script usage, troubleshooting.
 - **[graph/INFRASTRUCTURE.md](graph/INFRASTRUCTURE.md)** — production deployment: topology diagram, Fuseki datasets, endpoints, auth, GSP, and the operational cleanup backlog.
 - **[docs/decisions/](docs/decisions/README.md)** — architecture decision records (ADRs). Significant choices like the three-layer separation, URI policy, the `unionDefaultGraph` stance, and the open production-inference question live here with their rationale.
