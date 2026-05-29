@@ -72,6 +72,10 @@ The single most important architectural decision in this project: the graph is d
 
 **Generated artifacts are disposable.** Regenerate from Sanity whenever content changes. Only TBox files in `ontologies/` are hand-curated. Both generators emit `owl:Ontology` headers so Protégé imports them by logical IRI without "physical URI" warnings — preserve this when modifying the exporters.
 
+### Sibling artefact — content-model diagram
+
+Parallel to the three layers above, the Sanity schema itself is exported as a Mermaid `classDiagram` to [docs/content-model.md](docs/content-model.md). Generator: `graph/scripts/content-model-mermaid-export.js` (npm script: `pnpm --filter uxmethods-graph export:content-model`). Unlike the `graph/build/*` artefacts, this file is **committed** — its git history is the drift-tracking signal. It is not pushed to Fuseki, not imported into `workspace.ttl`, and not involved in inference. See [ADR 0006](docs/decisions/0006-content-model-mermaid-export.md) for mapping rules, skip patterns, and the rationale for picking Mermaid over the OWL/RDFS approach that ADR 0005 (on `archive/content-model-rdf`) attempted.
+
 ## Local prototyping (Protégé workspace)
 
 Open one file in Protégé and the whole integrated KG comes with it:
