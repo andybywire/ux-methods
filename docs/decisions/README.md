@@ -10,3 +10,4 @@ Format is intentionally lightweight: one decision per file, named `NNNN-kebab-ti
 - [0002 — URI policy: hash for taxonomy, slash for ontology and instances](0002-uri-policy-hash-vs-slash.md) — *accepted*
 - [0003 — Explicit `GRAPH` clauses; no `unionDefaultGraph`](0003-explicit-graph-clauses.md) — *accepted*
 - [0004 — Production inference strategy: query-time vs materialized](0004-production-inference-strategy.md) — *proposed*
+- [0005 — Content-model export from Sanity schemas](0005-content-model-export.md) — *accepted*

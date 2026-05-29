@@ -72,6 +72,8 @@ The single most important architectural decision in this project: the graph is d
 
 **Generated artifacts are disposable.** Regenerate from Sanity whenever content changes. Only TBox files in `ontologies/` are hand-curated. Both generators emit `owl:Ontology` headers so Protégé imports them by logical IRI without "physical URI" warnings — preserve this when modifying the exporters.
 
+**Planned — content-model export.** A further generated artefact, separate from the three layers above, will export the Sanity schema itself as Turtle for visualisation and iteration in Protégé. It is **not** a fourth KG layer — it represents CMS *structure*, not content or semantics, and is deliberately standalone (no bridge to the curated ontology in this iteration, no merge into `workspace.ttl`). Namespace: `https://uxmethods.org/content-model/`. See [ADR 0005](docs/decisions/0005-content-model-export.md) for scope boundaries and mapping conventions.
+
 ## Local prototyping (Protégé workspace)
 
 Open one file in Protégé and the whole integrated KG comes with it:
@@ -144,7 +146,7 @@ Project-wide design principles (Gall's Law, Rule of Least Power, work with the g
 - **GitHub Issues** — current actionable work items. Use `gh issue list` to see what's open, `gh issue view N` to read one, and `gh issue list --assignee @me` to see what's assigned to the active user. The roadmap doc tells you _why_ we're working on something; issues tell you _what_ is in flight.
 - **[graph/README.md](graph/README.md)** — local development: IRI conventions, named-graph strategy, Protégé workflow, exporter script usage, troubleshooting.
 - **[graph/INFRASTRUCTURE.md](graph/INFRASTRUCTURE.md)** — production deployment: topology diagram, Fuseki datasets, endpoints, auth, GSP, and the operational cleanup backlog.
-- **[docs/decisions/](docs/decisions/README.md)** — architecture decision records (ADRs). Significant choices like the three-layer separation, URI policy, the `unionDefaultGraph` stance, and the open production-inference question live here with their rationale.
+- **[docs/decisions/](docs/decisions/README.md)** — architecture decision records (ADRs). Significant choices like the three-layer separation, URI policy, the `unionDefaultGraph` stance, the open production-inference question, and the content-model export decision live here with their rationale.
 - **[astro/CLAUDE.md](astro/CLAUDE.md)** — how the site talks to Sanity and Fuseki, current SPARQL integration shape, and the conventions to follow when adding queries.
 
 When adding new context that isn't a fit for any of these, prefer extending one of them over creating yet another doc. New ADRs are fine and encouraged for significant decisions.
