@@ -1,0 +1,19 @@
+{
+  "name": "uxmethods-content-model",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Generate a Mermaid classDiagram of the Sanity content model. See ../docs/decisions/0006-content-model-mermaid-export.md.",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@sanity/types": "^3.99.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
