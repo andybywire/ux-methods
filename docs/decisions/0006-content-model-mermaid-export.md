@@ -30,43 +30,89 @@ Generate the content model as a Mermaid `classDiagram` and commit it to the repo
 
 ### Vocabulary mapping
 
-- **Stereotypes**
-  - Document types → `<<document>>`, styled blue: `classDef document fill:#1976d2,color:#fff`.
-  - Object types → `<<object>>`, styled grey: `classDef object fill:#757575,color:#fff`.
+- **Stereotypes and styling**
+  - Document types: `<<document>>` annotation inside the class body, blue fill via `classDef document fill:#1976d2,color:#fff`.
+  - Object types: `<<object>>` annotation inside the class body, grey fill via `classDef object fill:#757575,color:#fff`.
+  - Styling is applied at class declaration with Mermaid's `:::` operator: `class Method:::document { ... }`. The annotation produces the visible `«document»` text label; the styleClass produces the colour. **Trap to avoid:** a standalone `class Name stereotype` line — without the `:::` — does *not* apply the classDef. Mermaid parses it as a new-class declaration with the concatenated name (`Methoddocument`), rendering an extra empty box. The emitter declares each class exactly once, with `:::stereotype` at the declaration site, and never emits separate style-assignment lines.
 - **Fields and relationships**
-  - Primitive field → `+ fieldName: type [cardinality]` inside the class body.
-  - Inline object field → `Parent *-- Child` (composition; filled diamond).
-  - Reference field → `Parent --> Target` (association; arrow).
-  - Portable Text → field-line type label only (`+ overview: PortableText [0..1]`); no `PortableText` class emitted.
-  - Image-typed objects → emitted as object classes containing **only user-added fields** (`caption`, `alt`, etc.); Sanity-internal `asset` / `hotspot` / `crop` / `media` are skipped.
-- **Cardinality** is derived from `optional` plus array status:
+  - Primitive field → `+fieldName: type [cardinality]` inside the class body.
+  - Object field (named composition target or inline anonymous object) → field-line plus `Parent *-- Child` edge (composition; filled diamond).
+  - Reference field → field-line plus `Parent --> Target` edge (association; arrow).
+  - Portable Text → field-line type label only (`+overview: PortableText [0..1]`); no `PortableText` class, no edge.
+  - Image-typed top-level objects → emitted as object-stereotype classes. A synthetic `+asset: url [1]` is **prepended** so the asset reference is explicit (a heroImage with only `caption` and `alt` looks like it's missing its primary content); other Sanity-internal fields (`hotspot`, `crop`, `media`) are skipped if declared. User-added fields follow in declaration order.
+  - Inline anonymous object → emit as its own object-stereotype class. Naming policy: bare `pascalCase(fieldName)` unless that name collides with a named class or with another inline of the same name, in which case all colliding inlines get parent-prefixed (`MethodMetadata`, `DisciplineMetadata`). One warning per collision group goes into `model.warnings`.
+  - Custom-validator marker → appended to a field's cardinality bracket as `[…, custom]` when the field has validation the diagram can't fully render: `Rule.custom(…)`, any "other constraint" (regex, email, unique, length, etc.), or `Rule.min/max` on a non-array (where they're value bounds, not cardinality).
+- **Cardinality** is derived from `Rule.required()` plus array status, refined by array `Rule.min` / `Rule.max`:
 
-  | Required | Array | Cardinality |
-  |---|---|---|
-  | yes | no | `1` |
-  | no | no | `0..1` |
-  | yes | yes | `1..*` |
-  | no | yes | `0..*` |
+  | required | array | extra | cardinality |
+  |---|---|---|---|
+  | no | no | — | `0..1` |
+  | yes | no | — | `1` |
+  | no | yes | — | `0..*` |
+  | yes | yes | — | `1..*` |
+  | — | yes | `Rule.min(n)` | `n..*` |
+  | — | yes | `Rule.max(m)` | `0..m` |
+  | — | yes | `Rule.min(n).max(m)` | `n..m` |
+
+  Validation that doesn't slot into the cardinality column (string length, numeric range, regex, custom validators) is surfaced via the `custom` marker instead — see "Fields and relationships."
 
   Cardinality on a diagram is information design, not runtime validation — it is fine to include here even though ADR 0005 deferred SHACL constraints. The diagram is not a constraint surface.
 
-### Type-name skips
+### Sample output
 
-Match the exclusion logic of the archived RDF generator:
+The contract above produces output of this shape (abbreviated):
 
-- Patterns: `/^sanity\./`, `/^assist\./`, `/^geopoint$/`.
-- `X.reference` wrapper types are unwrapped so the field points at `X` directly.
-- `slug` is treated as `string` at field sites; no class is emitted.
-- Platform metadata fields are skipped everywhere: `_id`, `_type`, `_createdAt`, `_updatedAt`, `_rev`, `_key`, `_weak`.
-- Validation rules, `hidden`/`readOnly`/`initialValue`, conditional fields, and custom inputs are not represented.
+````markdown
+```mermaid
+classDiagram
+  classDef document fill:#1976d2,color:#fff
+  classDef object fill:#757575,color:#fff
+  class Method:::document {
+    <<document>>
+    +title: string [1]
+    +slug: string [1]
+    +heroImage: HeroImage [0..1]
+    +overview: PortableText [0..1]
+    +tags: string [2..5]
+    +disciplines: Discipline [0..*]
+  }
+  class HeroImage:::object {
+    <<object>>
+    +asset: url [1]
+    +caption: string [0..1]
+    +alt: string [1]
+  }
+  class Discipline:::document {
+    <<document>>
+    +title: string [1]
+  }
+  Method --> Discipline : disciplines
+  Method *-- HeroImage : heroImage
+```
+````
+
+Two patterns to notice: every `class` declaration carries `:::stereotype` (the actual Mermaid styling operator); no standalone `class Name stereotype` style-assignment lines appear — those are the phantom-class trap described in "Stereotypes and styling."
+
+### Type-name skips and resolution
+
+- **Skip patterns:** `/^sanity\./`, `/^assist\./`, `/^geopoint$/`. Top-level types matching these are dropped from emission. References pointing at them result in dropped edges plus a warning, so the diagram stays honest about what's filtered.
+- **Inline-alias resolution:** a top-level type defined as `defineType({name: 'referencedDiscipline', type: 'reference', to: [{type: 'discipline'}]})` is followed through to its target (`Discipline`) rather than emitted as its own class. Same mechanism resolves named-class composition (`{name: 'cover', type: 'heroImage'}` → composition edge to the `HeroImage` class defined elsewhere).
+- **Slug** is treated as `string` at field sites; no class is emitted.
+- **Platform metadata fields** are skipped: `_id`, `_type`, `_createdAt`, `_updatedAt`, `_rev`, `_key`, `_weak`.
+- **Validation, partially represented:** `Rule.required()`, `Rule.min/max` (on arrays), and the *presence* of `Rule.custom()` or other constraints (regex, email, unique, length, …) are reflected in the cardinality column and the `custom` marker, per "Vocabulary mapping." The *bodies* of `Rule.custom()` functions, severity modifiers (`Rule.warning()` vs `Rule.error()`), `hidden` / `readOnly` / `initialValue`, conditional fields, and custom inputs are not represented in the diagram.
 
 ### Generator
 
-- **Location:** `graph/scripts/content-model-mermaid-export.js`. Match the style of `method-export.js` and `io-taxonomy-export.js` in the same directory.
-- **Input:** `sanity schema extract --workspace production`, invoked as a subprocess with `cwd: studio/`. Output is the `groq-type-nodes` JSON format Sanity TypeGen consumes.
-- **Intermediate file:** `graph/build/_sanity-schema.json` (gitignored), cleaned up after each run unless `KEEP_INTERMEDIATE=1` is set.
-- **npm script:** `export:content-model` in `graph/package.json`, alongside `push:io-taxonomy` and `push:methods`.
-- **Sanity CLI quirk:** `--path` is treated as relative to the CLI's cwd. When invoking from `graph/` with `cwd: studio/`, pass the output path relative to `studio/` (e.g. `../graph/build/_sanity-schema.json`). Working subprocess wiring exists on `archive/content-model-rdf` and can be lifted.
+- **Location:** `content-model/` — a top-level workspace, sibling to `studio/`, `astro/`, `graph/`. TypeScript with strict mode; Vitest for tests; `tsx` for runtime so there's no build step. The placement signals that this is a self-contained tool, not part of the graph layer — and makes future extraction to a Sanity Studio Plugin (or Sanity App) a `git filter-repo --subdirectory-filter` away.
+- **Architecture:** three pure modules plus an impure loader, composed in series:
+  - `src/probe.ts` — Proxy-based introspection of `validation` functions. Records every `Rule.*` call without importing Sanity's actual Rule class, returning `{required, min, max, hasCustom, hasOtherConstraints}`. Coupled to Sanity only by method names, not by API imports.
+  - `src/walker.ts` — Walks a live `schemaTypes` array (`defineType`-shaped objects, NOT extracted JSON) and produces a `CanonicalModel` of classes, edges, and warnings. Uses the probe for cardinality precision. Handles type-name skips, inline-alias resolution, image-like classes, inline anonymous objects with naming policy, edge filtering, and cross-class collision warnings.
+  - `src/emit-mermaid.ts` — Renders a `CanonicalModel` as a Mermaid `classDiagram` string. Pure; no I/O.
+  - `src/load-ts.ts` — Loads `studio/schemaTypes/index.ts` via `tsx`'s dynamic import and returns the array the walker consumes. Impure; integration-tested rather than unit-tested.
+  - `src/cli.ts` — Orchestrates loader → walker → emit → write `docs/content-model.md`. Reports warnings to stderr.
+- **Why TS-loading rather than `sanity schema extract`:** the schema-extract JSON does **not** capture `Rule.required()`, `Rule.min/max`, or `Rule.custom()`. Every user-authored field comes through as `optional: true`, so the cardinality column degenerates to `[0..1]` / `[0..*]` everywhere. The `--enforce-required-fields` flag recovers required, but still drops min/max and customs. Direct TS loading + Proxy probing recovers full validation introspection — that is what unlocks `[1]`, `[2..5]`, and `[…, custom]` in the diagram. The same module surface (walker + emit) is reusable from a future Studio plugin against the in-memory schema, or from a Sanity App against the deployed manifest, by swapping the loader.
+- **TDD discipline:** every module built test-first with Vitest. Probe and walker are pure functions tested at the unit level with hand-built fixtures; emit-mermaid has unit tests on its sub-functions plus one round-trip integration test from a real walker output. Loader is integration-tested with a tiny fixture studio. The pre-commit gate is `pnpm test && pnpm typecheck` — Vitest's esbuild transform doesn't enforce types, so type-check is its own pass.
+- **npm script:** `pnpm --filter uxmethods-content-model generate`. Supersedes the earlier `graph/scripts/content-model-mermaid-export.js` plus the `export:content-model` entry in `graph/package.json`; both are removed when the new pipeline lands.
 
 ### Visual grouping
 
@@ -83,5 +129,5 @@ Mermaid `classDiagram` does not support `subgraph`. The Miro mockup's "Core Reso
 - The content model lives in `docs/`, not `graph/build/`, because the file is itself an authored artefact whose history matters. It is **not** treated as disposable, even though it is generated; regenerating overwrites the working copy, and the git diff is the point.
 - Sanity schema edits require re-running the exporter to keep `docs/content-model.md` honest. A drift between schema and committed diagram is detectable in PR review.
 - This artefact sits **parallel to** the three KG layers in [ADR 0001](0001-three-layer-kg-separation.md), not inside any of them. It does not participate in inference, is not pushed to Fuseki, and is not imported into `workspace.ttl`.
-- Field-name collisions across document types (e.g. `documentation.body` as Portable Text vs `newsletter.body` as plain string — surfaced by the RDF generator on the archive branch) disappear in this approach because Mermaid does not unify fields across classes. Each class shows its own field set. The exporter should still warn on a collision if encountered, but it does not block emission.
+- Field-name collisions across document types (e.g. `documentation.body` as Portable Text vs `newsletter.body` as plain string — surfaced by the RDF generator on the archive branch) disappear structurally in this approach, because Mermaid does not unify fields across classes; each class shows its own field set. The walker still emits a warning to `model.warnings` when a name reuse with differing types is detected, so the modeling smell is visible even though the diagram itself remains valid.
 - ADR 0005 is superseded but not deleted. The branch `archive/content-model-rdf` retains the original ADR, generator, and namespace decisions for reference.

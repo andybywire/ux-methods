@@ -169,11 +169,12 @@ const pascalCase = (s: string): string =>
 
 /**
  * Decide whether a top-level type, when referenced by name from a field,
- * should resolve to a composition edge to its own class. Documents and
- * objects qualify; primitive aliases (and skipped types) do not.
+ * should resolve to a composition edge to its own class. Documents,
+ * objects, and image types qualify (all of which are emitted as classes
+ * by `walk`); primitive aliases and skipped types do not.
  */
 function isClassType(t: RawType): boolean {
-  return t.type === 'document' || t.type === 'object'
+  return t.type === 'document' || t.type === 'object' || t.type === 'image'
 }
 
 /**
