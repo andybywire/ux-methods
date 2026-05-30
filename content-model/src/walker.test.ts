@@ -795,4 +795,35 @@ describe('walker', () => {
     const model = walk(types)
     expect(model.classes[0]?.fields.map((f) => f.name)).toEqual(['zeta', 'alpha', 'middle'])
   })
+
+  it('marks document classes with origin: "document"', () => {
+    const types = [{name: 'method', type: 'document', fields: []}]
+    const model = walk(types)
+    expect(model.classes[0]?.origin).toBe('document')
+  })
+
+  it('marks named top-level object types with origin: "object"', () => {
+    const types = [{name: 'credit', type: 'object', fields: []}]
+    const model = walk(types)
+    expect(model.classes[0]?.origin).toBe('object')
+  })
+
+  it('marks image-typed top-level types with origin: "image"', () => {
+    const types = [{name: 'heroImage', type: 'image', fields: []}]
+    const model = walk(types)
+    expect(model.classes[0]?.origin).toBe('image')
+  })
+
+  it('marks inline anonymous object classes with origin: "inline"', () => {
+    const types = [
+      {
+        name: 'method',
+        type: 'document',
+        fields: [{name: 'metadata', type: 'object', fields: []}],
+      },
+    ]
+    const model = walk(types)
+    const inlineClass = model.classes.find((c) => c.name === 'Metadata')
+    expect(inlineClass?.origin).toBe('inline')
+  })
 })

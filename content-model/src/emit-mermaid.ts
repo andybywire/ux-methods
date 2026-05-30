@@ -102,11 +102,16 @@ export function renderEdge(edge: Edge): string {
  */
 export function emit(model: CanonicalModel): string {
   const lines: string[] = ['classDiagram']
-  // classDef declarations come immediately after the header so the styles
-  // are known before any class references them via `:::stereotype`.
-  lines.push(`${INDENT}classDef document ${DOCUMENT_FILL}`)
-  lines.push(`${INDENT}classDef object ${OBJECT_FILL}`)
   for (const cls of model.classes) lines.push(...renderClass(cls))
   for (const edge of model.edges) lines.push(renderEdge(edge))
+  // classDef declarations are intentionally placed at the END of the
+  // diagram, after all class declarations and edges. The Mermaid spec
+  // doesn't mandate position, and the parser resolves `:::stereotype`
+  // forward references either way — but mermaidviewer.com empirically
+  // ignores classDef fills when they appear before the classes that
+  // reference them. Putting them last gives consistent rendering across
+  // mermaidviewer, mermaid.live, and GitHub markdown.
+  lines.push(`${INDENT}classDef document ${DOCUMENT_FILL}`)
+  lines.push(`${INDENT}classDef object ${OBJECT_FILL}`)
   return lines.join('\n')
 }

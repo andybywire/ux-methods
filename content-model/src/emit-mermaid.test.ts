@@ -123,6 +123,7 @@ describe('renderClass', () => {
     const lines = renderClass({
       name: 'Method',
       stereotype: 'document',
+      origin: 'document',
       fields: [
         {
           name: 'title',
@@ -141,7 +142,12 @@ describe('renderClass', () => {
   })
 
   it('renders an empty-field class block with the styleClass applied at declaration', () => {
-    const lines = renderClass({name: 'Empty', stereotype: 'object', fields: []})
+    const lines = renderClass({
+      name: 'Empty',
+      stereotype: 'object',
+      origin: 'object',
+      fields: [],
+    })
     expect(lines).toEqual(['  class Empty:::object {', '    <<object>>', '  }'])
   })
 })
@@ -182,11 +188,16 @@ describe('emit', () => {
     expect(out).toContain('classDef object fill:#757575,color:#fff')
   })
 
-  it('declares classDefs before any class declaration that references them', () => {
+  it('emits classDef declarations at the end, after all class declarations and edges', () => {
+    // Placement is empirical: mermaidviewer.com ignores classDef fills
+    // when they appear before the classes they reference. The Mermaid
+    // parser tolerates either order via forward-reference resolution,
+    // but bottom-placement is the order that renders consistently across
+    // mermaidviewer, mermaid.live, and GitHub markdown.
     const out = emit({
       classes: [
-        {name: 'Method', stereotype: 'document', fields: []},
-        {name: 'HeroImage', stereotype: 'object', fields: []},
+        {name: 'Method', stereotype: 'document', origin: 'document', fields: []},
+        {name: 'HeroImage', stereotype: 'object', origin: 'image', fields: []},
       ],
       edges: [],
       warnings: [],
@@ -194,7 +205,8 @@ describe('emit', () => {
     const classDefIdx = out.indexOf('classDef document')
     const firstClassIdx = out.indexOf('class Method:::document')
     expect(classDefIdx).toBeGreaterThan(-1)
-    expect(firstClassIdx).toBeGreaterThan(classDefIdx)
+    expect(firstClassIdx).toBeGreaterThan(-1)
+    expect(classDefIdx).toBeGreaterThan(firstClassIdx)
     expect(out).toContain('class Method:::document {')
     expect(out).toContain('class HeroImage:::object {')
   })
@@ -205,7 +217,7 @@ describe('emit', () => {
     // actually parses that as "declare a new class called Methoddocument"
     // and renders an extra empty box.
     const out = emit({
-      classes: [{name: 'Method', stereotype: 'document', fields: []}],
+      classes: [{name: 'Method', stereotype: 'document', origin: 'document', fields: []}],
       edges: [],
       warnings: [],
     })

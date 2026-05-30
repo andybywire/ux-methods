@@ -34,6 +34,7 @@ Generate the content model as a Mermaid `classDiagram` and commit it to the repo
   - Document types: `<<document>>` annotation inside the class body, blue fill via `classDef document fill:#1976d2,color:#fff`.
   - Object types: `<<object>>` annotation inside the class body, grey fill via `classDef object fill:#757575,color:#fff`.
   - Styling is applied at class declaration with Mermaid's `:::` operator: `class Method:::document { ... }`. The annotation produces the visible `«document»` text label; the styleClass produces the colour. **Trap to avoid:** a standalone `class Name stereotype` line — without the `:::` — does *not* apply the classDef. Mermaid parses it as a new-class declaration with the concatenated name (`Methoddocument`), rendering an extra empty box. The emitter declares each class exactly once, with `:::stereotype` at the declaration site, and never emits separate style-assignment lines.
+  - `classDef` declarations are emitted at the **end** of the diagram, after all class declarations and edges. Mermaid's parser tolerates either order via forward-reference resolution, but mermaidviewer.com empirically drops the fill colours when classDef precedes the classes that reference it. Bottom-placement renders consistently across mermaidviewer, mermaid.live, and GitHub markdown.
 - **Fields and relationships**
   - Primitive field → `+fieldName: type [cardinality]` inside the class body.
   - Object field (named composition target or inline anonymous object) → field-line plus `Parent *-- Child` edge (composition; filled diamond).
@@ -65,8 +66,6 @@ The contract above produces output of this shape (abbreviated):
 ````markdown
 ```mermaid
 classDiagram
-  classDef document fill:#1976d2,color:#fff
-  classDef object fill:#757575,color:#fff
   class Method:::document {
     <<document>>
     +title: string [1]
@@ -88,10 +87,16 @@ classDiagram
   }
   Method --> Discipline : disciplines
   Method *-- HeroImage : heroImage
+  classDef document fill:#1976d2,color:#fff
+  classDef object fill:#757575,color:#fff
 ```
 ````
 
-Two patterns to notice: every `class` declaration carries `:::stereotype` (the actual Mermaid styling operator); no standalone `class Name stereotype` style-assignment lines appear — those are the phantom-class trap described in "Stereotypes and styling."
+Three patterns to notice:
+
+- Every `class` declaration carries `:::stereotype` (the actual Mermaid styling operator). No standalone `class Name stereotype` style-assignment lines appear — those are the phantom-class trap described in "Stereotypes and styling."
+- `classDef` declarations come at the **end** of the diagram, after all class declarations and edges. The Mermaid spec doesn't mandate ordering and the parser tolerates either, but mermaidviewer.com empirically ignores classDef fills when they appear before the classes that reference them. Bottom-placement renders consistently across mermaidviewer, mermaid.live, and GitHub markdown.
+- The `<<document>>` / `<<object>>` annotation inside the class body produces the visible `«document»` / `«object»` text label; the `:::stereotype` on the declaration line is what applies the colour. Both are needed.
 
 ### Type-name skips and resolution
 

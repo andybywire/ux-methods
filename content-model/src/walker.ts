@@ -16,6 +16,16 @@ export type Stereotype = 'document' | 'object'
 export type PrimitiveKind = 'string' | 'number' | 'boolean' | 'url'
 export type Relation = 'composition' | 'reference'
 
+/**
+ * Editorial origin of a canonical class — preserved separately from
+ * `stereotype` (the rendering decision) so downstream consumers can
+ * filter on what a class actually came from. The plugin UI's expected
+ * use is "let the user hide all inline objects" or "hide all images";
+ * those questions can't be answered from `stereotype` alone since
+ * `object`, `image`, and `inline` all render with the `<<object>>` tag.
+ */
+export type ClassOrigin = 'document' | 'object' | 'image' | 'inline'
+
 export interface PrimitiveChar {
   kind: 'primitive'
   prim: PrimitiveKind
@@ -79,6 +89,12 @@ export interface CanonicalField {
 export interface CanonicalClass {
   name: string
   stereotype: Stereotype
+  /**
+   * Editorial origin — distinguishes hoisted named object types from
+   * anonymous inline objects from image types, even though all three
+   * render with the same `<<object>>` stereotype tag.
+   */
+  origin: ClassOrigin
   fields: CanonicalField[]
 }
 
@@ -445,6 +461,7 @@ function walkFields(
         ctx.classes.push({
           name: className,
           stereotype: 'object',
+          origin: 'inline',
           fields: walkFields(inline.innerFields, className, 'object', ctx),
         })
         const char: ObjectChar = {
@@ -537,12 +554,21 @@ export function walk(types: unknown[]): CanonicalModel {
       ctx.classes.push({
         name: className,
         stereotype: 'document',
+        origin: 'document',
         fields: walkFields(t.fields, className, t.type, ctx),
       })
-    } else if (t.type === 'object' || t.type === 'image') {
+    } else if (t.type === 'object') {
       ctx.classes.push({
         name: className,
         stereotype: 'object',
+        origin: 'object',
+        fields: walkFields(t.fields, className, t.type, ctx),
+      })
+    } else if (t.type === 'image') {
+      ctx.classes.push({
+        name: className,
+        stereotype: 'object',
+        origin: 'image',
         fields: walkFields(t.fields, className, t.type, ctx),
       })
     }
