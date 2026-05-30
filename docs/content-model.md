@@ -155,6 +155,6 @@ classDiagram
   Resource *-- Publisher : publisher
   SiteSettings *-- Credit : credits
   SiteSettings *-- SocialMedia : socialMediaLinks
-  classDef document fill:#1976d2,color:#fff
-  classDef object fill:#757575,color:#fff
+  classDef document fill:#2276FC,stroke:#7AACFD,color:#fff
+  classDef object fill:#7B8CA8,stroke:#AFBACA,color:#fff
 ```

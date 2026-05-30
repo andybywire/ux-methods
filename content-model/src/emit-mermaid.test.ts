@@ -184,8 +184,8 @@ describe('emit', () => {
 
   it('includes a classDef line for each stereotype', () => {
     const out = emit({classes: [], edges: [], warnings: []})
-    expect(out).toContain('classDef document fill:#1976d2,color:#fff')
-    expect(out).toContain('classDef object fill:#757575,color:#fff')
+    expect(out).toContain('classDef document fill:#2276FC,stroke:#7AACFD,color:#fff')
+    expect(out).toContain('classDef object fill:#7B8CA8,stroke:#AFBACA,color:#fff')
   })
 
   it('emits classDef declarations at the end, after all class declarations and edges', () => {

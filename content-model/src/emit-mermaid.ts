@@ -18,8 +18,8 @@ import type {
 } from './walker.ts'
 
 const INDENT = '  '
-const DOCUMENT_FILL = 'fill:#1976d2,color:#fff'
-const OBJECT_FILL = 'fill:#757575,color:#fff'
+const DOCUMENT_STYLE = 'fill:#2276FC,stroke:#7AACFD,color:#fff'
+const OBJECT_STYLE = 'fill:#7B8CA8,stroke:#AFBACA,color:#fff'
 
 /**
  * Render a field's cardinality bracket: `[1]`, `[0..1]`, `[1..*]`, `[2..5]`,
@@ -111,7 +111,7 @@ export function emit(model: CanonicalModel): string {
   // ignores classDef fills when they appear before the classes that
   // reference them. Putting them last gives consistent rendering across
   // mermaidviewer, mermaid.live, and GitHub markdown.
-  lines.push(`${INDENT}classDef document ${DOCUMENT_FILL}`)
-  lines.push(`${INDENT}classDef object ${OBJECT_FILL}`)
+  lines.push(`${INDENT}classDef document ${DOCUMENT_STYLE}`)
+  lines.push(`${INDENT}classDef object ${OBJECT_STYLE}`)
   return lines.join('\n')
 }
