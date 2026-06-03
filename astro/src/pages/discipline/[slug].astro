@@ -1,5 +1,7 @@
 ---
-export const prerender = true;
+// Static for the production (SSG) build; SSR in preview so Visual Editing
+// reloads fetch fresh drafts on each edit (live updating). See astro/CLAUDE.md.
+export const prerender = import.meta.env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED !== "true";
 
 import '@styles/topic-page.css'
 import type {SanityDocument} from '@sanity/client'
