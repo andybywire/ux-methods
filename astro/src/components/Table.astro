@@ -1,11 +1,11 @@
 ---
-import type {RichTableType} from 'sanity-plugin-rich-table'
+import type {RichTableBlock} from 'sanity.types'
 import PortableText from './PortableText.astro'
 
 // Registered as a `richTableBlock` type component on PortableText.astro,
 // so the table data arrives on `Astro.props.node`.
 const {rows, columnHeaders, hasColumnTitles, hasRowTitles} = Astro.props
-  .node as RichTableType
+  .node as RichTableBlock
 ---
 
 <table>
@@ -34,3 +34,16 @@ const {rows, columnHeaders, hasColumnTitles, hasRowTitles} = Astro.props
     }
   </tbody>
 </table>
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid var(--light-gray-text);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+</style>
