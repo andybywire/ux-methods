@@ -1,0 +1,36 @@
+---
+import type {RichTableType} from 'sanity-plugin-rich-table'
+import PortableText from './PortableText.astro'
+
+// Registered as a `richTableBlock` type component on PortableText.astro,
+// so the table data arrives on `Astro.props.node`.
+const {rows, columnHeaders, hasColumnTitles, hasRowTitles} = Astro.props
+  .node as RichTableType
+---
+
+<table>
+  {
+    hasColumnTitles && (
+      <thead>
+        <tr>
+          {hasRowTitles && <th />}
+          {columnHeaders?.map((header) => <th>{header.title}</th>)}
+        </tr>
+      </thead>
+    )
+  }
+  <tbody>
+    {
+      (rows ?? []).map((row) => (
+        <tr>
+          {hasRowTitles && <th scope="row">{row.title}</th>}
+          {row.cells?.map((cell) => (
+            <td>
+              <PortableText portableText={cell.content} />
+            </td>
+          ))}
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

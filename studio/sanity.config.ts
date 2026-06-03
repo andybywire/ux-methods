@@ -14,6 +14,7 @@ import {RiBubbleChartFill} from 'react-icons/ri'
 import {NodeTree} from './static/NodeTree'
 import {presentationTool} from 'sanity/presentation'
 import {resolve} from './resolve'
+import {richTablePlugin} from 'sanity-plugin-rich-table'
 
 const hiddenDocTypes = (listItem: any) =>
   ![
@@ -101,6 +102,7 @@ export default defineConfig([
       embeddingsIndexDashboard(),
       embeddingsIndexReferenceInput(),
       assist(),
+      richTablePlugin({}),
     ],
 
     schema: {
@@ -136,6 +138,7 @@ export default defineConfig([
       }),
       embeddingsIndexDashboard(),
       assist(),
+      richTablePlugin({}),
     ],
 
     schema: {
@@ -181,6 +184,7 @@ export default defineConfig([
         // roles: ['administrator', 'editor'], // Optionally restrict to specific roles
       }),
       assist(),
+      richTablePlugin({}),
     ],
 
     schema: {

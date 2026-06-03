@@ -1,12 +1,14 @@
 ---
 import {PortableText as PortableTextInternal} from 'astro-portabletext'
 import PortableTextImage from './PortableTextImage.astro'
+import Table from './Table.astro'
 
 const {portableText} = Astro.props
 
 const components = {
   type: {
     image: PortableTextImage,
+    richTableBlock: Table,
   },
 }
 ---

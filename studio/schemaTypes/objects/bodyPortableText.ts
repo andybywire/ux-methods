@@ -45,5 +45,10 @@ export default defineType({
     defineArrayMember({
       type: 'bodyImage',
     }),
+    defineArrayMember({
+      name: 'richTableBlock',
+      title: 'Rich Table Block',
+      type: 'richTableBlock', // Use the rich table block type
+    }),
   ],
 })
