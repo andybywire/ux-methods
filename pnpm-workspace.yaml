@@ -4,5 +4,6 @@ packages:
   - astro
   - graph
   - content-model
+  - sanity-plugin-mermaid-content-model
 onlyBuiltDependencies:
   - '*'

@@ -11,3 +11,4 @@ Format is intentionally lightweight: one decision per file, named `NNNN-kebab-ti
 - [0003 — Explicit `GRAPH` clauses; no `unionDefaultGraph`](0003-explicit-graph-clauses.md) — *accepted*
 - [0004 — Production inference strategy: query-time vs materialized](0004-production-inference-strategy.md) — *proposed*
 - [0006 — Content-model export as a Mermaid class diagram](0006-content-model-mermaid-export.md) — *accepted* (supersedes 0005, which lives only on `archive/content-model-rdf`)
+- [0007 — Content-model Mermaid plugin: in-monorepo first, extract later](0007-content-model-plugin-architecture.md) — *accepted*
