@@ -33,6 +33,30 @@ While in-monorepo, the **production `studio/`** plays the role rich-table gives 
 
 `probe.ts`, `walker.ts`, and `emit-mermaid.ts` (and their test suites) are **copied** from `content-model/src/` into the plugin's `src/`. The `content-model/` CLI remains the reference implementation. A shared `content-model-core` workspace was considered and rejected: it would itself have to publish or extract for the standalone plugin to build, which defeats the low-drama-extraction goal. The [ADR 0006](0006-content-model-mermaid-export.md) contract plus duplicated test suites pin the two copies against drift. (The only mechanical change on copy: relative imports drop their explicit `.ts` extensions, since the plugin is bundled by pkg-utils rather than run under `tsx`.)
 
+### Schema source: reading `_original.types` (accepted internal-API risk)
+
+The plugin reads the schema from Studio's `useSchema()`, which returns the **compiled** `Schema`. The adapter (`src/schema-adapter.ts`, `readSchemaSource`) reads `schema._original.types` — the raw, authored `defineType` definitions, merged from config **and every plugin**, **with their `validation` functions still intact**. This is what lets the walker and the probe run unchanged, preserving the full cardinality precision ADR 0006 established.
+
+Two alternatives were weighed and rejected:
+
+- **Compiled `get()` / `getTypeNames()` (public API).** Includes all plugin types, but validation is already resolved to specs — the probe can't introspect it, so cardinality degrades to the `sanity schema extract` level. Defeats 0006.
+- **Importing `studio/schemaTypes/index.ts` directly (the CLI's path).** Raw + validation intact, but blind to plugin-contributed types — the exact limitation the plugin exists to fix.
+
+`_original.types` is the only source that is **raw + validation-preserving + plugin-aware** at once.
+
+**The risk:** `_original` is tagged `@internal` in `@sanity/types`. It is not part of Sanity's public API contract, so it could change or disappear **without a semver-major bump or changelog note** — a *silent* break on upgrade. We accept this knowingly because the probability is low and the blast radius is contained:
+
+- It is the schema compiler's canonical build-input (`@sanity/schema` does `this._original = schemaDef` at compile time) — structurally central, not incidental.
+- Sanity's own runtime reads `._original` (multiple call sites across `sanity` + `@sanity/schema`), so removing it would break Sanity itself.
+- It has been stable across v3 → v5, and there is no public replacement that preserves validation — Sanity would need to ship one before removing it.
+
+**Mitigations:**
+
+- The dependency is isolated to one ~4-line function; if `_original` ever changes, that file is the only thing that changes.
+- `readSchemaSource` **guards** the access: a missing or non-array `_original.types` yields an empty result plus a human-readable warning the tool surfaces — graceful, visible degradation, never a silent blank diagram or a crash.
+- A documented fallback exists: the compiled `get()` path still renders structure, edges, and plugin types (losing only cardinality precision), so the worst case is *degraded*, not *dead*.
+- The `sanity` peer range is pinned (`^5`); re-verify before widening to `^6`.
+
 ### Adopt now vs. adopt at extraction
 
 | Adopt **now** (in-monorepo) | Adopt **at extraction** (standalone repo) |
@@ -49,6 +73,6 @@ The right-hand column is all *outer shell* — release automation and a syntheti
 
 - The plugin sits **parallel to** the three KG layers (like the content-model artefact in [ADR 0006](0006-content-model-mermaid-export.md)): it is not part of the ontology/taxonomy/methods graph, not pushed to Fuseki, not involved in inference.
 - Two copies of `probe`/`walker`/`emit-mermaid` now exist (CLI + plugin). They must be kept behaviourally aligned; the shared test suites are the guard. If they need to diverge, that divergence should be deliberate and documented.
-- The plugin must consume whatever shape `useSchema()` returns. This is expected to be the **compiled** `Schema` / `SchemaType` model, not the raw `defineType` objects the walker consumes — so a schema-adapter module is the first real build cycle, and it (not the walker) absorbs any shape difference. The walker stays unchanged.
+- The plugin consumes `useSchema()`'s compiled `Schema` via the adapter described above, reading `_original.types`. The adapter (not the walker) is the single Sanity-coupled seam; the walker stays unchanged. The accepted reliance on the `@internal` `_original` field is documented under "Schema source" above, with its guard and fallback.
 - Studio target is **Sanity v5 / React 19** (the current state of `studio/`), not the v3 assumed in the original handoff.
 - Extraction will require widening `private: true` to a public package, adding `publishConfig`, and flipping `studio/`'s `workspace:*` dependency to the published version.

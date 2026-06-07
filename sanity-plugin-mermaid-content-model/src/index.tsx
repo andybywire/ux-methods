@@ -20,6 +20,8 @@ export const mermaidContentModel = definePlugin(() => ({
 export {walk} from './walker'
 export {emit} from './emit-mermaid'
 export {probe} from './probe'
+export {readSchemaSource} from './schema-adapter'
+export type {SchemaSource} from './schema-adapter'
 export type {
   CanonicalModel,
   CanonicalClass,
