@@ -33,6 +33,7 @@
     "rxjs": "^7.8.2",
     "sanity": "^5.30.0",
     "sanity-plugin-bulk-delete": "^1.1.1",
+    "sanity-plugin-mermaid-content-model": "workspace:*",
     "sanity-plugin-rich-table": "^1.1.1",
     "sanity-plugin-taxonomy-manager": "^4.7.0",
     "styled-components": "^6.3.11"

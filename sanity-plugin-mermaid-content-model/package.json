@@ -43,8 +43,20 @@
   "devDependencies": {
     "@sanity/pkg-utils": "^10",
     "@sanity/types": "^5.30.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "sanity": "^5.30.0",
     "typescript": "^5.9.3",
     "vitest": "^2.1.0"
+  },
+  "dependencies": {
+    "@sanity/icons": "^3.7.4",
+    "@sanity/ui": "^3.2.0",
+    "mermaid": "^11.15.0"
   }
 }

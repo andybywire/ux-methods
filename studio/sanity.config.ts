@@ -15,6 +15,7 @@ import {NodeTree} from './static/NodeTree'
 import {presentationTool} from 'sanity/presentation'
 import {resolve} from './resolve'
 import {richTablePlugin} from 'sanity-plugin-rich-table'
+import {mermaidContentModel} from 'sanity-plugin-mermaid-content-model'
 
 const hiddenDocTypes = (listItem: any) =>
   ![
@@ -103,6 +104,7 @@ export default defineConfig([
       embeddingsIndexReferenceInput(),
       assist(),
       richTablePlugin({}),
+      mermaidContentModel(),
     ],
 
     schema: {
