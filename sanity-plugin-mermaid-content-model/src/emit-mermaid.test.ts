@@ -8,7 +8,7 @@ import {
   renderField,
 } from './emit-mermaid'
 import {walk} from './walker'
-import type {CanonicalField} from './walker'
+import type {CanonicalField, CanonicalModel} from './walker'
 
 describe('renderCardinality', () => {
   it('renders a required scalar as [1]', () => {
@@ -258,5 +258,43 @@ describe('emit', () => {
     expect(out).toContain('+tags: string [2..5]')
     expect(out).toContain('+asset: url [1]') // synthesised on image-like
     expect(out).toContain('Method *-- HeroImage : heroImage')
+  })
+})
+
+describe('emit — attributes option', () => {
+  const model: CanonicalModel = {
+    classes: [
+      {
+        name: 'Method',
+        stereotype: 'document',
+        origin: 'document',
+        fields: [
+          {
+            name: 'title',
+            char: {kind: 'primitive', prim: 'string', array: false},
+            cardinality: {min: 1, max: 1},
+            hasCustomMarker: false,
+          },
+        ],
+      },
+    ],
+    edges: [],
+    warnings: [],
+  }
+
+  it('renders field lines by default', () => {
+    expect(emit(model)).toContain('+title: string [1]')
+  })
+
+  it('omits field lines when attributes is false (boxes + relationships only)', () => {
+    const out = emit(model, {attributes: false})
+    expect(out).not.toContain('+title')
+    // The class is still declared with its stereotype tag.
+    expect(out).toContain('class Method:::document {')
+    expect(out).toContain('<<document>>')
+  })
+
+  it('treats attributes: true as the default', () => {
+    expect(emit(model, {attributes: true})).toBe(emit(model))
   })
 })

@@ -55,6 +55,12 @@ These keep the phased plan from painting us into a corner:
 4. **The React component stays a thin renderer.** All testable logic (filter, emit options, PNG-blob construction) lives in pure modules unit-tested without a DOM; the component wires them to Studio (`useSchema`, theme, clipboard, toasts) and is covered by a few jsdom interaction tests with browser APIs mocked.
 5. **SVG is canonical for display; PNG is derived from the live SVG.** Keep the rendered SVG self-contained/serializable so canvas export stays clean.
 
+## Deferred decisions
+
+Choices consciously postponed until the relevant feature is functional, so we judge them against real diagrams rather than speculatively.
+
+- **Strip "dangling" referencing field rows when a class is hidden.** Today, hiding a class (via `filterModel`) removes the class and its edges, but field rows in *other* classes that reference it remain — e.g. hide `HeroImage` and `Method` still shows `+heroImage: HeroImage` with no box or edge. (Moot when the Attributes toggle is off, since no rows render.) Andy's leaning is to auto-remove these danglers, but we won't build it until filtering is functional and we can see it against real schemas. **Revisit after Phase 3.**
+
 ## Phased build plan
 
 Each phase is TDD'd and paused for review, as established in Steps A/B and ADR 0007.

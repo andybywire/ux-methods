@@ -12,7 +12,10 @@ import type {Schema} from 'sanity'
 
 import {readSchemaSource} from './schema-adapter'
 import {walk} from './walker'
+import {filterModel} from './filter-model'
 import {emit} from './emit-mermaid'
+
+const NOTHING_HIDDEN: ReadonlySet<string> = new Set()
 
 export interface DiagramResult {
   /**
@@ -30,14 +33,33 @@ export interface DiagramResult {
   warnings: string[]
 }
 
+export interface BuildDiagramOptions {
+  /**
+   * Class names to hide from the diagram, as resolved from the Elements menu.
+   * Edges touching a hidden class are dropped. Defaults to hiding nothing.
+   */
+  hidden?: ReadonlySet<string>
+  /**
+   * When false, class boxes render without field rows (the "Attributes"
+   * toggle). Default true.
+   */
+  attributes?: boolean
+}
+
 /**
- * Build a Mermaid class-diagram from a compiled Studio schema. Never throws;
- * an unreadable schema yields `{mermaid: null, warnings: [reason]}`.
+ * Build a Mermaid class-diagram from a compiled Studio schema, applying the
+ * current Elements-menu view options. Never throws; an unreadable schema yields
+ * `{mermaid: null, warnings: [reason]}`.
+ *
+ * Pipeline: read schema source → walk → filter (hide classes) → emit. Warnings
+ * are the walker's (about the underlying model), unaffected by the view filter.
  */
-export function buildDiagram(schema: Schema): DiagramResult {
+export function buildDiagram(schema: Schema, options: BuildDiagramOptions = {}): DiagramResult {
   const {types, warning} = readSchemaSource(schema)
   if (warning) return {mermaid: null, warnings: [warning]}
 
-  const model = walk(types)
-  return {mermaid: emit(model), warnings: model.warnings}
+  const model = filterModel(walk(types), options.hidden ?? NOTHING_HIDDEN)
+  // Resolve to a concrete boolean: exactOptionalPropertyTypes forbids passing
+  // `undefined` to the optional `attributes?: boolean`.
+  return {mermaid: emit(model, {attributes: options.attributes ?? true}), warnings: model.warnings}
 }

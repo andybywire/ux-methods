@@ -70,12 +70,14 @@ export function renderField(field: CanonicalField): string {
  * what produces the visible `«document»` / `«object»` text label above
  * the class name.
  */
-export function renderClass(cls: CanonicalClass): string[] {
+export function renderClass(cls: CanonicalClass, showAttributes = true): string[] {
   const lines: string[] = []
   lines.push(`${INDENT}class ${cls.name}:::${cls.stereotype} {`)
   lines.push(`${INDENT}${INDENT}<<${cls.stereotype}>>`)
-  for (const f of cls.fields) {
-    lines.push(`${INDENT}${INDENT}${renderField(f)}`)
+  if (showAttributes) {
+    for (const f of cls.fields) {
+      lines.push(`${INDENT}${INDENT}${renderField(f)}`)
+    }
   }
   lines.push(`${INDENT}}`)
   return lines
@@ -91,6 +93,15 @@ export function renderEdge(edge: Edge): string {
   return `${INDENT}${edge.source} ${arrow} ${edge.target} : ${edge.fieldName}`
 }
 
+export interface EmitOptions {
+  /**
+   * When false, class boxes render without their field rows — the "Attributes"
+   * toggle in the Elements menu. Relationships (edges) and the stereotype tag
+   * still render. Default true.
+   */
+  attributes?: boolean
+}
+
 /**
  * Produce a complete Mermaid `classDiagram` block for the given canonical
  * model. Structure: header, every class block, every edge, two classDef
@@ -100,9 +111,10 @@ export function renderEdge(edge: Edge): string {
  * Output is a single string with newline separators — no trailing newline.
  * The caller wraps it in a fenced ```mermaid``` block when writing to .md.
  */
-export function emit(model: CanonicalModel): string {
+export function emit(model: CanonicalModel, options: EmitOptions = {}): string {
+  const showAttributes = options.attributes ?? true
   const lines: string[] = ['classDiagram']
-  for (const cls of model.classes) lines.push(...renderClass(cls))
+  for (const cls of model.classes) lines.push(...renderClass(cls, showAttributes))
   for (const edge of model.edges) lines.push(renderEdge(edge))
   // classDef declarations are intentionally placed at the END of the
   // diagram, after all class declarations and edges. The Mermaid spec

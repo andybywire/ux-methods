@@ -57,4 +57,37 @@ describe('buildDiagram', () => {
     expect(result.mermaid).toContain('class Method')
     expect(result.warnings.some((w) => w.includes("'preview'"))).toBe(true)
   })
+
+  it('hides classes named in options.hidden (and their edges)', () => {
+    const schema = fakeSchema([
+      {
+        name: 'method',
+        type: 'document',
+        fields: [
+          {name: 'topics', type: 'array', of: [{type: 'reference', to: [{type: 'skosConcept'}]}]},
+        ],
+      },
+      {name: 'skosConcept', type: 'document', fields: [{name: 'prefLabel', type: 'string'}]},
+    ])
+    const result = buildDiagram(schema, {hidden: new Set(['SkosConcept'])})
+    expect(result.mermaid).toContain('class Method')
+    expect(result.mermaid).not.toContain('class SkosConcept')
+    expect(result.mermaid).not.toContain('Method --> SkosConcept')
+  })
+
+  it('omits field rows when attributes is false', () => {
+    const schema = fakeSchema([
+      {name: 'method', type: 'document', fields: [{name: 'title', type: 'string'}]},
+    ])
+    const result = buildDiagram(schema, {attributes: false})
+    expect(result.mermaid).toContain('class Method')
+    expect(result.mermaid).not.toContain('+title')
+  })
+
+  it('renders everything when no options are passed (backward compatible)', () => {
+    const schema = fakeSchema([
+      {name: 'method', type: 'document', fields: [{name: 'title', type: 'string'}]},
+    ])
+    expect(buildDiagram(schema).mermaid).toContain('+title: string')
+  })
 })
