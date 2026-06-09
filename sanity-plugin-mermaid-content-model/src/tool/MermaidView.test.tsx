@@ -1,5 +1,5 @@
-import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest'
+import {render, screen, cleanup} from '@testing-library/react'
 
 // mermaid is browser-only (real SVG layout); mock it. vi.hoisted lets the
 // mock factory reference our spy despite vi.mock being hoisted above imports.
@@ -17,6 +17,7 @@ describe('MermaidView', () => {
   beforeEach(() => {
     renderMock.mockReset()
   })
+  afterEach(() => cleanup())
 
   it('injects the SVG returned by mermaid.render', async () => {
     renderMock.mockResolvedValue({svg: '<svg data-testid="diagram">ok</svg>'})
@@ -37,5 +38,14 @@ describe('MermaidView', () => {
     renderMock.mockRejectedValue(new Error('Parse error on line 2'))
     render(<MermaidView code="not valid" />)
     expect(await screen.findByRole('alert')).toHaveTextContent(/parse error/i)
+  })
+
+  it('passes an off-flow container element to mermaid.render (avoids window-scrollbar reflow)', async () => {
+    renderMock.mockResolvedValue({svg: '<svg data-testid="diagram" />'})
+    render(<MermaidView code="classDiagram" />)
+    await screen.findByTestId('diagram')
+    // 3rd arg is the measurement container; without it mermaid appends a temp
+    // node to document.body and flickers the page scrollbar on every render.
+    expect(renderMock.mock.calls[0]?.[2]).toBeInstanceOf(HTMLElement)
   })
 })

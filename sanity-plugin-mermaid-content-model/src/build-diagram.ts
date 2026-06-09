@@ -11,7 +11,7 @@
 import type {Schema} from 'sanity'
 
 import {readSchemaSource} from './schema-adapter'
-import {walk} from './walker'
+import {walk, type CanonicalModel} from './walker'
 import {filterModel} from './filter-model'
 import {emit} from './emit-mermaid'
 
@@ -46,20 +46,46 @@ export interface BuildDiagramOptions {
   attributes?: boolean
 }
 
-/**
- * Build a Mermaid class-diagram from a compiled Studio schema, applying the
- * current Elements-menu view options. Never throws; an unreadable schema yields
- * `{mermaid: null, warnings: [reason]}`.
- *
- * Pipeline: read schema source → walk → filter (hide classes) → emit. Warnings
- * are the walker's (about the underlying model), unaffected by the view filter.
- */
-export function buildDiagram(schema: Schema, options: BuildDiagramOptions = {}): DiagramResult {
-  const {types, warning} = readSchemaSource(schema)
-  if (warning) return {mermaid: null, warnings: [warning]}
+export interface ModelResult {
+  /** The unfiltered canonical model, or `null` when the schema couldn't be read. */
+  model: CanonicalModel | null
+  /** Schema-source guard warning (when model is null) or the walker's warnings. */
+  warnings: string[]
+}
 
-  const model = filterModel(walk(types), options.hidden ?? NOTHING_HIDDEN)
+/**
+ * Read and walk a compiled Studio schema into the unfiltered canonical model.
+ * The tool uses this to populate the Elements menu (and its default selection)
+ * before any filtering. Never throws; an unreadable schema yields
+ * `{model: null, warnings: [reason]}`.
+ */
+export function modelFor(schema: Schema): ModelResult {
+  const {types, warning} = readSchemaSource(schema)
+  if (warning) return {model: null, warnings: [warning]}
+  const model = walk(types)
+  return {model, warnings: model.warnings}
+}
+
+/**
+ * Render a canonical model to a Mermaid string with the current view options
+ * (filter → emit). Pure; the tool calls this on every Elements toggle, reusing
+ * the already-walked model rather than re-reading the schema.
+ */
+export function renderDiagram(model: CanonicalModel, options: BuildDiagramOptions = {}): string {
+  const filtered = filterModel(model, options.hidden ?? NOTHING_HIDDEN)
   // Resolve to a concrete boolean: exactOptionalPropertyTypes forbids passing
   // `undefined` to the optional `attributes?: boolean`.
-  return {mermaid: emit(model, {attributes: options.attributes ?? true}), warnings: model.warnings}
+  return emit(filtered, {attributes: options.attributes ?? true})
+}
+
+/**
+ * Build a Mermaid class-diagram from a compiled Studio schema in one call —
+ * the composed convenience over `modelFor` + `renderDiagram`. Never throws; an
+ * unreadable schema yields `{mermaid: null, warnings: [reason]}`. Warnings are
+ * the walker's (about the underlying model), unaffected by the view filter.
+ */
+export function buildDiagram(schema: Schema, options: BuildDiagramOptions = {}): DiagramResult {
+  const {model, warnings} = modelFor(schema)
+  if (model === null) return {mermaid: null, warnings}
+  return {mermaid: renderDiagram(model, options), warnings}
 }

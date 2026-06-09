@@ -1,11 +1,58 @@
 import {describe, it, expect} from 'vitest'
 import type {Schema} from 'sanity'
 
-import {buildDiagram} from './build-diagram'
+import {buildDiagram, modelFor, renderDiagram} from './build-diagram'
+import {walk} from './walker'
 
 function fakeSchema(types: unknown): Schema {
   return {_original: {name: 'test', types}} as unknown as Schema
 }
+
+describe('modelFor', () => {
+  it('returns the walked model for a readable schema', () => {
+    const {model} = modelFor(
+      fakeSchema([{name: 'method', type: 'document', fields: [{name: 'title', type: 'string'}]}]),
+    )
+    expect(model?.classes.map((c) => c.name)).toEqual(['Method'])
+  })
+
+  it('returns a null model plus the guard warning for an unreadable schema', () => {
+    const {model, warnings} = modelFor({} as unknown as Schema)
+    expect(model).toBeNull()
+    expect(warnings[0]).toMatch(/_original\.types/)
+  })
+})
+
+describe('renderDiagram', () => {
+  const model = walk([
+    {
+      name: 'method',
+      type: 'document',
+      fields: [
+        {name: 'title', type: 'string'},
+        {name: 'hero', type: 'heroImage'},
+      ],
+    },
+    {name: 'heroImage', type: 'image', fields: []},
+  ])
+
+  it('renders the full model with no options', () => {
+    const out = renderDiagram(model)
+    expect(out).toContain('class Method')
+    expect(out).toContain('class HeroImage')
+    expect(out).toContain('+title: string')
+  })
+
+  it('hides named classes and their edges', () => {
+    const out = renderDiagram(model, {hidden: new Set(['HeroImage'])})
+    expect(out).not.toContain('class HeroImage')
+    expect(out).not.toContain('Method *-- HeroImage')
+  })
+
+  it('omits field rows when attributes is false', () => {
+    expect(renderDiagram(model, {attributes: false})).not.toContain('+title')
+  })
+})
 
 describe('buildDiagram', () => {
   it('renders a Mermaid classDiagram string for a valid schema', () => {

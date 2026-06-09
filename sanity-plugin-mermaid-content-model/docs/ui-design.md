@@ -59,7 +59,10 @@ These keep the phased plan from painting us into a corner:
 
 Choices consciously postponed until the relevant feature is functional, so we judge them against real diagrams rather than speculatively.
 
-- **Strip "dangling" referencing field rows when a class is hidden.** Today, hiding a class (via `filterModel`) removes the class and its edges, but field rows in *other* classes that reference it remain — e.g. hide `HeroImage` and `Method` still shows `+heroImage: HeroImage` with no box or edge. (Moot when the Attributes toggle is off, since no rows render.) Andy's leaning is to auto-remove these danglers, but we won't build it until filtering is functional and we can see it against real schemas. **Revisit after Phase 3.**
+- **Auto-hide orphan objects when their parent document is hidden.** *(Terminology corrected after Phase 3 review — our earlier framing was off.)* Two distinct things:
+  - **Field rows that reference a hidden class are intentionally KEPT.** Hide `HeroImage` and `Method` still showing `+heroImage: HeroImage` (with no box/edge) is *desired* — a document should always list its own attributes, regardless of whether the referenced object is currently shown. No change planned here.
+  - **The real future behavior: documents are the model's primary entities, so hiding a document should cascade.** When a document is hidden (e.g. `Resource`), objects that are *only* associated with that document should be auto-unchecked in the Elements menu too — so the diagram doesn't leave orphan object boxes floating with no visible document referencing them. The user can re-check any of those objects to bring them back. Default = show the selected documents plus the objects they own, no orphans.
+  - **Status:** deferred (not Andy's current priority). Expected to pair naturally with the **default element visibility** feature (also on the agenda) — both are about computing a sensible default selection. Revisit together.
 
 ## Phased build plan
 

@@ -1,36 +1,56 @@
+import {useMemo, useState} from 'react'
 import {useSchema} from 'sanity'
 import {Box, Card, Flex, Stack, Text} from '@sanity/ui'
 
-import {buildDiagram} from '../build-diagram'
+import {modelFor, renderDiagram} from '../build-diagram'
+import {
+  defaultSelection,
+  elementGroups,
+  resolveElements,
+  type ElementsSelection,
+} from '../elements'
 import {MermaidView} from './MermaidView'
 import {CopyCodeButton} from './CopyCodeButton'
+import {ElementsMenu} from './ElementsMenu'
 
 /**
  * The top-nav tool. Reads the fully-composed Studio schema via `useSchema()`,
- * builds the Mermaid diagram, and renders it in a Vision-like full-height
- * layout: a top control bar (controls land in later phases) over a scrollable
- * work area.
+ * walks it once into the unfiltered model, and renders it in a Vision-like
+ * full-height layout: a top control bar over a scrollable work area. The
+ * Elements menu drives an in-memory selection; each toggle re-resolves and
+ * re-renders the diagram live.
  *
- * Deliberately thin — all diagram logic lives in `buildDiagram` (pure, fully
- * unit-tested) and the rendering in `MermaidView`. This component only wires
+ * Deliberately thin — the model, filtering, selection resolution, and rendering
+ * are all pure modules (unit-tested without a DOM). This component only wires
  * Studio context (schema, theme) to those pieces, so it's covered by the live
  * eyeball check rather than DOM tests. See docs/ui-design.md.
  */
 export function ContentModelTool(): React.JSX.Element {
   const schema = useSchema()
-  const {mermaid, warnings} = buildDiagram(schema)
+  const {model, warnings} = useMemo(() => modelFor(schema), [schema])
+  const groups = useMemo(() => (model ? elementGroups(model) : null), [model])
+  // Schema is stable within a session, so initialise the selection once.
+  const [selection, setSelection] = useState<ElementsSelection | null>(() =>
+    model ? defaultSelection(model) : null,
+  )
+
+  const resolved = model && selection ? resolveElements(model, selection) : null
+  const mermaid = model && resolved ? renderDiagram(model, resolved) : null
 
   return (
     <Flex direction="column" height="fill">
       <Card paddingX={4} paddingY={3} borderBottom>
-        <Flex align="center" justify="space-between">
+        <Flex align="center" justify="space-between" gap={3}>
           <Text size={1} weight="semibold">
             Content Model
           </Text>
-          {/* Controls. [Copy PNG] and [Elements] join here in later phases. */}
-          <Flex gap={2}>
-            <CopyCodeButton code={mermaid} />
-          </Flex>
+          {model && selection && groups && (
+            // Controls, floated right. [Copy PNG] slots between these in Phase 5.
+            <Flex gap={2}>
+              <CopyCodeButton code={mermaid} />
+              <ElementsMenu selection={selection} groups={groups} onChange={setSelection} />
+            </Flex>
+          )}
         </Flex>
       </Card>
 

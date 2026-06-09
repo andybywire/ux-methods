@@ -19,6 +19,21 @@ export default defineCliConfig({
     "overloadClientMethods": true
   },
   vite: {
+    resolve: {
+      // In-monorepo dev: serve the content-model plugin from its TypeScript
+      // SOURCE instead of its built dist/, so edits show up live (with HMR) and
+      // no rebuild is needed. Vite doesn't honor the package's `source` export
+      // condition, and adding it globally would also pull @sanity/ui from its
+      // source — so we alias just this one package. Remove when the plugin is
+      // extracted and consumed as a published package. See the plugin's
+      // docs/decisions/0007 and README.
+      alias: [
+        {
+          find: /^sanity-plugin-mermaid-content-model$/,
+          replacement: path.resolve('../sanity-plugin-mermaid-content-model/src/index.tsx'),
+        },
+      ],
+    },
     plugins: [
       watchAndRun([
         {
