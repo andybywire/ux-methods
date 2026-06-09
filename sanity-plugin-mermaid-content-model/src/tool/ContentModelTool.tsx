@@ -3,6 +3,7 @@ import {Box, Card, Flex, Stack, Text} from '@sanity/ui'
 
 import {buildDiagram} from '../build-diagram'
 import {MermaidView} from './MermaidView'
+import {CopyCodeButton} from './CopyCodeButton'
 
 /**
  * The top-nav tool. Reads the fully-composed Studio schema via `useSchema()`,
@@ -26,8 +27,10 @@ export function ContentModelTool(): React.JSX.Element {
           <Text size={1} weight="semibold">
             Content Model
           </Text>
-          {/* Controls — [Copy Code] [Copy PNG] [Elements] — float right here in later phases. */}
-          <Box />
+          {/* Controls. [Copy PNG] and [Elements] join here in later phases. */}
+          <Flex gap={2}>
+            <CopyCodeButton code={mermaid} />
+          </Flex>
         </Flex>
       </Card>
 

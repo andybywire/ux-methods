@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.settings.json",
   "include": ["./src"],
-  "exclude": ["./src/**/__fixtures__", "./src/**/*.test.ts", "./src/**/*.test.tsx"]
+  "exclude": ["./src/**/__fixtures__", "./src/test/**", "./src/**/*.test.ts", "./src/**/*.test.tsx"]
 }
