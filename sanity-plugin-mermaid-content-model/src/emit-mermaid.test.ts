@@ -1,5 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import {
+  DARK_THEME,
   emit,
   fieldTypeLabel,
   renderCardinality,
@@ -296,5 +297,28 @@ describe('emit — attributes option', () => {
 
   it('treats attributes: true as the default', () => {
     expect(emit(model, {attributes: true})).toBe(emit(model))
+  })
+})
+
+describe('emit — theme', () => {
+  const model: CanonicalModel = {
+    classes: [
+      {name: 'Method', stereotype: 'document', origin: 'document', fields: []},
+      {name: 'Hero', stereotype: 'object', origin: 'image', fields: []},
+    ],
+    edges: [],
+    warnings: [],
+  }
+
+  it('defaults to the light palette (original committed colours)', () => {
+    expect(emit(model)).toContain('classDef document fill:#2276FC,stroke:#7AACFD,color:#fff')
+  })
+
+  it('uses the given palette for the document and object classDef lines', () => {
+    const out = emit(model, {theme: DARK_THEME})
+    const d = DARK_THEME.document
+    const o = DARK_THEME.object
+    expect(out).toContain(`classDef document fill:${d.fill},stroke:${d.stroke},color:${d.text}`)
+    expect(out).toContain(`classDef object fill:${o.fill},stroke:${o.stroke},color:${o.text}`)
   })
 })

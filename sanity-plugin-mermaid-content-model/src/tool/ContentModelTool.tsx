@@ -1,8 +1,9 @@
 import {useMemo, useState} from 'react'
 import {useSchema} from 'sanity'
-import {Box, Card, Flex, Stack, Text} from '@sanity/ui'
+import {Box, Card, Flex, Stack, Text, useRootTheme} from '@sanity/ui'
 
 import {modelFor, renderDiagram} from '../build-diagram'
+import {DARK_THEME, LIGHT_THEME} from '../emit-mermaid'
 import {
   defaultSelection,
   elementGroups,
@@ -28,6 +29,11 @@ import {ElementsMenu} from './ElementsMenu'
  */
 export function ContentModelTool(): React.JSX.Element {
   const schema = useSchema()
+  // Follow Studio's resolved colour scheme: light/dark drives the diagram's
+  // palette (classDef colours) and mermaid's base theme (bg/edges/labels).
+  const {scheme} = useRootTheme()
+  const diagramTheme = scheme === 'dark' ? DARK_THEME : LIGHT_THEME
+
   const {model, warnings} = useMemo(() => modelFor(schema), [schema])
   const groups = useMemo(() => (model ? elementGroups(model) : null), [model])
   // Schema is stable within a session, so initialise the selection once.
@@ -36,7 +42,8 @@ export function ContentModelTool(): React.JSX.Element {
   )
 
   const resolved = model && selection ? resolveElements(model, selection) : null
-  const mermaid = model && resolved ? renderDiagram(model, resolved) : null
+  const mermaid =
+    model && resolved ? renderDiagram(model, {...resolved, theme: diagramTheme}) : null
   const orphans = model && selection ? orphanObjects(model, selection) : []
 
   return (
@@ -85,7 +92,7 @@ export function ContentModelTool(): React.JSX.Element {
                 </Stack>
               </Card>
             )}
-            <MermaidView code={mermaid} />
+            <MermaidView code={mermaid} colorScheme={scheme} />
           </Stack>
         )}
       </Box>

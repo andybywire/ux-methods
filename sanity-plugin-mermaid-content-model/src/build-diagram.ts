@@ -13,7 +13,7 @@ import type {Schema} from 'sanity'
 import {readSchemaSource} from './schema-adapter'
 import {walk, type CanonicalModel} from './walker'
 import {filterModel} from './filter-model'
-import {emit} from './emit-mermaid'
+import {emit, LIGHT_THEME, type DiagramTheme} from './emit-mermaid'
 
 const NOTHING_HIDDEN: ReadonlySet<string> = new Set()
 
@@ -44,6 +44,8 @@ export interface BuildDiagramOptions {
    * toggle). Default true.
    */
   attributes?: boolean
+  /** Document/object colour palette (light/dark). Default `LIGHT_THEME`. */
+  theme?: DiagramTheme
 }
 
 export interface ModelResult {
@@ -73,9 +75,12 @@ export function modelFor(schema: Schema): ModelResult {
  */
 export function renderDiagram(model: CanonicalModel, options: BuildDiagramOptions = {}): string {
   const filtered = filterModel(model, options.hidden ?? NOTHING_HIDDEN)
-  // Resolve to a concrete boolean: exactOptionalPropertyTypes forbids passing
-  // `undefined` to the optional `attributes?: boolean`.
-  return emit(filtered, {attributes: options.attributes ?? true})
+  // Resolve to concrete values: exactOptionalPropertyTypes forbids passing
+  // `undefined` to optional properties.
+  return emit(filtered, {
+    attributes: options.attributes ?? true,
+    theme: options.theme ?? LIGHT_THEME,
+  })
 }
 
 /**

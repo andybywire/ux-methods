@@ -1,11 +1,11 @@
 import {useEffect, useId, useRef, useState} from 'react'
 import mermaid from 'mermaid'
 
-// Initialise once per module load. startOnLoad:false because we render
-// imperatively via mermaid.render(); theme is left at the default for now —
-// document/object colours come from the `classDef` lines the emitter writes.
-// Studio light/dark theming is a later phase (see docs/ui-design.md).
-mermaid.initialize({startOnLoad: false})
+// Mermaid is initialised inside the render effect (not at module load) so its
+// base theme can follow Studio's colour scheme: light vs dark drives the
+// background, edges, and label colours. The document/object box colours come
+// separately from the `classDef` lines the emitter writes (see DiagramTheme),
+// already baked into `code`.
 
 // Off-flow container that mermaid.render() uses for text measurement. Without
 // it, mermaid appends a temporary node to document.body on every render, which
@@ -27,6 +27,12 @@ const MEASURE_STYLE: React.CSSProperties = {
 export interface MermaidViewProps {
   /** Mermaid `classDiagram` source to render. */
   code: string
+  /**
+   * Studio colour scheme — selects mermaid's named base theme (`default`/`dark`)
+   * for background, edges, and labels. Box colours come from the `classDef`
+   * lines already in `code`. Default 'light'.
+   */
+  colorScheme?: 'light' | 'dark'
 }
 
 /**
@@ -35,7 +41,7 @@ export interface MermaidViewProps {
  * The injected SVG is also the source for the future "Copy PNG" feature, so it
  * stays self-contained.
  */
-export function MermaidView({code}: MermaidViewProps): React.JSX.Element {
+export function MermaidView({code, colorScheme = 'light'}: MermaidViewProps): React.JSX.Element {
   const [svg, setSvg] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   // mermaid.render needs a unique, selector-safe id; useId() includes colons.
@@ -44,6 +50,9 @@ export function MermaidView({code}: MermaidViewProps): React.JSX.Element {
 
   useEffect(() => {
     let cancelled = false
+    // Re-initialise per render so the base theme tracks the current colour
+    // scheme (cheap; it's just config). `startOnLoad: false` — we render imperatively.
+    mermaid.initialize({startOnLoad: false, theme: colorScheme === 'dark' ? 'dark' : 'default'})
     mermaid
       .render(renderId, code, measureRef.current ?? undefined)
       .then(({svg: rendered}) => {
@@ -59,7 +68,7 @@ export function MermaidView({code}: MermaidViewProps): React.JSX.Element {
     return () => {
       cancelled = true
     }
-  }, [code, renderId])
+  }, [code, renderId, colorScheme])
 
   return (
     <>

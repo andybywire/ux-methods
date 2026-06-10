@@ -18,8 +18,47 @@ import type {
 } from './walker'
 
 const INDENT = '  '
-const DOCUMENT_STYLE = 'fill:#2276FC,stroke:#7AACFD,color:#fff'
-const OBJECT_STYLE = 'fill:#7B8CA8,stroke:#AFBACA,color:#fff'
+
+/** The fill / stroke / text colours for one stereotype's class boxes. */
+export interface ClassPalette {
+  fill: string
+  stroke: string
+  text: string
+}
+
+/**
+ * Document and object palettes for a diagram's `classDef` lines. The box colours
+ * are baked into the emitted Mermaid source (so the code stays self-contained
+ * and portable); light/dark for edges, labels, and background come from
+ * mermaid's named base theme, set by `MermaidView`.
+ *
+ * `LIGHT_THEME` / `DARK_THEME` are the source of truth — tweak box colours there.
+ */
+export interface DiagramTheme {
+  document: ClassPalette
+  object: ClassPalette
+}
+
+/**
+ * Light palette — also the default, matching the original committed colours.
+ * Distinguishes documents (blue) from objects (slate).
+ */
+export const LIGHT_THEME: DiagramTheme = {
+  document: {fill: '#2276FC', stroke: '#7AACFD', text: '#fff'},
+  object: {fill: '#7B8CA8', stroke: '#AFBACA', text: '#fff'},
+}
+
+/**
+ * Dark palette — deeper fills / lighter strokes that read on a dark canvas,
+ * keeping the document-blue vs object-slate distinction. Tunable.
+ */
+export const DARK_THEME: DiagramTheme = {
+  document: {fill: '#2563EB', stroke: '#60A5FA', text: '#fff'},
+  object: {fill: '#475569', stroke: '#94A3B8', text: '#fff'},
+}
+
+const paletteToStyle = (p: ClassPalette): string =>
+  `fill:${p.fill},stroke:${p.stroke},color:${p.text}`
 
 /**
  * Render a field's cardinality bracket: `[1]`, `[0..1]`, `[1..*]`, `[2..5]`,
@@ -100,6 +139,11 @@ export interface EmitOptions {
    * still render. Default true.
    */
   attributes?: boolean
+  /**
+   * Document/object colour palette for the `classDef` lines. Defaults to
+   * `LIGHT_THEME`. The tool passes `DARK_THEME` when Studio is in dark mode.
+   */
+  theme?: DiagramTheme
 }
 
 /**
@@ -113,6 +157,7 @@ export interface EmitOptions {
  */
 export function emit(model: CanonicalModel, options: EmitOptions = {}): string {
   const showAttributes = options.attributes ?? true
+  const theme = options.theme ?? LIGHT_THEME
   const lines: string[] = ['classDiagram']
   for (const cls of model.classes) lines.push(...renderClass(cls, showAttributes))
   for (const edge of model.edges) lines.push(renderEdge(edge))
@@ -123,7 +168,7 @@ export function emit(model: CanonicalModel, options: EmitOptions = {}): string {
   // ignores classDef fills when they appear before the classes that
   // reference them. Putting them last gives consistent rendering across
   // mermaidviewer, mermaid.live, and GitHub markdown.
-  lines.push(`${INDENT}classDef document ${DOCUMENT_STYLE}`)
-  lines.push(`${INDENT}classDef object ${OBJECT_STYLE}`)
+  lines.push(`${INDENT}classDef document ${paletteToStyle(theme.document)}`)
+  lines.push(`${INDENT}classDef object ${paletteToStyle(theme.object)}`)
   return lines.join('\n')
 }

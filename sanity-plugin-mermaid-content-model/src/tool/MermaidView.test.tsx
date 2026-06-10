@@ -16,6 +16,7 @@ import {MermaidView} from './MermaidView'
 describe('MermaidView', () => {
   beforeEach(() => {
     renderMock.mockReset()
+    initializeMock.mockClear()
   })
   afterEach(() => cleanup())
 
@@ -47,5 +48,19 @@ describe('MermaidView', () => {
     // 3rd arg is the measurement container; without it mermaid appends a temp
     // node to document.body and flickers the page scrollbar on every render.
     expect(renderMock.mock.calls[0]?.[2]).toBeInstanceOf(HTMLElement)
+  })
+
+  it('initialises mermaid with the dark base theme when colorScheme is "dark"', async () => {
+    renderMock.mockResolvedValue({svg: '<svg data-testid="diagram" />'})
+    render(<MermaidView code="classDiagram" colorScheme="dark" />)
+    await screen.findByTestId('diagram')
+    expect(initializeMock).toHaveBeenCalledWith(expect.objectContaining({theme: 'dark'}))
+  })
+
+  it('initialises mermaid with the default (light) base theme otherwise', async () => {
+    renderMock.mockResolvedValue({svg: '<svg data-testid="diagram" />'})
+    render(<MermaidView code="classDiagram" colorScheme="light" />)
+    await screen.findByTestId('diagram')
+    expect(initializeMock).toHaveBeenCalledWith(expect.objectContaining({theme: 'default'}))
   })
 })

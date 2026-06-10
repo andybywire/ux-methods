@@ -36,10 +36,11 @@ Pressing it flips those objects' switches off (visible and individually reversib
 
 **Future (do not build now, do not stub): per-item default selection.** e.g. Portable Text Blocks might default to unchecked. We are not building defaults yet, but the component must not introduce patterns that make adding them hard later — see "Architecture guardrails."
 
-## Theme
+## Theme (implemented — intentionally minimal)
 
-- Establish light and dark palettes that distinguish **documents** from **objects** and stay harmonious with the Studio palette.
-- Theme defaults to Studio settings — no theme controls in the plugin, but we hook into Studio's color-scheme preference.
+- Light and dark palettes distinguish **documents** (blue) from **objects** (slate): `LIGHT_THEME` / `DARK_THEME` in `emit-mermaid.ts`, the source of truth for the box colours — tune there. These are baked into the emitted Mermaid source as `classDef` lines (portable, standard Mermaid).
+- No theme controls in the plugin — it follows **Studio's resolved colour scheme** via `useRootTheme().scheme`. The scheme drives two things: the `classDef` box palette (passed as `emit`'s `theme` option) and mermaid's **named base theme** (`default` / `dark`, set by `MermaidView`) for background, edges, and edge-label colours. Switching Studio light/dark re-renders the diagram live.
+- **Deliberately *not* doing deep mermaid theming.** We tried mermaid's `base` theme + `themeVariables` (to control e.g. the edge-label background chip, which the named themes ignore), but backed it out: it expands the styling surface and, more importantly, **risks the portability of the emitted Mermaid code** — a goal is that the `Copy Code` output renders well across other Mermaid apps (mermaid.live, GitHub, etc.) without app-specific config. Deferred to a later phase (see Deferred decisions).
 
 ## Diagram display
 
@@ -78,14 +79,16 @@ Choices consciously postponed until the relevant feature is functional, so we ju
   - **Option B — cascade-on-show (small, interim).** Keep today's model; when a document is switched on (or "show all documents"), also switch its newly-reachable objects on. Keeps the orphan button. **Cost/caveat:** booleans can't distinguish an orphan-hide from a deliberate hide, so re-showing a document re-shows *all* its connected objects — even one you'd deliberately hidden. Likely partly reworked when/if Option A lands.
   - **Recommendation:** defer to a dedicated iteration phase after the foundational phases (theme, Copy PNG, zoom/pan). Issue #1's "dependent objects follow their parent" fix is already a stepping stone toward Option A. The connector-cut reachability fix (named objects stranded by a hidden Portable Text/inline connector become orphans) is *not* part of this deferral — it's implemented now.
 
+- **Deeper mermaid theming (edge-label background, etc.) — DEFERRED, gated on a portability decision.** The named `default`/`dark` themes ignore most `themeVariables`, so finer control (e.g. the edge-label background chip) requires mermaid's `base` theme with an explicit variable set. We backed that out: it widens the styling surface and risks the **portability of the emitted Mermaid code** — a goal is that `Copy Code` output renders well in other Mermaid apps without app-specific config. Before doing this, decide *where* theming lives: baked into the code (portable but fixed) vs. applied at render time only (flexible but app-specific). Until then, theming stays minimal: `classDef` box palettes (light/dark) + mermaid's named base theme.
+
 ## Phased build plan
 
 Each phase is TDD'd and paused for review, as established in Steps A/B and ADR 0007.
 
-- **Phase 1 — Tool shell + diagram render (current).** Top-nav tool; Vision-like full-height layout (top bar placeholder + work area); `useSchema → buildDiagram → render SVG`; warning display; wire into `studio/` and verify live that `skosConcept` edges appear. Uses the existing default `classDef` colours for now.
-- **Phase 2 — Copy Code.** Top-bar control → clipboard + toast.
-- **Phase 3 — Elements menu + filtering.** (3a) pure `filterModel` transform + `emit` "attributes" option; (3b) the Elements overlay wired to live updates. Built on the resolvable-selection model.
-- **Phase 4 — Theme.** Light/dark document/object palettes via parameterised `emit`; hook Studio color-scheme preference.
+- **Phase 1 — Tool shell + diagram render. ✅** Top-nav tool; Vision-like full-height layout; `useSchema → buildDiagram → render SVG`; warning display; wired into `studio/`.
+- **Phase 2 — Copy Code. ✅** Top-bar control → clipboard + toast.
+- **Phase 3 — Elements menu + filtering. ✅** (3a) `filterModel` + `emit` "attributes"; (3b) the Elements overlay, live; (3c) orphan objects + dependent-object visibility.
+- **Phase 4 — Theme. ✅** Light/dark document/object palettes via parameterised `emit`; mermaid base theme + palette follow Studio's colour scheme (`useRootTheme`).
 - **Phase 5 — Copy PNG.** SVG → canvas → PNG blob → clipboard + toast.
 - **Phase 6 — Zoom / pan.** Default Mermaid-viewer affordance.
 - **Later / optional — drag-to-rearrange.** Needs a non-Mermaid rendering approach or post-render SVG manipulation; scoped separately if pursued.
