@@ -45,5 +45,22 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      name: 'inlineSocialMediaBlock',
+      title: 'Inline Social Media Links',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Platform Name',
+          type: 'string',
+        }),
+        defineField({
+          name: 'link',
+          title: 'Link',
+          type: 'url',
+        }),
+      ],
+    })
   ]
 })

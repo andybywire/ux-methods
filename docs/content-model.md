@@ -44,6 +44,7 @@ classDiagram
     +title: string [0..1]
     +body: string [0..1]
     +resources: Resource [0..*]
+    +inlineSocialMediaBlock: InlineSocialMediaBlock [0..1]
   }
   class Resource:::document {
     <<document>>
@@ -106,6 +107,11 @@ classDiagram
     +caption: string [0..1]
     +alt: string [0..1]
   }
+  class InlineSocialMediaBlock:::object {
+    <<object>>
+    +title: string [0..1]
+    +link: url [0..1]
+  }
   class LdMetadata:::object {
     <<object>>
     +ldIsUpdating: boolean [0..1]
@@ -149,6 +155,7 @@ classDiagram
   Method *-- Source : overviewSources
   Method *-- BodyPortableText : steps
   Method *-- Source : stepSources
+  Newsletter *-- InlineSocialMediaBlock : inlineSocialMediaBlock
   Newsletter --> Resource : resources
   Resource *-- LdMetadata : ldMetadata
   Resource --> Method : methodDescribed
