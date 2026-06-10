@@ -6,6 +6,7 @@ import {modelFor, renderDiagram} from '../build-diagram'
 import {
   defaultSelection,
   elementGroups,
+  orphanObjects,
   resolveElements,
   type ElementsSelection,
 } from '../elements'
@@ -36,6 +37,7 @@ export function ContentModelTool(): React.JSX.Element {
 
   const resolved = model && selection ? resolveElements(model, selection) : null
   const mermaid = model && resolved ? renderDiagram(model, resolved) : null
+  const orphans = model && selection ? orphanObjects(model, selection) : []
 
   return (
     <Flex direction="column" height="fill">
@@ -48,7 +50,12 @@ export function ContentModelTool(): React.JSX.Element {
             // Controls, floated right. [Copy PNG] slots between these in Phase 5.
             <Flex gap={2}>
               <CopyCodeButton code={mermaid} />
-              <ElementsMenu selection={selection} groups={groups} onChange={setSelection} />
+              <ElementsMenu
+                selection={selection}
+                groups={groups}
+                onChange={setSelection}
+                orphans={orphans}
+              />
             </Flex>
           )}
         </Flex>

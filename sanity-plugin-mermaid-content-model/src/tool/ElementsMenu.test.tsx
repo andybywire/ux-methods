@@ -71,4 +71,27 @@ describe('ElementsMenu', () => {
     fireEvent.click(screen.getByRole('button', {name: /show all objects/i}))
     expect(onChange.mock.calls[0]?.[0].classes.HeroImage).toBe(true)
   })
+
+  it('disables "Hide Orphan Objects" when there are no orphans', () => {
+    renderWithUi(
+      <ElementsMenu selection={selection()} groups={groups} onChange={vi.fn()} orphans={[]} />,
+    )
+    fireEvent.click(screen.getByRole('button', {name: /elements/i}))
+    expect(screen.getByRole('button', {name: /hide orphan objects/i})).toBeDisabled()
+  })
+
+  it('hides the orphan objects when "Hide Orphan Objects" is clicked', () => {
+    const onChange = vi.fn()
+    renderWithUi(
+      <ElementsMenu
+        selection={selection()}
+        groups={groups}
+        onChange={onChange}
+        orphans={['HeroImage']}
+      />,
+    )
+    fireEvent.click(screen.getByRole('button', {name: /elements/i}))
+    fireEvent.click(screen.getByRole('button', {name: /hide orphan objects/i}))
+    expect(onChange.mock.calls[0]?.[0].classes.HeroImage).toBe(false)
+  })
 })

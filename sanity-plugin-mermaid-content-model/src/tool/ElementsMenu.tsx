@@ -1,13 +1,27 @@
 import {useState} from 'react'
-import {Box, Button, Checkbox, Flex, Popover, Stack, Text, useClickOutsideEvent} from '@sanity/ui'
+import {Box, Button, Flex, Popover, Stack, Switch, Text, Tooltip, useClickOutsideEvent} from '@sanity/ui'
 import {ControlsIcon} from '@sanity/icons'
 
 import type {ElementsSelection, ElementGroups} from '../elements'
+
+// ControlsIcon rotated 90° so its sliders read vertically, fitting this layout.
+// @sanity/icons spread props onto their <svg>, so a CSS transform rotates the
+// glyph; the Button still sizes it via font-size. Defined at module scope (not
+// inline) so it's a stable component, not redefined each render.
+function ElementsIcon(): React.JSX.Element {
+  return <ControlsIcon style={{transform: 'rotate(90deg)'}} />
+}
 
 export interface ElementsMenuProps {
   selection: ElementsSelection
   groups: ElementGroups
   onChange: (next: ElementsSelection) => void
+  /**
+   * Currently-visible object classes not reachable from any visible document.
+   * Computed by the tool (`orphanObjects`); drives the "Hide Orphan Objects"
+   * control. Defaults to none (control disabled).
+   */
+  orphans?: string[]
 }
 
 type CategoryKey = keyof ElementsSelection['categories']
@@ -20,7 +34,12 @@ type CategoryKey = keyof ElementsSelection['categories']
  * Presentational — it holds only its open/closed state. The selection lives in
  * the tool, and the selection→filter mapping is the pure `resolveElements`.
  */
-export function ElementsMenu({selection, groups, onChange}: ElementsMenuProps): React.JSX.Element {
+export function ElementsMenu({
+  selection,
+  groups,
+  onChange,
+  orphans = [],
+}: ElementsMenuProps): React.JSX.Element {
   const [open, setOpen] = useState(false)
   const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null)
   const [popoverElement, setPopoverElement] = useState<HTMLElement | null>(null)
@@ -52,6 +71,7 @@ export function ElementsMenu({selection, groups, onChange}: ElementsMenuProps): 
     <Box ref={setPopoverElement} overflow="auto" padding={3} style={{maxHeight: '70vh'}}>
       <Stack gap={4}>
         <Stack gap={3}>
+          <SectionHeading label="Global Settings" />
           <CheckRow
             label="Inline objects"
             checked={selection.categories.inlineObjects}
@@ -86,6 +106,7 @@ export function ElementsMenu({selection, groups, onChange}: ElementsMenuProps): 
         {groups.objects.length > 0 && (
           <Stack gap={3}>
             <GroupHeader label="Objects" names={groups.objects} onSetAll={setGroupVisibility} />
+            <HideOrphansButton orphans={orphans} onHide={() => setGroupVisibility(orphans, false)} />
             {groups.objects.map((name) => (
               <CheckRow
                 key={name}
@@ -105,13 +126,26 @@ export function ElementsMenu({selection, groups, onChange}: ElementsMenuProps): 
       <Button
         ref={setReferenceElement}
         text="Elements"
-        icon={ControlsIcon}
+        icon={ElementsIcon}
         mode="ghost"
         fontSize={1}
         selected={open}
         onClick={() => setOpen((o) => !o)}
       />
     </Popover>
+  )
+}
+
+/**
+ * The shared section subheading style, used by every section: "Global Settings"
+ * uses it alone; `GroupHeader` (Documents / Objects) composes it with the
+ * "show all | hide all" links.
+ */
+function SectionHeading({label}: {label: string}): React.JSX.Element {
+  return (
+    <Text size={1} weight="semibold" muted>
+      {label}
+    </Text>
   )
 }
 
@@ -126,7 +160,7 @@ function CheckRow({
 }): React.JSX.Element {
   return (
     <Flex as="label" align="center" gap={2}>
-      <Checkbox checked={checked} onChange={onToggle} />
+      <Switch checked={checked} onChange={onToggle} />
       <Text size={1}>{label}</Text>
     </Flex>
   )
@@ -150,9 +184,7 @@ function GroupHeader({
   const lower = label.toLowerCase()
   return (
     <Flex align="center" justify="space-between" gap={4}>
-      <Text size={1} weight="semibold" muted>
-        {label}
-      </Text>
+      <SectionHeading label={label} />
       <Flex align="center" gap={1}>
         <Button
           mode="bleed"
@@ -175,5 +207,48 @@ function GroupHeader({
         />
       </Flex>
     </Flex>
+  )
+}
+
+/**
+ * One-shot control that hides every "orphan" object (an object not reachable
+ * from any visible document) by flipping its switch off — so the user sees the
+ * action and can re-show any they still want. Disabled, with an explanatory
+ * tooltip, when there are no visible orphans. The disabled button is wrapped in
+ * a Box so the tooltip still receives hover (disabled buttons don't emit it).
+ */
+function HideOrphansButton({
+  orphans,
+  onHide,
+}: {
+  orphans: string[]
+  onHide: () => void
+}): React.JSX.Element {
+  const disabled = orphans.length === 0
+  const button = (
+    <Button
+      mode="ghost"
+      text="Hide Orphan Objects"
+      fontSize={1}
+      padding={2}
+      width='fill'
+      disabled={disabled}
+      onClick={onHide}
+    />
+  )
+  if (!disabled) return button
+  return (
+    <Tooltip
+      content={
+        <Box padding={2}>
+          <Text size={1}>No orphan objects visible</Text>
+        </Box>
+      }
+      placement="left"
+      delay={500}
+      portal
+    >
+      <Box>{button}</Box>
+    </Tooltip>
   )
 }
