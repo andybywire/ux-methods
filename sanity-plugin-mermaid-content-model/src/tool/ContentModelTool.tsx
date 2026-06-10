@@ -13,6 +13,7 @@ import {
 } from '../elements'
 import {MermaidView} from './MermaidView'
 import {CopyCodeButton} from './CopyCodeButton'
+import {CopyPngButton} from './CopyPngButton'
 import {ElementsMenu} from './ElementsMenu'
 
 /**
@@ -40,6 +41,9 @@ export function ContentModelTool(): React.JSX.Element {
   const [selection, setSelection] = useState<ElementsSelection | null>(() =>
     model ? defaultSelection(model) : null,
   )
+  // The currently-rendered SVG, lifted from MermaidView so "Copy PNG" rasterizes
+  // exactly what's displayed.
+  const [renderedSvg, setRenderedSvg] = useState<string | null>(null)
 
   const resolved = model && selection ? resolveElements(model, selection) : null
   const mermaid =
@@ -54,9 +58,10 @@ export function ContentModelTool(): React.JSX.Element {
             Content Model
           </Text>
           {model && selection && groups && (
-            // Controls, floated right. [Copy PNG] slots between these in Phase 5.
+            // Controls, floated right: [Copy Code] [Copy PNG] [Elements].
             <Flex gap={2}>
               <CopyCodeButton code={mermaid} />
+              <CopyPngButton svg={renderedSvg} />
               <ElementsMenu
                 selection={selection}
                 groups={groups}
@@ -92,7 +97,7 @@ export function ContentModelTool(): React.JSX.Element {
                 </Stack>
               </Card>
             )}
-            <MermaidView code={mermaid} colorScheme={scheme} />
+            <MermaidView code={mermaid} colorScheme={scheme} onSvg={setRenderedSvg} />
           </Stack>
         )}
       </Box>

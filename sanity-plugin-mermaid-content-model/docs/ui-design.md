@@ -47,11 +47,13 @@ Pressing it flips those objects' switches off (visible and individually reversib
 - Zoom and pan, as common Mermaid viewers afford.
 - **Drag-to-rearrange** class boxes if it can be added without much hassle. Mermaid renders static SVG and has no native box dragging, so this likely needs an extra library or post-render manipulation — treat as a **subsequent/optional phase**, not part of the core.
 
-## Copy PNG / Copy Code
+## Copy PNG / Copy Code (implemented)
 
 - **Copy Code:** copies the current Mermaid source to the clipboard.
-- **Copy PNG:** copies a PNG of the **currently configured** diagram (i.e. after Elements filtering) to the clipboard, derived from the displayed SVG via canvas.
-- Each fires a toast confirming the action.
+- **Copy PNG:** copies a PNG of the **currently configured** diagram (after Elements filtering) to the clipboard. The displayed SVG is lifted from `MermaidView` (`onSvg`) up to the tool, then `svgToPngBlob` rasterizes it (SVG → `Image` → `<canvas>` → PNG blob, 2× scale, white background) and writes it via the image clipboard (`ClipboardItem`).
+- Each fires a toast confirming the action; both disable when there's no diagram.
+- **`htmlLabels: false` (set in `MermaidView`) is load-bearing for Copy PNG.** Mermaid's default HTML labels render inside an SVG `<foreignObject>`, which *taints* a `<canvas>` and makes `toBlob()` throw "Tainted canvases may not be exported." Rendering labels as plain SVG `<text>` avoids the foreignObject, so the canvas stays exportable. (Side effect: the displayed labels are SVG text too — visually the same for our short labels.)
+- **Remaining rough edge (revisit with the deferred theming):** the PNG uses a fixed **white** background, so a dark-mode diagram pastes with light text on white — tied to the "where does theming live" decision.
 
 ---
 
@@ -81,6 +83,12 @@ Choices consciously postponed until the relevant feature is functional, so we ju
 
 - **Deeper mermaid theming (edge-label background, etc.) — DEFERRED, gated on a portability decision.** The named `default`/`dark` themes ignore most `themeVariables`, so finer control (e.g. the edge-label background chip) requires mermaid's `base` theme with an explicit variable set. We backed that out: it widens the styling surface and risks the **portability of the emitted Mermaid code** — a goal is that `Copy Code` output renders well in other Mermaid apps without app-specific config. Before doing this, decide *where* theming lives: baked into the code (portable but fixed) vs. applied at render time only (flexible but app-specific). Until then, theming stays minimal: `classDef` box palettes (light/dark) + mermaid's named base theme.
 
+- **Image export — PNG vs SVG — DEFERRED (currently PNG only).** Copy PNG works (rendered SVG → `<canvas>` → PNG, 2× scale, white background; `htmlLabels: false` avoids the foreignObject canvas-taint). Its limitation: **text pixelates on large diagrams** (it's a raster at a fixed scale). SVG would be crisp (vector) and *simpler* to implement — we already have the SVG string, so it's no canvas at all. **But browsers don't reliably allow SVG on the clipboard as a pasteable *image*** — `clipboard.write` broadly supports only `text/plain`, `text/html`, `image/png` (SVG can carry scripts). So a "Copy SVG" copies the SVG *source*: it pastes as crisp vector into design tools (Figma/Illustrator) and code/files, but as plain *text* into Docs/Slides/Word (which accept PNG-as-image, not SVG). Options when revisited — choose by target paste destination:
+  - **(A)** Higher-res PNG (3–4× or target a minimum width): keeps the docs/slides paste-as-image flow; mitigates pixelation; larger files.
+  - **(B)** Copy SVG source: crisp and simplest; good for vector tools / saving files; *not* a docs image-paste.
+  - **(C)** Both PNG and SVG controls (`[Copy Code] [Copy PNG] [Copy SVG] [Elements]`).
+  - **(D)** Download SVG file: crisp vector file, sidesteps all clipboard limits.
+
 ## Phased build plan
 
 Each phase is TDD'd and paused for review, as established in Steps A/B and ADR 0007.
@@ -89,6 +97,6 @@ Each phase is TDD'd and paused for review, as established in Steps A/B and ADR 0
 - **Phase 2 — Copy Code. ✅** Top-bar control → clipboard + toast.
 - **Phase 3 — Elements menu + filtering. ✅** (3a) `filterModel` + `emit` "attributes"; (3b) the Elements overlay, live; (3c) orphan objects + dependent-object visibility.
 - **Phase 4 — Theme. ✅** Light/dark document/object palettes via parameterised `emit`; mermaid base theme + palette follow Studio's colour scheme (`useRootTheme`).
-- **Phase 5 — Copy PNG.** SVG → canvas → PNG blob → clipboard + toast.
+- **Phase 5 — Copy PNG. ✅** Displayed SVG → canvas → PNG blob → image clipboard + toast.
 - **Phase 6 — Zoom / pan.** Default Mermaid-viewer affordance.
 - **Later / optional — drag-to-rearrange.** Needs a non-Mermaid rendering approach or post-render SVG manipulation; scoped separately if pursued.

@@ -33,6 +33,11 @@ export interface MermaidViewProps {
    * lines already in `code`. Default 'light'.
    */
   colorScheme?: 'light' | 'dark'
+  /**
+   * Called with the rendered SVG string when it changes (or `null` on render
+   * error). Lets the tool feed the *displayed* SVG to "Copy PNG".
+   */
+  onSvg?: (svg: string | null) => void
 }
 
 /**
@@ -41,7 +46,11 @@ export interface MermaidViewProps {
  * The injected SVG is also the source for the future "Copy PNG" feature, so it
  * stays self-contained.
  */
-export function MermaidView({code, colorScheme = 'light'}: MermaidViewProps): React.JSX.Element {
+export function MermaidView({
+  code,
+  colorScheme = 'light',
+  onSvg,
+}: MermaidViewProps): React.JSX.Element {
   const [svg, setSvg] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   // mermaid.render needs a unique, selector-safe id; useId() includes colons.
@@ -52,23 +61,32 @@ export function MermaidView({code, colorScheme = 'light'}: MermaidViewProps): Re
     let cancelled = false
     // Re-initialise per render so the base theme tracks the current colour
     // scheme (cheap; it's just config). `startOnLoad: false` — we render imperatively.
-    mermaid.initialize({startOnLoad: false, theme: colorScheme === 'dark' ? 'dark' : 'default'})
+    // `htmlLabels: false` renders labels as SVG <text> rather than HTML in a
+    // <foreignObject> — an SVG with foreignObject taints a <canvas>, which would
+    // block Copy PNG's toBlob(). For our short labels the visual result is the same.
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: colorScheme === 'dark' ? 'dark' : 'default',
+      htmlLabels: false,
+    })
     mermaid
       .render(renderId, code, measureRef.current ?? undefined)
       .then(({svg: rendered}) => {
         if (cancelled) return
         setSvg(rendered)
         setError(null)
+        onSvg?.(rendered)
       })
       .catch((err: unknown) => {
         if (cancelled) return
         setError(err instanceof Error ? err.message : String(err))
         setSvg(null)
+        onSvg?.(null)
       })
     return () => {
       cancelled = true
     }
-  }, [code, renderId, colorScheme])
+  }, [code, renderId, colorScheme, onSvg])
 
   return (
     <>

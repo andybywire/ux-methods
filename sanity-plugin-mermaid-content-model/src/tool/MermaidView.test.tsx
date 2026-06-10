@@ -63,4 +63,12 @@ describe('MermaidView', () => {
     await screen.findByTestId('diagram')
     expect(initializeMock).toHaveBeenCalledWith(expect.objectContaining({theme: 'default'}))
   })
+
+  it('renders SVG-text labels (htmlLabels: false) so the SVG can be rasterized to PNG', async () => {
+    renderMock.mockResolvedValue({svg: '<svg data-testid="diagram" />'})
+    render(<MermaidView code="classDiagram" />)
+    await screen.findByTestId('diagram')
+    // foreignObject (HTML) labels taint a canvas and block Copy PNG's toBlob().
+    expect(initializeMock).toHaveBeenCalledWith(expect.objectContaining({htmlLabels: false}))
+  })
 })
