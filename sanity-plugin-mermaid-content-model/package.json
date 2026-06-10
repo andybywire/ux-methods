@@ -57,6 +57,7 @@
   "dependencies": {
     "@sanity/icons": "^3.7.4",
     "@sanity/ui": "^3.2.0",
-    "mermaid": "^11.15.0"
+    "mermaid": "^11.15.0",
+    "react-zoom-pan-pinch": "^4.0.3"
   }
 }

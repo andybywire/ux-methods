@@ -68,6 +68,10 @@ export function MermaidView({
       startOnLoad: false,
       theme: colorScheme === 'dark' ? 'dark' : 'default',
       htmlLabels: false,
+      // Emit explicit px width/height (from the viewBox) rather than width:100%
+      // /max-width, so the SVG has a stable intrinsic size — the pan/zoom
+      // fit-to-view math in ContentModelTool depends on it.
+      class: {useMaxWidth: false},
     })
     mermaid
       .render(renderId, code, measureRef.current ?? undefined)
@@ -101,7 +105,9 @@ export function MermaidView({
       ) : (
         // mermaid output is self-contained, sanitised SVG (securityLevel defaults
         // to 'strict'); injecting it directly is how every Mermaid React wrapper works.
-        <div dangerouslySetInnerHTML={{__html: svg}} />
+        // `data-diagram` lets the tool target the *displayed* SVG (not the
+        // off-flow measurement container) for fit-to-view.
+        <div data-diagram="" dangerouslySetInnerHTML={{__html: svg}} />
       )}
     </>
   )

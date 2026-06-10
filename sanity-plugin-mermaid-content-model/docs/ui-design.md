@@ -44,8 +44,9 @@ Pressing it flips those objects' switches off (visible and individually reversib
 
 ## Diagram display
 
-- Zoom and pan, as common Mermaid viewers afford.
-- **Drag-to-rearrange** class boxes if it can be added without much hassle. Mermaid renders static SVG and has no native box dragging, so this likely needs an extra library or post-render manipulation — treat as a **subsequent/optional phase**, not part of the core.
+- **Zoom and pan (implemented).** Wheel/trackpad zoom and drag-pan via `react-zoom-pan-pinch` (a dependency-free lib). The diagram renders inside a bounded, overflow-hidden viewport in the work area; a floating `ZoomControls` cluster (bottom-right) offers zoom in/out and reset. View-only — it doesn't affect Copy Code or Copy PNG (the PNG rasterizes the full diagram, not the zoomed view). Pan/zoom integration is in `ContentModelTool`; `MermaidView` stays the thin SVG renderer.
+- **Fit-to-viewport** on first render and on Reset: `ContentModelTool` calls the library's `zoomToElement` on the displayed SVG (tagged `data-diagram`), which measures the element's *actual* rendered box and scales + centres it to fit the viewport — so large diagrams fill the area instead of opening tiny, and Reset re-fits. (Measuring the real element, not the SVG's `viewBox`, is what makes this reliable.) The fit runs *once* on load; filtering/theme changes keep the current view, and Reset re-fits on demand. `MermaidView` sets mermaid `class.useMaxWidth: false` so the SVG has a definite intrinsic size. Scale bounds: 0.05–8.
+- **Drag-to-rearrange** class boxes — still deferred. Mermaid renders static SVG with no native box dragging; it'd need a different rendering approach or post-render manipulation. Subsequent/optional phase.
 
 ## Copy PNG / Copy Code (implemented)
 
@@ -98,5 +99,5 @@ Each phase is TDD'd and paused for review, as established in Steps A/B and ADR 0
 - **Phase 3 — Elements menu + filtering. ✅** (3a) `filterModel` + `emit` "attributes"; (3b) the Elements overlay, live; (3c) orphan objects + dependent-object visibility.
 - **Phase 4 — Theme. ✅** Light/dark document/object palettes via parameterised `emit`; mermaid base theme + palette follow Studio's colour scheme (`useRootTheme`).
 - **Phase 5 — Copy PNG. ✅** Displayed SVG → canvas → PNG blob → image clipboard + toast.
-- **Phase 6 — Zoom / pan.** Default Mermaid-viewer affordance.
+- **Phase 6 — Zoom / pan. ✅** Wheel/drag pan-zoom (`react-zoom-pan-pinch`) in a bounded viewport, with a floating ZoomControls cluster.
 - **Later / optional — drag-to-rearrange.** Needs a non-Mermaid rendering approach or post-render SVG manipulation; scoped separately if pursued.
