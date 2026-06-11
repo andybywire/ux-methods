@@ -3,7 +3,5 @@ packages:
   - eleventy
   - astro
   - graph
-  - content-model
-  - sanity-plugin-mermaid-content-model
 onlyBuiltDependencies:
   - '*'

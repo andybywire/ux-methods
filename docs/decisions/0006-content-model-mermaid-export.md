@@ -4,6 +4,8 @@
 
 **Supersedes:** ADR 0005 — Content-model export from Sanity schemas (lives on branch [`archive/content-model-rdf`](https://github.com/) only; never merged to `main`).
 
+> **Amended (2026-06-11):** the in-repo CLI this ADR describes — and the committed `docs/content-model.md` it generated — have been **retired**. The Mermaid `classDiagram` content model now lives solely in the published Studio plugin [`sanity-plugin-mermaid-content-model`](https://github.com/andybywire/sanity-plugin-mermaid-content-model) ([ADR 0007](0007-content-model-plugin-architecture.md)), which reads the fully-composed workspace schema via `useSchema()` and renders in-Studio — escaping the "plugin-contributed types are invisible" limitation this ADR documents under "Generator." **The vocabulary-mapping contract below remains authoritative** — it is the spec the plugin implements, now mirrored in the plugin's own `docs/architecture.md`. The CLI-specific parts (the "Generator" section, the committed-artefact / drift-tracking framing, and the "CLI is the reference implementation, two copies pinned by duplicated tests" arrangement in ADR 0007) are now historical: the plugin is the sole implementation.
+
 ## Context
 
 The Sanity Studio schemas in `studio/schemaTypes/` define the structure of UX Methods content — document types, shared object types, fields, references. There is value in lifting that structure into a holistic, visual representation that:
