@@ -3,6 +3,5 @@ packages:
   - eleventy
   - astro
   - graph
-  - content-model
 onlyBuiltDependencies:
   - '*'
